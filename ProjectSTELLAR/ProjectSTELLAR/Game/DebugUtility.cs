@@ -12,7 +12,7 @@ namespace ProjectStellar
 
         public static void LoadContent()
         {
-            consoleFont = new Font(CONSOLE_FONT_PATH);
+            //consoleFont = new Font(CONSOLE_FONT_PATH);
         }
 
         public static void DrawPerformanceData(GameLoop gameLoop, Color fontColor)

@@ -11,9 +11,10 @@ namespace ProjectStellar
 {
     public class Game : GameLoop
     {
-        public const uint DEFAULT_WINDOW_WIDTH = 640;
-        public const uint DEFAULT_WINDOW_HEIGHT = 480;
-        public const string WINDOW_TITLE = "Tutorial Game";
+        public const uint DEFAULT_WINDOW_WIDTH = 1200;
+        public const uint DEFAULT_WINDOW_HEIGHT = 700;
+        public const string WINDOW_TITLE = "Project STELLAR";
+        static Sprite _backgroundSprite;
 
         public Game() : base(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, WINDOW_TITLE, Color.Green)
         {
@@ -37,7 +38,7 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-            DebugUtility.DrawPerformanceData(this, Color.White);
+            _backgroundSprite.Draw(Window, RenderStates.Default);
         }
     }
 }
