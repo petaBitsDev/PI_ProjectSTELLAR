@@ -39,7 +39,6 @@ namespace ProjectSTELLAR.Library
         public int SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; }
         }
 
         public void Draw(RenderWindow window)
