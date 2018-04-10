@@ -9,10 +9,10 @@ namespace ProjectSTELLAR.Library
     class Menu
     {
         readonly Text[] menu = new Text[2];
-        static Texture _backgroundTexture = new Texture("../../../ressources/83504.png");
+        static Texture _backgroundTexture = new Texture("./resources/img/83504.png");
         static Sprite _backgroundSprite;
         private int selectedItem;
-        Font font = new Font("../../../ressources/arial.ttf");
+        Font font = new Font("./resources/fonts/arial.ttf");
 
         public Menu(float width, float height)
         {
