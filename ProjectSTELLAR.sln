@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStellar", "ProjectST
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectSTELLAR.Library", "ProjectSTELLAR.Library\ProjectSTELLAR.Library.csproj", "{C86620CB-D9A4-4E3B-8085-DED3659429E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectStellar.Tests", "ProjectStellar.Tests\ProjectStellar.Tests.csproj", "{B5DA01F8-D748-4E40-B051-E57200C60BDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C86620CB-D9A4-4E3B-8085-DED3659429E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C86620CB-D9A4-4E3B-8085-DED3659429E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C86620CB-D9A4-4E3B-8085-DED3659429E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5DA01F8-D748-4E40-B051-E57200C60BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5DA01F8-D748-4E40-B051-E57200C60BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5DA01F8-D748-4E40-B051-E57200C60BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5DA01F8-D748-4E40-B051-E57200C60BDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
