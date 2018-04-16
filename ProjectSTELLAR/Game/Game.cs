@@ -17,7 +17,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/83504.png");
         public Texture[] _menuTextures = new Texture[4];
-        int _state;
+        public int _state;
         Menu _menu;
 
         public Game() : base(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, WINDOW_TITLE, Color.Green)
