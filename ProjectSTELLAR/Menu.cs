@@ -83,6 +83,14 @@ namespace ProjectStellar
                 if (_selectedIndex != -1) _menu[_selectedIndex].Texture = _ctx._menuTextures[_selectedIndex];
                 _selectedIndex = -1;
             }
+            else
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    if (_selectedIndex == 0) ; //launch game
+                    else if (_selectedIndex == 1) window.Close();
+                }
+            }
         }
 
         public bool IsHovering => _hovering;

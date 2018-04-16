@@ -42,28 +42,6 @@ namespace ProjectStellar
 
         public override void Update(GameTime gameTime)
         {
-            //if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-            //{
-            //    _menu.Move(Keyboard.Key.Up);
-            //}
-            //else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-            //{
-            //    _menu.Move(Keyboard.Key.Down);
-
-            //}
-            //else if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
-            //{
-            //    if (_menu.SelectedItem == 0)
-            //    {
-            //        Window.Close();
-            //        //Game game = new Game();
-            //        //game.Run();
-            //    }
-            //    else if (_menu.SelectedItem == 1)
-            //    {
-            //        Window.Close();
-            //    }
-            //}
             _menu.CheckMouse(Window);
 
         }
