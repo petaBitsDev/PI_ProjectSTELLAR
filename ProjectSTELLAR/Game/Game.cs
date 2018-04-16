@@ -11,8 +11,8 @@ namespace ProjectStellar
 {
     public class Game : GameLoop
     {
-        public const uint DEFAULT_WINDOW_WIDTH = 1280;
-        public const uint DEFAULT_WINDOW_HEIGHT = 720;
+        public const uint DEFAULT_WINDOW_WIDTH = 800;
+        public const uint DEFAULT_WINDOW_HEIGHT = 600;
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/83504.png");
@@ -52,10 +52,10 @@ namespace ProjectStellar
                 {
                     if (_menu.SelectedItem == 0)
                     {
-                        
-                        Window.Close();
-                        Game game = new Game(1);
-                        game.Run();
+                        StateMenu = 1;
+                        //Window.Close();
+                        //Game game = new Game(1);
+                        //game.Run();
                        
                     }
                     else if (_menu.SelectedItem == 1)
@@ -64,12 +64,17 @@ namespace ProjectStellar
                     }
                 }
             }
+            if (_state == 1)
+            {
+                Console.WriteLine("&");
+            }
         }
 
         public override void Draw(GameTime gameTime)
         {
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (StateMenu == 0) _menu.Draw(Window);
+            else if (StateMenu == 1) Map.RenderGraphics(Window);
         }
 
         public int StateMenu
