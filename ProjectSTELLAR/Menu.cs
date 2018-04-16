@@ -4,7 +4,7 @@ using SFML.Graphics;
 using System;
 using SFML.System;
 
-namespace ProjectSTELLAR.Library
+namespace ProjectStellar
 {
     class Menu
     {
@@ -33,7 +33,6 @@ namespace ProjectSTELLAR.Library
                 Position = new Vector2f(width / 2, height / (3 + 1) * 2)
             };
             menu[1] = menu2;
-            _backgroundSprite = new Sprite(_backgroundTexture);
         }
 
         public int SelectedItem
@@ -43,7 +42,6 @@ namespace ProjectSTELLAR.Library
 
         public void Draw(RenderWindow window)
         {
-            _backgroundSprite.Draw(window, RenderStates.Default);
             for (int i = 0; i < 2; i++)
             {
                 window.Draw(menu[i]);
