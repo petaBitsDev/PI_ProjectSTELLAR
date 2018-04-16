@@ -9,6 +9,8 @@ namespace ProjectStellar
 {
     public class Map
     {
+        Building[,] _boxes = new Building[TileView.Bottom, TileView.Right];
+
         public struct Rect
         {
             public int Top;
@@ -21,16 +23,20 @@ namespace ProjectStellar
 
         static void DrawGrid(RenderWindow window)
         {
+            TileView.Top = 0;
+            TileView.Bottom = 10;
+            TileView.Left = 0;
+            TileView.Right = 10;
             RectangleShape rec = new RectangleShape();
-            for(int x = 0; x < 9; x++)
+            for(int x = TileView.Left; x <= TileView.Right; x++)
             {
-                for(int y = 0; y < 9; y++)
+                for(int y = TileView.Top; y <= TileView.Bottom; y++)
                 {
                     rec.OutlineColor = new Color(Color.Red);
                     rec.OutlineThickness = 3.0f;
                     rec.FillColor = new Color(Color.Transparent);
                     rec.Size = new Vector2f((x * 32), (y * 32));
-                    rec.Position = new Vector2f((0 * 32 + 3), (0 * 32 + 3));
+                    rec.Position = new Vector2f((TileView.Left * 32 + 3), (TileView.Top * 32 + 3));
                     window.Draw(rec);
                 }
             }
