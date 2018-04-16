@@ -11,8 +11,8 @@ namespace ProjectStellar
 {
     public class Game : GameLoop
     {
-        public const uint DEFAULT_WINDOW_WIDTH = 800;
-        public const uint DEFAULT_WINDOW_HEIGHT = 600;
+        public const uint DEFAULT_WINDOW_WIDTH = 1280;
+        public const uint DEFAULT_WINDOW_HEIGHT = 720;
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/83504.png");
@@ -44,7 +44,7 @@ namespace ProjectStellar
         public override void Update(GameTime gameTime)
         {
             if (_state == 0) _menu.CheckMouse(Window);
-
+            else if (_state == 1) ; // game
         }
 
         public override void Draw(GameTime gameTime)
