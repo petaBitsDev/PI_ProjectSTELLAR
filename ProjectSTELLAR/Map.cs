@@ -36,9 +36,9 @@ namespace ProjectStellar
             }
         }
 
-        public static void RenderGraphics()
+        public static void RenderGraphics(RenderWindow window)
         {
-            DrawGrid();
+            DrawGrid(window);
         }
     }
 }

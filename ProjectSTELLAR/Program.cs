@@ -9,7 +9,8 @@ namespace ProjectStellar
     {
         static void Main(string[] args)
         {
-            Game Game = new Game();
+           
+            Game Game = new Game(0);
             Game.Run();
             //RenderWindow window = new RenderWindow(new VideoMode(1200, 600), "Project STELLAR");
             //Menu menu = new Menu(1080, 720);
