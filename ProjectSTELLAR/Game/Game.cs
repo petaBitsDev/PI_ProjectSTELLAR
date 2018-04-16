@@ -42,7 +42,7 @@ namespace ProjectStellar
 
         public override void Update(GameTime gameTime)
         {
-            _menu.CheckMouse(Window);
+            if (_state == 0) _menu.CheckMouse(Window);
 
         }
 
