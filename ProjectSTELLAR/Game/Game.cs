@@ -22,7 +22,7 @@ namespace ProjectStellar
         public Game(int state) : base(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, WINDOW_TITLE, Color.Green)
         {
             //RenderWindow _window = new RenderWindow(new VideoMode(800, 600), "Project Stellar");
-            StateMenu = state;
+            MenuState = state;
         }
 
         public override void LoadContent()
@@ -32,13 +32,13 @@ namespace ProjectStellar
 
         public override void Initialize()
         {
-           if(StateMenu ==0) _menu = new Menu(1280, 720);
+           if(MenuState ==0) _menu = new Menu(1280, 720);
             _backgroundSprite = new Sprite(_backgroundTexture);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if(StateMenu == 0)
+            if(MenuState == 0)
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
                 {
@@ -52,11 +52,7 @@ namespace ProjectStellar
                 {
                     if (_menu.SelectedItem == 0)
                     {
-                        StateMenu = 1;
-                        //Window.Close();
-                        //Game game = new Game(1);
-                        //game.Run();
-                       
+                        MenuState = 1;
                     }
                     else if (_menu.SelectedItem == 1)
                     {
@@ -64,20 +60,16 @@ namespace ProjectStellar
                     }
                 }
             }
-            if (_state == 1)
-            {
-                Console.WriteLine("&");
-            }
         }
 
         public override void Draw(GameTime gameTime)
         {
             _backgroundSprite.Draw(Window, RenderStates.Default);
-            if (StateMenu == 0) _menu.Draw(Window);
-            else if (StateMenu == 1) Map.RenderGraphics(Window);
+            if (MenuState == 0) _menu.Draw(Window);
+            else if (MenuState == 1) Map.RenderGraphics(Window);
         }
 
-        public int StateMenu
+        public int MenuState
         {
             get { return _state; }
             set { _state = value; }
