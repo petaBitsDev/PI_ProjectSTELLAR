@@ -2,6 +2,7 @@
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using ProjectSTELLAR.Library;
 
 namespace ProjectStellar
 {
@@ -65,6 +66,7 @@ namespace ProjectStellar
 
                     Window.Clear(WindowClearColor);
                     Draw(GameTime);
+                    Map.RenderGraphics(Window);
                     Window.Display();
                 }
             }
