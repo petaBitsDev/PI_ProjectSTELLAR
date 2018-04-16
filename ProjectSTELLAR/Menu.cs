@@ -11,7 +11,8 @@ namespace ProjectStellar
         readonly Sprite[] _menu = new Sprite[2];
         static Texture _backgroundTexture = new Texture("./resources/img/83504.png");
         static Sprite _backgroundSprite;
-        private int _selectedItem = -1;
+        private int _selectedIndex = -1;
+        private bool _hovering;
         Font font = new Font("./resources/fonts/arial.ttf");
         Game _ctx;
 
@@ -43,7 +44,7 @@ namespace ProjectStellar
             };
             _menu[0] = button1;
 
-            Sprite button2 = new Sprite(_ctx._menuTextures[2])
+            Sprite button2 = new Sprite(_ctx._menuTextures[1])
             {
                 Position = new Vector2f((width / 5) * 2, height / (3 + 1) * 2),
                 Scale = new Vector2f(0.1f, 0.1f),
@@ -53,7 +54,7 @@ namespace ProjectStellar
 
         public int SelectedItem
         {
-            get { return _selectedItem; }
+            get { return _selectedIndex; }
         }
 
         public void Draw(RenderWindow window)
@@ -64,39 +65,43 @@ namespace ProjectStellar
             }
         }
 
-        public int CheckMouse()
+        public void CheckMouse(RenderWindow window)
         {
+            _hovering = false;
             for (int i = 0; i < 2; i++)
             {
-                if (_menu[i].GetLocalBounds().Contains((float)Mouse.GetPosition().X, (float)Mouse.GetPosition().Y))
+                if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
-                    //if (i != _selectedItem)
-                    //{
-                    //    _menu[i].Texture = _ctx._menuTextures[i + 1];
-                    //    return true;
-                    //}
-                    return (i);
+                    // Ici 2 est le nombre de cases avant d'arriver à la seconde texture du bouton
+                    _menu[i].Texture = _ctx._menuTextures[i + 2];
+                    _selectedIndex = i;
+                    _hovering = true;
                 }
-                
             }
-            return -1;
+            if (_hovering == false)
+            {
+                if (_selectedIndex != -1) _menu[_selectedIndex].Texture = _ctx._menuTextures[_selectedIndex];
+                _selectedIndex = -1;
+            }
         }
+
+        public bool IsHovering => _hovering;
 
         public void Move(Keyboard.Key key)
         {
             if (key == Keyboard.Key.Up)
             {
-                _menu[_selectedItem].Color = Color.White;
-                _selectedItem--;
-                if (_selectedItem < 0) _selectedItem = 0;
-                _menu[_selectedItem].Color = Color.Yellow;
+                _menu[_selectedIndex].Color = Color.White;
+                _selectedIndex--;
+                if (_selectedIndex < 0) _selectedIndex = 0;
+                _menu[_selectedIndex].Color = Color.Yellow;
             }
             else if (key == Keyboard.Key.Down)
             {
-                _menu[_selectedItem].Color = Color.White;
-                _selectedItem++;
-                if (_selectedItem > 1) _selectedItem = 1;
-                _menu[_selectedItem].Color = Color.Yellow;
+                _menu[_selectedIndex].Color = Color.White;
+                _selectedIndex++;
+                if (_selectedIndex > 1) _selectedIndex = 1;
+                _menu[_selectedIndex].Color = Color.Yellow;
             }
         }
     }

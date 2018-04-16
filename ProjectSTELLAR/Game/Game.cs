@@ -29,8 +29,8 @@ namespace ProjectStellar
         {
             DebugUtility.LoadContent();
             _menuTextures[0] = new Texture("./resources/img/play.png");
-            _menuTextures[1] = new Texture("./resources/img/play2.png");
-            _menuTextures[2] = new Texture("./resources/img/exit.png");
+            _menuTextures[1] = new Texture("./resources/img/exit.png");
+            _menuTextures[2] = new Texture("./resources/img/play2.png");
             _menuTextures[3] = new Texture("./resources/img/exit2.png");
         }
 
@@ -64,7 +64,7 @@ namespace ProjectStellar
             //        Window.Close();
             //    }
             //}
-            Console.WriteLine(_menu.CheckMouse());
+            _menu.CheckMouse(Window);
 
         }
 
