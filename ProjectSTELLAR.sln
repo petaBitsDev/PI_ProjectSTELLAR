@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStellar", "ProjectSTELLAR\ProjectStellar.csproj", "{E010D6FA-104D-4B9E-A04B-F298500CE0EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectSTELLAR.Library", "ProjectSTELLAR.Library\ProjectSTELLAR.Library.csproj", "{C86620CB-D9A4-4E3B-8085-DED3659429E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStellar.Library", "ProjectSTELLAR.Library\ProjectStellar.Library.csproj", "{C86620CB-D9A4-4E3B-8085-DED3659429E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectStellar.Tests", "ProjectStellar.Tests\ProjectStellar.Tests.csproj", "{B5DA01F8-D748-4E40-B051-E57200C60BDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStellar.Tests", "ProjectStellar.Tests\ProjectStellar.Tests.csproj", "{B5DA01F8-D748-4E40-B051-E57200C60BDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

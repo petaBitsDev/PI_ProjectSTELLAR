@@ -27,13 +27,14 @@ namespace ProjectStellar
 
         public void check_if_destroy_a_building_if_it_exits_work_well()
         {
-            Building sut = new Building(120, 40, 15, 12, 65, 89, 655, 45, true);
+            Building sut = new Building(120, 40, 15, 12, 65, 89, 655, 45, true, 24);
 
             sut.IsBuild = false;
 
             Assert.Throws<ArgumentException>(() => sut.Destroy());
 
-            Building sut1 = new Building(120, 40, 15, 12, 65, 89, 655, 45, true);
+            Building sut1 = new Building(120, 40, 15, 12, 65, 89, 655, 45, true, 76);
+          
             Assert.That(sut1.IsBuild, Is.True);
             sut1.Destroy();
             Assert.That(sut1.IsBuild, Is.False);

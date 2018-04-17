@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectSTELLAR.Library\ProjectSTELLAR.Library.csproj" />
+    <ProjectReference Include="..\ProjectSTELLAR.Library\ProjectStellar.Library.csproj" />
   </ItemGroup>
 
   <ItemGroup>
