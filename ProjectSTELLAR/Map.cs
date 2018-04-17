@@ -10,6 +10,8 @@ namespace ProjectStellar
     public class Map
     {
         Building[,] _boxes = new Building[TileView.Bottom, TileView.Right];
+        Sprite _bgSprite = new Sprite(new Texture("./backgroundSprite.png"));
+        Sprite[] _sprites = new Sprite[20];
 
         public void AddBuilding(int x, int y, Building building)
         {
@@ -59,18 +61,27 @@ namespace ProjectStellar
             } 
         }
 
-        public void DrawMap(RenderWindow window)
+        public void DrawMapTile(RenderWindow window)
         {
             for(int x = 0; x < TileView.Right; x++)
             {
                 for(int y = 0; y < TileView.Bottom; y++)
                 {
-                    if (_boxes[x, y] == null) //draw background
-                    ;
-                    else //draw objet
-                    ;
+                    if (_boxes[x, y] == null)
+                        RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
+                    
+                    else 
+                        RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
                 }
             }
+        }
+
+        public static void RenderSprite
+            (Sprite tmpSprite, RenderWindow target, int destX, int destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
+        {
+            tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
+            tmpSprite.Position = new Vector2f(destX, destY);
+            target.Draw(tmpSprite);
         }
 
         public static void RenderGraphics(RenderWindow window)
