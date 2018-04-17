@@ -11,6 +11,22 @@ namespace ProjectStellar
     {
         Building[,] _boxes = new Building[TileView.Bottom, TileView.Right];
 
+        public void AddBuilding(int x, int y, Building building)
+        {
+            _boxes[x, y] = building;
+        }
+
+        public void RemoveBuilding(int x, int y, Building building)
+        {
+            _boxes[x, y] = null;
+        }
+
+        public bool CheckBuilding(int x, int y)
+        {
+            if (_boxes[x, y] != null) return true;
+            return false;
+        }
+
         public struct Rect
         {
             public int Top;
@@ -27,6 +43,7 @@ namespace ProjectStellar
             TileView.Bottom = 10;
             TileView.Left = 0;
             TileView.Right = 10;
+
             RectangleShape rec = new RectangleShape();
             for(int x = TileView.Left; x <= TileView.Right; x++)
             {
@@ -38,6 +55,20 @@ namespace ProjectStellar
                     rec.Size = new Vector2f((x * 32), (y * 32));
                     rec.Position = new Vector2f((TileView.Left * 32 + 3), (TileView.Top * 32 + 3));
                     window.Draw(rec);
+                }
+            } 
+        }
+
+        public void DrawMap(RenderWindow window)
+        {
+            for(int x = 0; x < TileView.Right; x++)
+            {
+                for(int y = 0; y < TileView.Bottom; y++)
+                {
+                    if (_boxes[x, y] == null) //draw background
+                    ;
+                    else //draw objet
+                    ;
                 }
             }
         }
