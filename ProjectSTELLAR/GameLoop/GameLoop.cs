@@ -65,7 +65,6 @@ namespace ProjectStellar
 
                     Window.Clear(WindowClearColor);
                     Draw(GameTime);
-                    Map.RenderGraphics(Window);
                     Window.Display();
                 }
             }

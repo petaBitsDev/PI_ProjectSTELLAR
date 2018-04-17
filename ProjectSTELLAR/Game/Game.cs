@@ -16,63 +16,45 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/83504.png");
-        int _state;
+        public Texture[] _menuTextures = new Texture[4];
+        public int _state;
         Menu _menu;
         
         public Game(int state) : base(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, WINDOW_TITLE, Color.Green)
         {
             //RenderWindow _window = new RenderWindow(new VideoMode(800, 600), "Project Stellar");
-            StateMenu = state;
+            MenuState = state;
         }
 
         public override void LoadContent()
         {
             DebugUtility.LoadContent();
+            _menuTextures[0] = new Texture("./resources/img/play.png");
+            _menuTextures[1] = new Texture("./resources/img/exit.png");
+            _menuTextures[2] = new Texture("./resources/img/play2.png");
+            _menuTextures[3] = new Texture("./resources/img/exit2.png");
         }
 
         public override void Initialize()
         {
-           if(StateMenu ==0) _menu = new Menu(1280, 720);
+            _menu = new Menu(1280, 720, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if(StateMenu == 0)
-            {
-                if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-                {
-                    _menu.Move(Keyboard.Key.Up);
-                }
-                else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-                {
-                    _menu.Move(Keyboard.Key.Down);
-                }
-                else if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
-                {
-                    if (_menu.SelectedItem == 0)
-                    {
-                        
-                        Window.Close();
-                        Game game = new Game(1);
-                        game.Run();
-                       
-                    }
-                    else if (_menu.SelectedItem == 1)
-                    {
-                        Window.Close();
-                    }
-                }
-            }
+            if (_state == 0) _menu.CheckMouse(Window);
+            else if (_state == 1) ; // game
         }
 
         public override void Draw(GameTime gameTime)
         {
             _backgroundSprite.Draw(Window, RenderStates.Default);
-            if (StateMenu == 0) _menu.Draw(Window);
+            if (MenuState == 0) _menu.Draw(Window);
+            else if (MenuState == 1) Map.RenderGraphics(Window);
         }
 
-        public int StateMenu
+        public int MenuState
         {
             get { return _state; }
             set { _state = value; }
