@@ -10,10 +10,13 @@ namespace ProjectStellar
         public const int TARGET_FPS = 60;
         public const float TIME_UNTIL_UPDATE = 1f / TARGET_FPS;
 
-        public GameLoop(uint windowWidth, uint windowHeight, string windowTitle, Color windowClearColor)
+        public GameLoop(uint windowWidth, uint windowHeight, bool isFullscreen, string windowTitle, Color windowClearColor)
         {
             this.WindowClearColor = windowClearColor;
-            this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle);
+            if (isFullscreen)
+                this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.Fullscreen);
+            else
+                this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.Titlebar);
             this.GameTime = new GameTime();
             Window.Closed += WindowClosed;
         }
