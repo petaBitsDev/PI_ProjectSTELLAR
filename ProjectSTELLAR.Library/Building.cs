@@ -21,7 +21,7 @@ namespace ProjectStellar
         readonly int _airPollution;
         readonly int _nbPeople;
         int _moneyWinOrLost;
-      
+        MapObject 
 
         public Building(int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
         {

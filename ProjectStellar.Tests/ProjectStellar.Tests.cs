@@ -44,7 +44,7 @@ namespace ProjectStellar
 
         public void add_a_building_in_the_array_when_you_create_it()
         {
-            Map map = new Map();
+            MapObject map = new MapObject();
             Hut sut = new Hut(10, 30, 50, 0, 10, 10, 0, 5, false, 20);
 
             map.AddBuilding(3, 2, sut);
@@ -59,7 +59,7 @@ namespace ProjectStellar
 
         public void remove_a_building_from_the_array_when_it_is_destroy()
         {
-            Map map = new Map();
+            MapObject map = new MapObject();
             Hut sut = new Hut(10, 30, 50, 0, 10, 10, 0, 5, false, 20);
 
             map.AddBuilding(3, 2, sut);

@@ -4,36 +4,45 @@ using SFML.Window;
 using System.IO;
 using SFML.System;
 using ProjectStellar;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace ProjectStellar
 {
     public class Map
     {
-        Building[,] _boxes = new Building[10, 10];
-        //Sprite _bgSprite = new Sprite(new Texture("./backgroundSprite.png"));
+        Sprite _bgSprite = new Sprite(new Texture("./resources/tileset.png"));
         Sprite[] _sprites = new Sprite[20];
+        int _width;
+        int _height;
 
-        public void AddBuilding(int x, int y, Building building)
+        public Map (int width, int height)
         {
-            _boxes[x, y] = building;
+            _width = width;
+            _height = height;
         }
 
-        public void RemoveBuilding(int x, int y, Building building)
-        {
-            _boxes[x, y] = null;
-        }
+        //string[] _bgArray;
+        //Vector2f _tileSize;
+        //Texture _tileset;
+        //int _width;
+        //int _height;
 
-        public bool CheckBuilding(int x, int y)
-        {
-            if (_boxes[x, y] != null) return true;
-            return false;
-        }
+        //public Map(String XML)
+        //{
+        //    using (FileStream fs = File.OpenRead(XML))
+        //    using (StreamReader sr = new StreamReader(fs, true))
+        //    {
+        //        XElement xml = XElement.Load(sr);
+        //        string bg = xml.Descendants("data").Single().Value;
+        //        _bgArray = bg.Split(',');
 
-        public Building[,] Boxes
-        {
-            get { return _boxes; }
-            set { _boxes = value; }
-        }
+        //        _width = 10;
+        //        _height = 10;
+        //        _tileSize = new Vector2f(32, 32);
+        //        _tileset = new Texture("./resources/tileset.png");
+        //    }
+        //}
 
         public struct Rect
         {
@@ -73,11 +82,14 @@ namespace ProjectStellar
         //    {
         //        for(int y = 0; y < TileView.Bottom; y++)
         //        {
-        //            if (_boxes[x, y] == null)
+        //            if ([x, y] == null)
+        //            {
         //                RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
-                    
-        //            else 
+        //            }
+        //            else
+        //            {
         //                RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
+        //            }
         //        }
         //    }
         //}
@@ -90,8 +102,9 @@ namespace ProjectStellar
             target.Draw(tmpSprite);
         }
 
-        public static void RenderGraphics(RenderWindow window)
+        public void RenderGraphics(RenderWindow window)
         {
+         //   DrawMapTile(window);
             DrawGrid(window);
         }
     }
