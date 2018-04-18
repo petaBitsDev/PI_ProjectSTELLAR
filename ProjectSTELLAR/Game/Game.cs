@@ -49,7 +49,7 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-            Map map = new Map(10, 10);
+            MapUI map = new MapUI(10, 10);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1) map.RenderGraphics(Window);

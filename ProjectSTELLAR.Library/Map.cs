@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    public class MapObject
+    public class Map
     {
         public Building[,] _boxes = new Building[10, 10];
 
