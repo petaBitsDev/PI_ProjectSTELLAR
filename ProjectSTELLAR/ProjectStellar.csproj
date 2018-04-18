@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Launcher\ProjectStellar.FormLauncher.csproj" />
     <ProjectReference Include="..\ProjectSTELLAR.Library\ProjectSTELLAR.Library.csproj" />
   </ItemGroup>
 
@@ -29,6 +30,7 @@
     <Reference Include="sfmlnet-window-2">
       <HintPath>..\SFML\sfmlnet-window-2.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
   <ItemGroup>

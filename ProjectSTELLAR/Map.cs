@@ -3,7 +3,6 @@ using SFML.Graphics;
 using SFML.Window;
 using System.IO;
 using SFML.System;
-using ProjectStellar;
 
 namespace ProjectStellar
 {
