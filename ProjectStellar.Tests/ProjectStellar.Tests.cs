@@ -40,6 +40,41 @@ namespace ProjectStellar
             Assert.That(sut1.IsBuild, Is.False);
         }
 
+        [Test]
+
+        public void add_a_building_in_the_array_when_you_create_it()
+        {
+            Map map = new Map();
+            Hut sut = new Hut(10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+
+            map.AddBuilding(3, 2, sut);
+
+            Assert.That(map.CheckBuilding(3, 2), Is.True);
+            Assert.That(map.CheckBuilding(3, 8), Is.False);
+            Assert.That(map.Boxes[3,2], Is.EqualTo(sut));
+
+        }
+
+        [Test]
+
+        public void remove_a_building_from_the_array_when_it_is_destroy()
+        {
+            Map map = new Map();
+            Hut sut = new Hut(10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+
+            map.AddBuilding(3, 2, sut);
+
+            Assert.That(map.CheckBuilding(3, 2), Is.True);
+            Assert.That(map.CheckBuilding(3, 8), Is.False);
+            Assert.That(map.Boxes[3, 2], Is.EqualTo(sut));
+
+            map.RemoveBuilding(3, 2, sut);
+
+            Assert.That(map.CheckBuilding(3, 2), Is.False);
+            Assert.That(map.Boxes[3, 2], Is.EqualTo(null));
+
+        }
+
     }
 }
 

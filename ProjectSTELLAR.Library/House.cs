@@ -15,8 +15,12 @@ namespace ProjectStellar
         }
 
         static int Pollution => 5;
-        static int People => 5;
+        static int PeopleLevel1 => 5;
 
-        static int Tax => 20;
+        static int PeopleLevel2 => 10;
+        static int PeopleLevel3 => 15;
+        static int PeopleLevel4 => 20;
+
+        static int Tax => 50;
     }
 }

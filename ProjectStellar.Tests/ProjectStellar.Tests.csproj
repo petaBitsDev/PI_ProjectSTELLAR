@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectSTELLAR.Library\ProjectStellar.Library.csproj" />
+    <ProjectReference Include="..\ProjectSTELLAR\ProjectStellar.csproj" />
   </ItemGroup>
 
   <ItemGroup>

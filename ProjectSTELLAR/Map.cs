@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using SFML.Graphics;
 using SFML.Window;
 using System.IO;
@@ -9,8 +9,8 @@ namespace ProjectStellar
 {
     public class Map
     {
-        Building[,] _boxes = new Building[TileView.Bottom, TileView.Right];
-        Sprite _bgSprite = new Sprite(new Texture("./backgroundSprite.png"));
+        Building[,] _boxes = new Building[10, 10];
+        //Sprite _bgSprite = new Sprite(new Texture("./backgroundSprite.png"));
         Sprite[] _sprites = new Sprite[20];
 
         public void AddBuilding(int x, int y, Building building)
@@ -27,6 +27,12 @@ namespace ProjectStellar
         {
             if (_boxes[x, y] != null) return true;
             return false;
+        }
+
+        public Building[,] Boxes
+        {
+            get { return _boxes; }
+            set { _boxes = value; }
         }
 
         public struct Rect
@@ -61,20 +67,20 @@ namespace ProjectStellar
             } 
         }
 
-        public void DrawMapTile(RenderWindow window)
-        {
-            for(int x = 0; x < TileView.Right; x++)
-            {
-                for(int y = 0; y < TileView.Bottom; y++)
-                {
-                    if (_boxes[x, y] == null)
-                        RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
+        //public void DrawMapTile(RenderWindow window)
+        //{
+        //    for(int x = 0; x < TileView.Right; x++)
+        //    {
+        //        for(int y = 0; y < TileView.Bottom; y++)
+        //        {
+        //            if (_boxes[x, y] == null)
+        //                RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
                     
-                    else 
-                        RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
-                }
-            }
-        }
+        //            else 
+        //                RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
+        //        }
+        //    }
+        //}
 
         public static void RenderSprite
             (Sprite tmpSprite, RenderWindow target, int destX, int destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
