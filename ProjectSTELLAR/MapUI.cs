@@ -15,12 +15,16 @@ namespace ProjectStellar
         Sprite[] _sprites = new Sprite[20];
         int _width;
         int _height;
+        Map _ctx;
 
-        public MapUI (int width, int height)
+        public MapUI (Map ctx, int width, int height)
         {
+            _ctx = ctx;
             _width = width;
             _height = height;
         }
+
+        public Map Context => _ctx;
 
         //string[] _bgArray;
         //Vector2f _tileSize;
@@ -82,7 +86,7 @@ namespace ProjectStellar
             {
                 for(int y = 0; y < TileView.Bottom; y++)
                 {
-                    if ([x, y] == null)
+                    if (_ctx.Boxes[x, y] == null)
                     {
                         RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
                     }
