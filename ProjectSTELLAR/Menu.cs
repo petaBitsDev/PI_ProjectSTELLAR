@@ -46,7 +46,7 @@ namespace ProjectStellar
 
             Sprite button2 = new Sprite(_ctx._menuTextures[1])
             {
-                Position = new Vector2f((width / 7) * 2, height / (3 + 1) * 2),
+                Position = new Vector2f((width / 7) * 2, height / (3 + 1) * 2.5f),
                 Scale = new Vector2f(0.7f, 0.7f),
             };
             _menu[1] = button2;
