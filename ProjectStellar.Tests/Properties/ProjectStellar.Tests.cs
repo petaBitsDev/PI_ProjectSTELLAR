@@ -10,7 +10,8 @@ namespace ProjectStellar
 
         public void create_building()
         {
-            Building sut = new Building(120, 40, 15, 12, 65, 89, 655, 45, true, 45);
+            Map map = new Map();
+            Building sut = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 45);
             
             Assert.That(sut.RockNeeded, Is.EqualTo(120));
             Assert.That(sut.WoodNeeded, Is.EqualTo(40));
@@ -27,13 +28,14 @@ namespace ProjectStellar
 
         public void check_if_destroy_a_building_if_it_exits_work_well()
         {
-            Building sut = new Building(120, 40, 15, 12, 65, 89, 655, 45, true, 24);
+            Map map = new Map();
+            Building sut = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 24);
 
             sut.IsBuild = false;
 
             Assert.Throws<ArgumentException>(() => sut.Destroy());
 
-            Building sut1 = new Building(120, 40, 15, 12, 65, 89, 655, 45, true, 76);
+            Building sut1 = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 76);
           
             Assert.That(sut1.IsBuild, Is.True);
             sut1.Destroy();
@@ -44,8 +46,9 @@ namespace ProjectStellar
 
         public void add_a_building_in_the_array_when_you_create_it()
         {
-            MapObject map = new MapObject();
-            Hut sut = new Hut(10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+            
+            Map map = new Map();
+            Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
 
             map.AddBuilding(3, 2, sut);
 
@@ -59,8 +62,8 @@ namespace ProjectStellar
 
         public void remove_a_building_from_the_array_when_it_is_destroy()
         {
-            MapObject map = new MapObject();
-            Hut sut = new Hut(10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+            Map map = new Map();
+            Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
 
             map.AddBuilding(3, 2, sut);
 

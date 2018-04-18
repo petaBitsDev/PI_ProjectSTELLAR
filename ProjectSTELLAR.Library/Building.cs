@@ -21,9 +21,9 @@ namespace ProjectStellar
         readonly int _airPollution;
         readonly int _nbPeople;
         int _moneyWinOrLost;
-        MapObject 
+        Map _ctx ;
 
-        public Building(int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
+        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
         {
             _isBuild = true;
             _rockNeeded = rockNeeded;
@@ -36,6 +36,7 @@ namespace ProjectStellar
             _nbPeople = nbPeople;
             _costMoney = costMoney;
             _moneyWinOrLost = moneyWinOrLost;
+            _ctx = ctx;
         }
 
         public int MoneyWinOrLost => _moneyWinOrLost;

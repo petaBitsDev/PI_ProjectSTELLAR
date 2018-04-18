@@ -10,7 +10,7 @@ namespace Project.STELLAR.Tests
 
      public void create_building()
         {
-            Building sut = new Building(120, 40, 15, 12, 65, 89, 655, 45);
+            Building sut = new Building(120, 40, 15, 12, 65, 89, 655, 45,true, 67);
             Assert.That(sut.RockNeeded, Is.EqualTo(120));
             Assert.That(sut.WoodNeeded, Is.EqualTo(40));
             Assert.That(sut.StellarCoinNeeded, Is.EqualTo(15));

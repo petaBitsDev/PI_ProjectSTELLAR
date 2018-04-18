@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace ProjectStellar
 {
-    public class Map
+    public class MapUI
     {
         Sprite _bgSprite = new Sprite(new Texture("./resources/tileset.png"));
         Sprite[] _sprites = new Sprite[20];
         int _width;
         int _height;
 
-        public Map (int width, int height)
+        public MapUI (int width, int height)
         {
             _width = width;
             _height = height;
