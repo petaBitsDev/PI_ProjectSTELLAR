@@ -19,11 +19,16 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[4];
         public int _state;
         Menu _menu;
-        
-        public Game(int state) : base(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT, WINDOW_TITLE, Color.Green)
+        uint _windowX;
+        uint _windowY;
+        Map _ctx;
+
+        public Game(int state, uint windowX, uint windowY, bool isFullscreen) : base(windowX, windowY, isFullscreen, WINDOW_TITLE, Color.Green)
         {
             //RenderWindow _window = new RenderWindow(new VideoMode(800, 600), "Project Stellar");
             MenuState = state;
+            _windowX = windowX;
+            _windowY = windowY;
         }
 
         public override void LoadContent()
@@ -37,7 +42,7 @@ namespace ProjectStellar
 
         public override void Initialize()
         {
-            _menu = new Menu(1280, 720, this);
+            _menu = new Menu(_windowX, _windowY, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
         }
 
@@ -49,7 +54,7 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-            MapUI map = new MapUI(10, 10);
+            MapUI map = new MapUI(_ctx, 10, 10);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1) map.RenderGraphics(Window);

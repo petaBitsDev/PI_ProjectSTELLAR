@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStellar.Library", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectStellar.Tests", "ProjectStellar.Tests\ProjectStellar.Tests.csproj", "{E32489CF-983D-4F88-93FA-E5019BC25629}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectSTELLAR.Tests", "Project.STELLAR.Tests\ProjectSTELLAR.Tests.csproj", "{980C774A-2A8D-4F5D-8778-89FC97A41C9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectStellar.FormLauncher", "Launcher\ProjectStellar.FormLauncher.csproj", "{B4B56C0C-706F-4644-9C01-0679019E10D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{E32489CF-983D-4F88-93FA-E5019BC25629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E32489CF-983D-4F88-93FA-E5019BC25629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E32489CF-983D-4F88-93FA-E5019BC25629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{980C774A-2A8D-4F5D-8778-89FC97A41C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{980C774A-2A8D-4F5D-8778-89FC97A41C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{980C774A-2A8D-4F5D-8778-89FC97A41C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{980C774A-2A8D-4F5D-8778-89FC97A41C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B56C0C-706F-4644-9C01-0679019E10D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B56C0C-706F-4644-9C01-0679019E10D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B56C0C-706F-4644-9C01-0679019E10D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B56C0C-706F-4644-9C01-0679019E10D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

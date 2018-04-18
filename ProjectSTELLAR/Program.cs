@@ -2,27 +2,24 @@
 using SFML.Window;
 using SFML.Graphics;
 using System;
+using System.Windows.Forms;
+//using ProjectStellar.FormLauncher;
 
 namespace ProjectStellar
 {
    public class Program
     {
+
+        [STAThread]
         static void Main(string[] args)
         {
-           
-            Game Game = new Game(0);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            FormLauncher.Launcher _launcher = new FormLauncher.Launcher();
+            Application.Run(_launcher);
+
+            Game Game = new Game(0, _launcher.Settings.Resolution.X, _launcher.Settings.Resolution.Y, _launcher.Settings.IsFullScreen);
             Game.Run();
-            //RenderWindow window = new RenderWindow(new VideoMode(1200, 600), "Project STELLAR");
-            //Menu menu = new Menu(1080, 720);
-
-            //while (window.IsOpen)
-            //{
-
-                
-            //    window.Display();
-            //}
-           
-
         }
     }
 }
