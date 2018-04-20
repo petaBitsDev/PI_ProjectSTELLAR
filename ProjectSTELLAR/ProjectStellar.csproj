@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjectSTELLAR.Library\ProjectStellar.Library.csproj" />
     <ProjectReference Include="..\Launcher\ProjectStellar.FormLauncher.csproj" />
-    <ProjectReference Include="..\ProjectSTELLAR.Library\ProjectSTELLAR.Library.csproj" />
   </ItemGroup>
 
   <ItemGroup>
