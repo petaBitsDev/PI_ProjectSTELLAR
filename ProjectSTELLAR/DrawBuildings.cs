@@ -17,10 +17,10 @@ namespace ProjectStellar
         public DrawBuildings(Game ctx)
         {
             _ctx = ctx;
-            _textures.Add(FireStation, _ctx._buildingsTextures[0]);
-            _textures.Add(Hut, _ctx._buildingsTextures[1]);
-            _textures.Add(Flat, _ctx._buildingsTextures[2]);
-            _textures.Add(House, _ctx._buildingsTextures[3]);
+            //_textures.Add(typeof(FireStation), _ctx._buildingsTextures[0]);
+            _textures.Add(typeof(Hut), _ctx._buildingsTextures[1]);
+            _textures.Add(typeof(Flat), _ctx._buildingsTextures[2]);
+            _textures.Add(typeof(House), _ctx._buildingsTextures[3]);
         }
 
         public void Draw (Type buildingType, RenderWindow window, int x, int y)
