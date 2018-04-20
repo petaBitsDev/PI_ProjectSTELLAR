@@ -16,12 +16,16 @@ namespace ProjectStellar
         int _width;
         int _height;
         Map _ctx;
+        Game _gameCtx;
+        DrawBuildings _drawBuildings;
 
-        public MapUI (Map ctx, int width, int height)
+        public MapUI(Game context, Map ctx, int width, int height)
         {
+            _gameCtx = context;
             _ctx = ctx;
             _width = width;
             _height = height;
+            DrawBuildings _drawBuildings = new DrawBuildings(_gameCtx);
         }
 
         public Map Context => _ctx;
@@ -66,9 +70,9 @@ namespace ProjectStellar
             TileView.Right = 10;
 
             RectangleShape rec = new RectangleShape();
-            for(int x = TileView.Left; x < 10; x++)
+            for (int x = TileView.Left; x < 10; x++)
             {
-                for(int y = TileView.Top; y < 10; y++)
+                for (int y = TileView.Top; y < 10; y++)
                 {
                     rec.OutlineColor = new Color(Color.Red);
                     rec.OutlineThickness = 1.0f;
@@ -77,16 +81,28 @@ namespace ProjectStellar
                     rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32));
                     window.Draw(rec);
                 }
-            } 
+            }
         }
 
-        public void DrawMapTile(RenderWindow window)
+        public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
             for (int x = 0; x < 10 - 1; x++)
             {
                 for (int y = 0; y < 10 - 1; y++)
                 {
                     RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                }
+            }
+
+            for(int i = 0; i < boxes.Length; i++)
+            {
+                for(int j = 0; j < boxes.Length; j++)
+                {
+                    if(boxes[i,j] != null)
+                    {
+                        Type type = boxes[i, j].GetType();
+                        _drawBuildings.Draw(type, window, i, j);
+                    }
                 }
             }
         }
@@ -99,9 +115,14 @@ namespace ProjectStellar
             target.Draw(tmpSprite);
         }
 
+        public Building[,] CheckMap ()
+        {
+
+        }
+
         public void RenderGraphics(RenderWindow window)
         {
-            DrawMapTile(window);
+            DrawMapTile(window, _ctx.Boxes);
             DrawGrid(window);
         }
     }

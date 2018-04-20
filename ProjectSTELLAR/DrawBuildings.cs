@@ -11,9 +11,24 @@ namespace ProjectStellar
 {
     public class DrawBuildings
     {
-        Map _ctx;
+        Game _ctx;
         Dictionary<Type, Texture> _textures = new Dictionary<Type, Texture>();
 
-        
+        public DrawBuildings(Game ctx)
+        {
+            _ctx = ctx;
+            _textures.Add(FireStation, _ctx._buildingsTextures[0]);
+            _textures.Add(Hut, _ctx._buildingsTextures[1]);
+            _textures.Add(Flat, _ctx._buildingsTextures[2]);
+            _textures.Add(House, _ctx._buildingsTextures[3]);
+        }
+
+        public void Draw (Type buildingType, RenderWindow window, int x, int y)
+        {
+            _textures.TryGetValue(buildingType, out Texture texture);
+            Sprite sprite = new Sprite(texture);
+            sprite.Position = new Vector2f(x, y);
+            window.Draw(sprite);
+        }
     }
 }
