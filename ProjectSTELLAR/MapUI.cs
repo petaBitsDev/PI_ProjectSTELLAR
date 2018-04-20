@@ -82,18 +82,11 @@ namespace ProjectStellar
 
         public void DrawMapTile(RenderWindow window)
         {
-            for (int x = 0; x < 10 -1; x++)
+            for (int x = 0; x < 10 - 1; x++)
             {
-                for (int y = 0; y < 10-1; y++)
+                for (int y = 0; y < 10 - 1; y++)
                 {
-                    //            if (_ctx.Boxes[x, y] == null)
-                    //            {
-                    RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
-                    //            }
-                    //            else
-                    //            {
-                    //                RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
-                    //            }
+                    RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                 }
             }
         }
