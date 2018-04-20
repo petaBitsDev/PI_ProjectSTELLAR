@@ -11,7 +11,7 @@ namespace ProjectStellar
 {
     public class MapUI
     {
-        //Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
         Sprite[] _sprites = new Sprite[20];
         int _width;
         int _height;
@@ -66,37 +66,37 @@ namespace ProjectStellar
             TileView.Right = 10;
 
             RectangleShape rec = new RectangleShape();
-            for(int x = TileView.Left; x <= TileView.Right; x++)
+            for(int x = TileView.Left; x < 10; x++)
             {
-                for(int y = TileView.Top; y <= TileView.Bottom; y++)
+                for(int y = TileView.Top; y < 10; y++)
                 {
                     rec.OutlineColor = new Color(Color.Red);
-                    rec.OutlineThickness = 3.0f;
+                    rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
                     rec.Size = new Vector2f((x * 32), (y * 32));
-                    rec.Position = new Vector2f((TileView.Left * 32 + 3), (TileView.Top * 32 + 3));
+                    rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32));
                     window.Draw(rec);
                 }
             } 
         }
 
-        //public void DrawMapTile(RenderWindow window)
-        //{
-        //    for(int x = 0; x < TileView.Right; x++)
-        //    {
-        //        for(int y = 0; y < TileView.Bottom; y++)
-        //        {
-        //            if (_ctx.Boxes[x, y] == null)
-        //            {
-        //                RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
-        //            }
-        //            else
-        //            {
-        //                RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
-        //            }
-        //        }
-        //    }
-        //}
+        public void DrawMapTile(RenderWindow window)
+        {
+            for (int x = 0; x < 10 -1; x++)
+            {
+                for (int y = 0; y < 10-1; y++)
+                {
+                    //            if (_ctx.Boxes[x, y] == null)
+                    //            {
+                    RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
+                    //            }
+                    //            else
+                    //            {
+                    //                RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
+                    //            }
+                }
+            }
+        }
 
         public static void RenderSprite
             (Sprite tmpSprite, RenderWindow target, int destX, int destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
@@ -108,7 +108,7 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window)
         {
-            //DrawMapTile(window);
+            DrawMapTile(window);
             DrawGrid(window);
         }
     }
