@@ -15,6 +15,6 @@ namespace ProjectStellar
         }
 
         static public int Pollution => 10;
-        static public int Cost => 100;
+        static public int Charges => 100;
     }
 }

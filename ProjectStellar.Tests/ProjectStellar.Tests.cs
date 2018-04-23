@@ -10,7 +10,7 @@ namespace ProjectStellar
 
         public void create_building()
         {
-            Map map = new Map();
+            Map map = new Map(12,15);
             Building sut = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 45, true);
             
             Assert.That(sut.RockNeeded, Is.EqualTo(120));
@@ -28,7 +28,7 @@ namespace ProjectStellar
 
         public void check_if_destroy_a_building_if_it_exits_work_well()
         {
-            Map map = new Map();
+            Map map = new Map(12, 15);
             Building sut = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 24, true);
 
             sut.IsBuild = false;
@@ -47,7 +47,7 @@ namespace ProjectStellar
         public void add_a_building_in_the_array_when_you_create_it()
         {
             
-            Map map = new Map();
+            Map map = new Map(12,15);
             FireStation sut = new FireStation(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
 
             map.AddBuilding(3, 2, sut);
@@ -62,7 +62,7 @@ namespace ProjectStellar
 
         public void remove_a_building_from_the_array_when_it_is_destroy()
         {
-            Map map = new Map();
+            Map map = new Map(12,15);
             Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
 
             map.AddBuilding(3, 2, sut);
@@ -82,7 +82,7 @@ namespace ProjectStellar
 
         public void create_a_building_and_add_it_in_the_array_with_the_create_function()
         {
-            Map map = new Map();
+            Map map = new Map(12,15);
 
             map.CreateHut(1, 1);
             map.CreateHouse(1, 2);
@@ -107,7 +107,7 @@ namespace ProjectStellar
 
         public void when_a_building_is_detroy_remove_it_from_the_array_and_decrement_the_coumpteur()
         {
-            Map map = new Map();
+            Map map = new Map(12,15);
             Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
             House house = new House(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
             Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
@@ -147,7 +147,7 @@ namespace ProjectStellar
 
         public void the_dictionnary_of_building_is_update_as_it_should()
         {
-            Map map = new Map();
+            Map map = new Map(15,16);
             Hut hut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
 
             Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
@@ -189,7 +189,7 @@ namespace ProjectStellar
         [Test]
         public void calcul_the_pollution_of_the_city()
         {
-            Map map = new Map();
+            Map map = new Map(14,16);
             CityManager manager = new CityManager(map);
 
 
@@ -208,7 +208,7 @@ namespace ProjectStellar
         [Test]
         public void calcul_the_tax_from_all_the_non_public_bat()
         {
-            Map map = new Map();
+            Map map = new Map(15,16);
             CityManager manager = new CityManager(map);
 
 

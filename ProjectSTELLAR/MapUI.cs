@@ -70,9 +70,6 @@ namespace ProjectStellar
                 }
             }
         }
-        public void DrawResourcesBar(RenderWindow window, Dictionary<string, int> resources)
-        {
-            RectangleShape rec = new RectangleShape();
 
         public void DrawResourcesBar(RenderWindow window, Dictionary<string,int> resources)
         {
