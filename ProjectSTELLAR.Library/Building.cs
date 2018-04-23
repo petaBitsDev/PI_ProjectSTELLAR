@@ -20,10 +20,11 @@ namespace ProjectStellar
         readonly int _electricityConsume;
         readonly int _airPollution;
         readonly int _nbPeople;
+        bool _isFlammable;
         int _moneyWinOrLost;
         Map _ctx ;
 
-        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
+        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
         {
             _isBuild = true;
             _rockNeeded = rockNeeded;
@@ -36,6 +37,7 @@ namespace ProjectStellar
             _nbPeople = nbPeople;
             _costMoney = costMoney;
             _moneyWinOrLost = moneyWinOrLost;
+            _isFlammable = isFlammable;
             _ctx = ctx;
         }
 
@@ -66,6 +68,8 @@ namespace ProjectStellar
         }
 
         public bool CostMoney => _costMoney;
+
+        public bool IsFlammable => _isFlammable;
 
 
         public void Destroy()

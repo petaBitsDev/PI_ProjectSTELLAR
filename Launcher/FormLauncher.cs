@@ -17,6 +17,8 @@ namespace ProjectStellar.FormLauncher
         {
             InitializeComponent();
             _windowParameters = new WindowParameters();
+            _windowParameters.Resolution.X = 1280;
+            _windowParameters.Resolution.Y = 720;
 
         }
 
