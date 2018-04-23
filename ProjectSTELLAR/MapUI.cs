@@ -28,29 +28,13 @@ namespace ProjectStellar
             DrawBuildings _drawBuildings = new DrawBuildings(_gameCtx);
         }
 
-        public Map Context => _ctx;
+        public Map MapContext => _ctx;
 
-        //string[] _bgArray;
-        //Vector2f _tileSize;
-        //Texture _tileset;
-        //int _width;
-        //int _height;
+        public int Width => _width;
 
-        //public Map(String XML)
-        //{
-        //    using (FileStream fs = File.OpenRead(XML))
-        //    using (StreamReader sr = new StreamReader(fs, true))
-        //    {
-        //        XElement xml = XElement.Load(sr);
-        //        string bg = xml.Descendants("data").Single().Value;
-        //        _bgArray = bg.Split(',');
+        public int Height => _height;
 
-        //        _width = 10;
-        //        _height = 10;
-        //        _tileSize = new Vector2f(32, 32);
-        //        _tileset = new Texture("./resources/tileset.png");
-        //    }
-        //}
+        public Game GameContext => _gameCtx;
 
         public struct Rect
         {
@@ -70,15 +54,15 @@ namespace ProjectStellar
             TileView.Right = 10;
 
             RectangleShape rec = new RectangleShape();
-            for (int x = TileView.Left; x < 10; x++)
+            for (int x = TileView.Left; x < 20; x++)
             {
-                for (int y = TileView.Top; y < 10; y++)
+                for (int y = TileView.Top; y < 20; y++)
                 {
-                    rec.OutlineColor = new Color(Color.Red);
+                    rec.OutlineColor = new Color(Color.Black);
                     rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
                     rec.Size = new Vector2f((x * 32), (y * 32));
-                    rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32));
+                    rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32) + 1);
                     window.Draw(rec);
                 }
             }
@@ -86,19 +70,19 @@ namespace ProjectStellar
 
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
-            for (int x = 0; x < 10 - 1; x++)
+            for (int x = 0; x < Width - 1; x++)
             {
-                for (int y = 0; y < 10 - 1; y++)
+                for (int y = 0; y < Height - 1; y++)
                 {
                     RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                 }
             }
 
-            for(int i = 0; i < boxes.Length; i++)
+            for (int i = 0; i < (boxes.Length/Height); i++)
             {
-                for(int j = 0; j < boxes.Length; j++)
+                for (int j = 0; j < (boxes.Length/Width); j++)
                 {
-                    if(boxes[i,j] != null)
+                    if (!object.Equals(boxes[i,j],null))
                     {
                         Type type = boxes[i, j].GetType();
                         _drawBuildings.Draw(type, window, i, j);
@@ -113,11 +97,6 @@ namespace ProjectStellar
             tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
             tmpSprite.Position = new Vector2f(destX, destY);
             target.Draw(tmpSprite);
-        }
-
-        public Building[,] CheckMap ()
-        {
-
         }
 
         public void RenderGraphics(RenderWindow window)

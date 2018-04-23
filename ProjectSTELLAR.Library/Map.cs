@@ -8,7 +8,18 @@ namespace ProjectStellar
 {
     public class Map
     {
-        public Building[,] _boxes = new Building[10, 10];
+        int _width;
+        int _height;
+
+        public Map (int width, int height)
+        {
+            _width = width;
+            _height = height;
+        }
+        public int Width => _width;
+        public int Height => _height;
+
+        public Building[,] _boxes = new Building[20, 20];
 
         public Building[,] Boxes
         {

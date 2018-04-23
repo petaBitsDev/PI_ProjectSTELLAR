@@ -22,7 +22,6 @@ namespace ProjectStellar
         Menu _menu;
         uint _windowX;
         uint _windowY;
-        Map _ctx;
 
         public Game(int state, uint windowX, uint windowY, bool isFullscreen) : base(windowX, windowY, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -60,10 +59,11 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-            MapUI map = new MapUI(this, _ctx, 10, 10);
+            Map map = new Map(20, 20);
+            MapUI mapUI = new MapUI(this, map, 20, 20);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
-            else if (MenuState == 1) map.RenderGraphics(Window);
+            else if (MenuState == 1) mapUI.RenderGraphics(Window);
         }
 
         public int MenuState
