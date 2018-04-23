@@ -80,6 +80,18 @@ namespace ProjectStellar
             } 
         }
 
+        public void DrawPlayPause(RenderWindow window)
+        {
+            RectangleShape rec = new RectangleShape();
+            rec.OutlineColor = new Color(Color.Black);
+            rec.OutlineThickness = 1.5f;
+            rec.FillColor = new Color(Color.Transparent);
+            rec.Size = new Vector2f(32, 32);
+            rec.Position = new Vector2f(_width / 2, 32);
+
+            window.Draw(rec);
+        }
+
         //public void DrawMapTile(RenderWindow window)
         //{
         //    for(int x = 0; x < TileView.Right; x++)
