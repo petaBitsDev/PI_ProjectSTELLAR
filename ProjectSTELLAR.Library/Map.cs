@@ -34,7 +34,5 @@ namespace ProjectStellar
             if (_boxes[x, y] != null) return true;
             return false;
         }
-
-
     }
 }

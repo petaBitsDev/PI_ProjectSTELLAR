@@ -11,7 +11,7 @@ namespace ProjectStellar
 {
     public class MapUI
     {
-        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+        //Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
         Sprite[] _sprites = new Sprite[20];
         int _width;
         int _height;
@@ -80,23 +80,23 @@ namespace ProjectStellar
             } 
         }
 
-        public void DrawMapTile(RenderWindow window)
-        {
-            for(int x = 0; x < TileView.Right; x++)
-            {
-                for(int y = 0; y < TileView.Bottom; y++)
-                {
-                    if (_ctx.Boxes[x, y] == null)
-                    {
-                        RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
-                    }
-                    else
-                    {
-                        RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
-                    }
-                }
-            }
-        }
+        //public void DrawMapTile(RenderWindow window)
+        //{
+        //    for(int x = 0; x < TileView.Right; x++)
+        //    {
+        //        for(int y = 0; y < TileView.Bottom; y++)
+        //        {
+        //            if (_ctx.Boxes[x, y] == null)
+        //            {
+        //                RenderSprite(_bgSprite, window, (x*32), (y*32), 0, 0, 32, (128 / 4));
+        //            }
+        //            else
+        //            {
+        //                RenderSprite(_sprites[0], window, (x * 32), (y * 32), 0, 0, 32, (128 / 4));
+        //            }
+        //        }
+        //    }
+        //}
 
         public static void RenderSprite
             (Sprite tmpSprite, RenderWindow target, int destX, int destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
@@ -108,7 +108,7 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window)
         {
-            DrawMapTile(window);
+            //DrawMapTile(window);
             DrawGrid(window);
         }
     }

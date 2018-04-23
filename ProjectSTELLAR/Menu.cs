@@ -9,7 +9,7 @@ namespace ProjectStellar
     class Menu
     {
         readonly Sprite[] _menu = new Sprite[2];
-        static Texture _backgroundTexture = new Texture("./resources/img/83504.png");
+        static Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
         static Sprite _backgroundSprite;
         private int _selectedIndex = -1;
         private bool _hovering;
@@ -39,15 +39,15 @@ namespace ProjectStellar
 
             Sprite button1 = new Sprite(_ctx._menuTextures[0])
             {
-                Position = new Vector2f((width / 5) * 2, height / (3 + 1) * 1),
-                Scale = new Vector2f(0.1f, 0.1f),
+                Position = new Vector2f((width / 7) * 2, height / (3 + 1) * 1),
+                Scale = new Vector2f(0.7f, 0.7f),
             };
             _menu[0] = button1;
 
             Sprite button2 = new Sprite(_ctx._menuTextures[1])
             {
-                Position = new Vector2f((width / 5) * 2, height / (3 + 1) * 2),
-                Scale = new Vector2f(0.1f, 0.1f),
+                Position = new Vector2f((width / 7) * 2, height / (3 + 1) * 2.5f),
+                Scale = new Vector2f(0.7f, 0.7f),
             };
             _menu[1] = button2;
         }

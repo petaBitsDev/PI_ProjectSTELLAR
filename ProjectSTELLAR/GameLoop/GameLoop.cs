@@ -14,7 +14,7 @@ namespace ProjectStellar
         {
             this.WindowClearColor = windowClearColor;
             if (isFullscreen)
-                this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.Fullscreen);
+                this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.None);
             else
                 this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.Titlebar);
             this.GameTime = new GameTime();
