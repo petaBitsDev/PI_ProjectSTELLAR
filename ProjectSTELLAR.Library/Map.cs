@@ -8,11 +8,18 @@ namespace ProjectStellar
 {
     public class Map
     {
-       public  Dictionary<string, int> _nbBuilding = new Dictionary<string, int>();
-        public Building[,] _boxes = new Building[10, 10];
-        internal int _countHut = 0;
-        internal int _countHouse = 0;
-        internal int _countFlat = 0;
+        int _height;
+        int _width;
+
+        public Map (int width, int height)
+        {
+            _width = width;
+            _height = height;
+        }
+        public int Width => _width;
+        public int Height => _height;
+
+        public Building[,] _boxes = new Building[20, 20];
 
         public Building[,] Boxes
         {
