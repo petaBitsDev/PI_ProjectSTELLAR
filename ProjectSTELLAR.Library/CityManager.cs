@@ -13,8 +13,11 @@ namespace ProjectStellar
         int _totalPollution;
         int _totalTaxes ;
         Map _ctx;
-      public  Dictionary<string, int> _nbResources = new Dictionary<string, int>();
+        public  Dictionary<string, int> _nbResources = new Dictionary<string, int>();
+        
+        
 
+        public Dictionary<string, int> NbResources => _nbResources;
 
 
         public CityManager(Map ctx)
@@ -171,5 +174,27 @@ namespace ProjectStellar
             }
         }
 
+        public void UpdateRessources()
+        {
+            if (!_nbResources.ContainsKey("wood"))
+            {
+                _nbResources.Add("wood", 500);
+            }
+
+            if (!_nbResources.ContainsKey("metal"))
+            {
+                _nbResources.Add("metal", 50);
+            }
+
+            if (!_nbResources.ContainsKey("rock"))
+            {
+                _nbResources.Add("rock", 500);
+            }
+
+            if (!_nbResources.ContainsKey("stellarCoin"))
+            {
+                _nbResources.Add("stellarCoin", 5000);
+            }
+        }
     }
 }
