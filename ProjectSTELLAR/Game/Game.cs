@@ -15,13 +15,13 @@ namespace ProjectStellar
         public const uint DEFAULT_WINDOW_HEIGHT = 720;
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
-        Texture _backgroundTexture = new Texture("./resources/img/83504.png");
+        Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
         public Texture[] _menuTextures = new Texture[4];
+        public Texture[] _buildingsTextures = new Texture[4];
         public int _state;
         Menu _menu;
         uint _windowX;
         uint _windowY;
-        Map _ctx;
 
         public Game(int state, uint windowX, uint windowY, bool isFullscreen) : base(windowX, windowY, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -34,10 +34,15 @@ namespace ProjectStellar
         public override void LoadContent()
         {
             DebugUtility.LoadContent();
-            _menuTextures[0] = new Texture("./resources/img/play.png");
-            _menuTextures[1] = new Texture("./resources/img/exit.png");
-            _menuTextures[2] = new Texture("./resources/img/play2.png");
-            _menuTextures[3] = new Texture("./resources/img/exit2.png");
+            _menuTextures[0] = new Texture("./resources/img/menuPlay.png");
+            _menuTextures[1] = new Texture("./resources/img/menuQuit.png");
+            _menuTextures[2] = new Texture("./resources/img/menuPlayActif.png");
+            _menuTextures[3] = new Texture("./resources/img/menuQuitActif.png");
+
+            _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
+            _buildingsTextures[1] = new Texture("./resources/img/hut.png");
+            _buildingsTextures[2] = new Texture("./resources/img/flat.png");
+            _buildingsTextures[3] = new Texture("./resources/img/house.png");
         }
 
         public override void Initialize()
@@ -49,15 +54,16 @@ namespace ProjectStellar
         public override void Update(GameTime gameTime)
         {
             if (_state == 0) _menu.CheckMouse(Window);
-            else if (_state == 1) ; // game
+            else if (_state == 1); // game
         }
 
         public override void Draw(GameTime gameTime)
         {
-            MapUI map = new MapUI(_ctx, 10, 10);
+            Map map = new Map(20, 20);
+            MapUI mapUI = new MapUI(this, map, 20, 20);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
-            else if (MenuState == 1) map.RenderGraphics(Window);
+            else if (MenuState == 1) mapUI.RenderGraphics(Window);
         }
 
         public int MenuState
