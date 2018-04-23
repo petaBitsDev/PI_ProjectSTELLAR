@@ -6,6 +6,9 @@ using SFML.System;
 using ProjectStellar;
 using System.Xml.Linq;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+
 
 namespace ProjectStellar
 {
@@ -68,6 +71,19 @@ namespace ProjectStellar
             }
         }
 
+        public void DrawResourcesBar(RenderWindow window, Dictionary<string,int> resources)
+        {
+            RectangleShape rec = new RectangleShape();
+
+            rec.OutlineColor = new Color(Color.Black);
+            rec.OutlineThickness = 1.5f;
+            rec.FillColor = new Color(Color.Transparent);
+            rec.Size = new Vector2f(Width, (1 * 32));
+            rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32) + 1);
+
+            window.Draw(rec);
+        }
+
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
             for (int x = 0; x < Width - 1; x++)
@@ -103,6 +119,7 @@ namespace ProjectStellar
         {
             DrawMapTile(window, _ctx.Boxes);
             DrawGrid(window);
+            //DrawResourcesBar(window, _ctx.Resources);
         }
     }
 }
