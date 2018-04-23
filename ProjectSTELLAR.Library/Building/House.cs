@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    class House : Building
+    public class House : Building
     {
         public House(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
             :base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, isFlammable)
@@ -14,13 +14,16 @@ namespace ProjectStellar
 
         }
 
-        static int Pollution => 5;
-        static int PeopleLevel1 => 5;
+        static public int Pollution => 5;
+        static public int PeopleLevel1 => 5;
 
-        static int PeopleLevel2 => 10;
-        static int PeopleLevel3 => 15;
-        static int PeopleLevel4 => 20;
+        static public int PeopleLevel2 => 10;
+        static public int PeopleLevel3 => 15;
+        static public int PeopleLevel4 => 20;
 
-        static int Tax => 50;
+        static public int Tax => 50;
     }
 }
+
+
+

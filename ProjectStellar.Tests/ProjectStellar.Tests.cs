@@ -78,6 +78,151 @@ namespace ProjectStellar
 
         }
 
+        [Test]
+
+        public void create_a_building_and_add_it_in_the_array_with_the_create_function()
+        {
+            Map map = new Map();
+
+            map.CreateHut(1, 1);
+            map.CreateHouse(1, 2);
+            map.CreateHouse(1, 4);
+            map.CreateFlat(1, 3);
+            map.CreateFlat(1, 5);
+            map.CreateFlat(1, 6);
+
+
+            Assert.That(map.CheckBuilding(1, 1), Is.True);
+            Assert.That(map.CheckBuilding(1, 2), Is.True);
+            Assert.That(map.CheckBuilding(1, 4), Is.True);
+            Assert.That(map.CheckBuilding(1, 3), Is.True);
+            Assert.That(map.CheckBuilding(1, 5), Is.True);
+            Assert.That(map.CheckBuilding(1, 6), Is.True);
+
+
+
+        }
+
+        [Test]
+
+        public void when_a_building_is_detroy_remove_it_from_the_array_and_decrement_the_coumpteur()
+        {
+            Map map = new Map();
+            Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+            House house = new House(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+
+
+
+            map.CreateHut(1, 1);
+            map.CreateHouse(1, 2);
+            map.CreateHouse(1, 4);
+            map.CreateFlat(1, 3);
+            map.CreateFlat(1, 5);
+            map.CreateFlat(1, 6);
+
+
+            Assert.That(map.CheckBuilding(1, 1), Is.True);
+            Assert.That(map.CheckBuilding(1, 2), Is.True);
+            Assert.That(map.CheckBuilding(1, 4), Is.True);
+            Assert.That(map.CheckBuilding(1, 3), Is.True);
+            Assert.That(map.CheckBuilding(1, 5), Is.True);
+            Assert.That(map.CheckBuilding(1, 6), Is.True);
+
+
+
+            map.DestroyHut(1, 1, sut);
+            map.DestroyHouse(1, 4, house);
+            map.DestroyFlat(1, 3, flat);
+            map.DestroyFlat(1, 5, flat);
+
+            Assert.That(map.CheckBuilding(1, 1), Is.False);
+            Assert.That(map.CheckBuilding(1, 4), Is.False);
+            Assert.That(map.CheckBuilding(1, 3), Is.False);
+            Assert.That(map.CheckBuilding(1, 5), Is.False);
+     
+        }
+
+        [Test]
+
+        public void the_dictionnary_of_building_is_update_as_it_should()
+        {
+            Map map = new Map();
+            Hut hut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+
+            Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+
+
+
+            Assert.That(map.NbBuilding.ContainsKey("hut"), Is.False);
+            Assert.That(map.NbBuilding.ContainsKey("house"), Is.False);
+            Assert.That(map.NbBuilding.ContainsKey("flat"), Is.False);
+
+            map.CreateHut(1, 1);
+            map.CreateHouse(2, 4);
+            map.CreateFlat(1, 6);
+
+            Assert.That(map.NbBuilding["hut"], Is.EqualTo(1));
+            Assert.That(map.NbBuilding.ContainsKey("house"), Is.True);
+            Assert.That(map.NbBuilding.ContainsKey("flat"), Is.True);
+
+            map.CreateHouse(2, 8);
+
+
+            Assert.That(map.NbBuilding["house"], Is.EqualTo(2));
+
+            map.CreateFlat(1, 8);
+            map.CreateFlat(1, 9);
+
+            Assert.That(map.NbBuilding["flat"], Is.EqualTo(3));
+
+            map.DestroyFlat(1, 6, flat);
+
+            Assert.That(map.NbBuilding["flat"], Is.EqualTo(2));
+
+            map.DestroyHut(1, 1, hut);
+            Assert.That(map.NbBuilding["hut"], Is.EqualTo(0));
+
+
+        }
+
+        [Test]
+        public void calcul_the_pollution_of_the_city()
+        {
+            Map map = new Map();
+            CityManager manager = new CityManager(map);
+
+
+            map.CreateHut(1, 1);
+            map.CreateHouse(2, 4);
+            map.CreateHouse(2, 8);
+            map.CreateFlat(1, 8);
+            map.CreateFlat(1, 9);
+            map.CreateFlat(1, 6);
+
+
+            Assert.That(manager.CityPollution, Is.EqualTo(100));
+            
+        }
+
+        [Test]
+        public void calcul_the_tax_from_all_the_non_public_bat()
+        {
+            Map map = new Map();
+            CityManager manager = new CityManager(map);
+
+
+            map.CreateHut(1, 1);
+            map.CreateHouse(2, 4);
+            map.CreateHouse(2, 8);
+            map.CreateFlat(1, 8);
+            map.CreateFlat(1, 9);
+            map.CreateFlat(1, 6);
+
+           
+
+            Assert.That(manager.CityTaxes, Is.EqualTo(570));
+        }
     }
 }
 
