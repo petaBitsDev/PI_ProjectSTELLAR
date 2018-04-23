@@ -54,7 +54,7 @@ namespace ProjectStellar
 
         public void CreateHut(int x, int y)
         {
-            Hut hut = new Hut(this, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+            Hut hut = new Hut(this, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
             this.AddBuilding(x, y, hut);
           
 
@@ -73,7 +73,7 @@ namespace ProjectStellar
 
         public void CreateHouse(int x, int y)
         {
-            House house = new House(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            House house = new House(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
             this.AddBuilding(x, y, house);
 
             if (_nbBuilding.ContainsKey("house"))
@@ -88,7 +88,7 @@ namespace ProjectStellar
 
         public void CreateFlat(int x, int y)
         {
-            Flat flat = new Flat(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            Flat flat = new Flat(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
             this.AddBuilding(x, y, flat);
 
             if (_nbBuilding.ContainsKey("flat"))

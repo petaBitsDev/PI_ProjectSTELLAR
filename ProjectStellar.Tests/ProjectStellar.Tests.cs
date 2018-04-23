@@ -108,9 +108,9 @@ namespace ProjectStellar
         public void when_a_building_is_detroy_remove_it_from_the_array_and_decrement_the_coumpteur()
         {
             Map map = new Map();
-            Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
-            House house = new House(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
-            Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
+            House house = new House(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
+            Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
 
 
 
@@ -148,9 +148,9 @@ namespace ProjectStellar
         public void the_dictionnary_of_building_is_update_as_it_should()
         {
             Map map = new Map();
-            Hut hut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
+            Hut hut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
 
-            Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
 
 
 
