@@ -119,7 +119,7 @@ namespace ProjectStellar
         {
             DrawMapTile(window, _ctx.Boxes);
             DrawGrid(window);
-            //DrawResourcesBar(window, _ctx.Resources);
+            //DrawResourcesBar(window, _ctx.NbResources);
         }
     }
 }
