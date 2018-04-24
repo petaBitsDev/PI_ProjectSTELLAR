@@ -83,7 +83,7 @@ namespace ProjectStellar
 
             window.Draw(rec);
         }
-
+        
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
             for (int x = 0; x < Width - 1; x++)
