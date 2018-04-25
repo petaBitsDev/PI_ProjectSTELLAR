@@ -69,26 +69,6 @@ namespace ProjectStellar
                 }
             }
         }
-        //, Dictionary<string,int> resources
-        public void DrawResourcesBar(RenderWindow window)
-        {
-            Sprite coinSprite = new Sprite(new Texture(_gameCtx._uiTextures[5]));
-            Sprite woodSprite = new Sprite(new Texture(_gameCtx._uiTextures[7]));
-            Sprite pollutionSprite = new Sprite(new Texture(_gameCtx._uiTextures[6]));
-
-            RectangleShape rec = new RectangleShape();
-            rec.OutlineColor = new Color(Color.Red);
-            rec.OutlineThickness = 2.0f;
-            rec.FillColor = new Color(Color.Transparent);
-            rec.Size = new Vector2f((Width - 1)*32, (1 * 32)+1);
-            rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32) + 1);
-
-            RenderSprite(coinSprite, window, (Width / 2 * 32) + 32, 0, 0, 0, 32, 32);
-            RenderSprite(woodSprite, window, (Width / 2 * 32) + 64, 0, 0, 0, 32, 32);
-            RenderSprite(pollutionSprite, window, (Width / 2 * 32) + 96, 0, 0, 0, 32, 32);
-
-            window.Draw(rec);
-        }
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
@@ -125,7 +105,7 @@ namespace ProjectStellar
         {
             DrawMapTile(window, _ctx.Boxes);
             DrawGrid(window);
-            DrawResourcesBar(window);
+            //DrawResourcesBar(window);
             //, _ctx.NbResources
         }
     }

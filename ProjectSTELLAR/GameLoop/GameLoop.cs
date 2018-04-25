@@ -2,6 +2,7 @@
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -10,13 +11,13 @@ namespace ProjectStellar
         public const int TARGET_FPS = 60;
         public const float TIME_UNTIL_UPDATE = 1f / TARGET_FPS;
 
-        public GameLoop(uint windowWidth, uint windowHeight, bool isFullscreen, string windowTitle, Color windowClearColor)
+        public GameLoop(Resolution resolution, bool isFullscreen, string windowTitle, Color windowClearColor)
         {
             this.WindowClearColor = windowClearColor;
             if (isFullscreen)
-                this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.None);
+                this.Window = new RenderWindow(new VideoMode(resolution.X, resolution.Y), windowTitle, Styles.None);
             else
-                this.Window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.Titlebar);
+                this.Window = new RenderWindow(new VideoMode(resolution.X, resolution.Y), windowTitle, Styles.Close);
             this.GameTime = new GameTime();
             Window.Closed += WindowClosed;
         }

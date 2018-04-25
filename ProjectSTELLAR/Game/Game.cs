@@ -6,6 +6,7 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -21,15 +22,13 @@ namespace ProjectStellar
         public Texture[] _uiTextures = new Texture[8];
         public int _state;
         Menu _menu;
-        uint _windowX;
-        uint _windowY;
+        Resolution _resolution;
 
-        public Game(int state, uint windowX, uint windowY, bool isFullscreen) : base(windowX, windowY, isFullscreen, WINDOW_TITLE, Color.Green)
+        public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
             //RenderWindow _window = new RenderWindow(new VideoMode(800, 600), "Project Stellar");
             MenuState = state;
-            _windowX = windowX;
-            _windowY = windowY;
+            _resolution = resolution;
         }
 
         public override void LoadContent()
@@ -57,7 +56,7 @@ namespace ProjectStellar
 
         public override void Initialize()
         {
-            _menu = new Menu(_windowX, _windowY, this);
+            _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
         }
 
