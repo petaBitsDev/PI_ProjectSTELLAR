@@ -71,7 +71,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                map.RenderGraphics(Window);
+                mapUI.RenderGraphics(Window);
                 _ui.Draw(Window, _font, gameTime.InGameTime);
             }
         }
