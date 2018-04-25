@@ -18,7 +18,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[4];
-        public Texture[] _uiTextures = new Texture[5];
+        public Texture[] _uiTextures = new Texture[8];
         public int _state;
         Menu _menu;
         uint _windowX;
@@ -50,7 +50,9 @@ namespace ProjectStellar
             _uiTextures[2] = new Texture("./resources/img/fast-forward.png");
             _uiTextures[3] = new Texture("./resources/img/crane.png");
             _uiTextures[4] = new Texture("./resources/img/trucking.png");
-
+            _uiTextures[5] = new Texture("./resources/img/dollar.png");
+            _uiTextures[6] = new Texture("./resources/img/radiation.png");
+            _uiTextures[7] = new Texture("./resources/img/wood.png");
         }
 
         public override void Initialize()
