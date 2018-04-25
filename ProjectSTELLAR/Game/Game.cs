@@ -60,7 +60,10 @@ namespace ProjectStellar
         public override void Update(GameTime gameTime)
         {
             if (_state == 0) _menu.CheckMouse(Window);
-            else if (_state == 1); // game
+            else if (_state == 1)
+            {
+                Console.WriteLine(gameTime.InGameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)
