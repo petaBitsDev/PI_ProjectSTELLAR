@@ -22,6 +22,9 @@ namespace ProjectStellar
         Menu _menu;
         uint _windowX;
         uint _windowY;
+        Map _ctx;
+        UI _ui;
+        Font _font;
 
         public Game(int state, uint windowX, uint windowY, bool isFullscreen) : base(windowX, windowY, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -43,12 +46,15 @@ namespace ProjectStellar
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
             _buildingsTextures[2] = new Texture("./resources/img/flat.png");
             _buildingsTextures[3] = new Texture("./resources/img/house.png");
+
+            _font = new Font("./resources/fonts/arial.ttf");
         }
 
         public override void Initialize()
         {
             _menu = new Menu(_windowX, _windowY, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
+            _ui = new UI();
         }
 
         public override void Update(GameTime gameTime)
@@ -63,7 +69,11 @@ namespace ProjectStellar
             MapUI mapUI = new MapUI(this, map, 20, 20);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
-            else if (MenuState == 1) mapUI.RenderGraphics(Window);
+            else if (MenuState == 1)
+            {
+                map.RenderGraphics(Window);
+                _ui.Draw(Window, _font, gameTime.InGameTime);
+            }
         }
 
         public int MenuState
