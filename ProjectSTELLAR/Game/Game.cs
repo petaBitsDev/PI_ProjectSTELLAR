@@ -23,6 +23,8 @@ namespace ProjectStellar
         public int _state;
         Menu _menu;
         Resolution _resolution;
+        UI _ui;
+        Font _font;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -52,12 +54,15 @@ namespace ProjectStellar
             _uiTextures[5] = new Texture("./resources/img/dollar.png");
             _uiTextures[6] = new Texture("./resources/img/radiation.png");
             _uiTextures[7] = new Texture("./resources/img/wood.png");
+
+            _font = new Font("./resources/fonts/arial.ttf");
         }
 
         public override void Initialize()
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
+            _ui = new UI();
         }
 
         public override void Update(GameTime gameTime)
@@ -73,6 +78,7 @@ namespace ProjectStellar
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1) drawUI.RenderGraphics(Window);
+                _ui.Draw(Window, _font, gameTime.InGameTime);
         }
 
         public int MenuState
