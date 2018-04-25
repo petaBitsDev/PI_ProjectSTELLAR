@@ -69,10 +69,10 @@ namespace ProjectStellar
         public override void Draw(GameTime gameTime)
         {
             Map map = new Map(20, 20);
-            MapUI mapUI = new MapUI(this, map, 20, 20);
+            DrawUI drawUI = new DrawUI(this, map, 20, 20, _resolution);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
-            else if (MenuState == 1) mapUI.RenderGraphics(Window);
+            else if (MenuState == 1) drawUI.RenderGraphics(Window);
         }
 
         public int MenuState

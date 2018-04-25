@@ -15,16 +15,18 @@ namespace ProjectStellar
     public class MapUI
     {
         Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
-        int _width;
-        int _height;
+        uint _width;
+        uint _height;
         Map _ctx;
         Game _gameCtx;
+        DrawUI _drawUIctx;
         DrawBuildings _drawBuildings;
 
-        public MapUI(Game context, Map ctx, int width, int height)
+        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI)
         {
             _gameCtx = context;
             _ctx = ctx;
+            _drawUIctx = drawUI;
             _width = width;
             _height = height;
             DrawBuildings _drawBuildings = new DrawBuildings(_gameCtx);
@@ -32,9 +34,9 @@ namespace ProjectStellar
 
         public Map MapContext => _ctx;
 
-        public int Width => _width;
+        public uint Width => _width;
 
-        public int Height => _height;
+        public uint Height => _height;
 
         public Game GameContext => _gameCtx;
 
@@ -48,7 +50,7 @@ namespace ProjectStellar
 
         public static Rect TileView;
 
-        static void DrawGrid(RenderWindow window)
+        public void DrawGrid(RenderWindow window)
         {
             TileView.Top = 0;
             TileView.Bottom = 10;
@@ -72,11 +74,11 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
-            for (int x = 0; x < Width - 1; x++)
+            for (uint x = 0; x < Width - 1; x++)
             {
-                for (int y = 0; y < Height - 1; y++)
+                for (uint y = 0; y < Height - 1; y++)
                 {
-                    RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                 }
             }
 
@@ -91,22 +93,6 @@ namespace ProjectStellar
                     }
                 }
             }
-        }
-
-        public static void RenderSprite
-            (Sprite tmpSprite, RenderWindow target, int destX, int destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
-        {
-            tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
-            tmpSprite.Position = new Vector2f(destX, destY);
-            target.Draw(tmpSprite);
-        }
-
-        public void RenderGraphics(RenderWindow window)
-        {
-            DrawMapTile(window, _ctx.Boxes);
-            DrawGrid(window);
-            //DrawResourcesBar(window);
-            //, _ctx.NbResources
         }
     }
 }
