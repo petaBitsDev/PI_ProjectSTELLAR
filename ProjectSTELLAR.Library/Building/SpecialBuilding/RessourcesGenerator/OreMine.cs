@@ -15,5 +15,6 @@ namespace ProjectStellar
         }
 
         static public int Pollution => 10;
+        static public int RockProduction => 140;
     }
 }
