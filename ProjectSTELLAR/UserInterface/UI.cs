@@ -72,11 +72,11 @@ namespace ProjectStellar
         /// <param name="window">The window.</param>
         public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
-            //, Dictionary<string,int> resources
             Sprite coinSprite = new Sprite(_ctx._uiTextures[5]);
             Sprite woodSprite = new Sprite(_ctx._uiTextures[7]);
             Sprite pollutionSprite = new Sprite(_ctx._uiTextures[6]);
 
+            //Creates resources bar
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Red);
             rec.OutlineThickness = 2.0f;
@@ -84,6 +84,7 @@ namespace ProjectStellar
             rec.Size = new Vector2f((Width - 1) * _boxSize, (1 * _boxSize) + 1);
             rec.Position = new Vector2f((0 * _boxSize), (0 * _boxSize) + 1);
 
+            //Displays Coins Sprite and number of coins
             _drawUIctx.RenderSprite(coinSprite, window, (Width / 2 * _boxSize) + _boxSize, 0, 0, 0, (int)_boxSize, (int)_boxSize);
             Text nbCoins = new Text(resources["coins"].ToString(), font);
             nbCoins.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 2, 0);
@@ -92,6 +93,7 @@ namespace ProjectStellar
             nbCoins.Style = Text.Styles.Bold;
             nbCoins.Draw(window, RenderStates.Default);
 
+            //Displays Wood Sprite and number of wood
             _drawUIctx.RenderSprite(woodSprite, window, (Width / 2 * _boxSize) + _boxSize * 3, 0, 0, 0, (int)_boxSize, (int)_boxSize);
             Text nbWood = new Text(resources["wood"].ToString(), font);
             nbWood.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 4, 0);
@@ -100,6 +102,7 @@ namespace ProjectStellar
             nbWood.Style = Text.Styles.Bold;
             nbWood.Draw(window, RenderStates.Default);
             
+            //Displays Pollution Sprite and number
             _drawUIctx.RenderSprite(pollutionSprite, window, (Width / 2 * _boxSize) + _boxSize * 5, 0, 0, 0, (int)_boxSize, (int)_boxSize);
             Text nbPollution = new Text(resources["pollution"].ToString(), font);
             nbPollution.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 6, 0);
@@ -109,7 +112,6 @@ namespace ProjectStellar
             nbPollution.Draw(window, RenderStates.Default);
 
             window.Draw(rec);
-            //DrawTime(window, font, time);
         }
 
         public void DrawTimeBar(RenderWindow window, GameTime gameTime, Font font)

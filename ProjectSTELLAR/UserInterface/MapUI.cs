@@ -58,9 +58,9 @@ namespace ProjectStellar
             TileView.Right = 10;
 
             RectangleShape rec = new RectangleShape();
-            for (int x = TileView.Left; x < 20; x++)
+            for (int x = TileView.Left; x < Width; x++)
             {
-                for (int y = TileView.Top; y < 20; y++)
+                for (int y = TileView.Top; y < Height; y++)
                 {
                     rec.OutlineColor = new Color(Color.Black);
                     rec.OutlineThickness = 1.0f;

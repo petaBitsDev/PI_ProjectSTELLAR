@@ -48,7 +48,6 @@ namespace ProjectStellar
             _mapUI.DrawGrid(window);
             _ui.DrawResourcesBar(window, font, _resourcesCtx.NbResources);
             _ui.DrawTimeBar(window, _gameTime, font);
-            //, _ctx.NbResources
         }
     }
 }
