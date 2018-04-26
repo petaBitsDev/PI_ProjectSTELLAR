@@ -9,7 +9,8 @@ namespace ProjectStellar
     public class GameTime
     {
         private float _deltaTime = 0f;
-        private float _timeScale = 1f;
+        private float _timeScale = 2500f;
+        private DateTime _inGameTime = new DateTime(2018, 4, 23, 11, 23, 00);
 
         public GameTime()
         {
@@ -38,6 +39,10 @@ namespace ProjectStellar
         {
             _deltaTime = deltaTime;
             TotalTimeElapsed = totalTimeElapsed;
+
+            _inGameTime = _inGameTime.AddSeconds((double)(_deltaTime * _timeScale));
         }
+
+        public DateTime InGameTime => _inGameTime;
     }
 }

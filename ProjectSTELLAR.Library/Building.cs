@@ -72,11 +72,11 @@ namespace ProjectStellar
         public bool IsFlammable => _isFlammable;
 
 
-        public void Destroy()
-        {
-            if (!_isBuild) throw new ArgumentException("You can't destroy a building that haven't been built", nameof(_isBuild));
-            _isBuild = false;
-        }
+        //public void Destroy()
+        //{
+        //    if (!_isBuild) throw new ArgumentException("You can't destroy a building that haven't been built", nameof(_isBuild));
+        //    _isBuild = false;
+        //}
       
     }
 }
