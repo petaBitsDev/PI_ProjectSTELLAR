@@ -59,10 +59,18 @@ namespace ProjectStellar
 
         public override void Update(GameTime gameTime)
         {
+
+            ResourcesManager _resourcesManager = new ResourcesManager(_ctx);
             if (_state == 0) _menu.CheckMouse(Window);
             else if (_state == 1)
             {
-                Console.WriteLine(gameTime.InGameTime);
+              
+                    if(gameTime.InGameTime.Minute == 00)
+                    {
+                            _resourcesManager.UpdateResources();
+                       
+                    }
+                
             }
         }
 

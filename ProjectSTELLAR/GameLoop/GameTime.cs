@@ -9,7 +9,7 @@ namespace ProjectStellar
     public class GameTime
     {
         private float _deltaTime = 0f;
-        private float _timeScale = 3f;
+        private float _timeScale = 2500f;
         private DateTime _inGameTime = new DateTime(2018, 4, 23, 11, 23, 00);
 
         public GameTime()
