@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using ProjectStellar.Library;
+using SFML.Window;
+using System.Windows.Input;
+using System.Windows.Forms;
 
 namespace ProjectStellar
 {
@@ -128,6 +131,41 @@ namespace ProjectStellar
             _fastForward.Draw(window, RenderStates.Default);
 
             Time.Draw(window, RenderStates.Default);
+        }
+        private bool MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void DrawBuildButton(RenderWindow window)
+        {
+            Sprite buildButton = new Sprite(_ctx._uiTextures[3]);
+            bool isSelected = false;
+
+            _drawUIctx.RenderSprite(buildButton, window, (Width * 32 - _boxSize * 4), (Height * 32 - _boxSize * 4), 0, 0, 64, 64);
+
+            if(buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    isSelected = true;
+                }
+                if (isSelected)
+                {
+                    RectangleShape rec = new RectangleShape();
+                    rec.OutlineColor = new Color(Color.Black);
+                    rec.OutlineThickness = 3.0f;
+                    rec.FillColor = new Color(Color.White);
+                    rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
+                    rec.Position = new Vector2f(Width / 2 * _boxSize, Height / 2 * _boxSize);
+
+                    window.Draw(rec);
+                }
+            }
         }
     }
 }
