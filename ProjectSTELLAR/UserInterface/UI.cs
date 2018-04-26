@@ -22,6 +22,11 @@ namespace ProjectStellar
         uint _height;
         uint _boxSize = 32;
 
+        Sprite _play;
+        Sprite _pause;
+        Sprite _fastForward;
+        RectangleShape _rectangleTimeBar;
+
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
@@ -32,6 +37,29 @@ namespace ProjectStellar
             _width = width;
             _resolution = resolution;
             _drawUIctx = drawUI;
+
+            _play = new Sprite(_ctx._uiTextures[0])
+            {
+                Position = new Vector2f(64, _resolution.Y - 32),
+                //Scale = new Vector2f(_resolution.X / 33.75f)
+            };
+            _pause = new Sprite(_ctx._uiTextures[1])
+            {
+                Position = new Vector2f(10, _resolution.Y - 32),
+                //Scale = new Vector2f(_resolution.X / 33.75f)
+            };
+            _fastForward = new Sprite(_ctx._uiTextures[2])
+            {
+                Position = new Vector2f(128, _resolution.Y - 32),
+                //Scale = new Vector2f(_resolution.X / 33.75f)
+            };
+
+            _rectangleTimeBar = new RectangleShape()
+            {
+                FillColor = Color.White,
+                Size = new Vector2f(300, 100),
+                Position = new Vector2f(0, _resolution.Y - 100)
+            };
         }
 
         public uint Width => _width;
@@ -43,10 +71,12 @@ namespace ProjectStellar
         /// </summary>
         /// <param name="window">The window.</param>
         public void DrawResourcesBar(RenderWindow window, DateTime time, Font font, Dictionary<string, int> resources)
+        public void DrawResourcesBar(RenderWindow window, Font font)
         {
-            Sprite coinSprite = new Sprite(new Texture(_ctx._uiTextures[5]));
-            Sprite woodSprite = new Sprite(new Texture(_ctx._uiTextures[7]));
-            Sprite pollutionSprite = new Sprite(new Texture(_ctx._uiTextures[6]));
+            //, Dictionary<string,int> resources
+            Sprite coinSprite = new Sprite(_ctx._uiTextures[5]);
+            Sprite woodSprite = new Sprite(_ctx._uiTextures[7]);
+            Sprite pollutionSprite = new Sprite(_ctx._uiTextures[6]);
 
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Red);
@@ -80,12 +110,22 @@ namespace ProjectStellar
             nbPollution.Draw(window, RenderStates.Default);
 
             window.Draw(rec);
-            DrawTime(window, font, time);
+            //DrawTime(window, font, time);
         }
 
-        static void DrawTime(RenderWindow window, Font font, DateTime time)
+        public void DrawTimeBar(RenderWindow window, GameTime gameTime, Font font)
         {
-            Text Time = new Text(time.ToString(), font);
+            Text Time = new Text(gameTime.InGameTime.ToString("dd/MM/yyyy HH:mm"), font)
+            {
+                Position = new Vector2f(0, _resolution.Y - 96),
+                Color = Color.Black
+            };
+
+            _rectangleTimeBar.Draw(window, RenderStates.Default);
+            _pause.Draw(window, RenderStates.Default);
+            _play.Draw(window, RenderStates.Default);
+            _fastForward.Draw(window, RenderStates.Default);
+
             Time.Draw(window, RenderStates.Default);
         }
     }
