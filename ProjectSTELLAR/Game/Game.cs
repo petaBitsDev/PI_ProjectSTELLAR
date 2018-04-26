@@ -23,12 +23,10 @@ namespace ProjectStellar
         public int _state;
         Menu _menu;
         Resolution _resolution;
-        UI _ui;
         Font _font;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
-            //RenderWindow _window = new RenderWindow(new VideoMode(800, 600), "Project Stellar");
             MenuState = state;
             _resolution = resolution;
         }
@@ -62,7 +60,6 @@ namespace ProjectStellar
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _ui = new UI();
         }
 
         public override void Update(GameTime gameTime)
@@ -74,11 +71,10 @@ namespace ProjectStellar
         public override void Draw(GameTime gameTime)
         {
             Map map = new Map(20, 20);
-            DrawUI drawUI = new DrawUI(this, map, 20, 20, _resolution);
+            DrawUI drawUI = new DrawUI(this, map, 20, 20, _resolution, gameTime);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
-            else if (MenuState == 1) drawUI.RenderGraphics(Window);
-                _ui.Draw(Window, _font, gameTime.InGameTime);
+            else if (MenuState == 1) drawUI.RenderGraphics(Window, _font);
         }
 
         public int MenuState

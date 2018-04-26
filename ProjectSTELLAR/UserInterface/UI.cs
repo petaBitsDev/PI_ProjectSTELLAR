@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
@@ -11,6 +13,7 @@ namespace ProjectStellar
 {
     class UI
     {
+        CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
         Game _ctx;
         DrawUI _drawUIctx;
         Resolution _resolution;
@@ -19,6 +22,7 @@ namespace ProjectStellar
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
             _drawUIctx = drawUI;
             _height = height;
@@ -35,7 +39,7 @@ namespace ProjectStellar
         /// Draws the resources bar.
         /// </summary>
         /// <param name="window">The window.</param>
-        public void DrawResourcesBar(RenderWindow window)
+        public void DrawResourcesBar(RenderWindow window, DateTime time, Font font)
         {
             //, Dictionary<string,int> resources
             Sprite coinSprite = new Sprite(new Texture(_ctx._uiTextures[5]));
@@ -54,7 +58,13 @@ namespace ProjectStellar
             _drawUIctx.RenderSprite(pollutionSprite, window, (Width / 2 * 32) + 96, 0, 0, 0, 32, 32);
 
             window.Draw(rec);
+            DrawTime(window, font, time);
         }
 
+        static void DrawTime(RenderWindow window, Font font, DateTime time)
+        {
+            Text Time = new Text(time.ToString(), font);
+            Time.Draw(window, RenderStates.Default);
+        }
     }
 }
