@@ -8,22 +8,16 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
         public class CityManager
-    {
+        {
         int _totalCharges;
         int _totalPollution;
         int _totalTaxes ;
         Map _ctx;
-        
-        
-
-
 
         public CityManager(Map ctx)
         {
             _ctx = ctx;
         }
-
-
 
         public int CityBalance
         {
@@ -33,6 +27,7 @@ namespace ProjectStellar
         {
             get { return _totalCharges = (SpaceStation.Charges * NbSpaceStation) + (PumpingStation.Charges * NbPumpingStation) + (PowerPlant.Charges * NbPowerPlant) + (PoliceStation.Charges * NbPoliceStation) + (Hospital.Charges * NbHospital) + (FireStation.Charges * NbFireStation) + (CityHall.Charges * NbCityHall); }
         }
+
         public int CityTaxes
         {
             get { return _totalTaxes = (Hut.Tax * NbHut) + (House.Tax * NbHouse) + (Flat.Tax * NbFlat);  }
@@ -48,7 +43,6 @@ namespace ProjectStellar
         {
             get
             {
-                
                 _ctx.NbBuilding.TryGetValue("hut", out int nbHut);
                 return nbHut;
             }

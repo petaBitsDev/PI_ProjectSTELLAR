@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using ProjectStellar.Library;
+using System.Collections;
 
 namespace ProjectStellar
 {
@@ -14,15 +15,17 @@ namespace ProjectStellar
         Game _gameCtx;
         Map _mapCtx;
         MapUI _mapUI;
+        ResourcesManager _resourcesCtx;
         UI _ui;
         uint _width;
         uint _height;
         GameTime _gameTime;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager)
         {
             _gameCtx = context;
             _mapCtx = ctx;
+            _resourcesCtx = resourcesManager;
             _width = width;
             _height = height;
             _gameTime = gameTime;
@@ -43,8 +46,7 @@ namespace ProjectStellar
         {
             _mapUI.DrawMapTile(window, _mapCtx.Boxes);
             _mapUI.DrawGrid(window);
-            _ui.DrawResourcesBar(window, _gameTime.InGameTime, font);
-            //, _mapCtx.NbResources
+            _ui.DrawResourcesBar(window, _gameTime.InGameTime, font, _resourcesCtx.NbResources);
         }
     }
 }

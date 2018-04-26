@@ -14,12 +14,15 @@ namespace ProjectStellar
         public ResourcesManager(Map ctx)
         {
             _ctx = ctx;
+            _nbResources.Add("wood", 500);
+            _nbResources.Add("rock", 500);
+            _nbResources.Add("metal", 150);
+            _nbResources.Add("coins", 5000);
+            _nbResources.Add("pollution", 0);
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
-
-       
-
+        
         public void UpdateResources()
         {
             CityManager cityManager = new CityManager(_ctx);
@@ -50,6 +53,15 @@ namespace ProjectStellar
             else
             {
                 _nbResources["metal"] += (MetalMine.MetalProduction * cityManager.NbMetalMine);
+            }
+
+            if (!_nbResources.ContainsKey("coins"))
+            {
+                _nbResources.Add("coins", 5000);
+            }
+            else
+            {
+                _nbResources["coins"] += cityManager.CityBalance;
             }
         }
     }
