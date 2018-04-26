@@ -13,7 +13,8 @@ namespace ProjectStellar
         int _totalPollution;
         int _totalTaxes ;
         Map _ctx;
-      public  Dictionary<string, int> _nbResources = new Dictionary<string, int>();
+        
+        
 
 
 
@@ -144,7 +145,7 @@ namespace ProjectStellar
                 return nbCityHall;
             }
         }
-        private int NbMetalMine
+        internal  int NbMetalMine
         {
             get
             {
@@ -153,7 +154,7 @@ namespace ProjectStellar
             }
         }
 
-        private int NbOreMine
+        internal  int NbOreMine
         {
             get
             {
@@ -162,7 +163,7 @@ namespace ProjectStellar
             }
         }
 
-        private int NbSawMill
+        internal  int NbSawMill
         {
             get
             {
@@ -171,5 +172,6 @@ namespace ProjectStellar
             }
         }
 
+    
     }
 }

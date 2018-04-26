@@ -64,8 +64,19 @@ namespace ProjectStellar
 
         public override void Update(GameTime gameTime)
         {
+
+            ResourcesManager _resourcesManager = new ResourcesManager(_ctx);
             if (_state == 0) _menu.CheckMouse(Window);
-            else if (_state == 1); // game
+            else if (_state == 1)
+            {
+              
+                    if(gameTime.InGameTime.Minute == 00)
+                    {
+                            _resourcesManager.UpdateResources();
+                       
+                    }
+                
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -74,7 +85,11 @@ namespace ProjectStellar
             DrawUI drawUI = new DrawUI(this, map, 20, 20, _resolution, gameTime);
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
-            else if (MenuState == 1) drawUI.RenderGraphics(Window, _font);
+            else if (MenuState == 1)
+            {
+                mapUI.RenderGraphics(Window);
+                _ui.Draw(Window, _font, gameTime.InGameTime);
+            }
         }
 
         public int MenuState
