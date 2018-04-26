@@ -70,8 +70,7 @@ namespace ProjectStellar
         /// Draws the resources bar.
         /// </summary>
         /// <param name="window">The window.</param>
-        public void DrawResourcesBar(RenderWindow window, DateTime time, Font font, Dictionary<string, int> resources)
-        public void DrawResourcesBar(RenderWindow window, Font font)
+        public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
             //, Dictionary<string,int> resources
             Sprite coinSprite = new Sprite(_ctx._uiTextures[5]);
