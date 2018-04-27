@@ -14,7 +14,7 @@ namespace ProjectStellar
 {
     public class MapUI
     {
-        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png")));
+        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
         uint _width;
         uint _height;
         Map _ctx;
@@ -65,8 +65,8 @@ namespace ProjectStellar
                     rec.OutlineColor = new Color(Color.Black);
                     rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
-                    rec.Size = new Vector2f((x * 32), (y * 32));
-                    rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32) + 1);
+                    rec.Size = new Vector2f(32, 32);
+                    rec.Position = new Vector2f((x * 32), (y * 32));
                     window.Draw(rec);
                 }
             }

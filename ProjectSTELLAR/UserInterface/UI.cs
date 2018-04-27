@@ -6,11 +6,13 @@ using SFML.Graphics;
 using SFML.System;
 using ProjectStellar.Library;
 using SFML.Window;
+using System.Collections.Generic;
 
 namespace ProjectStellar
 {
     class UI
     {
+        List<Sprite> _sprites;
         CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
         Game _ctx;
         DrawUI _drawUIctx;
@@ -35,6 +37,8 @@ namespace ProjectStellar
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height)
         {
+            _sprites = new List<Sprite>();
+
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
             _drawUIctx = drawUI;
@@ -50,11 +54,13 @@ namespace ProjectStellar
                 Position = new Vector2f(64, _resolution.Y - 32),
                 //Scale = new Vector2f(_resolution.X / 33.75f)
             };
+
             _pause = new Sprite(_ctx._uiTextures[1])
             {
                 Position = new Vector2f(10, _resolution.Y - 32),
                 //Scale = new Vector2f(_resolution.X / 33.75f)
             };
+
             _fastForward = new Sprite(_ctx._uiTextures[2])
             {
                 Position = new Vector2f(128, _resolution.Y - 32),
@@ -72,26 +78,32 @@ namespace ProjectStellar
             {
                 Position = new Vector2f((width / 2 * _boxSize) + _boxSize, 0)
             };
+
             _woodSprite = new Sprite(_ctx._uiTextures[7])
             {
                 Position = new Vector2f((width / 2 * _boxSize) + _boxSize * 3, 0)
             };
+
             _pollutionSprite = new Sprite(_ctx._uiTextures[6])
             {
                 Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 5, 0)
             };
+
             _buildButton = new Sprite(_ctx._uiTextures[3])
             {
                 Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 5))
             };
+
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
                 Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5))
             };
+
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
             {
                 Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 5))
             };
+
             _houseSprite = new Sprite(_ctx._buildingsTextures[3])
             {
                 Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 5))
@@ -108,7 +120,6 @@ namespace ProjectStellar
         /// <param name="window">The window.</param>
         public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
-
             //Creates resources bar
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Red);
@@ -224,6 +235,7 @@ namespace ProjectStellar
             Vector2f position;
             Vector2i pos = Mouse.GetPosition(window);
             position = new Vector2f((float)pos.X, (float)pos.Y);
+
             return position;
         }
 

@@ -31,7 +31,6 @@ namespace ProjectStellar
             _gameTime = gameTime;
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this);
             _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height);
-
         }
 
         public void RenderSprite
