@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using ProjectStellar.Library;
+using SFML.Window;
 
 namespace ProjectStellar
 {
@@ -19,6 +20,7 @@ namespace ProjectStellar
         Resolution _resolution;
         uint _width;
         uint _height;
+        bool _isHovering;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height)
         {
@@ -29,6 +31,8 @@ namespace ProjectStellar
             _width = width;
             _resolution = resolution;
             _drawUIctx = drawUI;
+            Sprite destroy = new Sprite(new Texture(_ctx._uiTextures[4]));
+
         }
 
         public uint Width => _width;
@@ -61,6 +65,32 @@ namespace ProjectStellar
             DrawTime(window, font, time);
         }
 
+        public void DrawDestructionButton(RenderWindow window, Font font)
+        {
+            //, Dictionary<string,int> resources
+            //Sprite destroy = new Sprite(new Texture(_ctx._uiTextures[4]));
+
+            RectangleShape rec = new RectangleShape();
+            rec.OutlineColor = new Color(Color.Blue);
+            rec.OutlineThickness = 2.0f;
+            rec.FillColor = new Color(Color.Transparent);
+          
+            _drawUIctx.RenderSprite(destroy, window,  760, 64, 0, 0, 32, 32);
+
+            Console.WriteLine(destroy.Position.X);
+            Console.WriteLine(destroy.Position.Y);
+            Console.WriteLine("souris"+Mouse.GetPosition());
+
+
+            window.Draw(rec);
+           
+        }
+
+        public void CheckMouseForDestruction(RenderWindow renderwindow)
+        {
+            _isHovering = false;
+           
+        }
         static void DrawTime(RenderWindow window, Font font, DateTime time)
         {
             Text Time = new Text(time.ToString(), font);
