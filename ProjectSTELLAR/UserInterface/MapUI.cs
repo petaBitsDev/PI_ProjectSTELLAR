@@ -14,7 +14,7 @@ namespace ProjectStellar
 {
     public class MapUI
     {
-        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png")));
         uint _width;
         uint _height;
         Map _ctx;
