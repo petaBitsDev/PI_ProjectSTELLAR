@@ -134,27 +134,23 @@ namespace ProjectStellar
 
             Time.Draw(window, RenderStates.Default);
         }
-        private bool MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                return true;
-            }
-            return false;
-        }
 
         public void DrawBuildButton(RenderWindow window)
         {
             Sprite buildButton = new Sprite(_ctx._uiTextures[3]);
+            Sprite flatSprite = new Sprite(_ctx._buildingsTextures[2]);
+            Sprite hutSprite = new Sprite(_ctx._buildingsTextures[1]);
+            Sprite houseSprite = new Sprite(_ctx._buildingsTextures[3]);
+
 
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Black);
             rec.OutlineThickness = 3.0f;
             rec.FillColor = new Color(Color.White);
             rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
-            rec.Position = new Vector2f((Width * 32 - _boxSize * 4), (Height * 32 - _boxSize * 4));
+            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5));
 
-            _drawUIctx.RenderSprite(buildButton, window, (Width * 32 - _boxSize * 4), (Height * 32 - _boxSize * 4), 0, 0, 64, 64);
+            _drawUIctx.RenderSprite(buildButton, window, (Width * 32 + _boxSize), (Height * 32 - _boxSize * 5), 0, 0, 64, 64);
 
             if(buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
@@ -170,6 +166,9 @@ namespace ProjectStellar
                 if (rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     window.Draw(rec);
+                    _drawUIctx.RenderSprite(hutSprite, window, (Width * 32 + _boxSize), (Height * 32 - _boxSize * 5), 0, 0, 32, 32);
+                    _drawUIctx.RenderSprite(houseSprite, window, (Width * 32 + _boxSize + 32), (Height * 32 - _boxSize * 5), 0, 0, 32, 32);
+                    _drawUIctx.RenderSprite(flatSprite, window, (Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 5), 0, 0, 32, 32);
                 }
                 else _buildSelected = false;
             }

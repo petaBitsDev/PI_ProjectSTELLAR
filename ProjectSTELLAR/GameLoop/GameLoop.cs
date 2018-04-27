@@ -47,7 +47,7 @@ namespace ProjectStellar
             float previousTimeElapsed = 0f;
             float deltaTime = 0f;
             float totalTimeElapsed = 0f;
-
+            
             Clock clock = new Clock();
 
             while (Window.IsOpen)
