@@ -24,6 +24,7 @@ namespace ProjectStellar
         uint _width;
         uint _height;
         uint _boxSize = 32;
+        bool _buildSelected;
 
         Sprite _play;
         Sprite _pause;
@@ -40,6 +41,7 @@ namespace ProjectStellar
             _width = width;
             _resolution = resolution;
             _drawUIctx = drawUI;
+            _buildSelected = false;
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
@@ -144,7 +146,13 @@ namespace ProjectStellar
         public void DrawBuildButton(RenderWindow window)
         {
             Sprite buildButton = new Sprite(_ctx._uiTextures[3]);
-            bool isSelected = false;
+
+            RectangleShape rec = new RectangleShape();
+            rec.OutlineColor = new Color(Color.Black);
+            rec.OutlineThickness = 3.0f;
+            rec.FillColor = new Color(Color.White);
+            rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
+            rec.Position = new Vector2f((Width * 32 - _boxSize * 4), (Height * 32 - _boxSize * 4));
 
             _drawUIctx.RenderSprite(buildButton, window, (Width * 32 - _boxSize * 4), (Height * 32 - _boxSize * 4), 0, 0, 64, 64);
 
@@ -152,19 +160,18 @@ namespace ProjectStellar
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    isSelected = true;
+                    _buildSelected = true;
                 }
-                if (isSelected)
-                {
-                    RectangleShape rec = new RectangleShape();
-                    rec.OutlineColor = new Color(Color.Black);
-                    rec.OutlineThickness = 3.0f;
-                    rec.FillColor = new Color(Color.White);
-                    rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
-                    rec.Position = new Vector2f(Width / 2 * _boxSize, Height / 2 * _boxSize);
 
+            }
+            if (_buildSelected)
+            {
+                window.Draw(rec);
+                if (rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
                     window.Draw(rec);
                 }
+                else _buildSelected = false;
             }
         }
     }

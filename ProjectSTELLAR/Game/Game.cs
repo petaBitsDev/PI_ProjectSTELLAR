@@ -81,11 +81,12 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-            _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager);
+
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager);
                 _drawUI.RenderGraphics(Window, _font);
             }
         }
