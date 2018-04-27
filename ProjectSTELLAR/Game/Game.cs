@@ -27,6 +27,7 @@ namespace ProjectStellar
         Map _map;
         DrawUI _drawUI;
         ResourcesManager _resourcesManager;
+        MapUI _mapUI;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -88,6 +89,7 @@ namespace ProjectStellar
             {
                 if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager);
                 _drawUI.RenderGraphics(Window, _font);
+                _mapUI = _drawUI.MapUI;
             }
         }
 
@@ -95,6 +97,20 @@ namespace ProjectStellar
         {
             get { return _state; }
             set { _state = value; }
+        }
+
+        public override void CheckClic(float x, float y)
+        {
+            if (MenuState != 0)
+            {
+                if (CheckMap(x, y)) Console.WriteLine("a");
+                Console.WriteLine("b");
+            }
+        }
+
+        public bool CheckMap(float x, float y)
+        {
+            return (_mapUI.CheckMap(x, y));
         }
     }
 }

@@ -21,6 +21,7 @@ namespace ProjectStellar
         Game _gameCtx;
         DrawUI _drawUIctx;
         DrawBuildings _drawBuildings;
+        Cases[] _cases;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI)
         {
@@ -56,8 +57,11 @@ namespace ProjectStellar
             TileView.Bottom = 10;
             TileView.Left = 0;
             TileView.Right = 10;
+            int i = 0;
 
             RectangleShape rec = new RectangleShape();
+            _cases = new Cases[Width * Height];
+
             for (int x = TileView.Left; x < Width; x++)
             {
                 for (int y = TileView.Top; y < Height; y++)
@@ -65,9 +69,10 @@ namespace ProjectStellar
                     rec.OutlineColor = new Color(Color.Black);
                     rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
-                    rec.Size = new Vector2f((x * 32), (y * 32));
-                    rec.Position = new Vector2f((TileView.Left * 32), (TileView.Top * 32) + 1);
+                    rec.Size = new Vector2f(32, 32);
+                    rec.Position = new Vector2f(x * 32, y* 32);
                     window.Draw(rec);
+                    _cases[i++] = new Cases(rec, x, y);
                 }
             }
         }
@@ -93,6 +98,28 @@ namespace ProjectStellar
                     }
                 }
             }
+        }
+
+        public bool CheckMap(float X, float Y)
+        {
+            for (int i = 0; i < _cases.Length; i++)
+            {
+                if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
+                {
+                    Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
+                    return true;
+                }
+            }
+
+            for (int x = 0; x <= 1280; x++)
+            {
+                for (int y = 0; y <= 720; y++)
+                {
+                    if (_cases[0].Rec.GetGlobalBounds().Contains(x, y) == true) Console.WriteLine("true");
+                }
+            }
+
+            return false;
         }
     }
 }

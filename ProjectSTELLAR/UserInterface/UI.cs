@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace ProjectStellar
 {
-    class UI
+    public class UI
     {
         CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
         Game _ctx;

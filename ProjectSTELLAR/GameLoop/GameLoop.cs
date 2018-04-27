@@ -20,6 +20,7 @@ namespace ProjectStellar
                 this.Window = new RenderWindow(new VideoMode(resolution.X, resolution.Y), windowTitle, Styles.Close);
             this.GameTime = new GameTime();
             Window.Closed += WindowClosed;
+            Window.MouseButtonPressed += MouseClicked;
         }
 
         public RenderWindow Window {
@@ -78,10 +79,19 @@ namespace ProjectStellar
         public abstract void Initialize();
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(GameTime gameTime);
+        public abstract void CheckClic(float x, float y);
 
         private void WindowClosed(object sender, EventArgs e)
         {
             Window.Close();
+        }
+
+        private void MouseClicked(object sender, EventArgs e)
+        {
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                CheckClic((float)Mouse.GetPosition(Window).X, (float)Mouse.GetPosition(Window).Y);
+            }
         }
     }
 }
