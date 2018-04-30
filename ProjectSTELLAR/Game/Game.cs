@@ -104,7 +104,6 @@ namespace ProjectStellar
             if (MenuState != 0)
             {
                 if (CheckMap(x, y)) Console.WriteLine("a");
-                Console.WriteLine("b");
             }
         }
 
