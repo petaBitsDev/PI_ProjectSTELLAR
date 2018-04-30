@@ -141,8 +141,8 @@ namespace ProjectStellar
             rec.OutlineColor = new Color(Color.Red);
             rec.OutlineThickness = 2.0f;
             rec.FillColor = new Color(Color.Transparent);
-            rec.Size = new Vector2f((Width) * _boxSize, (1 * _boxSize) + 1);
-            rec.Position = new Vector2f((0 * _boxSize), (0 * _boxSize) + 1);
+            rec.Size = new Vector2f((Width) * _boxSize, (1 * _boxSize));
+            rec.Position = new Vector2f((0 * _boxSize), (0 * _boxSize));
 
             //Displays Coins Sprite and number of coins
             _coinSprite.Draw(window, RenderStates.Default);
