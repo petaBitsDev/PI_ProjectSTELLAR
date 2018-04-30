@@ -20,7 +20,7 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[4];
         public Texture[] _uiTextures = new Texture[8];
-        public int _state;
+        int _state;
         Menu _menu;
         Resolution _resolution;
         Font _font;
@@ -28,6 +28,7 @@ namespace ProjectStellar
         DrawUI _drawUI;
         ResourcesManager _resourcesManager;
         MapUI _mapUI;
+        WindowEvents _windowEvents;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -66,6 +67,10 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
+
+            _windowEvents = new WindowEvents(Window, this);
+            Window.Closed += _windowEvents.WindowClosed;
+            Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
 
         public override void Update(GameTime gameTime)
@@ -89,7 +94,8 @@ namespace ProjectStellar
             {
                 if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager);
                 _drawUI.RenderGraphics(Window, _font);
-                _mapUI = _drawUI.MapUI;
+                _windowEvents.MapUI = _drawUI.MapUI;
+                _windowEvents.UI = _drawUI.UI;
             }
         }
 
@@ -97,19 +103,6 @@ namespace ProjectStellar
         {
             get { return _state; }
             set { _state = value; }
-        }
-
-        public override void CheckClic(float x, float y)
-        {
-            if (MenuState != 0)
-            {
-                if (CheckMap(x, y)) Console.WriteLine("a");
-            }
-        }
-
-        public bool CheckMap(float x, float y)
-        {
-            return (_mapUI.CheckMap(x, y));
         }
     }
 }
