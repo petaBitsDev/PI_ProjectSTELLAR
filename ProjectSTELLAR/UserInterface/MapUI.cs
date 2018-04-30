@@ -80,9 +80,9 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
-            for (uint x = 0; x < Width - 1; x++)
+            for (uint x = 0; x < Width; x++)
             {
-                for (uint y = 0; y < Height - 1; y++)
+                for (uint y = 0; y < Height; y++)
                 {
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                 }
