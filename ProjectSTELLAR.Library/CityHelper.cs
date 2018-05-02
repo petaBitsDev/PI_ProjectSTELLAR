@@ -28,20 +28,20 @@ namespace ProjectStellar
        {
            _map = map;
 
-             metalMine = new MetalMine(_map, 50, 60, 30, 0, 45, 30, 15, 20, false, 0, false);
-            oreMine = new OreMine(_map, 0, 80, 50, 10, 45, 30, 15, 20, false, 0, false);
-             sawMill = new Sawmill(_map, 50, 0, 50, 10, 45, 30, 15, 20, false, 0, false);
-             cityHall = new CityHall(_map, 90, 120, 85, 60, 30, 30, 0, 50, true, 200, false);
-            fireStation = new FireStation(_map, 60, 25, 80, 75, 60, 70, 35, 25, true, 55, false);
-            hospital = new Hospital(_map, 59, 80, 80, 60, 55, 75, 10, 30, true, 100, false);
-            policeStation = new PoliceStation(_map, 70, 45, 60, 70, 35, 45, 25, 25, true, 40, false);
-            powerPlant = new PowerPlant(_map, 25, 38, 30, 17, 10, 0, 20, 25, true, 20, true);
-             pumpingStation = new PumpingStation(_map, 25, 38, 30, 17, 0, 10, 20, 25, true, 20, true);
-             spaceStation = new SpaceStation(_map, 85, 120, 250, 45, 50, 40, 25, 20, true, 75, false);
-             warehouse = new Warehouse(_map, 12, 20, 20, 5, 15, 15, 0, 0, false, 0, false);
-             flat = new Flat(_map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
-             house = new House(_map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
-             hut = new Hut(_map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
+             metalMine = new MetalMine(_map, 50, 60, 30, 0, 45, 30, 15, 20, false, 0, 70);
+            oreMine = new OreMine(_map, 0, 80, 50, 10, 45, 30, 15, 20, false, 0, 70);
+             sawMill = new Sawmill(_map, 50, 0, 50, 10, 45, 30, 15, 20, false, 0, 70);
+             cityHall = new CityHall(_map, 90, 120, 85, 60, 30, 30, 0, 50, true, 200);
+            fireStation = new FireStation(_map, 60, 25, 80, 75, 60, 70, 35, 25, true, 55);
+            hospital = new Hospital(_map, 59, 80, 80, 60, 55, 75, 10, 30, true, 100);
+            policeStation = new PoliceStation(_map, 70, 45, 60, 70, 35, 45, 25, 25, true, 40);
+            powerPlant = new PowerPlant(_map, 25, 38, 30, 17, 10, 0, 20, 25, true, 20);
+             pumpingStation = new PumpingStation(_map, 25, 38, 30, 17, 0, 10, 20, 25, true, 20);
+             spaceStation = new SpaceStation(_map, 85, 120, 250, 45, 50, 40, 25, 20, true, 75);
+             warehouse = new Warehouse(_map, 12, 20, 20, 5, 15, 15, 0, 0, false, 0);
+             flat = new Flat(_map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+             house = new House(_map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+             hut = new Hut(_map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
 
 
         }
@@ -74,7 +74,7 @@ namespace ProjectStellar
             _listBuilding.Add(hut);
         }
 
-        static public Building GetMetalMine
+        static public MetalMine GetMetalMine
         {
             get
             {
@@ -86,7 +86,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetOreMine
+        static public OreMine GetOreMine
         {
             get
             {
@@ -98,7 +98,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetSawmill
+        static public Sawmill GetSawmill
         {
             get
             {
@@ -110,7 +110,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetCityHall
+        static public CityHall GetCityHall
         {
             get
             {
@@ -122,7 +122,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetFireStation
+        static public FireStation GetFireStation
         {
             get
             {
@@ -134,7 +134,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetHospital
+        static public Hospital GetHospital
         {
             get
             {
@@ -146,7 +146,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetPoliceStation
+        static public PoliceStation GetPoliceStation
         {
             get
             {
@@ -158,7 +158,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetPowerPlant
+        static public PowerPlant GetPowerPlant
         {
             get
             {
@@ -170,7 +170,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetPumpingStation
+        static public PumpingStation GetPumpingStation
         {
             get
             {
@@ -182,7 +182,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetSpaceStation
+        static public SpaceStation GetSpaceStation
         {
             get
             {
@@ -194,7 +194,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetWareHouse
+        static public Warehouse GetWareHouse
         {
             get
             {
@@ -206,7 +206,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetFlat
+        static public Flat GetFlat
         {
             get
             {
@@ -218,7 +218,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetHouse
+        static public House GetHouse
         {
             get
             {
@@ -230,7 +230,7 @@ namespace ProjectStellar
             }
         }
 
-        static public Building GetHut
+        static public Hut GetHut
         {
             get
             {

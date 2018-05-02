@@ -64,7 +64,7 @@ namespace ProjectStellar
 
         public void CreateHut(int x, int y)
         {
-            Hut hut = new Hut(this, 10, 30, 50, 0, 10, 10, 0, 5, false, 20, true);
+            Hut hut = new Hut(this, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
             this.AddBuilding(x, y, hut);
           
 
@@ -83,7 +83,7 @@ namespace ProjectStellar
 
         public void CreateHouse(int x, int y)
         {
-            House house = new House(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
+            House house = new House(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
             this.AddBuilding(x, y, house);
 
             if (_nbBuilding.ContainsKey("house"))
@@ -98,7 +98,7 @@ namespace ProjectStellar
 
         public void CreateFlat(int x, int y)
         {
-            Flat flat = new Flat(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50, true);
+            Flat flat = new Flat(this, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
             this.AddBuilding(x, y, flat);
 
             if (_nbBuilding.ContainsKey("flat"))
@@ -113,7 +113,7 @@ namespace ProjectStellar
 
         public void CreateWarehouse(int x, int y)
         {
-            Warehouse warehouse = new Warehouse(this, 12, 20, 20, 5, 15, 15, 0, 0, false, 0, false);
+            Warehouse warehouse = new Warehouse(this, 12, 20, 20, 5, 15, 15, 0, 0, false, 0);
             this.AddBuilding(x, y, warehouse);
 
 
@@ -131,7 +131,7 @@ namespace ProjectStellar
 
         public void CreateSpaceStation(int x, int y)
         {
-            SpaceStation spaceStation = new SpaceStation(this, 85, 120, 250, 45, 50, 40, 25, 20, true, 75, false);
+            SpaceStation spaceStation = new SpaceStation(this, 85, 120, 250, 45, 50, 40, 25, 20, true, 75);
             this.AddBuilding(x, y, spaceStation);
 
 
@@ -149,7 +149,7 @@ namespace ProjectStellar
 
         public void CreatePumpingStation(int x, int y)
         {
-            PumpingStation pumpingStation = new PumpingStation(this, 25, 38, 30, 17, 0, 10, 20, 25, true, 20, true);
+            PumpingStation pumpingStation = new PumpingStation(this, 25, 38, 30, 17, 0, 10, 20, 25, true, 20);
             this.AddBuilding(x, y, pumpingStation);
 
 
@@ -167,7 +167,7 @@ namespace ProjectStellar
 
         public void CreatePowerPlant(int x, int y)
         {
-            PowerPlant powerPlant = new PowerPlant(this, 25, 38, 30, 17, 10, 0, 20, 25, true, 20, true);
+            PowerPlant powerPlant = new PowerPlant(this, 25, 38, 30, 17, 10, 0, 20, 25, true, 20);
             this.AddBuilding(x, y, powerPlant);
 
 
@@ -185,7 +185,7 @@ namespace ProjectStellar
 
         public void CreatePoliceStation(int x, int y)
         {
-            PoliceStation policeStation = new PoliceStation(this, 70, 45, 60, 70, 35, 45, 25, 25, true, 40, false);
+            PoliceStation policeStation = new PoliceStation(this, 70, 45, 60, 70, 35, 45, 25, 25, true, 40);
             this.AddBuilding(x, y, policeStation);
 
 
@@ -203,7 +203,7 @@ namespace ProjectStellar
 
         public void CreateHospital(int x, int y)
         {
-            Hospital hospital = new Hospital(this, 59, 80, 80, 60, 55, 75, 10, 30, true, 100, false);
+            Hospital hospital = new Hospital(this, 59, 80, 80, 60, 55, 75, 10, 30, true, 100);
             this.AddBuilding(x, y, hospital);
 
 
@@ -221,7 +221,7 @@ namespace ProjectStellar
 
         public void CreateFireStation(int x, int y)
         {
-            FireStation fireStation = new FireStation(this, 60, 25, 80, 75, 60, 70, 35, 25, true, 55, false);
+            FireStation fireStation = new FireStation(this, 60, 25, 80, 75, 60, 70, 35, 25, true, 55);
             this.AddBuilding(x, y, fireStation);
 
 
@@ -239,7 +239,7 @@ namespace ProjectStellar
 
         public void CreateCityHall(int x, int y)
         {
-            CityHall cityHall = new CityHall(this, 90, 120, 85, 60, 30, 30, 0, 50, true, 200, false);
+            CityHall cityHall = new CityHall(this, 90, 120, 85, 60, 30, 30, 0, 50, true, 200);
             this.AddBuilding(x, y, cityHall);
 
 
@@ -258,7 +258,7 @@ namespace ProjectStellar
 
         public void CreateMetalMine(int x, int y)
         {
-            MetalMine metalMine = new MetalMine(this, 50, 60, 30, 0, 45, 30, 15, 20, false, 0, false);
+            MetalMine metalMine = new MetalMine(this, 50, 60, 30, 0, 45, 30, 15, 20, false, 0,70);
             this.AddBuilding(x, y, metalMine);
 
 
@@ -276,7 +276,7 @@ namespace ProjectStellar
 
         public void CreateOreMine(int x, int y)
         {
-            OreMine oreMine = new OreMine(this, 0, 80, 50, 10, 45, 30, 15, 20, false, 0, false);
+            OreMine oreMine = new OreMine(this, 0, 80, 50, 10, 45, 30, 15, 20, false, 0, 70);
             this.AddBuilding(x, y, oreMine);
 
 
@@ -294,7 +294,7 @@ namespace ProjectStellar
 
         public void CreateSawMill(int x, int y)
         {
-            Sawmill sawMill = new Sawmill(this, 50, 0, 50, 10, 45, 30, 15, 20, false, 0, false);
+            Sawmill sawMill = new Sawmill(this, 50, 0, 50, 10, 45, 30, 15, 20, false, 0, 85);
             this.AddBuilding(x, y, sawMill);
 
 

@@ -34,7 +34,7 @@ namespace ProjectStellar
             else
             {
 
-                _nbResources["wood"] += (Sawmill.WoodProduction * cityManager.NbSawMill) ;
+                _nbResources["wood"] += (CityHelper.GetSawmill.WoodProduction * cityManager.NbSawMill) ;
             }
 
             if (!_nbResources.ContainsKey("rock"))
@@ -43,7 +43,7 @@ namespace ProjectStellar
             }
             else
             {
-                _nbResources["rock"] += (OreMine.RockProduction * cityManager.NbOreMine);
+                _nbResources["rock"] += (CityHelper.GetOreMine.RockProduction * cityManager.NbOreMine);
             }
 
             if (!_nbResources.ContainsKey("metal"))
@@ -52,7 +52,7 @@ namespace ProjectStellar
             }
             else
             {
-                _nbResources["metal"] += (MetalMine.MetalProduction * cityManager.NbMetalMine);
+                _nbResources["metal"] += (CityHelper.GetMetalMine.MetalProduction * cityManager.NbMetalMine);
             }
 
             if (!_nbResources.ContainsKey("coins"))
