@@ -8,13 +8,13 @@ namespace ProjectStellar
 {
     public class OreMine : Building
     {
-        public OreMine(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, isFlammable)
+        int _rockProduction;
+        public OreMine(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, int rockProduction)
+            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost)
         {
-
+            _rockProduction = rockProduction;
         }
 
-        static public int Pollution => 10;
-        static public int RockProduction => 140;
+       public int RockProduction => _rockProduction;
     }
 }

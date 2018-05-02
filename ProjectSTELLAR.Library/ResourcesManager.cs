@@ -14,12 +14,15 @@ namespace ProjectStellar
         public ResourcesManager(Map ctx)
         {
             _ctx = ctx;
+            _nbResources.Add("wood", 500);
+            _nbResources.Add("rock", 500);
+            _nbResources.Add("metal", 150);
+            _nbResources.Add("coins", 5000);
+            _nbResources.Add("pollution", 0);
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
-
-       
-
+        
         public void UpdateResources()
         {
             CityManager cityManager = new CityManager(_ctx);
@@ -31,7 +34,7 @@ namespace ProjectStellar
             else
             {
 
-                _nbResources["wood"] += (Sawmill.WoodProduction * cityManager.NbSawMill) ;
+                _nbResources["wood"] += (CityHelper.GetSawmill.WoodProduction * cityManager.NbSawMill) ;
             }
 
             if (!_nbResources.ContainsKey("rock"))
@@ -40,7 +43,7 @@ namespace ProjectStellar
             }
             else
             {
-                _nbResources["rock"] += (OreMine.RockProduction * cityManager.NbOreMine);
+                _nbResources["rock"] += (CityHelper.GetOreMine.RockProduction * cityManager.NbOreMine);
             }
 
             if (!_nbResources.ContainsKey("metal"))
@@ -49,7 +52,16 @@ namespace ProjectStellar
             }
             else
             {
-                _nbResources["metal"] += (MetalMine.MetalProduction * cityManager.NbMetalMine);
+                _nbResources["metal"] += (CityHelper.GetMetalMine.MetalProduction * cityManager.NbMetalMine);
+            }
+
+            if (!_nbResources.ContainsKey("coins"))
+            {
+                _nbResources.Add("coins", 5000);
+            }
+            else
+            {
+                _nbResources["coins"] += cityManager.CityBalance;
             }
         }
     }
