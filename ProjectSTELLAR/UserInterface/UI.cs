@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Globalization;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using ProjectStellar.Library;
 using SFML.Window;
-using System.Windows.Input;
-using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace ProjectStellar
 {
     public class UI
     {
+        List<Sprite> _sprites;
         CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
         Game _ctx;
         DrawUI _drawUIctx;
@@ -30,6 +27,13 @@ namespace ProjectStellar
         Sprite _play;
         Sprite _pause;
         Sprite _fastForward;
+        Sprite _coinSprite;
+        Sprite _woodSprite;
+        Sprite _pollutionSprite;
+        Sprite _buildButton;
+        Sprite _flatSprite;
+        Sprite _hutSprite;
+        Sprite _houseSprite;
         RectangleShape _rectangleTimeBar;
         private Sprite _coinSprite;
         private Sprite _woodSprite;
@@ -42,6 +46,8 @@ namespace ProjectStellar
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime)
         {
+            _sprites = new List<Sprite>();
+
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
             _drawUIctx = drawUI;
@@ -59,11 +65,13 @@ namespace ProjectStellar
                 Position = new Vector2f(64, _resolution.Y - 32),
                 //Scale = new Vector2f(_resolution.X / 33.75f)
             };
+
             _pause = new Sprite(_ctx._uiTextures[1])
             {
                 Position = new Vector2f(10, _resolution.Y - 32),
                 //Scale = new Vector2f(_resolution.X / 33.75f)
             };
+
             _fastForward = new Sprite(_ctx._uiTextures[2])
             {
                 Position = new Vector2f(128, _resolution.Y - 32),
@@ -124,10 +132,6 @@ namespace ProjectStellar
         /// <param name="window">The window.</param>
         public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
-            Sprite coinSprite = new Sprite(_ctx._uiTextures[5]);
-            Sprite woodSprite = new Sprite(_ctx._uiTextures[7]);
-            Sprite pollutionSprite = new Sprite(_ctx._uiTextures[6]);
-
             //Creates resources bar
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Red);
@@ -199,7 +203,6 @@ namespace ProjectStellar
                 {
                     _buildSelected = true;
                 }
-
             }
             if (_buildSelected)
             {

@@ -27,6 +27,7 @@ namespace ProjectStellar
         Map _map;
         DrawUI _drawUI;
         ResourcesManager _resourcesManager;
+        CityHelper _cityHelper;
         MapUI _mapUI;
         WindowEvents _windowEvents;
 
@@ -67,6 +68,8 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
+            _cityHelper = new CityHelper(_map);
+            _cityHelper.CreateListBuilding();
 
             _windowEvents = new WindowEvents(Window, this);
             Window.Closed += _windowEvents.WindowClosed;

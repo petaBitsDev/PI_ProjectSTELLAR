@@ -277,7 +277,13 @@ namespace ProjectStellar
             map.CreateMetalMine(1, 9);
             resourcesManager.UpdateResources();
 
+            
             Assert.That(resourcesManager.NbResources["metal"], Is.EqualTo(360));
+            CityHelper city = new CityHelper(map);
+            Assert.That(city.ListBuilding.Count, Is.EqualTo(14));
+
+            
+            
 
         }
     }

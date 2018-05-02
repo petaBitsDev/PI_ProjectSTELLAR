@@ -3,6 +3,7 @@ using SFML.Window;
 using SFML.Graphics;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 //using ProjectStellar.FormLauncher;
 
 namespace ProjectStellar
@@ -18,9 +19,11 @@ namespace ProjectStellar
             FormLauncher.Launcher _launcher = new FormLauncher.Launcher();
             Application.Run(_launcher);
 
+          
             Game Game = new Game(0, _launcher.Settings.Resolution, _launcher.Settings.IsFullScreen);
-
             Game.Run();
+
+          
         }
     }
 }

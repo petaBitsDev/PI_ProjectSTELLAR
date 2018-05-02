@@ -12,30 +12,34 @@ namespace ProjectStellar
         int _totalCharges;
         int _totalPollution;
         int _totalTaxes ;
-        Map _ctx;
-
+        static  Map _ctx;
+        
         public CityManager(Map ctx)
         {
             _ctx = ctx;
         }
 
+        
+        
         public int CityBalance
         {
             get { return CityTaxes - CityCharges; }
         }
         public int CityCharges
         {
-            get { return _totalCharges = (SpaceStation.Charges * NbSpaceStation) + (PumpingStation.Charges * NbPumpingStation) + (PowerPlant.Charges * NbPowerPlant) + (PoliceStation.Charges * NbPoliceStation) + (Hospital.Charges * NbHospital) + (FireStation.Charges * NbFireStation) + (CityHall.Charges * NbCityHall); }
+            get {
+               
+                return _totalCharges = (CityHelper.GetSpaceStation.MoneyWinOrLost * NbSpaceStation) + (CityHelper.GetPumpingStation.MoneyWinOrLost * NbPumpingStation) + (CityHelper.GetPowerPlant.MoneyWinOrLost * NbPowerPlant) + (CityHelper.GetPoliceStation.MoneyWinOrLost * NbPoliceStation) + (CityHelper.GetHospital.MoneyWinOrLost * NbHospital) + (CityHelper.GetFireStation.MoneyWinOrLost * NbFireStation) + (CityHelper.GetCityHall.MoneyWinOrLost * NbCityHall); }
         }
 
         public int CityTaxes
         {
-            get { return _totalTaxes = (Hut.Tax * NbHut) + (House.Tax * NbHouse) + (Flat.Tax * NbFlat);  }
+            get { return _totalTaxes = (CityHelper.GetHut.MoneyWinOrLost * NbHut) + (CityHelper.GetHouse.MoneyWinOrLost * NbHouse) + (CityHelper.GetFlat.MoneyWinOrLost * NbFlat);  }
         }
 
         public int CityPollution
         {
-            get { return _totalPollution = (Hut.Pollution * NbHut) + (House.Pollution * NbHouse) + (Flat.Pollution * NbFlat) + (SpaceStation.Pollution * NbSpaceStation) + (PumpingStation.Pollution * NbPumpingStation) + (PowerPlant.Pollution * NbPowerPlant) + (PoliceStation.Pollution * NbPoliceStation) + (Hospital.Pollution * NbHospital) + (FireStation.Pollution * NbFireStation) + (MetalMine.Pollution * NbMetalMine) + (OreMine.Pollution * NbOreMine) + (Sawmill.Pollution * NbSawMill); }
+            get { return _totalPollution = (CityHelper.GetHut.AirPollution * NbHut) + (CityHelper.GetHouse.AirPollution * NbHouse) + (CityHelper.GetFlat.AirPollution * NbFlat) + (CityHelper.GetSpaceStation.AirPollution * NbSpaceStation) + (CityHelper.GetPumpingStation.AirPollution * NbPumpingStation) + (CityHelper.GetPowerPlant.AirPollution * NbPowerPlant) + (CityHelper.GetPoliceStation.AirPollution * NbPoliceStation) + (CityHelper.GetHospital.AirPollution * NbHospital) + (CityHelper.GetFireStation.AirPollution * NbFireStation) + (CityHelper.GetMetalMine.AirPollution * NbMetalMine) + (CityHelper.GetOreMine.AirPollution * NbOreMine) + (CityHelper.GetSawmill.AirPollution * NbSawMill); }
 
         }
 
