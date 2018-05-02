@@ -27,6 +27,7 @@ namespace ProjectStellar
         Map _map;
         DrawUI _drawUI;
         ResourcesManager _resourcesManager;
+        CityHelper _cityHelper;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -65,6 +66,8 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
+            _cityHelper = new CityHelper(_map);
+            _cityHelper.CreateListBuilding();
         }
 
         public override void Update(GameTime gameTime)

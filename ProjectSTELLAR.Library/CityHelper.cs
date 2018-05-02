@@ -52,25 +52,29 @@ namespace ProjectStellar
         {
             get
             {
-                _listBuilding.Add(metalMine);
-                _listBuilding.Add(oreMine);
-                _listBuilding.Add(sawMill);
-                _listBuilding.Add(cityHall);
-                _listBuilding.Add(fireStation);
-                _listBuilding.Add(hospital);
-                _listBuilding.Add(policeStation);
-                _listBuilding.Add(powerPlant);
-                _listBuilding.Add(pumpingStation);
-                _listBuilding.Add(spaceStation);
-                _listBuilding.Add(warehouse);
-                _listBuilding.Add(flat);
-                _listBuilding.Add(house);
-                _listBuilding.Add(hut);
                 return _listBuilding;
             }
         }
 
-        public Building GetMetalMine
+        public void CreateListBuilding()
+        {
+            _listBuilding.Add(metalMine);
+            _listBuilding.Add(oreMine);
+            _listBuilding.Add(sawMill);
+            _listBuilding.Add(cityHall);
+            _listBuilding.Add(fireStation);
+            _listBuilding.Add(hospital);
+            _listBuilding.Add(policeStation);
+            _listBuilding.Add(powerPlant);
+            _listBuilding.Add(pumpingStation);
+            _listBuilding.Add(spaceStation);
+            _listBuilding.Add(warehouse);
+            _listBuilding.Add(flat);
+            _listBuilding.Add(house);
+            _listBuilding.Add(hut);
+        }
+
+        static public Building GetMetalMine
         {
             get
             {
@@ -82,7 +86,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetOreMine
+        static public Building GetOreMine
         {
             get
             {
@@ -94,7 +98,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetSawmill
+        static public Building GetSawmill
         {
             get
             {
@@ -106,7 +110,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetCityHall
+        static public Building GetCityHall
         {
             get
             {
@@ -118,7 +122,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetFireStation
+        static public Building GetFireStation
         {
             get
             {
@@ -130,7 +134,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetHospital
+        static public Building GetHospital
         {
             get
             {
@@ -142,7 +146,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetPoliceStation
+        static public Building GetPoliceStation
         {
             get
             {
@@ -154,7 +158,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetPowerPlant
+        static public Building GetPowerPlant
         {
             get
             {
@@ -166,7 +170,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetPumpingStation
+        static public Building GetPumpingStation
         {
             get
             {
@@ -178,7 +182,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetSpaceStation
+        static public Building GetSpaceStation
         {
             get
             {
@@ -190,7 +194,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetWareHouse
+        static public Building GetWareHouse
         {
             get
             {
@@ -202,7 +206,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetFlat
+        static public Building GetFlat
         {
             get
             {
@@ -214,7 +218,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetHouse
+        static public Building GetHouse
         {
             get
             {
@@ -226,7 +230,7 @@ namespace ProjectStellar
             }
         }
 
-        public Building GetHut
+        static public Building GetHut
         {
             get
             {
