@@ -64,7 +64,7 @@ namespace ProjectStellar
         public bool CheckUI(float x, float y)
         {
             if (_ui.CheckTimeBar(x, y)) return true;
-            //else if () return true;
+            //else if (_ui.CheckBuildingToBuild(x, y)) return true;
             else return false;
         }
     }

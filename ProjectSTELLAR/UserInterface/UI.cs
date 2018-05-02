@@ -38,6 +38,7 @@ namespace ProjectStellar
         private Sprite _flatSprite;
         private Sprite _hutSprite;
         private Sprite _houseSprite;
+        private BuildingChoice[] _buildingChoices;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime)
         {
@@ -51,6 +52,7 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _buildSelected = false;
             _gameTime = gameTime;
+            _buildingChoices = new BuildingChoice[16];
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
@@ -204,6 +206,8 @@ namespace ProjectStellar
                 window.Draw(rec);
                 if (rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
+                    int j = 0;
+
                     window.Draw(rec);
 
                     _hutSprite.Draw(window, RenderStates.Default);
@@ -213,6 +217,7 @@ namespace ProjectStellar
                     hut.CharacterSize = 13;
                     hut.Style = Text.Styles.Bold;
                     hut.Draw(window, RenderStates.Default);
+                    //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
 
                     _houseSprite.Draw(window, RenderStates.Default);
                     Text house = new Text("HOUSE", font);
@@ -221,7 +226,8 @@ namespace ProjectStellar
                     house.CharacterSize = 13;
                     house.Style = Text.Styles.Bold;
                     house.Draw(window, RenderStates.Default);
-                    
+                    //_buildingChoices[j++] = _houseSprite;
+
                     _flatSprite.Draw(window, RenderStates.Default);
                     Text flat = new Text("FLAT", font);
                     flat.Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 4));
@@ -229,6 +235,7 @@ namespace ProjectStellar
                     flat.CharacterSize = 13;
                     flat.Style = Text.Styles.Bold;
                     flat.Draw(window, RenderStates.Default);
+                    //_buildingChoices[j++] = _flatSprite;
                 }
                 else _buildSelected = false;
             }
@@ -252,5 +259,10 @@ namespace ProjectStellar
 
             return true;
         }
+
+        //public bool CheckBuildingToBuild(float x, float y)
+        //{
+
+        //}
     }
 }
