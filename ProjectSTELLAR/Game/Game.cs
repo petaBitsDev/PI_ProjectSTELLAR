@@ -6,6 +6,7 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -18,20 +19,19 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[4];
+        public Texture[] _uiTextures = new Texture[8];
         public int _state;
         Menu _menu;
-        uint _windowX;
-        uint _windowY;
-        Map _ctx;
-        UI _ui;
+        Resolution _resolution;
         Font _font;
+        Map _map;
+        DrawUI _drawUI;
+        ResourcesManager _resourcesManager;
 
-        public Game(int state, uint windowX, uint windowY, bool isFullscreen) : base(windowX, windowY, isFullscreen, WINDOW_TITLE, Color.Green)
+        public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
-            //RenderWindow _window = new RenderWindow(new VideoMode(800, 600), "Project Stellar");
             MenuState = state;
-            _windowX = windowX;
-            _windowY = windowY;
+            _resolution = resolution;
         }
 
         public override void LoadContent()
@@ -47,43 +47,47 @@ namespace ProjectStellar
             _buildingsTextures[2] = new Texture("./resources/img/flat.png");
             _buildingsTextures[3] = new Texture("./resources/img/house.png");
 
+            _uiTextures[0] = new Texture("./resources/img/play-button.png");
+            _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
+            _uiTextures[2] = new Texture("./resources/img/fast-forward.png");
+            _uiTextures[3] = new Texture("./resources/img/crane.png");
+            _uiTextures[4] = new Texture("./resources/img/trucking.png");
+            _uiTextures[5] = new Texture("./resources/img/dollar.png");
+            _uiTextures[6] = new Texture("./resources/img/radiation.png");
+            _uiTextures[7] = new Texture("./resources/img/wood.png");
+
             _font = new Font("./resources/fonts/arial.ttf");
         }
 
         public override void Initialize()
         {
-            _menu = new Menu(_windowX, _windowY, this);
+            _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _ui = new UI();
+            _map = new Map(20, 20);
+            _resourcesManager = new ResourcesManager(_map);
         }
 
         public override void Update(GameTime gameTime)
         {
-
-            ResourcesManager _resourcesManager = new ResourcesManager(_ctx);
             if (_state == 0) _menu.CheckMouse(Window);
             else if (_state == 1)
             {
-              
-                    if(gameTime.InGameTime.Minute == 00)
-                    {
-                            _resourcesManager.UpdateResources();
-                       
-                    }
-                
+                if(gameTime.InGameTime.Minute == 00)
+                {
+                    _resourcesManager.UpdateResources();
+                }
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Map map = new Map(20, 20);
-            MapUI mapUI = new MapUI(this, map, 20, 20);
+
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                mapUI.RenderGraphics(Window);
-                _ui.Draw(Window, _font, gameTime.InGameTime);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager);
+                _drawUI.RenderGraphics(Window, _font);
             }
         }
 

@@ -18,7 +18,8 @@ namespace ProjectStellar
             FormLauncher.Launcher _launcher = new FormLauncher.Launcher();
             Application.Run(_launcher);
 
-            Game Game = new Game(0, _launcher.Settings.Resolution.X, _launcher.Settings.Resolution.Y, _launcher.Settings.IsFullScreen);
+            Game Game = new Game(0, _launcher.Settings.Resolution, _launcher.Settings.IsFullScreen);
+
             Game.Run();
         }
     }

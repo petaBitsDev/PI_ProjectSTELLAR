@@ -94,23 +94,5 @@ namespace ProjectStellar
         }
 
         public bool IsHovering => _hovering;
-
-        public void Move(Keyboard.Key key)
-        {
-            if (key == Keyboard.Key.Up)
-            {
-                _menu[_selectedIndex].Color = Color.White;
-                _selectedIndex--;
-                if (_selectedIndex < 0) _selectedIndex = 0;
-                _menu[_selectedIndex].Color = Color.Yellow;
-            }
-            else if (key == Keyboard.Key.Down)
-            {
-                _menu[_selectedIndex].Color = Color.White;
-                _selectedIndex++;
-                if (_selectedIndex > 1) _selectedIndex = 1;
-                _menu[_selectedIndex].Color = Color.Yellow;
-            }
-        }
     }
 }
