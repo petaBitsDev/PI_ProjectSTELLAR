@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    class Disease
+    class Disease : IEvent
     {
     }
 }
