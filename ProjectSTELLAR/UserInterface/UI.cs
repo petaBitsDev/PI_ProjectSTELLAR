@@ -200,14 +200,7 @@ namespace ProjectStellar
             rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5));
 
             _buildButton.Draw(window, RenderStates.Default);
-
-            if(_buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-            {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    _buildSelected = true;
-                }
-            }
+            
             if (_buildSelected)
             {
                 window.Draw(rec);
@@ -221,6 +214,16 @@ namespace ProjectStellar
                 }
                 else _buildSelected = false;
             }
+        }
+
+        public bool CheckBuildSelected(RenderWindow window)
+        {
+            if(_buildButton.GetGlobalBounds().Contains((float) Mouse.GetPosition(window).X, (float) Mouse.GetPosition(window).Y))
+            {
+                _buildSelected = true;
+                return true;
+            }
+            return false;
         }
 
         public bool CheckTimeBar(float x, float y)
@@ -284,6 +287,7 @@ namespace ProjectStellar
 
         public bool CheckBuildingToBuild(float x, float y)
         {
+            if (_buildSelected == false) return false;
             for (int i = 0; i < _sprites.Count; i++)
             {
                 if (_sprites[i].GetGlobalBounds().Contains(x, y))
