@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-   public class Building
+   public  abstract class Building
     {
         bool _isBuild;
         //cost money is true for public buildings and false for the building wich pay taxes
@@ -65,6 +65,7 @@ namespace ProjectStellar
             set { _isBuild = value; }
         }
 
+        protected Map Context => _ctx;
         public bool CostMoney => _costMoney;
 
 
@@ -74,6 +75,9 @@ namespace ProjectStellar
         //    if (!_isBuild) throw new ArgumentException("You can't destroy a building that haven't been built", nameof(_isBuild));
         //    _isBuild = false;
         //}
-      
+
     }
+
+    
+     
 }
