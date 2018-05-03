@@ -16,7 +16,8 @@ namespace ProjectStellar
             _woodProduction = woodProduction;
         }
 
-         public int WoodProduction => _woodProduction;
+ 
+        public int WoodProduction => _woodProduction;
 
 
     }

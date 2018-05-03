@@ -15,8 +15,7 @@ namespace ProjectStellar
             _metalProdution = metalProduction;
         }
 
-
-         public int MetalProduction => _metalProdution;
+        public int MetalProduction => _metalProdution;
 
     }
 }

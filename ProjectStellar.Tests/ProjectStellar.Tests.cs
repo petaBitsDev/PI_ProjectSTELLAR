@@ -12,7 +12,7 @@ namespace ProjectStellar
         public void create_building()
         {
             Map map = new Map(12,15);
-            Building sut = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 45);
+            Building sut = new Hut(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 45);
             
             Assert.That(sut.RockNeeded, Is.EqualTo(120));
             Assert.That(sut.WoodNeeded, Is.EqualTo(40));
@@ -30,13 +30,13 @@ namespace ProjectStellar
         public void check_if_destroy_a_building_if_it_exits_work_well()
         {
             Map map = new Map(12, 15);
-            Building sut = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 24);
+            Building sut = new Hut(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 24);
 
             sut.IsBuild = false;
 
           //  Assert.Throws<ArgumentException>(() => sut.Destroy());
 
-            Building sut1 = new Building(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 76);
+            Building sut1 = new Hut(map, 120, 40, 15, 12, 65, 89, 655, 45, true, 76);
           
             Assert.That(sut1.IsBuild, Is.True);
             //sut1.Destroy();
@@ -84,13 +84,15 @@ namespace ProjectStellar
         public void create_a_building_and_add_it_in_the_array_with_the_create_function()
         {
             Map map = new Map(12,15);
+            BuildingFactory buildingFactory = new BuildingFactory(map);
 
-            map.CreateHut(1, 1);
-            map.CreateHouse(1, 2);
-            map.CreateHouse(1, 4);
-            map.CreateFlat(1, 3);
-            map.CreateFlat(1, 5);
-            map.CreateFlat(1, 6);
+            
+            buildingFactory.CreateHut(1, 1);
+            buildingFactory.CreateHouse(1, 2);
+            buildingFactory.CreateHouse(1, 4);
+            buildingFactory.CreateFlat(1, 3);
+            buildingFactory.CreateFlat(1, 5);
+            buildingFactory.CreateFlat(1, 6);
 
 
             Assert.That(map.CheckBuilding(1, 1), Is.True);
@@ -112,15 +114,16 @@ namespace ProjectStellar
             Hut sut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
             House house = new House(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
             Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            BuildingFactory buildingFactory = new BuildingFactory(map);
 
 
 
-            map.CreateHut(1, 1);
-            map.CreateHouse(1, 2);
-            map.CreateHouse(1, 4);
-            map.CreateFlat(1, 3);
-            map.CreateFlat(1, 5);
-            map.CreateFlat(1, 6);
+            buildingFactory.CreateHut(1, 1);
+            buildingFactory.CreateHouse(1, 2);
+            buildingFactory.CreateHouse(1, 4);
+            buildingFactory.CreateFlat(1, 3);
+            buildingFactory.CreateFlat(1, 5);
+            buildingFactory.CreateFlat(1, 6);
 
 
             Assert.That(map.CheckBuilding(1, 1), Is.True);
@@ -132,10 +135,10 @@ namespace ProjectStellar
 
 
 
-            map.DestroyHut(1, 1, sut);
-            map.DestroyHouse(1, 4, house);
-            map.DestroyFlat(1, 3, flat);
-            map.DestroyFlat(1, 5, flat);
+            buildingFactory.DestroyHut(1, 1, sut);
+            buildingFactory.DestroyHouse(1, 4, house);
+            buildingFactory.DestroyFlat(1, 3, flat);
+            buildingFactory.DestroyFlat(1, 5, flat);
 
             Assert.That(map.CheckBuilding(1, 1), Is.False);
             Assert.That(map.CheckBuilding(1, 4), Is.False);
@@ -152,6 +155,7 @@ namespace ProjectStellar
             Hut hut = new Hut(map, 10, 30, 50, 0, 10, 10, 0, 5, false, 20);
 
             Flat flat = new Flat(map, 65, 120, 110, 15, 25, 30, 5, 20, false, 50);
+            BuildingFactory buildingFactory = new BuildingFactory(map);
 
 
 
@@ -159,34 +163,34 @@ namespace ProjectStellar
             Assert.That(map.NbBuilding.ContainsKey("house"), Is.False);
             Assert.That(map.NbBuilding.ContainsKey("flat"), Is.False);
 
-            map.CreateHut(1, 1);
-            map.CreateHouse(2, 4);
-            map.CreateFlat(1, 6);
+            buildingFactory.CreateHut(1, 1);
+            buildingFactory.CreateHouse(2, 4);
+            buildingFactory.CreateFlat(1, 6);
 
             Assert.That(map.NbBuilding["hut"], Is.EqualTo(1));
             Assert.That(map.NbBuilding.ContainsKey("house"), Is.True);
             Assert.That(map.NbBuilding.ContainsKey("flat"), Is.True);
 
-            map.CreateHouse(2, 8);
+            buildingFactory.CreateHouse(2, 8);
 
 
             Assert.That(map.NbBuilding["house"], Is.EqualTo(2));
 
-            map.CreateMetalMine(7,7);
+            buildingFactory.CreateMetalMine(7,7);
 
             Assert.That(map.NbBuilding["metalMine"], Is.EqualTo(1));
 
 
-            map.CreateFlat(1, 8);
-            map.CreateFlat(1, 9);
+            buildingFactory.CreateFlat(1, 8);
+            buildingFactory.CreateFlat(1, 9);
 
             Assert.That(map.NbBuilding["flat"], Is.EqualTo(3));
 
-            map.DestroyFlat(1, 6, flat);
+            buildingFactory.DestroyFlat(1, 6, flat);
 
             Assert.That(map.NbBuilding["flat"], Is.EqualTo(2));
 
-            map.DestroyHut(1, 1, hut);
+            buildingFactory.DestroyHut(1, 1, hut);
             Assert.That(map.NbBuilding["hut"], Is.EqualTo(0));
 
 
@@ -216,14 +220,15 @@ namespace ProjectStellar
         {
             Map map = new Map(15,16);
             CityManager manager = new CityManager(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map);
 
 
-            map.CreateHut(1, 1);
-            map.CreateHouse(2, 4);
-            map.CreateHouse(2, 8);
-            map.CreateFlat(1, 8);
-            map.CreateFlat(1, 9);
-            map.CreateFlat(1, 6);
+            buildingFactory.CreateHut(1, 1);
+            buildingFactory.CreateHouse(2, 4);
+            buildingFactory.CreateHouse(2, 8);
+            buildingFactory.CreateFlat(1, 8);
+            buildingFactory.CreateFlat(1, 9);
+            buildingFactory.CreateFlat(1, 6);
 
            
 
@@ -253,6 +258,8 @@ namespace ProjectStellar
             Map map = new Map(10, 10);
 
             ResourcesManager resourcesManager = new ResourcesManager(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map);
+
 
             resourcesManager.UpdateResources();
 
@@ -260,22 +267,22 @@ namespace ProjectStellar
             Assert.That(resourcesManager.NbResources["rock"], Is.EqualTo(500));
             Assert.That(resourcesManager.NbResources["metal"], Is.EqualTo(150));
 
-            map.CreateSawMill(2, 6);
+            buildingFactory.CreateSawMill(2, 6);
             resourcesManager.UpdateResources();
 
 
 
             Assert.That(resourcesManager.NbResources["wood"], Is.EqualTo(570));
 
-            map.CreateOreMine(1, 5);
-            map.CreateOreMine(1, 6);
+            buildingFactory.CreateOreMine(1, 5);
+            buildingFactory.CreateOreMine(1, 6);
             resourcesManager.UpdateResources();
 
             Assert.That(resourcesManager.NbResources["rock"], Is.EqualTo(640));
 
-            map.CreateMetalMine(1, 7);
-            map.CreateMetalMine(1, 8);
-            map.CreateMetalMine(1, 9);
+            buildingFactory.CreateMetalMine(1, 7);
+            buildingFactory.CreateMetalMine(1, 8);
+            buildingFactory.CreateMetalMine(1, 9);
             resourcesManager.UpdateResources();
 
             
@@ -305,14 +312,16 @@ namespace ProjectStellar
             Map map = new Map(20, 20);
             game.Initialize();
             CityManager cityManager = new CityManager(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map);
 
 
-            map.CreateHut(1, 1);
-            map.CreateHouse(2, 4);
-            map.CreateHouse(2, 8);
-            map.CreateFlat(1, 8);
-            map.CreateFlat(1, 9);
-            map.CreateFlat(1, 6);
+
+            buildingFactory.CreateHut(1, 1);
+            buildingFactory.CreateHouse(2, 4);
+            buildingFactory.CreateHouse(2, 8);
+            buildingFactory.CreateFlat(1, 8);
+            buildingFactory.CreateFlat(1, 9);
+            buildingFactory.CreateFlat(1, 6);
 
 
             Assert.That(cityManager.CityPollution, Is.EqualTo(25));
