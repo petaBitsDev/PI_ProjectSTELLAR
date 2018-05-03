@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    class Fire : IEvent
+    public interface IEvent
     {
     }
 }
