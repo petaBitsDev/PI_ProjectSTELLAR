@@ -11,8 +11,8 @@ namespace ProjectStellar
 {
     public class DrawBuildings
     {
-        Game _ctx;
-        Dictionary<Type, Texture> _textures = new Dictionary<Type, Texture>();
+        readonly Game _ctx;
+        readonly Dictionary<Type, Texture> _textures = new Dictionary<Type, Texture>();
 
         public DrawBuildings(Game ctx)
         {

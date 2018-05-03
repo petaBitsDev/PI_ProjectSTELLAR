@@ -23,6 +23,7 @@ namespace ProjectStellar
         uint _height;
         uint _boxSize = 32;
         bool _buildSelected;
+        Dictionary<Sprite, Building> _chosenBuildings;
 
         Sprite _play;
         Sprite _pause;
@@ -43,10 +44,12 @@ namespace ProjectStellar
         private Sprite _hutSprite;
         private Sprite _houseSprite;
         private BuildingChoice[] _buildingChoices;
+        private List<Building> _buildingList;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList)
         {
             _sprites = new List<Sprite>();
+            _chosenBuildings = new Dictionary<Sprite, Building>();
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
@@ -58,6 +61,7 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _buildSelected = false;
             _gameTime = gameTime;
+            _buildingList = buildingList;
             _buildingChoices = new BuildingChoice[16];
 
             _play = new Sprite(_ctx._uiTextures[0])
@@ -213,32 +217,7 @@ namespace ProjectStellar
 
                     window.Draw(rec);
 
-                    _hutSprite.Draw(window, RenderStates.Default);
-                    Text hut = new Text("HUT", font);
-                    hut.Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 4));
-                    hut.Color = Color.Black;
-                    hut.CharacterSize = 13;
-                    hut.Style = Text.Styles.Bold;
-                    hut.Draw(window, RenderStates.Default);
-                    //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
-
-                    _houseSprite.Draw(window, RenderStates.Default);
-                    Text house = new Text("HOUSE", font);
-                    house.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
-                    house.Color = Color.Black;
-                    house.CharacterSize = 13;
-                    house.Style = Text.Styles.Bold;
-                    house.Draw(window, RenderStates.Default);
-                    //_buildingChoices[j++] = _houseSprite;
-
-                    _flatSprite.Draw(window, RenderStates.Default);
-                    Text flat = new Text("FLAT", font);
-                    flat.Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 4));
-                    flat.Color = Color.Black;
-                    flat.CharacterSize = 13;
-                    flat.Style = Text.Styles.Bold;
-                    flat.Draw(window, RenderStates.Default);
-                    //_buildingChoices[j++] = _flatSprite;
+                    DrawBuildingChoices(window, font);
                 }
                 else _buildSelected = false;
             }
@@ -263,9 +242,60 @@ namespace ProjectStellar
             return true;
         }
 
-        //public bool CheckBuildingToBuild(float x, float y)
-        //{
+        private void DrawBuildingChoices(RenderWindow window, Font font)
+        {
+            _sprites.Clear();
+            _chosenBuildings.Clear();
 
-        //}
+            _hutSprite.Draw(window, RenderStates.Default);
+            Text hut = new Text("HUT", font);
+            hut.Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 4));
+            hut.Color = Color.Black;
+            hut.CharacterSize = 13;
+            hut.Style = Text.Styles.Bold;
+            hut.Draw(window, RenderStates.Default);
+            _sprites.Add(_hutSprite);
+            _chosenBuildings.Add(_hutSprite, _buildingList[13]);
+            
+            //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
+
+            _houseSprite.Draw(window, RenderStates.Default);
+            Text house = new Text("HOUSE", font);
+            house.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
+            house.Color = Color.Black;
+            house.CharacterSize = 13;
+            house.Style = Text.Styles.Bold;
+            house.Draw(window, RenderStates.Default);
+            _sprites.Add(_houseSprite);
+            _chosenBuildings.Add(_houseSprite, _buildingList[12]);
+            //_buildingChoices[j++] = _houseSprite;
+
+            _flatSprite.Draw(window, RenderStates.Default);
+            Text flat = new Text("FLAT", font);
+            flat.Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 4));
+            flat.Color = Color.Black;
+            flat.CharacterSize = 13;
+            flat.Style = Text.Styles.Bold;
+            flat.Draw(window, RenderStates.Default);
+            _sprites.Add(_flatSprite);
+            _chosenBuildings.Add(_flatSprite, _buildingList[11]);
+            //_buildingChoices[j++] = _flatSprite;
+        }
+
+        public bool CheckBuildingToBuild(float x, float y)
+        {
+            for (int i = 0; i < _sprites.Count; i++)
+            {
+                if (_sprites[i].GetGlobalBounds().Contains(x, y))
+                {
+
+                    _chosenBuildings.TryGetValue(_sprites[i], out Building building);
+                    _mapCtx.ChosenBuilding = building;
+                    //Console.WriteLine(type);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

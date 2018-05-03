@@ -30,7 +30,7 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _width = width;
             _height = height;
-            DrawBuildings _drawBuildings = new DrawBuildings(_gameCtx);
+            _drawBuildings = new DrawBuildings(_gameCtx);
         }
 
         public Map MapContext => _ctx;
@@ -95,6 +95,7 @@ namespace ProjectStellar
                     if (!object.Equals(boxes[i,j],null))
                     {
                         Type type = boxes[i, j].GetType();
+                        //
                         _drawBuildings.Draw(type, window, i, j);
                     }
                 }
@@ -109,17 +110,14 @@ namespace ProjectStellar
                 if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
+                    //Console.WriteLine("Cast : " + (int)_cases[i].X + "  " + (int)_cases[i].Y);
+                    if (!object.Equals(_ctx.ChosenBuilding, null))
+                    {
+                        _ctx.AddBuilding(_cases[i].X, _cases[i].Y);
+                    }
                     return true;
                 }
             }
-
-            //for (float x = 0; x <= 1280; x++)
-            //{
-            //    for (float y = 0; y <= 720; y++)
-            //    {
-            //        if (_cases[0].Rec.GetGlobalBounds().Contains((float)x, (float)y) == true) Console.WriteLine("test x={0} y={1}", x, y);
-            //    }
-            //}
 
             return false;
         }
