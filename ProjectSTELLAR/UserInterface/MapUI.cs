@@ -88,15 +88,14 @@ namespace ProjectStellar
                 }
             }
 
-            for (int i = 0; i < (boxes.Length/Height); i++)
+            for (int i = 0; i < (boxes.Length / Height); i++)
             {
-                for (int j = 0; j < (boxes.Length/Width); j++)
+                for (int j = 0; j < (boxes.Length / Width); j++)
                 {
-                    if (!object.Equals(boxes[i,j],null))
+                    if (!object.Equals(boxes[i, j], null))
                     {
                         Type type = boxes[i, j].GetType();
-                        //
-                        _drawBuildings.Draw(type, window, i, j);
+                        _drawBuildings.Draw(type, window, j, i);
                     }
                 }
             }

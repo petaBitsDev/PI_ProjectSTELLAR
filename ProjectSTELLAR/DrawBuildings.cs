@@ -27,7 +27,7 @@ namespace ProjectStellar
         {
             _textures.TryGetValue(buildingType, out Texture texture);
             Sprite sprite = new Sprite(texture);
-            sprite.Position = new Vector2f(x, y);
+            sprite.Position = new Vector2f(x*32, y*32);
             window.Draw(sprite);
         }
     }
