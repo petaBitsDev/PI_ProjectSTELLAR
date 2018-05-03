@@ -15,6 +15,7 @@ namespace ProjectStellar
             _rockProduction = rockProduction;
         }
 
-       public int RockProduction => _rockProduction;
+       
+        public int RockProduction => _rockProduction;
     }
 }
