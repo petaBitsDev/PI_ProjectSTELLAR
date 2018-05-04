@@ -13,10 +13,14 @@ namespace ProjectStellar
         {
             _ctx = ctx;
         }
+        ResourcesManager _resourcesManager;
 
-        public  void CreateHut(int x, int y)
+
+        public void CreateHut(int x, int y)
         {
+           _resourcesManager = new ResourcesManager(_ctx);
            _ctx.AddBuilding(x, y, CityHelper.GetHut);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetHut);
 
            if (_ctx._nbBuilding.ContainsKey("hut"))
            {
@@ -30,7 +34,11 @@ namespace ProjectStellar
 
         public void CreateHouse(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetHouse);
+
             _ctx.AddBuilding(x, y, CityHelper.GetHouse);
+
 
             if (_ctx._nbBuilding.ContainsKey("house"))
             {
@@ -44,6 +52,8 @@ namespace ProjectStellar
 
         public void CreateFlat(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetFlat);
             _ctx.AddBuilding(x, y, CityHelper.GetFlat);
 
             if (_ctx._nbBuilding.ContainsKey("flat"))
@@ -58,6 +68,8 @@ namespace ProjectStellar
 
         public void CreateWareHouse(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetWareHouse);
             _ctx.AddBuilding(x, y, CityHelper.GetWareHouse);
 
             if (_ctx._nbBuilding.ContainsKey("wareHouse"))
@@ -72,6 +84,8 @@ namespace ProjectStellar
 
         public void CreateSpaceStation(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetSpaceStation);
             _ctx.AddBuilding(x, y, CityHelper.GetSpaceStation);
 
             if (_ctx._nbBuilding.ContainsKey("spaceStation"))
@@ -86,6 +100,8 @@ namespace ProjectStellar
 
         public void CreatePumpingStation(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetPumpingStation);
             _ctx.AddBuilding(x, y, CityHelper.GetPumpingStation);
 
             if (_ctx._nbBuilding.ContainsKey("pumpingStation"))
@@ -100,6 +116,8 @@ namespace ProjectStellar
 
         public void CreatePowerPlant(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetPowerPlant);
             _ctx.AddBuilding(x, y, CityHelper.GetPowerPlant);
 
             if (_ctx._nbBuilding.ContainsKey("powerPlant"))
@@ -115,6 +133,8 @@ namespace ProjectStellar
 
         public void CreatePoliceStation(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetPoliceStation);
             _ctx.AddBuilding(x, y, CityHelper.GetPoliceStation);
 
             if (_ctx._nbBuilding.ContainsKey("policeStation"))
@@ -129,6 +149,8 @@ namespace ProjectStellar
 
         public void CreateHospital(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetHospital);
             _ctx.AddBuilding(x, y, CityHelper.GetHospital);
 
             if (_ctx._nbBuilding.ContainsKey("hospital"))
@@ -143,6 +165,8 @@ namespace ProjectStellar
 
         public void CreateFireStation(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetFireStation);
             _ctx.AddBuilding(x, y, CityHelper.GetFireStation);
 
             if (_ctx._nbBuilding.ContainsKey("fireStation"))
@@ -157,6 +181,8 @@ namespace ProjectStellar
 
         public void CreateCityHall(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetCityHall);
             _ctx.AddBuilding(x, y, CityHelper.GetCityHall);
 
             if (_ctx._nbBuilding.ContainsKey("cityHall"))
@@ -171,6 +197,8 @@ namespace ProjectStellar
 
          public void CreateSawMill(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetSawmill);
             _ctx.AddBuilding(x, y, CityHelper.GetSawmill);
 
             if (_ctx._nbBuilding.ContainsKey("sawMill"))
@@ -185,6 +213,8 @@ namespace ProjectStellar
 
         public void CreateOreMine(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetOreMine);
             _ctx.AddBuilding(x, y, CityHelper.GetOreMine);
 
             if (_ctx._nbBuilding.ContainsKey("oreMine"))
@@ -200,6 +230,8 @@ namespace ProjectStellar
 
         public void CreateMetalMine(int x, int y)
         {
+            _resourcesManager = new ResourcesManager(_ctx);
+            _resourcesManager.UpdateWhenCreate(CityHelper.GetMetalMine);
             _ctx.AddBuilding(x, y, CityHelper.GetMetalMine);
 
             if (_ctx._nbBuilding.ContainsKey("metalMine"))
@@ -214,6 +246,7 @@ namespace ProjectStellar
 
         public void DestroyHut(int x, int y, Hut hut)
         {
+           
             _ctx.RemoveBuilding(x, y, hut);
 
             if (_ctx._nbBuilding.ContainsKey("hut"))

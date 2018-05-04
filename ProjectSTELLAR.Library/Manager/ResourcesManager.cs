@@ -64,5 +64,14 @@ namespace ProjectStellar
                 _nbResources["coins"] += cityManager.CityBalance;
             }
         }
+
+        public void UpdateWhenCreate(Building building)
+        {
+            _nbResources["wood"] -= building.WoodNeeded;
+            _nbResources["rock"] -= building.RockNeeded;
+            _nbResources["metal"] -= building.MetalNeeded;
+            _nbResources["coins"] -= building.StellarCoinNeeded;
+        }
+
     }
 }

@@ -22,8 +22,9 @@ namespace ProjectStellar
         readonly int _nbPeople;
         int _moneyWinOrLost;
         Map _ctx ;
+        int _xp;
 
-        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
+        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, int xp)
         {
             _isBuild = true;
             _rockNeeded = rockNeeded;
@@ -37,8 +38,10 @@ namespace ProjectStellar
             _costMoney = costMoney;
             _moneyWinOrLost = moneyWinOrLost;
             _ctx = ctx;
+            _xp = xp;
         }
 
+        public int XP => _xp;
         public int MoneyWinOrLost => _moneyWinOrLost;
 
         public int RockNeeded => _rockNeeded;
