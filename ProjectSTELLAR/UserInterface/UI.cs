@@ -22,7 +22,8 @@ namespace ProjectStellar
         uint _width;
         uint _height;
         uint _boxSize = 32;
-        bool _buildSelected;
+        private bool _buildSelected;
+        private bool _destroySelected;
         Dictionary<Sprite, Building> _chosenBuildings;
 
         Sprite _play;
@@ -40,6 +41,7 @@ namespace ProjectStellar
         private Sprite _woodSprite;
         private Sprite _pollutionSprite;
         private Sprite _buildButton;
+        private Sprite _destroyButton;
         private Sprite _flatSprite;
         private Sprite _hutSprite;
         private Sprite _houseSprite;
@@ -107,6 +109,12 @@ namespace ProjectStellar
             _buildButton = new Sprite(_ctx._uiTextures[3])
             {
                 Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 5))
+            };
+
+            _destroyButton = new Sprite(_ctx._uiTextures[4])
+            {
+                Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 2)),
+                Scale = new Vector2f(2f, 2f)
             };
 
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
@@ -197,7 +205,7 @@ namespace ProjectStellar
             rec.OutlineThickness = 3.0f;
             rec.FillColor = new Color(Color.White);
             rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
-            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5));
+            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
 
             _buildButton.Draw(window, RenderStates.Default);
             
@@ -216,11 +224,26 @@ namespace ProjectStellar
             }
         }
 
+        public void DrawDestroyButton(RenderWindow window)
+        {
+            _destroyButton.Draw(window, RenderStates.Default);
+        }
+
         public bool CheckBuildSelected(RenderWindow window)
         {
             if(_buildButton.GetGlobalBounds().Contains((float) Mouse.GetPosition(window).X, (float) Mouse.GetPosition(window).Y))
             {
                 _buildSelected = true;
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckDestroySelected(RenderWindow window)
+        {
+            if (_destroyButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                _destroySelected = true;
                 return true;
             }
             return false;
@@ -300,6 +323,12 @@ namespace ProjectStellar
                 }
             }
             return false;
+        }
+
+        public bool DestroySelected
+        {
+            get { return _destroySelected; }
+            set { _destroySelected = value; }
         }
     }
 }
