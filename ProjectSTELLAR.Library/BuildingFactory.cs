@@ -9,11 +9,13 @@ namespace ProjectStellar
     public class BuildingFactory
     {
         Map _ctx;
-        public BuildingFactory(Map ctx)
+        ResourcesManager _resourcesManager;
+
+        public BuildingFactory(Map ctx, ResourcesManager resourcesManager)
         {
             _ctx = ctx;
+            _resourcesManager = resourcesManager;
         }
-        ResourcesManager _resourcesManager;
 
 
         public void CreateHut(int x, int y)
@@ -34,7 +36,6 @@ namespace ProjectStellar
 
         public void CreateHouse(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetHouse);
 
             _ctx.AddBuilding(x, y, CityHelper.GetHouse);
@@ -52,7 +53,6 @@ namespace ProjectStellar
 
         public void CreateFlat(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetFlat);
             _ctx.AddBuilding(x, y, CityHelper.GetFlat);
 
@@ -68,7 +68,6 @@ namespace ProjectStellar
 
         public void CreateWareHouse(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetWareHouse);
             _ctx.AddBuilding(x, y, CityHelper.GetWareHouse);
 
@@ -84,7 +83,6 @@ namespace ProjectStellar
 
         public void CreateSpaceStation(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetSpaceStation);
             _ctx.AddBuilding(x, y, CityHelper.GetSpaceStation);
 
@@ -100,7 +98,6 @@ namespace ProjectStellar
 
         public void CreatePumpingStation(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetPumpingStation);
             _ctx.AddBuilding(x, y, CityHelper.GetPumpingStation);
 
@@ -116,7 +113,6 @@ namespace ProjectStellar
 
         public void CreatePowerPlant(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetPowerPlant);
             _ctx.AddBuilding(x, y, CityHelper.GetPowerPlant);
 
@@ -133,7 +129,6 @@ namespace ProjectStellar
 
         public void CreatePoliceStation(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetPoliceStation);
             _ctx.AddBuilding(x, y, CityHelper.GetPoliceStation);
 
@@ -149,7 +144,6 @@ namespace ProjectStellar
 
         public void CreateHospital(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetHospital);
             _ctx.AddBuilding(x, y, CityHelper.GetHospital);
 
@@ -165,7 +159,6 @@ namespace ProjectStellar
 
         public void CreateFireStation(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetFireStation);
             _ctx.AddBuilding(x, y, CityHelper.GetFireStation);
 
@@ -181,7 +174,6 @@ namespace ProjectStellar
 
         public void CreateCityHall(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetCityHall);
             _ctx.AddBuilding(x, y, CityHelper.GetCityHall);
 
@@ -197,7 +189,6 @@ namespace ProjectStellar
 
          public void CreateSawMill(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetSawmill);
             _ctx.AddBuilding(x, y, CityHelper.GetSawmill);
 
@@ -213,7 +204,6 @@ namespace ProjectStellar
 
         public void CreateOreMine(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetOreMine);
             _ctx.AddBuilding(x, y, CityHelper.GetOreMine);
 
@@ -230,7 +220,6 @@ namespace ProjectStellar
 
         public void CreateMetalMine(int x, int y)
         {
-            _resourcesManager = new ResourcesManager(_ctx);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetMetalMine);
             _ctx.AddBuilding(x, y, CityHelper.GetMetalMine);
 
