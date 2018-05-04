@@ -31,8 +31,8 @@ namespace ProjectStellar
             _height = height;
             _gameTime = gameTime;
             _buildingList = buildingList;
-            _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this);
             _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList);
+            _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui);
         }
 
         public void RenderSprite
@@ -48,6 +48,7 @@ namespace ProjectStellar
             _mapUI.DrawMapTile(window, _mapCtx.Boxes);
             _mapUI.DrawGrid(window);
             _ui.DrawBuildButton(window, font);
+            _ui.DrawDestroyButton(window);
             _ui.DrawResourcesBar(window, font, _resourcesCtx.NbResources);
             _ui.DrawTimeBar(window, _gameTime, font);
         }

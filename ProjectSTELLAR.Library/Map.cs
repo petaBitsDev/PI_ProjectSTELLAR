@@ -51,7 +51,7 @@ namespace ProjectStellar
             }
         }
 
-        public void RemoveBuilding(int x, int y, Building building)
+        public void RemoveBuilding(int x, int y)
         {
             _boxes[x, y] = null;
         }

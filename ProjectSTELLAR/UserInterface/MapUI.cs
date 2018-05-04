@@ -22,8 +22,9 @@ namespace ProjectStellar
         DrawUI _drawUIctx;
         DrawBuildings _drawBuildings;
         Cases[] _cases;
+        UI _ui;
 
-        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI)
+        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui)
         {
             _gameCtx = context;
             _ctx = ctx;
@@ -31,6 +32,7 @@ namespace ProjectStellar
             _width = width;
             _height = height;
             _drawBuildings = new DrawBuildings(_gameCtx);
+            _ui = ui;
         }
 
         public Map MapContext => _ctx;
@@ -113,6 +115,11 @@ namespace ProjectStellar
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
                         _ctx.AddBuilding(_cases[i].X, _cases[i].Y);
+                    }
+                    else if (_ui.DestroySelected)
+                    {
+                        _ctx.RemoveBuilding(_cases[i].X, _cases[i].Y);
+                        _ui.DestroySelected = false;
                     }
                     return true;
                 }
