@@ -20,7 +20,6 @@ namespace ProjectStellar
 
         public void CreateHut(int x, int y)
         {
-           _resourcesManager = new ResourcesManager(_ctx);
            _ctx.AddBuilding(x, y, CityHelper.GetHut);
             _resourcesManager.UpdateWhenCreate(CityHelper.GetHut);
 
