@@ -47,7 +47,7 @@ namespace ProjectStellar
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
-            _buildingsTextures[2] = new Texture("./resources/img/flat.png");
+            _buildingsTextures[2] = new Texture("./resources/img/immeuble.png");
             _buildingsTextures[3] = new Texture("./resources/img/house.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");

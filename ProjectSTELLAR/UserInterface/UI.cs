@@ -119,7 +119,8 @@ namespace ProjectStellar
 
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
-                Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5))
+                Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5)),
+                Scale = new Vector2f(0.5f,0.5f)
             };
 
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
