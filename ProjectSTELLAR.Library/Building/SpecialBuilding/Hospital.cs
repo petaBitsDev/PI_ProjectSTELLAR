@@ -8,8 +8,8 @@ namespace ProjectStellar
 {
     public class Hospital : Building
     {
-        public Hospital(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, int xp)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, xp)
+        public Hospital(Map ctx)
+            : base(ctx, 70, 40, 67, 75, 45, 60, 15, 25, true, 30, 45)
         {
 
         }

@@ -77,7 +77,7 @@ namespace ProjectStellar
             {
                 if(gameTime.InGameTime.Minute == 00)
                 {
-                    _resourcesManager.UpdateResources();
+                   // _resourcesManager.UpdateResources();
                 }
             }
         }

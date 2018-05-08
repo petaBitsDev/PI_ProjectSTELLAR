@@ -8,7 +8,7 @@ namespace ProjectStellar
 {
     public class Map
     {
-        public Dictionary<string, int> _nbBuilding = new Dictionary<string, int>();
+        public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
         int _height;
         int _width;
 
@@ -55,7 +55,7 @@ namespace ProjectStellar
 
  
 
-        public Dictionary<string, int> NbBuilding
+        public Dictionary<Building, int> NbBuilding
         {
             get { return _nbBuilding; }
             set { _nbBuilding = value; }

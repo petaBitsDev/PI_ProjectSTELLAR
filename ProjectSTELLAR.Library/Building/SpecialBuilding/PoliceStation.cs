@@ -8,8 +8,8 @@ namespace ProjectStellar
 {
     public class PoliceStation : Building
     {
-        public PoliceStation(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, int xp)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, xp)
+        public PoliceStation(Map ctx)
+            : base(ctx, 45, 100, 60, 55, 25, 20, 15, 20, true, 40, 90)
         {
 
         }
