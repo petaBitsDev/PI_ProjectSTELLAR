@@ -223,21 +223,22 @@ namespace ProjectStellar
          Map map = new Map(15,16);
          CityManager manager = new CityManager(map);
             ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
             Hut hut = new Hut(map);
             House house = new House(map);
             Flat flat = new Flat(map);
             BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
 
-            buildingFactory.CreateBuilding(1, 1, hut);
-            buildingFactory.CreateBuilding(1, 2, house);
-            buildingFactory.CreateBuilding(1, 4, house);
-            buildingFactory.CreateBuilding(1, 3, flat);
-            buildingFactory.CreateBuilding(1, 5, flat);
-            buildingFactory.CreateBuilding(1, 6, flat);
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetHouse);
+            //ildingFactory.CreateBuilding(1, 1, hut);
+            //ildingFactory.CreateBuilding(1, 4, house);
+            //ildingFactory.CreateBuilding(1, 3, flat);
+            //ildingFactory.CreateBuilding(1, 5, flat);
+            //ildingFactory.CreateBuilding(1, 6, flat);
 
 
 
-            Assert.That(manager.CityTaxes, Is.EqualTo(270));
+            Assert.That(manager.CityTaxes, Is.EqualTo(45));
      }
 
      [Test]
@@ -322,19 +323,16 @@ namespace ProjectStellar
             ResourcesManager resourcesManager = new ResourcesManager(map);
             CityHelper cityHelper = new CityHelper(map);
             BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
-            Hut hut = new Hut(map);
-            House house = new House(map);
-            Flat flat = new Flat(map);
 
-            buildingFactory.CreateBuilding(1, 1, hut);
-            buildingFactory.CreateBuilding(1, 2, house);
-            buildingFactory.CreateBuilding(1, 4, house);
-            buildingFactory.CreateBuilding(1, 3, flat);
-            buildingFactory.CreateBuilding(1, 5, flat);
-            buildingFactory.CreateBuilding(1, 6, flat);
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetHouse);
+            //buildingFactory.CreateBuilding(1, 1, hut);
+            //buildingFactory.CreateBuilding(1, 4, house);
+            //buildingFactory.CreateBuilding(1, 3, flat);
+            //buildingFactory.CreateBuilding(1, 5, flat);
+            //buildingFactory.CreateBuilding(1, 6, flat);
 
 
-            Assert.That(cityManager.CityPollution, Is.EqualTo(25));
+            Assert.That(cityManager.CityPollution, Is.EqualTo(10));
 
 }
 
