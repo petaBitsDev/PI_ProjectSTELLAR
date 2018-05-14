@@ -16,10 +16,10 @@ namespace ProjectStellar
         public const uint DEFAULT_WINDOW_HEIGHT = 720;
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
-        Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
+        Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[4];
-        public Texture[] _uiTextures = new Texture[12];
+        public Texture[] _uiTextures = new Texture[15];
         int _state;
         Menu _menu;
         Resolution _resolution;
@@ -63,6 +63,9 @@ namespace ProjectStellar
             _uiTextures[9] = new Texture("./resources/img/rock.png");
             _uiTextures[10] = new Texture("./resources/img/drop.png");
             _uiTextures[11] = new Texture("./resources/img/light.png");
+            _uiTextures[12] = new Texture("./resources/img/angry.png");
+            _uiTextures[13] = new Texture("./resources/img/confused.png");
+            _uiTextures[14] = new Texture("./resources/img/smile.png");
 
             _font = new Font("./resources/fonts/arial.ttf");
         }
@@ -71,7 +74,7 @@ namespace ProjectStellar
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(20, 20);
+            _map = new Map(39, 21);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _cityHelper = new CityHelper(_map);
@@ -101,7 +104,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 25, 25, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;

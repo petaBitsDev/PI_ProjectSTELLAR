@@ -49,6 +49,9 @@ namespace ProjectStellar
         private Sprite _electricitySprite;
         private Sprite _metalSprite;
         private Sprite _rockSprite;
+        private Sprite _smileSprite;
+        private Sprite _angrySprite;
+        private Sprite _confusedSprite;
 
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
@@ -100,17 +103,20 @@ namespace ProjectStellar
 
             _coinSprite = new Sprite(_ctx._uiTextures[5])
             {
-                Position = new Vector2f((width / 2 * _boxSize) + _boxSize, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _woodSprite = new Sprite(_ctx._uiTextures[7])
             {
-                Position = new Vector2f((width / 2 * _boxSize) + _boxSize * 3, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize + 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _pollutionSprite = new Sprite(_ctx._uiTextures[6])
             {
-                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 5, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 6 + 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _buildButton = new Sprite(_ctx._uiTextures[3])
@@ -142,23 +148,31 @@ namespace ProjectStellar
 
             _waterSprite = new Sprite(_ctx._uiTextures[10])
             {
-                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * -2, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 4 + 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _electricitySprite = new Sprite(_ctx._uiTextures[11])
             {
-                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * -4, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 5 + 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _rockSprite = new Sprite(_ctx._uiTextures[9])
             {
-                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 7, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 2 + 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _metalSprite = new Sprite(_ctx._uiTextures[8])
             {
-                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 9, 0)
+                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 3 + 2),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
+
+            _angrySprite = new Sprite(_ctx._uiTextures[12]);
+            _smileSprite = new Sprite(_ctx._uiTextures[14]);
+            _confusedSprite = new Sprite(_ctx._uiTextures[13]);
         }
 
         public uint Width => _width;
@@ -172,18 +186,18 @@ namespace ProjectStellar
         public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
             //Creates resources bar
-            RectangleShape rec = new RectangleShape();
-            rec.OutlineColor = new Color(Color.Red);
-            rec.OutlineThickness = 2.0f;
-            rec.FillColor = new Color(Color.Transparent);
-            rec.Size = new Vector2f((Width) * _boxSize, (1 * _boxSize));
-            rec.Position = new Vector2f((0 * _boxSize), (0 * _boxSize));
+            //RectangleShape rec = new RectangleShape();
+            //rec.OutlineColor = new Color(Color.Red);
+            //rec.OutlineThickness = 2.0f;
+            //rec.FillColor = new Color(Color.Transparent);
+            //rec.Size = new Vector2f(_boxSize, (Height) * _boxSize);
+            //rec.Position = new Vector2f((Width * _boxSize) - _boxSize * 3, 2);
 
             //Displays Coins Sprite and number of coins
             _coinSprite.Draw(window, RenderStates.Default);
             Text nbCoins = new Text(resources["coins"].ToString(), font);
-            nbCoins.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 2, 0);
-            nbCoins.Color = Color.Black;
+            nbCoins.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, 6);
+            nbCoins.Color = Color.White;
             nbCoins.CharacterSize = 13;
             nbCoins.Style = Text.Styles.Bold;
             nbCoins.Draw(window, RenderStates.Default);
@@ -191,8 +205,8 @@ namespace ProjectStellar
             //Displays Wood Sprite and number of wood
             _woodSprite.Draw(window, RenderStates.Default);
             Text nbWood = new Text(resources["wood"].ToString(), font);
-            nbWood.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 4, 0);
-            nbWood.Color = Color.Black;
+            nbWood.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize + 6);
+            nbWood.Color = Color.White;
             nbWood.CharacterSize = 13;
             nbWood.Style = Text.Styles.Bold;
             nbWood.Draw(window, RenderStates.Default);
@@ -200,25 +214,45 @@ namespace ProjectStellar
             //Displays Pollution Sprite and number
             _pollutionSprite.Draw(window, RenderStates.Default);
             Text nbPollution = new Text(resources["pollution"].ToString(), font);
-            nbPollution.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 6, 0);
-            nbPollution.Color = Color.Black;
+            nbPollution.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 6 + 6);
+            nbPollution.Color = Color.White;
             nbPollution.CharacterSize = 13;
             nbPollution.Style = Text.Styles.Bold;
             nbPollution.Draw(window, RenderStates.Default);
 
             _rockSprite.Draw(window, RenderStates.Default);
             Text nbRock = new Text(resources["rock"].ToString(), font);
-            nbRock.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 8, 0);
-            nbRock.Color = Color.Black;
+            nbRock.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 2 + 6);
+            nbRock.Color = Color.White;
             nbRock.CharacterSize = 13;
             nbRock.Style = Text.Styles.Bold;
             nbRock.Draw(window, RenderStates.Default);
 
             _metalSprite.Draw(window, RenderStates.Default);
-            _electricitySprite.Draw(window, RenderStates.Default);
-            _waterSprite.Draw(window, RenderStates.Default);
+            Text nbMetal = new Text(resources["metal"].ToString(), font);
+            nbMetal.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 3 + 6);
+            nbMetal.Color = Color.White;
+            nbMetal.CharacterSize = 13;
+            nbMetal.Style = Text.Styles.Bold;
+            nbMetal.Draw(window, RenderStates.Default);
 
-            window.Draw(rec);
+            _electricitySprite.Draw(window, RenderStates.Default);
+            //Text nbElec = new Text(resources["rock"].ToString(), font);
+            //nbElec.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 4 + 6);
+            //nbElec.Color = Color.White;
+            //nbElec.CharacterSize = 13;
+            //nbElec.Style = Text.Styles.Bold;
+            //nbElec.Draw(window, RenderStates.Default);
+
+            _waterSprite.Draw(window, RenderStates.Default);
+            //Text nbWater = new Text(resources["rock"].ToString(), font);
+            //nbWater.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 5 + 6);
+            //nbWater.Color = Color.White;
+            //nbWater.CharacterSize = 13;
+            //nbWater.Style = Text.Styles.Bold;
+            //nbWater.Draw(window, RenderStates.Default);
+
+            //window.Draw(rec);
         }
 
         public void DrawTimeBar(RenderWindow window, GameTime gameTime, Font font)

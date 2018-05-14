@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -23,8 +23,9 @@ namespace ProjectStellar
         DrawBuildings _drawBuildings;
         Cases[] _cases;
         UI _ui;
+        Resolution _resolution;
 
-        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui)
+        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution)
         {
             _gameCtx = context;
             _ctx = ctx;
@@ -33,6 +34,7 @@ namespace ProjectStellar
             _height = height;
             _drawBuildings = new DrawBuildings(_gameCtx);
             _ui = ui;
+            _resolution = resolution;
         }
 
         public Map MapContext => _ctx;
@@ -43,30 +45,16 @@ namespace ProjectStellar
 
         public Game GameContext => _gameCtx;
 
-        public struct Rect
-        {
-            public int Top;
-            public int Bottom;
-            public int Left;
-            public int Right;
-        }
-
-        public static Rect TileView;
-
         public void DrawGrid(RenderWindow window)
         {
-            TileView.Top = 0;
-            TileView.Bottom = 10;
-            TileView.Left = 0;
-            TileView.Right = 10;
             int i = 0;
 
             RectangleShape rec;
             _cases = new Cases[Width * Height];
 
-            for (int x = TileView.Left; x < Width; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int y = TileView.Top; y < Height; y++)
+                for (int y = 0; y < Height; y++)
                 {
                     rec = new RectangleShape();
                     rec.OutlineColor = new Color(Color.Black);
