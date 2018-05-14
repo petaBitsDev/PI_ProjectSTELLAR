@@ -66,6 +66,7 @@ namespace ProjectStellar
             _gameTime = gameTime;
             _buildingList = buildingList;
             _buildingChoices = new BuildingChoice[16];
+            _resourcesManager = resourcesManager;
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
