@@ -75,6 +75,16 @@ namespace ProjectStellar
             _nbResources["coins"] -= building.StellarCoinNeeded;
         }
 
+        public bool CheckRessourcesNeeded(Building building)
+        {
+            if (_nbResources["wood"] - building.WoodNeeded < 0) return false;
+            else if (_nbResources["rock"] - building.RockNeeded < 0) return false;
+            else if (_nbResources["metal"] - building.MetalNeeded < 0) return false;
+            else if (_nbResources["coins"] - building.StellarCoinNeeded < 0) return false;
+
+            return true;
+        }
+
         //public int Electricity
         //{
         //    get
