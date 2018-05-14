@@ -51,7 +51,7 @@ namespace ProjectStellar
           Map map = new Map(12,15);
           FireStation sut = new FireStation(map);
 
-          map.AddBuilding(3, 2, sut);
+          map.AddBuilding(3, 2);
 
           Assert.That(map.CheckBuilding(3, 2), Is.True);
           Assert.That(map.CheckBuilding(3, 8), Is.False);
@@ -66,13 +66,13 @@ namespace ProjectStellar
           Map map = new Map(12,15);
           Hut sut = new Hut(map);
 
-          map.AddBuilding(3, 2, sut);
+          map.AddBuilding(3, 2);
 
           Assert.That(map.CheckBuilding(3, 2), Is.True);
           Assert.That(map.CheckBuilding(3, 8), Is.False);
           Assert.That(map.Boxes[3, 2], Is.EqualTo(sut));
 
-          map.RemoveBuilding(3, 2, sut);
+          map.RemoveBuilding(3, 2);
 
           Assert.That(map.CheckBuilding(3, 2), Is.False);
           Assert.That(map.Boxes[3, 2], Is.EqualTo(null));

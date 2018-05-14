@@ -19,7 +19,7 @@ namespace ProjectStellar
 
         public void CreateBuilding(int x , int y, Building building)
         {
-            _ctx.AddBuilding(x, y, building);
+            _ctx.AddBuilding(x, y);
             _resourcesManager.UpdateWhenCreate(building);
 
 
@@ -35,7 +35,7 @@ namespace ProjectStellar
 
         public void DestroyBuilding(int x, int y, Building building)
         {
-            _ctx.RemoveBuilding(x, y, building);
+            _ctx.RemoveBuilding(x, y);
             if (_ctx._nbBuilding.ContainsKey(building))
             {
                 _ctx._nbBuilding[building]--;

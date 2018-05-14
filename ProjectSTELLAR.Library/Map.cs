@@ -61,18 +61,11 @@ namespace ProjectStellar
             if (_boxes[x, y] != null) return true;
             return false;
         }
-
- 
-
+        
         public Dictionary<Building, int> NbBuilding
         {
             get { return _nbBuilding; }
             set { _nbBuilding = value; }
         }
-
-
-       
-
-      
     }
 }

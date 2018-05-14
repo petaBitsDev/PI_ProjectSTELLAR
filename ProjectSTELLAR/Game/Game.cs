@@ -25,6 +25,7 @@ namespace ProjectStellar
         Resolution _resolution;
         Font _font;
         Map _map;
+        public BuildingFactory _buildingFactory;
         DrawUI _drawUI;
         ResourcesManager _resourcesManager;
         CityHelper _cityHelper;
@@ -68,6 +69,7 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
+            _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _cityHelper = new CityHelper(_map);
             _cityHelper.CreateListBuilding();
 

@@ -114,7 +114,8 @@ namespace ProjectStellar
                     //Console.WriteLine("Cast : " + (int)_cases[i].X + "  " + (int)_cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
-                        _ctx.AddBuilding(_cases[i].X, _cases[i].Y);
+                        _gameCtx._buildingFactory.CreateBuilding(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding);
+                        _ctx.ChosenBuilding = null;
                     }
                     else if (_ui.DestroySelected)
                     {
