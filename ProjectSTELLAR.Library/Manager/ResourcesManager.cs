@@ -8,8 +8,10 @@ namespace ProjectStellar
 {
     public class ResourcesManager
     {
-        Map _ctx;
+       static Map _ctx;
         Dictionary<string, int> _nbResources = new Dictionary<string, int>();
+        CityHelper c = new CityHelper(_ctx);
+
 
         public ResourcesManager(Map ctx)
         {
@@ -34,7 +36,7 @@ namespace ProjectStellar
             else
             {
 
-                _nbResources["wood"] += (Sawmill.WoodProduction * cityManager.NbSawMill) ;
+                _nbResources["wood"] += (c.GetSawmill.WoodProduction * cityManager.NbSawMill) ;
             }
 
             if (!_nbResources.ContainsKey("rock"))
@@ -43,7 +45,7 @@ namespace ProjectStellar
             }
             else
             {
-                _nbResources["rock"] += (OreMine.RockProduction * cityManager.NbOreMine);
+                _nbResources["rock"] += (c.GetOreMine.RockProduction * cityManager.NbOreMine);
             }
 
             if (!_nbResources.ContainsKey("metal"))
@@ -52,7 +54,7 @@ namespace ProjectStellar
             }
             else
             {
-                _nbResources["metal"] += (MetalMine.MetalProduction * cityManager.NbMetalMine);
+                _nbResources["metal"] += (c.GetMetalMine.MetalProduction * cityManager.NbMetalMine);
             }
 
             if (!_nbResources.ContainsKey("coins"))
@@ -64,5 +66,34 @@ namespace ProjectStellar
                 _nbResources["coins"] += cityManager.CityBalance;
             }
         }
+
+        public void UpdateWhenCreate(Building building)
+        {
+            _nbResources["wood"] -= building.WoodNeeded;
+            _nbResources["rock"] -= building.RockNeeded;
+            _nbResources["metal"] -= building.MetalNeeded;
+            _nbResources["coins"] -= building.StellarCoinNeeded;
+        }
+
+        //public int Electricity
+        //{
+        //    get
+        //    {
+        //        CityManager cityManager = new CityManager(_ctx);
+
+        //        return (CityHelper.GetPowerPlant.ElectricityProduction * cityManager.NbPowerPlant);
+        //    }
+        //}
+
+        //public int Water
+        //{
+        //    get
+        //    {
+        //        CityManager cityManager = new CityManager(_ctx);
+        //        return (CityHelper.GetPumpingStation.WaterProduction * cityManager.NbPumpingStation);
+
+        //    }
+        //}
+
     }
 }

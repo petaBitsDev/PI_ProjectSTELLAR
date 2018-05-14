@@ -8,14 +8,14 @@ namespace ProjectStellar
 {
     public class MetalMine : Building
     {
-        public MetalMine(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, isFlammable)
+        int _metalProdution;
+        public MetalMine(Map ctx, int metalProduction)
+            : base(ctx, 15, 15, 25, 0, 10, 10, 20, 15, false, 0, 20)
         {
-
+            _metalProdution = metalProduction;
         }
 
-        static public int Pollution => 10;
-        static public int MetalProduction => 70;
+        public int MetalProduction => _metalProdution;
 
     }
 }

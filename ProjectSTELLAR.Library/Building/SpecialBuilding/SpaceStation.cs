@@ -8,13 +8,12 @@ namespace ProjectStellar
 {
     public class SpaceStation : Building
     {
-        public SpaceStation(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, isFlammable)
+        public SpaceStation(Map ctx)
+            : base(ctx, 70, 120, 100, 90, 70, 50, 25, 30, true, 70, 1500)
         {
 
         }
 
-        static public int Pollution => 10;
-        static public int Charges => 100;
+
     }
 }

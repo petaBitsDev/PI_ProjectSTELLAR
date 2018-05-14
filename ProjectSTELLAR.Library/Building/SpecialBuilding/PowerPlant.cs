@@ -8,13 +8,13 @@ namespace ProjectStellar
 {
     public class PowerPlant : Building
     {
-        public PowerPlant(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost, isFlammable)
+        int _electricityProduction;
+        public PowerPlant(Map ctx, int electricityProduction)
+            : base(ctx, 25, 38, 25, 30, 0, 30, 15, 15, true, 12, 40)
         {
-
+            _electricityProduction = electricityProduction;
         }
 
-        static public int Pollution => 10;
-        static public int Charges => 100;
+        public int ElectricityProduction => _electricityProduction;
     }
 }

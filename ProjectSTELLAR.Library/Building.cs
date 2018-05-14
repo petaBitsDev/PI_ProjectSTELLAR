@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-   public class Building
+   public  abstract class Building
     {
         bool _isBuild;
         //cost money is true for public buildings and false for the building wich pay taxes
@@ -20,11 +20,11 @@ namespace ProjectStellar
         readonly int _electricityConsume;
         readonly int _airPollution;
         readonly int _nbPeople;
-        bool _isFlammable;
         int _moneyWinOrLost;
         Map _ctx ;
+        int _xp;
 
-        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, bool isFlammable)
+        public Building(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, int xp)
         {
             _isBuild = true;
             _rockNeeded = rockNeeded;
@@ -37,10 +37,11 @@ namespace ProjectStellar
             _nbPeople = nbPeople;
             _costMoney = costMoney;
             _moneyWinOrLost = moneyWinOrLost;
-            _isFlammable = isFlammable;
             _ctx = ctx;
+            _xp = xp;
         }
 
+        public int XP => _xp;
         public int MoneyWinOrLost => _moneyWinOrLost;
 
         public int RockNeeded => _rockNeeded;
@@ -67,9 +68,9 @@ namespace ProjectStellar
             set { _isBuild = value; }
         }
 
+        protected Map Context => _ctx;
         public bool CostMoney => _costMoney;
 
-        public bool IsFlammable => _isFlammable;
 
 
         //public void Destroy()
@@ -77,6 +78,9 @@ namespace ProjectStellar
         //    if (!_isBuild) throw new ArgumentException("You can't destroy a building that haven't been built", nameof(_isBuild));
         //    _isBuild = false;
         //}
-      
+
     }
+
+    
+     
 }
