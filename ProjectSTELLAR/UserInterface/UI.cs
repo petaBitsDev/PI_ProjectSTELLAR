@@ -237,20 +237,20 @@ namespace ProjectStellar
             nbMetal.Draw(window, RenderStates.Default);
 
             _electricitySprite.Draw(window, RenderStates.Default);
-            //Text nbElec = new Text(resources["rock"].ToString(), font);
-            //nbElec.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 4 + 6);
-            //nbElec.Color = Color.White;
-            //nbElec.CharacterSize = 13;
-            //nbElec.Style = Text.Styles.Bold;
-            //nbElec.Draw(window, RenderStates.Default);
+            Text nbElec = new Text(_resourcesManager.ElectricityBalance.ToString(), font);
+            nbElec.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 4 + 6);
+            nbElec.Color = Color.White;
+            nbElec.CharacterSize = 13;
+            nbElec.Style = Text.Styles.Bold;
+            nbElec.Draw(window, RenderStates.Default);
 
             _waterSprite.Draw(window, RenderStates.Default);
-            //Text nbWater = new Text(resources["rock"].ToString(), font);
-            //nbWater.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 5 + 6);
-            //nbWater.Color = Color.White;
-            //nbWater.CharacterSize = 13;
-            //nbWater.Style = Text.Styles.Bold;
-            //nbWater.Draw(window, RenderStates.Default);
+            Text nbWater = new Text(_resourcesManager.WaterBalance.ToString(), font);
+            nbWater.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 5 + 6);
+            nbWater.Color = Color.White;
+            nbWater.CharacterSize = 13;
+            nbWater.Style = Text.Styles.Bold;
+            nbWater.Draw(window, RenderStates.Default);
 
             //window.Draw(rec);
         }
