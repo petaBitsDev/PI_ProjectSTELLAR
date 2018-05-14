@@ -47,8 +47,9 @@ namespace ProjectStellar
         private Sprite _houseSprite;
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
+        private ResourcesManager _resourcesManager;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager)
         {
             _sprites = new List<Sprite>();
             _chosenBuildings = new Dictionary<Sprite, Building>();
@@ -318,6 +319,7 @@ namespace ProjectStellar
                 {
 
                     _chosenBuildings.TryGetValue(_sprites[i], out Building building);
+                    _resourcesManager.CheckResourcesNeeded(building);
                     _mapCtx.ChosenBuilding = building;
                     //Console.WriteLine(type);
                     return true;

@@ -31,7 +31,7 @@ namespace ProjectStellar
             _height = height;
             _gameTime = gameTime;
             _buildingList = buildingList;
-            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList);
+            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager);
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui);
         }
 
