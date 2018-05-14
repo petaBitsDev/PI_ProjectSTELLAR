@@ -320,7 +320,7 @@ namespace ProjectStellar
                 {
 
                     _chosenBuildings.TryGetValue(_sprites[i], out Building building);
-                    _resourcesManager.CheckResourcesNeeded(building);
+                    if (!_resourcesManager.CheckResourcesNeeded(building)) return false;
                     _mapCtx.ChosenBuilding = building;
                     //Console.WriteLine(type);
                     return true;
