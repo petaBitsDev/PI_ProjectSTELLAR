@@ -14,14 +14,14 @@ namespace ProjectStellar
           Map map = new Map(12,15);
           Building sut = new Hut(map);
         
-          Assert.That(sut.RockNeeded, Is.EqualTo(120));
-          Assert.That(sut.WoodNeeded, Is.EqualTo(40));
+          Assert.That(sut.RockNeeded, Is.EqualTo(25));
+          Assert.That(sut.WoodNeeded, Is.EqualTo(50));
           Assert.That(sut.StellarCoinNeeded, Is.EqualTo(15));
-          Assert.That(sut.MetalNeeded, Is.EqualTo(12));
-          Assert.That(sut.ElectricityConsume, Is.EqualTo(65));
-          Assert.That(sut.WaterConsume, Is.EqualTo(89));
-          Assert.That(sut.AirPollution, Is.EqualTo(655));
-          Assert.That(sut.NbPeople, Is.EqualTo(45));
+          Assert.That(sut.MetalNeeded, Is.EqualTo(0));
+          Assert.That(sut.ElectricityConsume, Is.EqualTo(5));
+          Assert.That(sut.WaterConsume, Is.EqualTo(5));
+          Assert.That(sut.AirPollution, Is.EqualTo(0));
+          Assert.That(sut.NbPeople, Is.EqualTo(5));
 
       }
 
@@ -223,21 +223,22 @@ namespace ProjectStellar
          Map map = new Map(15,16);
          CityManager manager = new CityManager(map);
             ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
             Hut hut = new Hut(map);
             House house = new House(map);
             Flat flat = new Flat(map);
             BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
 
-            buildingFactory.CreateBuilding(1, 1, hut);
-            buildingFactory.CreateBuilding(1, 2, house);
-            buildingFactory.CreateBuilding(1, 4, house);
-            buildingFactory.CreateBuilding(1, 3, flat);
-            buildingFactory.CreateBuilding(1, 5, flat);
-            buildingFactory.CreateBuilding(1, 6, flat);
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetHouse);
+            //ildingFactory.CreateBuilding(1, 1, hut);
+            //ildingFactory.CreateBuilding(1, 4, house);
+            //ildingFactory.CreateBuilding(1, 3, flat);
+            //ildingFactory.CreateBuilding(1, 5, flat);
+            //ildingFactory.CreateBuilding(1, 6, flat);
 
 
 
-            Assert.That(manager.CityTaxes, Is.EqualTo(270));
+            Assert.That(manager.CityTaxes, Is.EqualTo(45));
      }
 
      [Test]
@@ -279,13 +280,13 @@ namespace ProjectStellar
 
 
 
-         Assert.That(resourcesManager.NbResources["wood"], Is.EqualTo(570));
+         Assert.That(resourcesManager.NbResources["wood"], Is.EqualTo(500));
 
          buildingFactory.CreateBuilding(1, 5, oreMine);
          buildingFactory.CreateBuilding(1, 6, oreMine);
          resourcesManager.UpdateResources();
 
-         Assert.That(resourcesManager.NbResources["rock"], Is.EqualTo(640));
+         Assert.That(resourcesManager.NbResources["rock"], Is.EqualTo(485));
 
          buildingFactory.CreateBuilding(1, 7, metalMine);
          buildingFactory.CreateBuilding(1, 8, metalMine);
@@ -293,7 +294,7 @@ namespace ProjectStellar
          resourcesManager.UpdateResources();
 
      
-         Assert.That(resourcesManager.NbResources["metal"], Is.EqualTo(360));
+         Assert.That(resourcesManager.NbResources["metal"], Is.EqualTo(135));
      
 
      }
@@ -322,19 +323,16 @@ namespace ProjectStellar
             ResourcesManager resourcesManager = new ResourcesManager(map);
             CityHelper cityHelper = new CityHelper(map);
             BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
-            Hut hut = new Hut(map);
-            House house = new House(map);
-            Flat flat = new Flat(map);
 
-            buildingFactory.CreateBuilding(1, 1, hut);
-            buildingFactory.CreateBuilding(1, 2, house);
-            buildingFactory.CreateBuilding(1, 4, house);
-            buildingFactory.CreateBuilding(1, 3, flat);
-            buildingFactory.CreateBuilding(1, 5, flat);
-            buildingFactory.CreateBuilding(1, 6, flat);
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetHouse);
+            //buildingFactory.CreateBuilding(1, 1, hut);
+            //buildingFactory.CreateBuilding(1, 4, house);
+            //buildingFactory.CreateBuilding(1, 3, flat);
+            //buildingFactory.CreateBuilding(1, 5, flat);
+            //buildingFactory.CreateBuilding(1, 6, flat);
 
 
-            Assert.That(cityManager.CityPollution, Is.EqualTo(25));
+            Assert.That(cityManager.CityPollution, Is.EqualTo(10));
 
 }
 
@@ -356,6 +354,150 @@ namespace ProjectStellar
             Assert.That(te, Is.EqualTo(2));
             Assert.That(map.Boxes[10, 2], Is.EqualTo(hut));
             Assert.That(resourcesManager.NbResources["wood"], Is.EqualTo(400));
+        }
+
+        [Test]
+
+        public void check_electricity_and_water_production()
+        {
+            Map map = new Map(20, 20);
+            ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
+
+            buildingFactory.CreateBuilding(2, 4, cityHelper.GetPowerPlant);
+
+            Assert.That(resourcesManager.Electricity, Is.EqualTo(220));
+
+            buildingFactory.CreateBuilding(2, 1, cityHelper.GetPowerPlant);
+            Assert.That(resourcesManager.Electricity, Is.EqualTo(440));
+
+            buildingFactory.CreateBuilding(3, 1, cityHelper.GetPumpingStation);
+            Assert.That(resourcesManager.Water, Is.EqualTo(250));
+
+            buildingFactory.DestroyBuilding(2, 1, cityHelper.GetPowerPlant);
+            Assert.That(resourcesManager.Electricity, Is.EqualTo(220));
+
+
+        }
+
+        [Test]
+
+        public void check_electricity_consomation()
+        {
+            Map map = new Map(20, 20);
+            ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
+
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetCityHall);
+            buildingFactory.CreateBuilding(1, 3, cityHelper.GetFireStation);
+            buildingFactory.CreateBuilding(1, 4, cityHelper.GetFlat);
+            buildingFactory.CreateBuilding(1, 5, cityHelper.GetHospital);
+            buildingFactory.CreateBuilding(1, 6, cityHelper.GetHouse);
+            buildingFactory.CreateBuilding(1, 7, cityHelper.GetHut);
+            buildingFactory.CreateBuilding(1, 8, cityHelper.GetMetalMine);
+            buildingFactory.CreateBuilding(1, 9, cityHelper.GetOreMine);
+            buildingFactory.CreateBuilding(1, 10, cityHelper.GetPoliceStation);
+            buildingFactory.CreateBuilding(1, 12, cityHelper.GetPumpingStation);
+            buildingFactory.CreateBuilding(1, 13, cityHelper.GetSawmill);
+            buildingFactory.CreateBuilding(1, 14, cityHelper.GetSpaceStation);
+            buildingFactory.CreateBuilding(1, 15, cityHelper.GetWareHouse);
+
+            Assert.That(resourcesManager.ElectricityConsume, Is.EqualTo(325));
+
+
+        }
+
+        [Test]
+
+        public void check_water_consommation()
+        {
+            Map map = new Map(20, 20);
+            ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
+
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetCityHall);
+            buildingFactory.CreateBuilding(1, 3, cityHelper.GetFireStation);
+            buildingFactory.CreateBuilding(1, 4, cityHelper.GetFlat);
+            buildingFactory.CreateBuilding(1, 5, cityHelper.GetHospital);
+            buildingFactory.CreateBuilding(1, 6, cityHelper.GetHouse);
+            buildingFactory.CreateBuilding(1, 7, cityHelper.GetHut);
+            buildingFactory.CreateBuilding(1, 8, cityHelper.GetMetalMine);
+            buildingFactory.CreateBuilding(1, 9, cityHelper.GetOreMine);
+            buildingFactory.CreateBuilding(1, 10, cityHelper.GetPoliceStation);
+            buildingFactory.CreateBuilding(1, 11, cityHelper.GetPowerPlant);
+            buildingFactory.CreateBuilding(1, 12, cityHelper.GetPumpingStation);
+            buildingFactory.CreateBuilding(1, 13, cityHelper.GetSawmill);
+            buildingFactory.CreateBuilding(1, 14, cityHelper.GetSpaceStation);
+            buildingFactory.CreateBuilding(1, 15, cityHelper.GetWareHouse);
+
+            Assert.That(resourcesManager.WaterConsume, Is.EqualTo(370));
+        }
+
+        [Test]
+
+        public void check_water_balance()
+        {
+            Map map = new Map(20, 20);
+            ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
+
+            buildingFactory.CreateBuilding(2, 4, cityHelper.GetPumpingStation);
+            buildingFactory.CreateBuilding(2, 6, cityHelper.GetPumpingStation);
+
+            Assert.That(resourcesManager.Water, Is.EqualTo(500));
+
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetCityHall);
+            buildingFactory.CreateBuilding(1, 3, cityHelper.GetFireStation);
+            buildingFactory.CreateBuilding(1, 4, cityHelper.GetFlat);
+            buildingFactory.CreateBuilding(1, 5, cityHelper.GetHospital);
+            buildingFactory.CreateBuilding(1, 6, cityHelper.GetHouse);
+            buildingFactory.CreateBuilding(1, 7, cityHelper.GetHut);
+            buildingFactory.CreateBuilding(1, 8, cityHelper.GetMetalMine);
+            buildingFactory.CreateBuilding(1, 9, cityHelper.GetOreMine);
+            buildingFactory.CreateBuilding(1, 10, cityHelper.GetPoliceStation);
+            buildingFactory.CreateBuilding(1, 11, cityHelper.GetPowerPlant);
+            buildingFactory.CreateBuilding(1, 13, cityHelper.GetSawmill);
+            buildingFactory.CreateBuilding(1, 14, cityHelper.GetSpaceStation);
+            buildingFactory.CreateBuilding(1, 15, cityHelper.GetWareHouse);
+
+            Assert.That(resourcesManager.WaterBalance, Is.EqualTo(130));
+
+
+        }
+
+        [Test]
+
+        public void check_electricity_balance()
+        {
+            Map map = new Map(20, 20);
+            ResourcesManager resourcesManager = new ResourcesManager(map);
+            CityHelper cityHelper = new CityHelper(map);
+            BuildingFactory buildingFactory = new BuildingFactory(map, resourcesManager);
+
+            buildingFactory.CreateBuilding(2, 4, cityHelper.GetPowerPlant);
+            buildingFactory.CreateBuilding(2, 6, cityHelper.GetPowerPlant);
+
+
+            buildingFactory.CreateBuilding(1, 2, cityHelper.GetCityHall);
+            buildingFactory.CreateBuilding(1, 3, cityHelper.GetFireStation);
+            buildingFactory.CreateBuilding(1, 4, cityHelper.GetFlat);
+            buildingFactory.CreateBuilding(1, 5, cityHelper.GetHospital);
+            buildingFactory.CreateBuilding(1, 6, cityHelper.GetHouse);
+            buildingFactory.CreateBuilding(1, 7, cityHelper.GetHut);
+            buildingFactory.CreateBuilding(1, 8, cityHelper.GetMetalMine);
+            buildingFactory.CreateBuilding(1, 9, cityHelper.GetOreMine);
+            buildingFactory.CreateBuilding(1, 10, cityHelper.GetPoliceStation);
+            buildingFactory.CreateBuilding(1, 13, cityHelper.GetSawmill);
+            buildingFactory.CreateBuilding(1, 14, cityHelper.GetSpaceStation);
+            buildingFactory.CreateBuilding(1, 15, cityHelper.GetWareHouse);
+
+            Assert.That(resourcesManager.ElectricityBalance, Is.EqualTo(145));
+
+
         }
     }
 }
