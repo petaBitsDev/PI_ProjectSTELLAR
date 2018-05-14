@@ -45,6 +45,11 @@ namespace ProjectStellar
         private Sprite _flatSprite;
         private Sprite _hutSprite;
         private Sprite _houseSprite;
+        private Sprite _waterSprite;
+        private Sprite _electricitySprite;
+        private Sprite _metalSprite;
+        private Sprite _rockSprite;
+
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
         private ResourcesManager _resourcesManager;
@@ -135,6 +140,25 @@ namespace ProjectStellar
                 Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 5))
             };
 
+            _waterSprite = new Sprite(_ctx._uiTextures[10])
+            {
+                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * -2, 0)
+            };
+
+            _electricitySprite = new Sprite(_ctx._uiTextures[11])
+            {
+                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * -4, 0)
+            };
+
+            _rockSprite = new Sprite(_ctx._uiTextures[9])
+            {
+                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 7, 0)
+            };
+
+            _metalSprite = new Sprite(_ctx._uiTextures[8])
+            {
+                Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 9, 0)
+            };
         }
 
         public uint Width => _width;
@@ -181,6 +205,18 @@ namespace ProjectStellar
             nbPollution.CharacterSize = 13;
             nbPollution.Style = Text.Styles.Bold;
             nbPollution.Draw(window, RenderStates.Default);
+
+            _rockSprite.Draw(window, RenderStates.Default);
+            Text nbRock = new Text(resources["rock"].ToString(), font);
+            nbRock.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 8, 0);
+            nbRock.Color = Color.Black;
+            nbRock.CharacterSize = 13;
+            nbRock.Style = Text.Styles.Bold;
+            nbRock.Draw(window, RenderStates.Default);
+
+            _metalSprite.Draw(window, RenderStates.Default);
+            _electricitySprite.Draw(window, RenderStates.Default);
+            _waterSprite.Draw(window, RenderStates.Default);
 
             window.Draw(rec);
         }
