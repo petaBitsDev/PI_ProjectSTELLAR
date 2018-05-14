@@ -8,14 +8,11 @@ namespace ProjectStellar
 {
     public class Flat : Building
     {
-        public Flat(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
-          : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost)
+        public Flat(Map ctx)
+          : base(ctx, 75, 100, 55, 40, 45, 60, 22, 100, false, 80,50)
         {
 
         }
-
-
-
-
+     
     }
 }

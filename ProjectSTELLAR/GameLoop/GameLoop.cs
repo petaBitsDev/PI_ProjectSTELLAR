@@ -19,7 +19,8 @@ namespace ProjectStellar
             else
                 this.Window = new RenderWindow(new VideoMode(resolution.X, resolution.Y), windowTitle, Styles.Close);
             this.GameTime = new GameTime();
-            Window.Closed += WindowClosed;
+            //Window.Closed += _windowEvents.WindowClosed;
+            //Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
 
         public RenderWindow Window {
@@ -78,10 +79,5 @@ namespace ProjectStellar
         public abstract void Initialize();
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(GameTime gameTime);
-
-        private void WindowClosed(object sender, EventArgs e)
-        {
-            Window.Close();
-        }
     }
 }

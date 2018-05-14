@@ -11,8 +11,8 @@ namespace ProjectStellar
 {
     public class DrawBuildings
     {
-        Game _ctx;
-        Dictionary<Type, Texture> _textures = new Dictionary<Type, Texture>();
+        readonly Game _ctx;
+        readonly Dictionary<Type, Texture> _textures = new Dictionary<Type, Texture>();
 
         public DrawBuildings(Game ctx)
         {
@@ -27,7 +27,7 @@ namespace ProjectStellar
         {
             _textures.TryGetValue(buildingType, out Texture texture);
             Sprite sprite = new Sprite(texture);
-            sprite.Position = new Vector2f(x, y);
+            sprite.Position = new Vector2f(x*32, y*32);
             window.Draw(sprite);
         }
     }

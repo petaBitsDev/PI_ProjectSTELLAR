@@ -8,12 +8,13 @@ namespace ProjectStellar
 {
     public class FireStation : Building
     {
-        public FireStation(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost)
+        public FireStation(Map ctx)
+            : base(ctx, 45, 10, 35, 80, 25, 70, 25, 22, true, 35, 45)
         {
 
         }
 
-        
+     
+
     }
 }

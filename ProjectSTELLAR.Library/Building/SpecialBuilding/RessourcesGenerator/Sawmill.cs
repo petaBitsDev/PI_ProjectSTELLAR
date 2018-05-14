@@ -10,13 +10,14 @@ namespace ProjectStellar
     {
 
         int _woodProduction;
-        public Sawmill(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost, int woodProduction)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost)
+        public Sawmill(Map ctx, int woodProduction)
+            : base(ctx, 15, 0, 25, 5, 10, 10, 20, 15, false, 0, 20)
         {
             _woodProduction = woodProduction;
         }
 
-         public int WoodProduction => _woodProduction;
+ 
+        public int WoodProduction => _woodProduction;
 
 
     }

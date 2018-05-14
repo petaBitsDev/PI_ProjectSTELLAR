@@ -10,34 +10,49 @@ using System.Collections.Generic;
 
 namespace ProjectStellar
 {
-    class UI
+    public class UI
     {
         List<Sprite> _sprites;
         CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
         Game _ctx;
         DrawUI _drawUIctx;
         Map _mapCtx;
+        GameTime _gameTime;
         Resolution _resolution;
         uint _width;
         uint _height;
         uint _boxSize = 32;
-        bool _buildSelected;
+        private bool _buildSelected;
+        private bool _destroySelected;
+        Dictionary<Sprite, Building> _chosenBuildings;
 
         Sprite _play;
         Sprite _pause;
         Sprite _fastForward;
-        Sprite _coinSprite;
-        Sprite _woodSprite;
-        Sprite _pollutionSprite;
-        Sprite _buildButton;
-        Sprite _flatSprite;
-        Sprite _hutSprite;
-        Sprite _houseSprite;
+        //Sprite _coinSprite;
+        //Sprite _woodSprite;
+        //Sprite _pollutionSprite;
+        //Sprite _buildButton;
+        //Sprite _flatSprite;
+        //Sprite _hutSprite;
+        //Sprite _houseSprite;
         RectangleShape _rectangleTimeBar;
+        private Sprite _coinSprite;
+        private Sprite _woodSprite;
+        private Sprite _pollutionSprite;
+        private Sprite _buildButton;
+        private Sprite _destroyButton;
+        private Sprite _flatSprite;
+        private Sprite _hutSprite;
+        private Sprite _houseSprite;
+        private BuildingChoice[] _buildingChoices;
+        private List<Building> _buildingList;
+        private ResourcesManager _resourcesManager;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager)
         {
             _sprites = new List<Sprite>();
+            _chosenBuildings = new Dictionary<Sprite, Building>();
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
@@ -48,6 +63,10 @@ namespace ProjectStellar
             _resolution = resolution;
             _drawUIctx = drawUI;
             _buildSelected = false;
+            _gameTime = gameTime;
+            _buildingList = buildingList;
+            _buildingChoices = new BuildingChoice[16];
+            _resourcesManager = resourcesManager;
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
@@ -94,9 +113,16 @@ namespace ProjectStellar
                 Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 5))
             };
 
+            _destroyButton = new Sprite(_ctx._uiTextures[4])
+            {
+                Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 2)),
+                Scale = new Vector2f(2f, 2f)
+            };
+
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
-                Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5))
+                Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5)),
+                Scale = new Vector2f(0.5f,0.5f)
             };
 
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
@@ -108,6 +134,7 @@ namespace ProjectStellar
             {
                 Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 5))
             };
+
         }
 
         public uint Width => _width;
@@ -125,7 +152,7 @@ namespace ProjectStellar
             rec.OutlineColor = new Color(Color.Red);
             rec.OutlineThickness = 2.0f;
             rec.FillColor = new Color(Color.Transparent);
-            rec.Size = new Vector2f((Width - 1) * _boxSize, (1 * _boxSize) + 1);
+            rec.Size = new Vector2f((Width) * _boxSize, (1 * _boxSize));
             rec.Position = new Vector2f((0 * _boxSize), (0 * _boxSize));
 
             //Displays Coins Sprite and number of coins
@@ -181,67 +208,131 @@ namespace ProjectStellar
             rec.OutlineThickness = 3.0f;
             rec.FillColor = new Color(Color.White);
             rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
-            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5));
+            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
 
             _buildButton.Draw(window, RenderStates.Default);
-
-            if (_buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-            {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    _buildSelected = true;
-                }
-            }
+            
             if (_buildSelected)
             {
                 window.Draw(rec);
                 if (rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
+                    int j = 0;
+
                     window.Draw(rec);
-                    _hutSprite.Draw(window, RenderStates.Default);
-                    Text hut = new Text("HUT", font);
-                    hut.Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 4));
-                    hut.Color = Color.Black;
-                    hut.CharacterSize = 13;
-                    hut.Style = Text.Styles.Bold;
-                    hut.Draw(window, RenderStates.Default);
 
-                    _houseSprite.Draw(window, RenderStates.Default);
-                    Text house = new Text("HOUSE", font);
-                    house.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
-                    house.Color = Color.Black;
-                    house.CharacterSize = 13;
-                    house.Style = Text.Styles.Bold;
-                    house.Draw(window, RenderStates.Default);
-
-                    _flatSprite.Draw(window, RenderStates.Default);
-                    Text flat = new Text("FLAT", font);
-                    flat.Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 4));
-                    flat.Color = Color.Black;
-                    flat.CharacterSize = 13;
-                    flat.Style = Text.Styles.Bold;
-                    flat.Draw(window, RenderStates.Default);
-
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                        Console.WriteLine(CheckMouse(window));
-                    
+                    DrawBuildingChoices(window, font);
                 }
                 else _buildSelected = false;
             }
         }
 
-        public Vector2f CheckMouse(RenderWindow window)
+        public void DrawDestroyButton(RenderWindow window)
         {
-            Vector2f position;
-            Vector2i pos = Mouse.GetPosition(window);
-            position = new Vector2f((float)pos.X, (float)pos.Y);
-
-            return position;
+            _destroyButton.Draw(window, RenderStates.Default);
         }
 
-        //public Sprite CheckSprite(float x, float y)
-        //{
+        public bool CheckBuildSelected(RenderWindow window)
+        {
+            if(_buildButton.GetGlobalBounds().Contains((float) Mouse.GetPosition(window).X, (float) Mouse.GetPosition(window).Y))
+            {
+                _buildSelected = true;
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckDestroySelected(RenderWindow window)
+        {
+            if (_destroyButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                _destroySelected = true;
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckTimeBar(float x, float y)
+        {
+            if (_pause.GetGlobalBounds().Contains(x, y))
+            {
+                _gameTime.TimeScale = 0;
+            }
+            else if (_play.GetGlobalBounds().Contains(x, y))
+            {
+                _gameTime.TimeScale = 60;
+            }
+            else if (_fastForward.GetGlobalBounds().Contains(x, y))
+            {
+                _gameTime.TimeScale += 100;
+            }
+            else return false;
+
+            return true;
+        }
+
+        private void DrawBuildingChoices(RenderWindow window, Font font)
+        {
+            _sprites.Clear();
+            _chosenBuildings.Clear();
+
+            _hutSprite.Draw(window, RenderStates.Default);
+            Text hut = new Text("HUT", font);
+            hut.Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 4));
+            hut.Color = Color.Black;
+            hut.CharacterSize = 13;
+            hut.Style = Text.Styles.Bold;
+            hut.Draw(window, RenderStates.Default);
+            _sprites.Add(_hutSprite);
+            _chosenBuildings.Add(_hutSprite, _buildingList[13]);
             
-        //}
+            //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
+
+            _houseSprite.Draw(window, RenderStates.Default);
+            Text house = new Text("HOUSE", font);
+            house.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
+            house.Color = Color.Black;
+            house.CharacterSize = 13;
+            house.Style = Text.Styles.Bold;
+            house.Draw(window, RenderStates.Default);
+            _sprites.Add(_houseSprite);
+            _chosenBuildings.Add(_houseSprite, _buildingList[12]);
+            //_buildingChoices[j++] = _houseSprite;
+
+            _flatSprite.Draw(window, RenderStates.Default);
+            Text flat = new Text("FLAT", font);
+            flat.Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 4));
+            flat.Color = Color.Black;
+            flat.CharacterSize = 13;
+            flat.Style = Text.Styles.Bold;
+            flat.Draw(window, RenderStates.Default);
+            _sprites.Add(_flatSprite);
+            _chosenBuildings.Add(_flatSprite, _buildingList[11]);
+            //_buildingChoices[j++] = _flatSprite;
+        }
+
+        public bool CheckBuildingToBuild(float x, float y)
+        {
+            if (_buildSelected == false) return false;
+            for (int i = 0; i < _sprites.Count; i++)
+            {
+                if (_sprites[i].GetGlobalBounds().Contains(x, y))
+                {
+
+                    _chosenBuildings.TryGetValue(_sprites[i], out Building building);
+                    if (!_resourcesManager.CheckResourcesNeeded(building)) return false;
+                    _mapCtx.ChosenBuilding = building;
+                    //Console.WriteLine(type);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool DestroySelected
+        {
+            get { return _destroySelected; }
+            set { _destroySelected = value; }
+        }
     }
 }

@@ -20,14 +20,17 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[4];
         public Texture[] _uiTextures = new Texture[8];
-        public int _state;
+        int _state;
         Menu _menu;
         Resolution _resolution;
         Font _font;
         Map _map;
+        public BuildingFactory _buildingFactory;
         DrawUI _drawUI;
         ResourcesManager _resourcesManager;
         CityHelper _cityHelper;
+        MapUI _mapUI;
+        WindowEvents _windowEvents;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -45,7 +48,7 @@ namespace ProjectStellar
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
-            _buildingsTextures[2] = new Texture("./resources/img/flat.png");
+            _buildingsTextures[2] = new Texture("./resources/img/immeuble.png");
             _buildingsTextures[3] = new Texture("./resources/img/house.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
@@ -66,8 +69,13 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
+            _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _cityHelper = new CityHelper(_map);
             _cityHelper.CreateListBuilding();
+
+            _windowEvents = new WindowEvents(Window, this);
+            Window.Closed += _windowEvents.WindowClosed;
+            Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
 
         public override void Update(GameTime gameTime)
@@ -77,7 +85,7 @@ namespace ProjectStellar
             {
                 if(gameTime.InGameTime.Minute == 00)
                 {
-                    _resourcesManager.UpdateResources();
+                   // _resourcesManager.UpdateResources();
                 }
             }
         }
@@ -89,8 +97,10 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
                 _drawUI.RenderGraphics(Window, _font);
+                _windowEvents.MapUI = _drawUI.MapUI;
+                _windowEvents.UI = _drawUI.UI;
             }
         }
 

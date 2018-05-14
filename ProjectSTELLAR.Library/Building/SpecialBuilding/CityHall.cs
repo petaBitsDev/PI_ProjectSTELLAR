@@ -8,11 +8,13 @@ namespace ProjectStellar
 {
     public class CityHall : Building
     {
-        public CityHall(Map ctx, int rockNeeded, int woodNeeded, int stellarCoinNeeded, int metalNeeded, int electricityConsume, int waterConsume, int airPollution, int nbPeople, bool costMoney, int moneyWinOrLost)
-            : base(ctx, rockNeeded, woodNeeded, stellarCoinNeeded, metalNeeded, electricityConsume, waterConsume, airPollution, nbPeople, costMoney, moneyWinOrLost)
+        public CityHall(Map ctx)
+            : base(ctx, 100, 150, 80, 50, 20, 20, 5, 50, true, 200, 1000)
         {
 
         }
+
+    
 
     }
 }
