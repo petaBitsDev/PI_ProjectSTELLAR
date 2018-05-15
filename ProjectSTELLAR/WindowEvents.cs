@@ -15,12 +15,13 @@ namespace ProjectStellar
         Game _ctx;
         MapUI _mapUI;
         UI _ui;
-
+        Font _font;
 
         public WindowEvents(RenderWindow Window, Game Game)
         {
             _ctx = Game;
             _window = Window;
+            _font = _ctx._font;
         }
 
         public void WindowClosed(object sender, EventArgs e)
@@ -33,22 +34,22 @@ namespace ProjectStellar
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
 
-                CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y);
+                CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y, _window, _font);
             }
         }
 
-        public void CheckClic(float x, float y)
+        public void CheckClic(float x, float y, RenderWindow window, Font font)
         {
             if (_ctx.MenuState != 0)
             {
-                if (CheckMap(x, y)) Console.WriteLine("map");
+                if (CheckMap(x, y, window, font)) Console.WriteLine("map");
                 else if (CheckUI(x, y)) Console.WriteLine("ui");
             }
         }
 
-        public bool CheckMap(float x, float y)
+        public bool CheckMap(float x, float y, RenderWindow window, Font font)
         {
-            return (_mapUI.CheckMap(x, y));
+            return (_mapUI.CheckMap(x, y, window, font));
         }
 
         public MapUI MapUI

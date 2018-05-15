@@ -23,7 +23,7 @@ namespace ProjectStellar
         int _state;
         Menu _menu;
         Resolution _resolution;
-        Font _font;
+        public Font _font;
         Map _map;
         public BuildingFactory _buildingFactory;
         DrawUI _drawUI;

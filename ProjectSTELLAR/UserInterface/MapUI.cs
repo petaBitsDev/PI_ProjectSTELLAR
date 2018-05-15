@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Threading;
 
 namespace ProjectStellar
 {
@@ -23,6 +23,9 @@ namespace ProjectStellar
         DrawBuildings _drawBuildings;
         Cases[] _cases;
         UI _ui;
+        bool _buildingExist;
+        RectangleShape rec = new RectangleShape();
+        bool test;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui)
         {
@@ -42,6 +45,19 @@ namespace ProjectStellar
         public uint Height => _height;
 
         public Game GameContext => _gameCtx;
+
+        public bool BuildingExist
+        {
+            get
+            {
+                return _buildingExist;
+            }
+
+            set
+            {
+                _buildingExist = value;
+            }
+        }
 
         public struct Rect
         {
@@ -80,7 +96,7 @@ namespace ProjectStellar
             }
         }
         
-        public void DrawMapTile(RenderWindow window, Building[,] boxes)
+        public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
             for (uint x = 0; x < Width; x++)
             {
@@ -96,18 +112,51 @@ namespace ProjectStellar
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
+                        //if(test == true)
+                        //{
+                        //    _ui.DrawBuildingInformations(window, font, ContainsBuilding(_cases[i].X, _cases[i].Y));
+                        //}
                         Type type = boxes[i, j].GetType();
                         _drawBuildings.Draw(type, window, j, i);
                     }
                 }
             }
         }
+     
+        public bool Test
+        {
+            get { return test; }
+            set { test = value; }
+        }
 
-        public bool CheckMap(float X, float Y)
+        public Building ContainsBuilding(int X, int Y)
+        {
+
+            int a = (int)X;
+            int b = (int)Y;
+           
+            if (!object.Equals(_ctx.Boxes[a, b], null))
+            {
+                BuildingExist = true;
+                return _ctx.Boxes[a, b];
+            }
+            else
+            {
+            BuildingExist = false;
+
+            return null;
+
+            }
+        }
+
+
+        public bool CheckMap(float X, float Y, RenderWindow window, Font font)
         {
             Console.WriteLine("x = {0}, y = {1}", X, Y);
             for (int i = 0; i < _cases.Length; i++)
             {
+                ContainsBuilding(_cases[i].X, _cases[i].Y);
+
                 if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
@@ -122,11 +171,37 @@ namespace ProjectStellar
                         _ctx.RemoveBuilding(_cases[i].X, _cases[i].Y);
                         _ui.DestroySelected = false;
                     }
+
+                    if (BuildingExist == true)
+                    {
+                        //Test = true;
+                        Console.WriteLine(ContainsBuilding(_cases[i].X, _cases[i].Y));
+                        _ui.DrawBuildingInformations(window, font, ContainsBuilding(_cases[i].X, _cases[i].Y), Width/2, Height/2);
+                        Thread.Sleep(3000);
+                    }
+                    else
+                    {
+                        Console.WriteLine("do not exist");
+                    }
+                  
                     return true;
                 }
             }
 
             return false;
         }
+
+        //public void test(RenderWindow window, Font font)
+        //{
+        //    RectangleShape rec = new RectangleShape();
+        //    rec.OutlineColor = new Color(Color.Black);
+        //    rec.OutlineThickness = 3.0f;
+        //    rec.FillColor = new Color(Color.White);
+        //    rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
+        //    rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
+
+        //    if (Test)
+        //}
+
     }
 }

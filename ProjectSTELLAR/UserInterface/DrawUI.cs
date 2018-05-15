@@ -45,7 +45,7 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window, Font font)
         {
-            _mapUI.DrawMapTile(window, _mapCtx.Boxes);
+            _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
             _mapUI.DrawGrid(window);
             _ui.DrawBuildButton(window, font);
             _ui.DrawDestroyButton(window);

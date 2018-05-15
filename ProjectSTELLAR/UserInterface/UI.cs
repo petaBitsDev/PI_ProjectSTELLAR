@@ -263,6 +263,9 @@ namespace ProjectStellar
             }
         }
 
+ 
+     
+
         public void DrawDestroyButton(RenderWindow window)
         {
             _destroyButton.Draw(window, RenderStates.Default);
@@ -345,6 +348,65 @@ namespace ProjectStellar
             _sprites.Add(_flatSprite);
             _chosenBuildings.Add(_flatSprite, _buildingList[11]);
             //_buildingChoices[j++] = _flatSprite;
+        }
+
+        internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
+        {
+            RectangleShape rec = new RectangleShape();
+            rec.OutlineColor = new Color(Color.Black);
+            rec.OutlineThickness = 3.0f;
+            rec.FillColor = new Color(Color.White);
+            rec.Size = new Vector2f(32 * 8, 32 * 4);
+            rec.Position = new Vector2f(X, Y);
+            rec.Draw(window, RenderStates.Default);
+
+            for (int i = 0; i<_buildingList.Count; i++)
+            {
+                if(_buildingList[i].GetType() == building.GetType())
+                {
+                  
+                    _waterSprite.Draw(window, RenderStates.Default);
+                    Text water = new Text("Water Consomation : " + _buildingList[i].WaterConsume, font);
+                    water.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
+                    water.Color = Color.Blue;
+                    water.CharacterSize = 13;
+                    water.Style = Text.Styles.Bold;
+                    water.Draw(window, RenderStates.Default);
+
+                    _electricitySprite.Draw(window, RenderStates.Default);
+                    Text electricity = new Text("Electricity Consomation : " + _buildingList[i].ElectricityConsume, font);
+                    electricity.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 45 - _boxSize * 4));
+                    electricity.Color = Color.Yellow;
+                    electricity.CharacterSize = 13;
+                    electricity.Style = Text.Styles.Bold;
+                    electricity.Draw(window, RenderStates.Default);
+
+                    if(_buildingList[i].CostMoney == true)
+                    {
+                        _coinSprite.Draw(window, RenderStates.Default);
+                        Text charges = new Text("Charges : " + _buildingList[i].MoneyWinOrLost, font);
+                        charges.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 45 - _boxSize * 4));
+                        charges.Color = Color.Yellow;
+                        charges.CharacterSize = 13;
+                        charges.Style = Text.Styles.Bold;
+                        charges.Draw(window, RenderStates.Default);
+                    }
+                    else
+                    {
+                        _coinSprite.Draw(window, RenderStates.Default);
+                        Text charges = new Text("Taxes : " + _buildingList[i].MoneyWinOrLost, font);
+                        charges.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 45 - _boxSize * 4));
+                        charges.Color = Color.Yellow;
+                        charges.CharacterSize = 13;
+                        charges.Style = Text.Styles.Bold;
+                        charges.Draw(window, RenderStates.Default);
+                    }
+
+                }
+            }
+            
+
+            
         }
 
         public bool CheckBuildingToBuild(float x, float y)
