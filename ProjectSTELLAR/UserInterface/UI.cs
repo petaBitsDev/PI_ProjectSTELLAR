@@ -29,13 +29,6 @@ namespace ProjectStellar
         Sprite _play;
         Sprite _pause;
         Sprite _fastForward;
-        //Sprite _coinSprite;
-        //Sprite _woodSprite;
-        //Sprite _pollutionSprite;
-        //Sprite _buildButton;
-        //Sprite _flatSprite;
-        //Sprite _hutSprite;
-        //Sprite _houseSprite;
         RectangleShape _rectangleTimeBar;
         private Sprite _coinSprite;
         private Sprite _woodSprite;
@@ -78,44 +71,44 @@ namespace ProjectStellar
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
-                Position = new Vector2f(64, _resolution.Y - 32),
-                //Scale = new Vector2f(_resolution.X / 33.75f)
+                Position = new Vector2f(_resolution.X / 2, _resolution.Y - 30),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _pause = new Sprite(_ctx._uiTextures[1])
             {
-                Position = new Vector2f(10, _resolution.Y - 32),
-                //Scale = new Vector2f(_resolution.X / 33.75f)
+                Position = new Vector2f(_resolution.X / 2 - 34, _resolution.Y - 30),
+                Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _fastForward = new Sprite(_ctx._uiTextures[2])
             {
-                Position = new Vector2f(128, _resolution.Y - 32),
+                Position = new Vector2f(_resolution.X / 2 + 32, _resolution.Y - _boxSize),
                 //Scale = new Vector2f(_resolution.X / 33.75f)
             };
 
             _rectangleTimeBar = new RectangleShape()
             {
-                FillColor = Color.White,
-                Size = new Vector2f(300, 100),
-                Position = new Vector2f(0, _resolution.Y - 100)
+                FillColor = Color.Transparent,
+                Size = new Vector2f(_resolution.X - _boxSize*4 + 10, _boxSize),
+                Position = new Vector2f(0, _resolution.Y - _boxSize)
             };
 
             _coinSprite = new Sprite(_ctx._uiTextures[5])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _woodSprite = new Sprite(_ctx._uiTextures[7])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize + 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, _boxSize + 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _pollutionSprite = new Sprite(_ctx._uiTextures[6])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 6 + 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, _boxSize * 6 + 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
@@ -148,25 +141,25 @@ namespace ProjectStellar
 
             _waterSprite = new Sprite(_ctx._uiTextures[10])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 4 + 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, _boxSize * 4 + 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _electricitySprite = new Sprite(_ctx._uiTextures[11])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 5 + 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, _boxSize * 5 + 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _rockSprite = new Sprite(_ctx._uiTextures[9])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 2 + 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, _boxSize * 2 + 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _metalSprite = new Sprite(_ctx._uiTextures[8])
             {
-                Position = new Vector2f((width * _boxSize) + _boxSize * 3 + 3, _boxSize * 3 + 2),
+                Position = new Vector2f((width * _boxSize) + _boxSize, _boxSize * 3 + 2),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
@@ -196,7 +189,7 @@ namespace ProjectStellar
             //Displays Coins Sprite and number of coins
             _coinSprite.Draw(window, RenderStates.Default);
             Text nbCoins = new Text(resources["coins"].ToString(), font);
-            nbCoins.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, 6);
+            nbCoins.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, 6);
             nbCoins.Color = Color.White;
             nbCoins.CharacterSize = 13;
             nbCoins.Style = Text.Styles.Bold;
@@ -205,7 +198,7 @@ namespace ProjectStellar
             //Displays Wood Sprite and number of wood
             _woodSprite.Draw(window, RenderStates.Default);
             Text nbWood = new Text(resources["wood"].ToString(), font);
-            nbWood.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize + 6);
+            nbWood.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, _boxSize + 6);
             nbWood.Color = Color.White;
             nbWood.CharacterSize = 13;
             nbWood.Style = Text.Styles.Bold;
@@ -214,7 +207,7 @@ namespace ProjectStellar
             //Displays Pollution Sprite and number
             _pollutionSprite.Draw(window, RenderStates.Default);
             Text nbPollution = new Text(resources["pollution"].ToString(), font);
-            nbPollution.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 6 + 6);
+            nbPollution.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, _boxSize * 6 + 6);
             nbPollution.Color = Color.White;
             nbPollution.CharacterSize = 13;
             nbPollution.Style = Text.Styles.Bold;
@@ -222,7 +215,7 @@ namespace ProjectStellar
 
             _rockSprite.Draw(window, RenderStates.Default);
             Text nbRock = new Text(resources["rock"].ToString(), font);
-            nbRock.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 2 + 6);
+            nbRock.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, _boxSize * 2 + 6);
             nbRock.Color = Color.White;
             nbRock.CharacterSize = 13;
             nbRock.Style = Text.Styles.Bold;
@@ -230,7 +223,7 @@ namespace ProjectStellar
 
             _metalSprite.Draw(window, RenderStates.Default);
             Text nbMetal = new Text(resources["metal"].ToString(), font);
-            nbMetal.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 3 + 6);
+            nbMetal.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, _boxSize * 3 + 6);
             nbMetal.Color = Color.White;
             nbMetal.CharacterSize = 13;
             nbMetal.Style = Text.Styles.Bold;
@@ -238,7 +231,7 @@ namespace ProjectStellar
 
             _electricitySprite.Draw(window, RenderStates.Default);
             Text nbElec = new Text(_resourcesManager.ElectricityBalance.ToString(), font);
-            nbElec.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 4 + 6);
+            nbElec.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, _boxSize * 4 + 6);
             nbElec.Color = Color.White;
             nbElec.CharacterSize = 13;
             nbElec.Style = Text.Styles.Bold;
@@ -246,7 +239,7 @@ namespace ProjectStellar
 
             _waterSprite.Draw(window, RenderStates.Default);
             Text nbWater = new Text(_resourcesManager.WaterBalance.ToString(), font);
-            nbWater.Position = new Vector2f((Width * _boxSize) + _boxSize * 4 + 3, _boxSize * 5 + 6);
+            nbWater.Position = new Vector2f((Width * _boxSize) + _boxSize * 2 + 3, _boxSize * 5 + 6);
             nbWater.Color = Color.White;
             nbWater.CharacterSize = 13;
             nbWater.Style = Text.Styles.Bold;
@@ -259,8 +252,10 @@ namespace ProjectStellar
         {
             Text Time = new Text(gameTime.InGameTime.ToString("dd/MM/yyyy HH:mm"), font)
             {
-                Position = new Vector2f(0, _resolution.Y - 96),
-                Color = Color.Black
+                Position = new Vector2f(0, _resolution.Y - 32),
+                Color = Color.Black,
+                CharacterSize = 20,
+                Style = Text.Styles.Bold
             };
 
             _rectangleTimeBar.Draw(window, RenderStates.Default);
