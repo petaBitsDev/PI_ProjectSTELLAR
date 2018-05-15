@@ -19,7 +19,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[4];
-        public Texture[] _uiTextures = new Texture[15];
+        public Texture[] _uiTextures = new Texture[19];
         int _state;
         Menu _menu;
         Resolution _resolution;
@@ -66,6 +66,10 @@ namespace ProjectStellar
             _uiTextures[12] = new Texture("./resources/img/angry.png");
             _uiTextures[13] = new Texture("./resources/img/confused.png");
             _uiTextures[14] = new Texture("./resources/img/smile.png");
+            _uiTextures[15] = new Texture("./resources/img/navbar.png");
+            _uiTextures[16] = new Texture("./resources/img/ffWhite.png");
+            _uiTextures[17] = new Texture("./resources/img/PauseButtonWhite.png");
+            _uiTextures[18] = new Texture("./resources/img/PlayButtonWhite.png");
 
             _font = new Font("./resources/fonts/arial.ttf");
         }
@@ -105,6 +109,7 @@ namespace ProjectStellar
             else if (MenuState == 1)
             {
                 if (_drawUI == null) _drawUI = new DrawUI(this, _map, (_resolution.X / 32) - 3, (_resolution.Y / 32) - 1, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
+                Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;

@@ -32,7 +32,6 @@ namespace ProjectStellar
         {
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-
                 CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y);
             }
         }
