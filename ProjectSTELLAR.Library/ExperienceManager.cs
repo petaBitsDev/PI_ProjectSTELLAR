@@ -35,11 +35,14 @@ namespace ProjectStellar.Library
             int actualLevelPop;
 
             actualLevelPop = (int)((_level / COEFFICIENT) * (_level / COEFFICIENT));
-            goal = (int)(((_level + 1) / COEFFICIENT) * (_level + 1 / COEFFICIENT));
-
+            goal = (int)(((_level + 1) / COEFFICIENT) * ((_level + 1) / COEFFICIENT));
+            
             if (_resourcesManager.NbResources["population"] <= actualLevelPop) return 0;
-            else if ((int)(_resourcesManager.NbResources["population"] * 100 / goal) == 100) return 99;
-            else return (int)(_resourcesManager.NbResources["population"] * 100 / goal);
+            else
+            {
+                int diffPop = _resourcesManager.NbResources["population"] - actualLevelPop;
+                return (int)((diffPop * 100) / (goal - actualLevelPop));
+            }
         }
     }
 }

@@ -91,11 +91,11 @@ namespace ProjectStellar
             {
                 if(gameTime.InGameTime.Minute == 00)
                 {
-                    _resourcesManager.NbResources["population"] += 10;
+                    //_resourcesManager.NbResources["population"] += 10;
                     _experienceManager.CheckLevel();
-                    Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
-                    Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
-                    Console.WriteLine("{0}%", _experienceManager.GetPercentage());
+                    //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
+                    //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
+                    //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
                     // _resourcesManager.UpdateResources();
                 }
             }
