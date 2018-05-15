@@ -93,6 +93,7 @@ namespace ProjectStellar
                 {
                     //_resourcesManager.NbResources["population"] += 10;
                     _experienceManager.CheckLevel();
+                    //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
@@ -108,7 +109,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;

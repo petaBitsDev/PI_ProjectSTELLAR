@@ -49,12 +49,15 @@ namespace ProjectStellar
         private Sprite _electricitySprite;
         private Sprite _metalSprite;
         private Sprite _rockSprite;
+        private RectangleShape _expBar;
+        private RectangleShape _expBarFilled;
 
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
         private ResourcesManager _resourcesManager;
+        private ExperienceManager _experienceManager;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _sprites = new List<Sprite>();
             _chosenBuildings = new Dictionary<Sprite, Building>();
@@ -72,6 +75,7 @@ namespace ProjectStellar
             _buildingList = buildingList;
             _buildingChoices = new BuildingChoice[16];
             _resourcesManager = resourcesManager;
+            _experienceManager = experienceManager;
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
@@ -127,7 +131,7 @@ namespace ProjectStellar
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
                 Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5)),
-                Scale = new Vector2f(0.5f,0.5f)
+                Scale = new Vector2f(0.5f, 0.5f)
             };
 
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
@@ -158,6 +162,16 @@ namespace ProjectStellar
             _metalSprite = new Sprite(_ctx._uiTextures[8])
             {
                 Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 9, 0)
+            };
+
+            _expBar = new RectangleShape(new Vector2f(100, 10))
+            {
+                Position = new Vector2f(0, 0)
+            };
+
+            _expBarFilled = new RectangleShape(_expBar)
+            {
+                FillColor = Color.Blue
             };
         }
 
@@ -345,6 +359,16 @@ namespace ProjectStellar
             _sprites.Add(_flatSprite);
             _chosenBuildings.Add(_flatSprite, _buildingList[11]);
             //_buildingChoices[j++] = _flatSprite;
+
+            
+        }
+
+        public void DrawExperience(RenderWindow window)
+        {
+            _expBarFilled.Size = new Vector2f(_expBar.Size.X * ((float)_experienceManager.GetPercentage() / 100f), _expBar.Size.Y);
+            
+            _expBar.Draw(window, RenderStates.Default);
+            _expBarFilled.Draw(window, RenderStates.Default);
         }
 
         public bool CheckBuildingToBuild(float x, float y)
