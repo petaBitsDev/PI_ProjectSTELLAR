@@ -164,9 +164,10 @@ namespace ProjectStellar
                 Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 9, 0)
             };
 
-            _expBar = new RectangleShape(new Vector2f(100, 10))
+            _expBar = new RectangleShape()
             {
-                Position = new Vector2f(0, 0)
+                Size = new Vector2f(200, 30),
+                Position = new Vector2f((resolution.X / 10) * 4, resolution.Y - 40)
             };
 
             _expBarFilled = new RectangleShape(_expBar)
