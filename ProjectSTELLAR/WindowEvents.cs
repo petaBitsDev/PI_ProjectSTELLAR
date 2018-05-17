@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System.Windows.Input;
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -15,12 +17,15 @@ namespace ProjectStellar
         Game _ctx;
         MapUI _mapUI;
         UI _ui;
+        Resolution _resolution;
+        View _view;
 
-
-        public WindowEvents(RenderWindow Window, Game Game)
+        public WindowEvents(RenderWindow Window, Game Game, Resolution resolution, View view)
         {
             _ctx = Game;
             _window = Window;
+            _resolution = resolution;
+            _view = view;
         }
 
         public void WindowClosed(object sender, EventArgs e)
@@ -34,6 +39,53 @@ namespace ProjectStellar
             {
                 CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y);
             }
+        }
+        
+        public void MouseMoved(object sender, EventArgs e)
+        {
+            int posX = Mouse.GetPosition(_window).X;
+            int posY = Mouse.GetPosition(_window).Y;
+            Vector2f currentCenter = _view.Center;
+
+            if (posX == (_resolution.X - 1))
+            {
+                _view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
+                _view.Move(new Vector2f(50, 0));
+                _window.SetView(_view);
+            }
+            else if (posX == 0)
+            {
+                _view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
+                _view.Move(new Vector2f(-50, 0));
+                _window.SetView(_view);
+            }
+            else if (posY == 0)
+            {
+                _view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
+                _view.Move(new Vector2f(0, -50));
+                _window.SetView(_view);
+            }
+            else if (posY == (_resolution.Y - 1))
+            {
+                _view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
+                _view.Move(new Vector2f(0, 50));
+                _window.SetView(_view);
+            }
+        }
+
+        public void MouseWheel(object sender, EventArgs e)
+        {
+            //int delta;
+            //delta = e.Delta;
+
+            //if(delta < 0)
+            //{
+            //_window.SetView(new View(new Vector2f(), new Vector2f()));
+            //}
+            //else
+            //{
+            //    _window.SetView(new View(new Vector2f(), new Vector2f()));
+            //}
         }
 
         public void CheckClic(float x, float y)

@@ -31,6 +31,8 @@ namespace ProjectStellar
         CityHelper _cityHelper;
         MapUI _mapUI;
         WindowEvents _windowEvents;
+        View _view;
+        Vector2f _center;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -78,13 +80,18 @@ namespace ProjectStellar
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(((int)_resolution.X/32) - 3, (int)(_resolution.Y/32) - 1);
+            _map = new Map(60, 60);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _cityHelper = new CityHelper(_map);
             _cityHelper.CreateListBuilding();
 
-            _windowEvents = new WindowEvents(Window, this);
+            _center = new Vector2f(_resolution.X / 2, _resolution.Y / 2);
+            _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
+            Window.SetView(_view);
+            _windowEvents = new WindowEvents(Window, this, _resolution, _view);
+            Window.MouseWheelMoved += _windowEvents.MouseWheel;
+            Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
@@ -103,12 +110,11 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, (_resolution.X / 32) - 3, (_resolution.Y / 32) - 1, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 60, 60, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
