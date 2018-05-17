@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
         public Texture[] _menuTextures = new Texture[4];
-        public Texture[] _buildingsTextures = new Texture[4];
+        public Texture[] _buildingsTextures = new Texture[16];
         public Texture[] _uiTextures = new Texture[12];
         int _state;
         Menu _menu;
@@ -50,6 +50,18 @@ namespace ProjectStellar
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
             _buildingsTextures[2] = new Texture("./resources/img/immeuble.png");
             _buildingsTextures[3] = new Texture("./resources/img/house.png");
+            _buildingsTextures[4] = new Texture("./resources/img/powerPlant.png");
+            _buildingsTextures[5] = new Texture("./resources/img/pumpingStation.png");
+            _buildingsTextures[6] = new Texture("./resources/img/capitol.png");
+            _buildingsTextures[7] = new Texture("./resources/img/capitol64.png");
+            _buildingsTextures[8] = new Texture("./resources/img/fire-station.png");
+            _buildingsTextures[9] = new Texture("./resources/img/hospital.png");
+            _buildingsTextures[10] = new Texture("./resources/img/police.png");
+            _buildingsTextures[11] = new Texture("./resources/img/observatory.png");
+            _buildingsTextures[12] = new Texture("./resources/img/woodIndustry.png");
+            _buildingsTextures[13] = new Texture("./resources/img/cave.png");
+            _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
+            _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -64,7 +76,7 @@ namespace ProjectStellar
             _uiTextures[10] = new Texture("./resources/img/drop.png");
             _uiTextures[11] = new Texture("./resources/img/light.png");
 
-            _font = new Font("./resources/fonts/arial.ttf");
+            _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
 
         public override void Initialize()

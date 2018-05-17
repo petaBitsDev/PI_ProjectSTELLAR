@@ -49,6 +49,17 @@ namespace ProjectStellar
         private Sprite _electricitySprite;
         private Sprite _metalSprite;
         private Sprite _rockSprite;
+        private Sprite _powerPlant;
+        private Sprite _pumpingStation;
+        private Sprite _cityHall;
+        private Sprite _fireStation;
+        private Sprite _hospital;
+        private Sprite _police;
+        private Sprite _spaceStation;
+        private Sprite _sawMill;
+        private Sprite _metalMine;
+        private Sprite _oreMine;
+        private Sprite _warehouse;
 
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
@@ -126,18 +137,78 @@ namespace ProjectStellar
 
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
-                Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 5)),
-                Scale = new Vector2f(0.5f,0.5f)
+                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 - 20)),
+                Scale = new Vector2f(0.5f, 0.5f)
             };
 
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
             {
-                Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 5))
+                Position = new Vector2f((Width * 32 /*+ _boxSize*/), (Height * 32 - _boxSize * 5 - 20))
             };
+
 
             _houseSprite = new Sprite(_ctx._buildingsTextures[3])
             {
-                Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 5))
+                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 - 20))
+            };
+
+            _powerPlant = new Sprite(_ctx._buildingsTextures[4])
+            {
+                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 - 20))
+
+            };
+
+            _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
+            {
+                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 - 20))
+            };
+
+            _cityHall = new Sprite(_ctx._buildingsTextures[6])
+            {
+                Position = new Vector2f((Width * 32 + 200), (Height * 32 - _boxSize * 5 - 20))
+            };
+
+            _fireStation = new Sprite(_ctx._buildingsTextures[8])
+            {
+                Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5 + 20))
+            };
+
+            _hospital = new Sprite(_ctx._buildingsTextures[9])
+            {
+                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 + 20))
+            };
+
+            _police = new Sprite(_ctx._buildingsTextures[10])
+            {
+                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 20))
+            };
+
+            _spaceStation = new Sprite(_ctx._buildingsTextures[11])
+            {
+                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 + 20))
+            };
+
+            _sawMill = new Sprite(_ctx._buildingsTextures[12])
+            {
+                Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5 + 60))
+
+            };
+
+            _oreMine = new Sprite(_ctx._buildingsTextures[13])
+            {
+                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 + 60))
+            };
+
+            _metalMine = new Sprite(_ctx._buildingsTextures[14])
+            {
+                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 60))
+
+            };
+
+            _warehouse = new Sprite(_ctx._buildingsTextures[15])
+            {
+                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 + 60))
+
             };
 
             _waterSprite = new Sprite(_ctx._uiTextures[10])
@@ -159,7 +230,10 @@ namespace ProjectStellar
             {
                 Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 9, 0)
             };
+
+
         }
+
 
         public uint Width => _width;
 
@@ -184,7 +258,7 @@ namespace ProjectStellar
             Text nbCoins = new Text(resources["coins"].ToString(), font);
             nbCoins.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 2, 0);
             nbCoins.Color = Color.Black;
-            nbCoins.CharacterSize = 13;
+            nbCoins.CharacterSize = 17;
             nbCoins.Style = Text.Styles.Bold;
             nbCoins.Draw(window, RenderStates.Default);
 
@@ -193,7 +267,7 @@ namespace ProjectStellar
             Text nbWood = new Text(resources["wood"].ToString(), font);
             nbWood.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 4, 0);
             nbWood.Color = Color.Black;
-            nbWood.CharacterSize = 13;
+            nbWood.CharacterSize = 17;
             nbWood.Style = Text.Styles.Bold;
             nbWood.Draw(window, RenderStates.Default);
 
@@ -202,7 +276,7 @@ namespace ProjectStellar
             Text nbPollution = new Text(resources["pollution"].ToString(), font);
             nbPollution.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 6, 0);
             nbPollution.Color = Color.Black;
-            nbPollution.CharacterSize = 13;
+            nbPollution.CharacterSize = 17;
             nbPollution.Style = Text.Styles.Bold;
             nbPollution.Draw(window, RenderStates.Default);
 
@@ -210,13 +284,15 @@ namespace ProjectStellar
             Text nbRock = new Text(resources["rock"].ToString(), font);
             nbRock.Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 8, 0);
             nbRock.Color = Color.Black;
-            nbRock.CharacterSize = 13;
+            nbRock.CharacterSize = 17;
             nbRock.Style = Text.Styles.Bold;
             nbRock.Draw(window, RenderStates.Default);
 
             _metalSprite.Draw(window, RenderStates.Default);
             _electricitySprite.Draw(window, RenderStates.Default);
             _waterSprite.Draw(window, RenderStates.Default);
+
+       
 
             window.Draw(rec);
         }
@@ -316,49 +392,76 @@ namespace ProjectStellar
             _chosenBuildings.Clear();
 
             _hutSprite.Draw(window, RenderStates.Default);
-            Text hut = new Text("HUT", font);
-            hut.Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 4));
-            hut.Color = Color.Black;
-            hut.CharacterSize = 13;
-            hut.Style = Text.Styles.Bold;
-            hut.Draw(window, RenderStates.Default);
             _sprites.Add(_hutSprite);
             _chosenBuildings.Add(_hutSprite, _buildingList[13]);
             
             //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
 
             _houseSprite.Draw(window, RenderStates.Default);
-            Text house = new Text("HOUSE", font);
-            house.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
-            house.Color = Color.Black;
-            house.CharacterSize = 13;
-            house.Style = Text.Styles.Bold;
-            house.Draw(window, RenderStates.Default);
             _sprites.Add(_houseSprite);
             _chosenBuildings.Add(_houseSprite, _buildingList[12]);
             //_buildingChoices[j++] = _houseSprite;
 
             _flatSprite.Draw(window, RenderStates.Default);
-            Text flat = new Text("FLAT", font);
-            flat.Position = new Vector2f((Width * 32 + _boxSize + 128), (Height * 32 - _boxSize * 4));
-            flat.Color = Color.Black;
-            flat.CharacterSize = 13;
-            flat.Style = Text.Styles.Bold;
-            flat.Draw(window, RenderStates.Default);
             _sprites.Add(_flatSprite);
             _chosenBuildings.Add(_flatSprite, _buildingList[11]);
             //_buildingChoices[j++] = _flatSprite;
+
+            _powerPlant.Draw(window, RenderStates.Default);
+            _sprites.Add(_powerPlant);
+            _chosenBuildings.Add(_powerPlant, _buildingList[7]);
+
+            _pumpingStation.Draw(window, RenderStates.Default);
+            _sprites.Add(_pumpingStation);
+            _chosenBuildings.Add(_pumpingStation, _buildingList[8]);
+
+            _cityHall.Draw(window, RenderStates.Default);
+            _sprites.Add(_cityHall);
+            _chosenBuildings.Add(_cityHall, _buildingList[3]);
+
+            _fireStation.Draw(window, RenderStates.Default);
+            _sprites.Add(_fireStation);
+            _chosenBuildings.Add(_fireStation, _buildingList[4]);
+
+            _hospital.Draw(window, RenderStates.Default);
+            _sprites.Add(_hospital);
+            _chosenBuildings.Add(_hospital, _buildingList[5]);
+
+            _police.Draw(window, RenderStates.Default);
+            _sprites.Add(_police);
+            _chosenBuildings.Add(_police, _buildingList[6]);
+
+            _spaceStation.Draw(window, RenderStates.Default);
+            _sprites.Add(_spaceStation);
+            _chosenBuildings.Add(_spaceStation, _buildingList[9]);
+
+            _sawMill.Draw(window, RenderStates.Default);
+            _sprites.Add(_sawMill);
+            _chosenBuildings.Add(_sawMill, _buildingList[2]);
+
+            _oreMine.Draw(window, RenderStates.Default);
+            _sprites.Add(_oreMine);
+            _chosenBuildings.Add(_oreMine, _buildingList[1]);
+
+            _metalMine.Draw(window, RenderStates.Default);
+            _sprites.Add(_metalMine);
+            _chosenBuildings.Add(_metalMine, _buildingList[0]);
+
+            _warehouse.Draw(window, RenderStates.Default);
+            _sprites.Add(_warehouse);
+            _chosenBuildings.Add(_warehouse, _buildingList[10]);
+
         }
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
         {
-            RectangleShape rec = new RectangleShape();
-            rec.OutlineColor = new Color(Color.Black);
-            rec.OutlineThickness = 3.0f;
-            rec.FillColor = new Color(Color.White);
-            rec.Size = new Vector2f(32 * 8, 32 * 4);
-            rec.Position = new Vector2f(X, Y);
-            rec.Draw(window, RenderStates.Default);
+            //RectangleShape rec = new RectangleShape();
+            //rec.OutlineColor = new Color(Color.Black);
+            //rec.OutlineThickness = 3.0f;
+            //rec.FillColor = new Color(Color.White);
+            //rec.Size = new Vector2f(32 * 8, 32 * 4);
+            //rec.Position = new Vector2f(X, Y);
+            //rec.Draw(window, RenderStates.Default);
 
             for (int i = 0; i<_buildingList.Count; i++)
             {
@@ -366,39 +469,59 @@ namespace ProjectStellar
                 {
                   
                     _waterSprite.Draw(window, RenderStates.Default);
-                    Text water = new Text("Water Consomation : " + _buildingList[i].WaterConsume, font);
-                    water.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 32 - _boxSize * 4));
-                    water.Color = Color.Blue;
-                    water.CharacterSize = 13;
-                    water.Style = Text.Styles.Bold;
+                    Text water = new Text("Water consomation : " , font);
+                    Text nbWater = new Text(_buildingList[i].WaterConsume + "/H", font);
+                    water.Position =  new Vector2f((X * 32 + 12), (Y * 32 - 32 * 5.9f));
+                    nbWater.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 5.35f));
+                    nbWater.Color = new Color(52, 152, 219);
+                    water.Color = new Color(52,152,219);
+                    water.CharacterSize = 17;
+                    nbWater.CharacterSize = 14;
+                    nbWater.Style = Text.Styles.Bold;
+                    nbWater.Draw(window, RenderStates.Default);
                     water.Draw(window, RenderStates.Default);
 
                     _electricitySprite.Draw(window, RenderStates.Default);
-                    Text electricity = new Text("Electricity Consomation : " + _buildingList[i].ElectricityConsume, font);
-                    electricity.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 45 - _boxSize * 4));
-                    electricity.Color = Color.Yellow;
-                    electricity.CharacterSize = 13;
-                    electricity.Style = Text.Styles.Bold;
+                    Text electricity = new Text("Electricity consomation : "  , font);
+                    electricity.Position = new Vector2f((X * 32 +12), (Y * 32 - 32 * 4.9f));
+                    electricity.Color = new Color(236,193,5);
+                    electricity.CharacterSize = 17;
+                    Text nbElectricity = new Text(_buildingList[i].ElectricityConsume + "/H", font);
+                    nbElectricity.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 4.35f));
+                    nbElectricity.CharacterSize = 14;
+                    nbElectricity.Color = new Color(236, 193, 5);
+                    nbElectricity.Style = Text.Styles.Bold;
+                    nbElectricity.Draw(window, RenderStates.Default);
                     electricity.Draw(window, RenderStates.Default);
 
                     if(_buildingList[i].CostMoney == true)
                     {
                         _coinSprite.Draw(window, RenderStates.Default);
-                        Text charges = new Text("Charges : " + _buildingList[i].MoneyWinOrLost, font);
-                        charges.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 45 - _boxSize * 4));
-                        charges.Color = Color.Yellow;
-                        charges.CharacterSize = 13;
-                        charges.Style = Text.Styles.Bold;
+                        Text charges = new Text("Charges : ", font);
+                        charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 3.9f));
+                        charges.Color = new Color(203,67,53);
+                        charges.CharacterSize = 17;
+                        Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
+                        nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
+                        nbCharges.CharacterSize = 14;
+                        nbCharges.Color = new Color(203, 67, 53);
+                        nbCharges.Style = Text.Styles.Bold;
+                        nbCharges.Draw(window, RenderStates.Default);
                         charges.Draw(window, RenderStates.Default);
                     }
                     else
                     {
                         _coinSprite.Draw(window, RenderStates.Default);
-                        Text charges = new Text("Taxes : " + _buildingList[i].MoneyWinOrLost, font);
-                        charges.Position = new Vector2f((Width * 32 + _boxSize + 64), (Height * 45 - _boxSize * 4));
-                        charges.Color = Color.Yellow;
-                        charges.CharacterSize = 13;
-                        charges.Style = Text.Styles.Bold;
+                        Text charges = new Text("Taxes : ", font);
+                        charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 35 * 3.9f));
+                        charges.Color = new Color(68, 198, 14);
+                        charges.CharacterSize = 17;
+                        Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
+                        nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
+                        nbCharges.CharacterSize = 14;
+                        nbCharges.Color = new Color(68, 198, 14);
+                        nbCharges.Style = Text.Styles.Bold;
+                        nbCharges.Draw(window, RenderStates.Default);
                         charges.Draw(window, RenderStates.Default);
                     }
 

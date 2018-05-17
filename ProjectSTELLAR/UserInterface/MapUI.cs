@@ -34,7 +34,7 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _width = width;
             _height = height;
-            _drawBuildings = new DrawBuildings(_gameCtx);
+            _drawBuildings = new DrawBuildings(_gameCtx,ui, ctx);
             _ui = ui;
         }
 
@@ -85,7 +85,7 @@ namespace ProjectStellar
                 for (int y = TileView.Top; y < Height; y++)
                 {
                     rec = new RectangleShape();
-                    rec.OutlineColor = new Color(Color.Black);
+                    rec.OutlineColor = new Color(253, 235,208);
                     rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
                     rec.Size = new Vector2f(32, 32);
@@ -102,9 +102,11 @@ namespace ProjectStellar
             {
                 for (uint y = 0; y < Height; y++)
                 {
-                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 1, 32, 32);
                 }
             }
+
+            DrawGrid(window);
 
             for (int i = 0; i < (boxes.Length / Height); i++)
             {
@@ -112,12 +114,9 @@ namespace ProjectStellar
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
-                        //if(test == true)
-                        //{
-                        //    _ui.DrawBuildingInformations(window, font, ContainsBuilding(_cases[i].X, _cases[i].Y));
-                        //}
+                    
                         Type type = boxes[i, j].GetType();
-                        _drawBuildings.Draw(type, window, j, i);
+                        _drawBuildings.Draw(type, window, j, i, font);
                     }
                 }
             }
@@ -160,7 +159,6 @@ namespace ProjectStellar
                 if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
-                    //Console.WriteLine("Cast : " + (int)_cases[i].X + "  " + (int)_cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
                         _gameCtx._buildingFactory.CreateBuilding(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding);
@@ -174,7 +172,6 @@ namespace ProjectStellar
 
                     if (BuildingExist == true)
                     {
-                        //Test = true;
                         Console.WriteLine(ContainsBuilding(_cases[i].X, _cases[i].Y));
                         _ui.DrawBuildingInformations(window, font, ContainsBuilding(_cases[i].X, _cases[i].Y), Width/2, Height/2);
                         Thread.Sleep(3000);
@@ -191,17 +188,6 @@ namespace ProjectStellar
             return false;
         }
 
-        //public void test(RenderWindow window, Font font)
-        //{
-        //    RectangleShape rec = new RectangleShape();
-        //    rec.OutlineColor = new Color(Color.Black);
-        //    rec.OutlineThickness = 3.0f;
-        //    rec.FillColor = new Color(Color.White);
-        //    rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
-        //    rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
-
-        //    if (Test)
-        //}
 
     }
 }

@@ -39,6 +39,9 @@
     <None Update="resources\fonts\arial.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="resources\fonts\VirtualRave.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="resources\img\83504.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
