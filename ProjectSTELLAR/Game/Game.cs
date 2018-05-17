@@ -90,6 +90,7 @@ namespace ProjectStellar
             _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
+            Window.KeyPressed += _windowEvents.OnKeyPressed;
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
             Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
