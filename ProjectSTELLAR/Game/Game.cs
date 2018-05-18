@@ -24,13 +24,14 @@ namespace ProjectStellar
         Menu _menu;
         Resolution _resolution;
         Font _font;
-        Map _map;
+        internal Map _map;
         public BuildingFactory _buildingFactory;
         DrawUI _drawUI;
-        ResourcesManager _resourcesManager;
+        internal ResourcesManager _resourcesManager;
         CityHelper _cityHelper;
         MapUI _mapUI;
         WindowEvents _windowEvents;
+        internal string _name = "test";
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -67,7 +68,7 @@ namespace ProjectStellar
             _font = new Font("./resources/fonts/arial.ttf");
         }
 
-        public override void Initialize()
+        public override void Initialize(GameTime gameTime)
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
@@ -80,10 +81,12 @@ namespace ProjectStellar
             _windowEvents = new WindowEvents(Window, this);
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
+            Window.KeyPressed += _windowEvents.KeyPressed;
         }
 
         public override void Update(GameTime gameTime)
         {
+
             if (_state == 0) _menu.CheckMouse(Window);
             else if (_state == 1)
             {
@@ -102,10 +105,19 @@ namespace ProjectStellar
             else if (MenuState == 1)
             {
                 if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
-                _drawUI.RenderGraphics(Window, _font);
+                _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
             }
+        }
+
+        internal void LoadGame(SaveGame save)
+        {
+            GameTime = save.GameTime;
+            _map = save.Map;
+            _resourcesManager = save.ResourcesManager;
+            _drawUI.UpdateMap(save.Map);
+            _buildingFactory.Map = save.Map;
         }
 
         public int MenuState

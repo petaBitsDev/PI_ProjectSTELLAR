@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
+    [Serializable]
     public class Flat : Building
     {
         public Flat(Map ctx)

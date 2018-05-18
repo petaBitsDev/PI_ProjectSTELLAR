@@ -35,7 +35,11 @@ namespace ProjectStellar
             _ui = ui;
         }
 
-        public Map MapContext => _ctx;
+        public Map MapContext
+        {
+            get { return _ctx; }
+            set { _ctx = value; }
+        }
 
         public uint Width => _width;
 

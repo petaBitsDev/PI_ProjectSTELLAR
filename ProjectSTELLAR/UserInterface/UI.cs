@@ -288,19 +288,19 @@ namespace ProjectStellar
             return false;
         }
 
-        public bool CheckTimeBar(float x, float y)
+        public bool CheckTimeBar(float x, float y, GameTime gameTime)
         {
             if (_pause.GetGlobalBounds().Contains(x, y))
             {
-                _gameTime.TimeScale = 0;
+                gameTime.TimeScale = 0;
             }
             else if (_play.GetGlobalBounds().Contains(x, y))
             {
-                _gameTime.TimeScale = 60;
+                gameTime.TimeScale = 60;
             }
             else if (_fastForward.GetGlobalBounds().Contains(x, y))
             {
-                _gameTime.TimeScale += 100;
+                gameTime.TimeScale += 100;
             }
             else return false;
 
@@ -347,7 +347,7 @@ namespace ProjectStellar
             //_buildingChoices[j++] = _flatSprite;
         }
 
-        public bool CheckBuildingToBuild(float x, float y)
+        public bool CheckBuildingToBuild(float x, float y, ResourcesManager resources)
         {
             if (_buildSelected == false) return false;
             for (int i = 0; i < _sprites.Count; i++)
@@ -356,7 +356,7 @@ namespace ProjectStellar
                 {
 
                     _chosenBuildings.TryGetValue(_sprites[i], out Building building);
-                    if (!_resourcesManager.CheckResourcesNeeded(building)) return false;
+                    if (!resources.CheckResourcesNeeded(building)) return false;
                     _mapCtx.ChosenBuilding = building;
                     //Console.WriteLine(type);
                     return true;
@@ -369,6 +369,12 @@ namespace ProjectStellar
         {
             get { return _destroySelected; }
             set { _destroySelected = value; }
+        }
+
+        public Map Map
+        {
+            get { return _mapCtx; }
+            set { _mapCtx = value; }
         }
     }
 }

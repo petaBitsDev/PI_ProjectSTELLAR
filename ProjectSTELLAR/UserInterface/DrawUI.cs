@@ -43,18 +43,31 @@ namespace ProjectStellar
             target.Draw(tmpSprite);
         }
 
-        public void RenderGraphics(RenderWindow window, Font font)
+        public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
             _mapUI.DrawMapTile(window, _mapCtx.Boxes);
             _mapUI.DrawGrid(window);
             _ui.DrawBuildButton(window, font);
             _ui.DrawDestroyButton(window);
-            _ui.DrawResourcesBar(window, font, _resourcesCtx.NbResources);
-            _ui.DrawTimeBar(window, _gameTime, font);
+            _ui.DrawResourcesBar(window, font, resources.NbResources);
+            _ui.DrawTimeBar(window, gameTime, font);
         }
 
         public MapUI MapUI => _mapUI;
 
+        public Map Map
+        {
+            get { return _mapCtx; }
+            set { _mapCtx = value; }
+        }
+
         public UI UI => _ui;
+
+        public void UpdateMap(Map map)
+        {
+            Map = map;
+            MapUI.MapContext = map;
+            UI.Map = map;
+        }
     }
 }

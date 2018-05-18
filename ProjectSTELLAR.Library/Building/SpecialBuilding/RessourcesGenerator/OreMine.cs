@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
+    [Serializable]
     public class OreMine : Building
     {
         int _rockProduction;

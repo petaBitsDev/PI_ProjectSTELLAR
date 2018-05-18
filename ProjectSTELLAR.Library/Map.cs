@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
+    [Serializable]
     public class Map
     {
         public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();

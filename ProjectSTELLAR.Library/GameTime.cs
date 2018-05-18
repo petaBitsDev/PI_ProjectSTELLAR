@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
+    [Serializable]
     public class GameTime
     {
         private float _deltaTime = 0f;

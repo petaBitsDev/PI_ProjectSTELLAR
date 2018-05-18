@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
+    [Serializable]
     public class PoliceStation : Building
     {
         public PoliceStation(Map ctx)

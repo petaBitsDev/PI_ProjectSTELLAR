@@ -18,7 +18,7 @@ namespace ProjectStellar
                 this.Window = new RenderWindow(new VideoMode(resolution.X, resolution.Y), windowTitle, Styles.None);
             else
                 this.Window = new RenderWindow(new VideoMode(resolution.X, resolution.Y), windowTitle, Styles.Close);
-            this.GameTime = new GameTime();
+            GameTime = new GameTime();
             //Window.Closed += _windowEvents.WindowClosed;
             //Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
@@ -42,7 +42,7 @@ namespace ProjectStellar
         public void Run()
         {
             LoadContent();
-            Initialize();
+            Initialize(GameTime);
 
             float totalTimeBeforeUpdate = 0f;
             float previousTimeElapsed = 0f;
@@ -76,7 +76,7 @@ namespace ProjectStellar
         }
 
         public abstract void LoadContent();
-        public abstract void Initialize();
+        public abstract void Initialize(GameTime gameTime);
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(GameTime gameTime);
     }
