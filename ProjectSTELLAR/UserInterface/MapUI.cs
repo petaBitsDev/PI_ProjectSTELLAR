@@ -116,7 +116,9 @@ namespace ProjectStellar
                     {
                     
                         Type type = boxes[i, j].GetType();
+                     
                         _drawBuildings.Draw(type, window, j, i, font);
+                        
                     }
                 }
             }
@@ -170,16 +172,6 @@ namespace ProjectStellar
                         _ui.DestroySelected = false;
                     }
 
-                    if (BuildingExist == true)
-                    {
-                        Console.WriteLine(ContainsBuilding(_cases[i].X, _cases[i].Y));
-                        _ui.DrawBuildingInformations(window, font, ContainsBuilding(_cases[i].X, _cases[i].Y), Width/2, Height/2);
-                        Thread.Sleep(3000);
-                    }
-                    else
-                    {
-                        Console.WriteLine("do not exist");
-                    }
                   
                     return true;
                 }

@@ -322,6 +322,27 @@ namespace ProjectStellar
             rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
             rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
 
+            RectangleShape onglet1 = new RectangleShape();
+            onglet1.OutlineColor = new Color(Color.Blue);
+            onglet1.OutlineThickness = 3.0f;
+            onglet1.FillColor = new Color(Color.White);
+            onglet1.Size = new Vector2f(((_boxSize * 8) / 3 )-7, (_boxSize * 4)/6);
+            onglet1.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
+
+            RectangleShape onglet2 = new RectangleShape();
+            onglet2.OutlineColor = new Color(Color.Red);
+            onglet2.OutlineThickness = 3.0f;
+            onglet2.FillColor = new Color(Color.White);
+            onglet2.Size = new Vector2f(((_boxSize * 8) /3  )-7, (_boxSize * 4) / 6);
+            onglet2.Position = new Vector2f((Width * 32) + 85, (Height * 32 - _boxSize * 6));
+
+            RectangleShape onglet3 = new RectangleShape();
+            onglet3.OutlineColor = new Color(Color.Yellow);
+            onglet3.OutlineThickness = 3.0f;
+            onglet3.FillColor = new Color(Color.White);
+            onglet3.Size = new Vector2f(((_boxSize * 8) / 3)-7, (_boxSize * 4) / 6);
+            onglet3.Position = new Vector2f((Width * 32) + 170, (Height * 32 - _boxSize * 6));
+
             _buildButton.Draw(window, RenderStates.Default);
             
             if (_buildSelected)
@@ -332,6 +353,9 @@ namespace ProjectStellar
                     int j = 0;
 
                     window.Draw(rec);
+                    //window.Draw(onglet1);
+                    //window.Draw(onglet2);
+                    //window.Draw(onglet3);
 
                     DrawBuildingChoices(window, font);
                 }
@@ -462,69 +486,72 @@ namespace ProjectStellar
             //rec.Size = new Vector2f(32 * 8, 32 * 4);
             //rec.Position = new Vector2f(X, Y);
             //rec.Draw(window, RenderStates.Default);
-
-            for (int i = 0; i<_buildingList.Count; i++)
+            if (!object.Equals(building, null))
             {
-                if(_buildingList[i].GetType() == building.GetType())
+                for (int i = 0; i<_buildingList.Count; i++)
                 {
-                  
-                    _waterSprite.Draw(window, RenderStates.Default);
-                    Text water = new Text("Water consomation : " , font);
-                    Text nbWater = new Text(_buildingList[i].WaterConsume + "/H", font);
-                    water.Position =  new Vector2f((X * 32 + 12), (Y * 32 - 32 * 5.9f));
-                    nbWater.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 5.35f));
-                    nbWater.Color = new Color(52, 152, 219);
-                    water.Color = new Color(52,152,219);
-                    water.CharacterSize = 17;
-                    nbWater.CharacterSize = 14;
-                    nbWater.Style = Text.Styles.Bold;
-                    nbWater.Draw(window, RenderStates.Default);
-                    water.Draw(window, RenderStates.Default);
-
-                    _electricitySprite.Draw(window, RenderStates.Default);
-                    Text electricity = new Text("Electricity consomation : "  , font);
-                    electricity.Position = new Vector2f((X * 32 +12), (Y * 32 - 32 * 4.9f));
-                    electricity.Color = new Color(236,193,5);
-                    electricity.CharacterSize = 17;
-                    Text nbElectricity = new Text(_buildingList[i].ElectricityConsume + "/H", font);
-                    nbElectricity.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 4.35f));
-                    nbElectricity.CharacterSize = 14;
-                    nbElectricity.Color = new Color(236, 193, 5);
-                    nbElectricity.Style = Text.Styles.Bold;
-                    nbElectricity.Draw(window, RenderStates.Default);
-                    electricity.Draw(window, RenderStates.Default);
-
-                    if(_buildingList[i].CostMoney == true)
+             
+                    if (_buildingList[i].GetType() == building.GetType())
                     {
-                        _coinSprite.Draw(window, RenderStates.Default);
-                        Text charges = new Text("Charges : ", font);
-                        charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 3.9f));
-                        charges.Color = new Color(203,67,53);
-                        charges.CharacterSize = 17;
-                        Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
-                        nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
-                        nbCharges.CharacterSize = 14;
-                        nbCharges.Color = new Color(203, 67, 53);
-                        nbCharges.Style = Text.Styles.Bold;
-                        nbCharges.Draw(window, RenderStates.Default);
-                        charges.Draw(window, RenderStates.Default);
-                    }
-                    else
-                    {
-                        _coinSprite.Draw(window, RenderStates.Default);
-                        Text charges = new Text("Taxes : ", font);
-                        charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 35 * 3.9f));
-                        charges.Color = new Color(68, 198, 14);
-                        charges.CharacterSize = 17;
-                        Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
-                        nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
-                        nbCharges.CharacterSize = 14;
-                        nbCharges.Color = new Color(68, 198, 14);
-                        nbCharges.Style = Text.Styles.Bold;
-                        nbCharges.Draw(window, RenderStates.Default);
-                        charges.Draw(window, RenderStates.Default);
-                    }
 
+                        _waterSprite.Draw(window, RenderStates.Default);
+                        Text water = new Text("Water consomation : ", font);
+                        Text nbWater = new Text(_buildingList[i].WaterConsume + "/H", font);
+                        water.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 5.9f));
+                        nbWater.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 5.35f));
+                        nbWater.Color = new Color(52, 152, 219);
+                        water.Color = new Color(52, 152, 219);
+                        water.CharacterSize = 17;
+                        nbWater.CharacterSize = 14;
+                        nbWater.Style = Text.Styles.Bold;
+                        nbWater.Draw(window, RenderStates.Default);
+                        water.Draw(window, RenderStates.Default);
+
+                        _electricitySprite.Draw(window, RenderStates.Default);
+                        Text electricity = new Text("Electricity consomation : ", font);
+                        electricity.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 4.9f));
+                        electricity.Color = new Color(236, 193, 5);
+                        electricity.CharacterSize = 17;
+                        Text nbElectricity = new Text(_buildingList[i].ElectricityConsume + "/H", font);
+                        nbElectricity.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 4.35f));
+                        nbElectricity.CharacterSize = 14;
+                        nbElectricity.Color = new Color(236, 193, 5);
+                        nbElectricity.Style = Text.Styles.Bold;
+                        nbElectricity.Draw(window, RenderStates.Default);
+                        electricity.Draw(window, RenderStates.Default);
+
+                        if (_buildingList[i].CostMoney == true)
+                        {
+                            _coinSprite.Draw(window, RenderStates.Default);
+                            Text charges = new Text("Charges : ", font);
+                            charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 3.9f));
+                            charges.Color = new Color(203, 67, 53);
+                            charges.CharacterSize = 17;
+                            Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
+                            nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
+                            nbCharges.CharacterSize = 14;
+                            nbCharges.Color = new Color(203, 67, 53);
+                            nbCharges.Style = Text.Styles.Bold;
+                            nbCharges.Draw(window, RenderStates.Default);
+                            charges.Draw(window, RenderStates.Default);
+                        }
+                        else
+                        {
+                            _coinSprite.Draw(window, RenderStates.Default);
+                            Text charges = new Text("Taxes : ", font);
+                            charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 35 * 3.9f));
+                            charges.Color = new Color(68, 198, 14);
+                            charges.CharacterSize = 17;
+                            Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
+                            nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
+                            nbCharges.CharacterSize = 14;
+                            nbCharges.Color = new Color(68, 198, 14);
+                            nbCharges.Style = Text.Styles.Bold;
+                            nbCharges.Draw(window, RenderStates.Default);
+                            charges.Draw(window, RenderStates.Default);
+                        }
+
+                    }
                 }
             }
             
