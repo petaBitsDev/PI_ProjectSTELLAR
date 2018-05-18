@@ -20,7 +20,7 @@ namespace ProjectStellar.Library
 
             try
             {
-                saveListFile = File.OpenRead(@"/saves/list.bin");
+                saveListFile = File.OpenRead(@"./saves/list.bin");
                 saveList = (List<SaveGameMetadata>)formatter.Deserialize(saveListFile);
                 saveListFile.Close();
                 return saveList;

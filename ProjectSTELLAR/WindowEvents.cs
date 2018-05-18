@@ -90,10 +90,15 @@ namespace ProjectStellar
             {
                 List<SaveGameMetadata> list = Save.List();
 
-                foreach(SaveGameMetadata metadata in list)
+                foreach (SaveGameMetadata metadata in list)
                 {
-                    Console.WriteLine("Nom : {0} - Population : {1} - Date : {3}", metadata.Name, metadata.Population, metadata.Date);
+                    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
                 }
+
+                //for (int i = 0; i < list.Count; i++)
+                //{
+                //    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", list[i].Name, list[i].Population, list[i].Date);
+                //}
             }
         }
     }
