@@ -26,7 +26,7 @@ namespace ProjectStellar
         Font _font;
         Map _map;
         public BuildingFactory _buildingFactory;
-        DrawUI _drawUI;
+        public DrawUI _drawUI;
         ResourcesManager _resourcesManager;
         CityHelper _cityHelper;
         MapUI _mapUI;
@@ -80,7 +80,7 @@ namespace ProjectStellar
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(60, 60);
+            _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _cityHelper = new CityHelper(_map);
@@ -115,7 +115,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 60, 60, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;

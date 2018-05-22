@@ -49,24 +49,71 @@ namespace ProjectStellar
 
             if (posX == (_resolution.X - 1))
             {
+                for(int i = 0; i < 20; i++)
+                {
+                    for(int j = 0; j < 20; j++)
+                    {
+                        if (_ctx._drawUI.MapUI.MapSprites[j, 20].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                        {
+                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                            _window.SetView(_view);
+                        }
+                    }
+                }
                 _view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
                 _view.Move(new Vector2f(50, 0));
                 _window.SetView(_view);
             }
             else if (posX == 0)
             {
+                for (int i = 0; i < 20; i++)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        if (_mapUI.MapSprites[j, 0].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                        {
+                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                            _window.SetView(_view);
+                        }
+                    }
+                }
+
                 _view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
                 _view.Move(new Vector2f(-50, 0));
                 _window.SetView(_view);
             }
             else if (posY == 0)
             {
+                for (int i = 0; i < 20; i++)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        if (_mapUI.MapSprites[0, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                        {
+                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                            _window.SetView(_view);
+                        }
+                    }
+                }
+
                 _view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
                 _view.Move(new Vector2f(0, -50));
                 _window.SetView(_view);
             }
             else if (posY == (_resolution.Y - 1))
             {
+                for (int i = 0; i < 20; i++)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        if (_mapUI.MapSprites[20, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                        {
+                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                            _window.SetView(_view);
+                        }
+                    }
+                }
+
                 _view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
                 _view.Move(new Vector2f(0, 50));
                 _window.SetView(_view);

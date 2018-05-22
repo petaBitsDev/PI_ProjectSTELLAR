@@ -24,6 +24,7 @@ namespace ProjectStellar
         Cases[] _cases;
         UI _ui;
         Resolution _resolution;
+        Sprite[,] _mapSprites;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution)
         {
@@ -70,11 +71,15 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes)
         {
+            _mapSprites = new Sprite[Height, Width];
+
             for (uint x = 0; x < Width; x++)
             {
                 for (uint y = 0; y < Height; y++)
                 {
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                    _bgSprite.Position = new Vector2f(y, x);
+                    _mapSprites[y, x] = _bgSprite;
                 }
             }
 
@@ -116,5 +121,7 @@ namespace ProjectStellar
 
             return false;
         }
+
+        public Sprite[,] MapSprites => _mapSprites;
     }
 }
