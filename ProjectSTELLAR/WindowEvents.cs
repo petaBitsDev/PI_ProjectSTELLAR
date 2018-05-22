@@ -40,7 +40,7 @@ namespace ProjectStellar
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
 
-                CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y, _window, _font);
+                CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y);
             }
         }
         
@@ -158,7 +158,7 @@ namespace ProjectStellar
         {
             if (_ctx.MenuState != 0)
             {
-                if (CheckMap(x, y, window, _ctx._font)) Console.WriteLine("map");
+                if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
                 else if (CheckUI(x, y, _ctx.GameTime)) Console.WriteLine("ui");
             }
         }

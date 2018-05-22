@@ -8,6 +8,8 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -22,6 +24,11 @@ namespace ProjectStellar
         DrawBuildings _drawBuildings;
         Cases[] _cases;
         UI _ui;
+        bool _buildingExist;
+        RectangleShape rec = new RectangleShape();
+        bool test;
+        Resolution _resolution;
+        Sprite[,] _mapSprites;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution)
         {
@@ -89,6 +96,8 @@ namespace ProjectStellar
                 for (uint y = 0; y < Height; y++)
                 {
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                    _bgSprite.Position = new Vector2f(y, x);
+                    _mapSprites[y, x] = _bgSprite;
                 }
             }
 
@@ -165,16 +174,6 @@ namespace ProjectStellar
 
             return false;
         }
-    }
-}
-
-using System.Threading;
-using ProjectStellar.Library;
-        bool _buildingExist;
-        RectangleShape rec = new RectangleShape();
-        bool test;
-        Resolution _resolution;
-        Sprite[,] _mapSprites;
         public bool BuildingExist
         {
             get
@@ -187,19 +186,9 @@ using ProjectStellar.Library;
                 _buildingExist = value;
             }
         }
-
-        public struct Rect
-        {
-            public int Top;
-            public int Bottom;
-            public int Left;
-            public int Right;
-        }
-
-        public static Rect TileView;
-
-                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
-                    _bgSprite.Position = new Vector2f(y, x);
-                    _mapSprites[y, x] = _bgSprite;
-
         public Sprite[,] MapSprites => _mapSprites;
+    }
+}
+
+
+
