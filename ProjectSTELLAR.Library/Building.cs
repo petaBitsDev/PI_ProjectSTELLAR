@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-   public  abstract class Building
+    [Serializable]
+    public  abstract class Building
     {
         bool _isBuild;
         //cost money is true for public buildings and false for the building wich pay taxes

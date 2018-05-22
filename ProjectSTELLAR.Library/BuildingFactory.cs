@@ -47,6 +47,10 @@ namespace ProjectStellar
 
         }
 
-
+        public Map Map
+        {
+            get { return _ctx; }
+            set { _ctx = value; }
+        }
     }
 }

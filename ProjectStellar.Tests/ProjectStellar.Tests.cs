@@ -306,7 +306,7 @@ namespace ProjectStellar
           Resolution _resolution = new Resolution();
           Game game = new Game(0, _resolution, false);
           Map map = new Map(20, 20);
-          game.Initialize();
+          //game.Initialize();
 
           CityHelper city = new CityHelper(map);
           Assert.That(city.ListBuilding.Count, Is.EqualTo(28));
@@ -318,7 +318,7 @@ namespace ProjectStellar
          Resolution _resolution = new Resolution();
          Game game = new Game(0, _resolution, false);
          Map map = new Map(20, 20);
-         game.Initialize();
+         //game.Initialize();
          CityManager cityManager = new CityManager(map);
             ResourcesManager resourcesManager = new ResourcesManager(map);
             CityHelper cityHelper = new CityHelper(map);

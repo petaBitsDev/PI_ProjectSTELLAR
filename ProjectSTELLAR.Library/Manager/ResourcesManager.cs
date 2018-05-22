@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
+    [Serializable]
     public class ResourcesManager
     {
        static Map _ctx;
@@ -21,6 +22,7 @@ namespace ProjectStellar
             _nbResources.Add("metal", 150);
             _nbResources.Add("coins", 5000);
             _nbResources.Add("pollution", 0);
+            _nbResources.Add("population", 200);
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
