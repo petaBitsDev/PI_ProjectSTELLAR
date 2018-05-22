@@ -28,6 +28,7 @@ namespace ProjectStellar
         public BuildingFactory _buildingFactory;
         DrawUI _drawUI;
         internal ResourcesManager _resourcesManager;
+        ExperienceManager _experienceManager;
         CityHelper _cityHelper;
         MapUI _mapUI;
         WindowEvents _windowEvents;
@@ -87,6 +88,7 @@ namespace ProjectStellar
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
+            _experienceManager = new ExperienceManager(_resourcesManager);
             _cityHelper = new CityHelper(_map);
             _cityHelper.CreateListBuilding();
 
@@ -104,7 +106,13 @@ namespace ProjectStellar
             {
                 if(gameTime.InGameTime.Minute == 00)
                 {
-                   // _resourcesManager.UpdateResources();
+                    //_resourcesManager.NbResources["population"] += 10;
+                    _experienceManager.CheckLevel();
+                    //Console.WriteLine("--------------------------------------");
+                    //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
+                    //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
+                    //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
+                    // _resourcesManager.UpdateResources();
                 }
             }
         }
@@ -116,8 +124,8 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
             }

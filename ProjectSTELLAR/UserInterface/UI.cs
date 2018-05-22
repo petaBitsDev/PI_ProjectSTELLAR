@@ -64,12 +64,15 @@ namespace ProjectStellar
         private Sprite _metalMine;
         private Sprite _oreMine;
         private Sprite _warehouse;
+        private RectangleShape _expBar;
+        private RectangleShape _expBarFilled;
 
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
         private ResourcesManager _resourcesManager;
+        private ExperienceManager _experienceManager;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _sprites = new List<Sprite>();
             _chosenBuildings = new Dictionary<Sprite, Building>();
@@ -90,6 +93,7 @@ namespace ProjectStellar
             _tab1Selected = true;
             _tab2Selected = false;
             _tab3Selected = false;
+            _experienceManager = experienceManager;
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
@@ -239,7 +243,16 @@ namespace ProjectStellar
                 Position = new Vector2f((Width / 2 * _boxSize) + _boxSize * 9, 0)
             };
 
+            _expBar = new RectangleShape()
+            {
+                Size = new Vector2f(200, 30),
+                Position = new Vector2f((resolution.X / 10) * 4, resolution.Y - 40)
+            };
 
+            _expBarFilled = new RectangleShape(_expBar)
+            {
+                FillColor = Color.Blue
+            };
         }
 
         internal bool IsTab1Active
@@ -635,6 +648,15 @@ namespace ProjectStellar
 
         }
 
+        public void DrawExperience(RenderWindow window)
+        {
+            _expBarFilled.Size = new Vector2f(_expBar.Size.X * ((float)_experienceManager.GetPercentage() / 100f), _expBar.Size.Y);
+            
+            _expBar.Draw(window, RenderStates.Default);
+            _expBarFilled.Draw(window, RenderStates.Default);
+        }
+
+        public bool CheckBuildingToBuild(float x, float y)
      //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
