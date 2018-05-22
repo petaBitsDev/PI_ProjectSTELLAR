@@ -59,10 +59,10 @@ namespace ProjectStellar.Library
             {
                 newSaveMetadata = new SaveGameMetadata(name, saveGame.Date, saveGame.Population);
                 saveList.Add(newSaveMetadata);
+            }
                 file = File.OpenWrite(listPath);
                 formatter.Serialize(file, saveList);
                 file.Close();
-            }
 
             file = File.OpenWrite(savePath);
             formatter.Serialize(file, saveGame);
