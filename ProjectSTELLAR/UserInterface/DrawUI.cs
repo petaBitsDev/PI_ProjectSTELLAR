@@ -32,7 +32,7 @@ namespace ProjectStellar
             _gameTime = gameTime;
             _buildingList = buildingList;
             _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager, experienceManager);
-            _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui);
+            _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution);
         }
 
         public void RenderSprite

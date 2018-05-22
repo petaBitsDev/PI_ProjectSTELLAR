@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace ProjectStellar
 {
@@ -23,11 +22,8 @@ namespace ProjectStellar
         DrawBuildings _drawBuildings;
         Cases[] _cases;
         UI _ui;
-        bool _buildingExist;
-        RectangleShape rec = new RectangleShape();
-        bool test;
 
-        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui)
+        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution)
         {
             _gameCtx = context;
             _ctx = ctx;
@@ -36,6 +32,7 @@ namespace ProjectStellar
             _height = height;
             _drawBuildings = new DrawBuildings(_gameCtx,ui, ctx);
             _ui = ui;
+            _resolution = resolution;
         }
 
         public Map MapContext
@@ -50,19 +47,6 @@ namespace ProjectStellar
 
         public Game GameContext => _gameCtx;
 
-        public bool BuildingExist
-        {
-            get
-            {
-                return _buildingExist;
-            }
-
-            set
-            {
-                _buildingExist = value;
-            }
-        }
-
         public struct Rect
         {
             public int Top;
@@ -75,18 +59,14 @@ namespace ProjectStellar
 
         public void DrawGrid(RenderWindow window)
         {
-            TileView.Top = 0;
-            TileView.Bottom = 10;
-            TileView.Left = 0;
-            TileView.Right = 10;
             int i = 0;
 
             RectangleShape rec;
             _cases = new Cases[Width * Height];
 
-            for (int x = TileView.Left; x < Width; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int y = TileView.Top; y < Height; y++)
+                for (int y = 0; y < Height; y++)
                 {
                     rec = new RectangleShape();
                     rec.OutlineColor = new Color(253, 235,208);
@@ -102,11 +82,13 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
+            _mapSprites = new Sprite[Height, Width];
+
             for (uint x = 0; x < Width; x++)
             {
                 for (uint y = 0; y < Height; y++)
                 {
-                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 1, 32, 32);
+                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                 }
             }
 
@@ -183,7 +165,41 @@ namespace ProjectStellar
 
             return false;
         }
-
-
     }
 }
+
+using System.Threading;
+using ProjectStellar.Library;
+        bool _buildingExist;
+        RectangleShape rec = new RectangleShape();
+        bool test;
+        Resolution _resolution;
+        Sprite[,] _mapSprites;
+        public bool BuildingExist
+        {
+            get
+            {
+                return _buildingExist;
+            }
+
+            set
+            {
+                _buildingExist = value;
+            }
+        }
+
+        public struct Rect
+        {
+            public int Top;
+            public int Bottom;
+            public int Left;
+            public int Right;
+        }
+
+        public static Rect TileView;
+
+                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                    _bgSprite.Position = new Vector2f(y, x);
+                    _mapSprites[y, x] = _bgSprite;
+
+        public Sprite[,] MapSprites => _mapSprites;

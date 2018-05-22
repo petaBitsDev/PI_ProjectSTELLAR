@@ -13,11 +13,13 @@ namespace ProjectStellar
         int _height;
         int _width;
         Building _chosenBuilding;
+        public Building[,] _boxes;
 
         public Map (int width, int height)
         {
             _width = width;
             _height = height;
+            _boxes = new Building[height, width];
         }
 
         public int Width => _width;
@@ -29,8 +31,6 @@ namespace ProjectStellar
             get { return _chosenBuilding; }
             set { _chosenBuilding = value; }
         }
-        
-        public Building[,] _boxes = new Building[20, 20];
 
         public Building[,] Boxes
         {

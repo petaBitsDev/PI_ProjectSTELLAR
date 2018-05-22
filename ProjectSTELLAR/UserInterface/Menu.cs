@@ -9,7 +9,7 @@ namespace ProjectStellar
     class Menu
     {
         readonly Sprite[] _menu = new Sprite[2];
-        static Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
+        static Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         static Sprite _backgroundSprite;
         private int _selectedIndex = -1;
         private bool _hovering;

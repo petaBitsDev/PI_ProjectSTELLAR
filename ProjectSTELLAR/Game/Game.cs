@@ -16,23 +16,25 @@ namespace ProjectStellar
         public const uint DEFAULT_WINDOW_HEIGHT = 720;
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
-        Texture _backgroundTexture = new Texture("./resources/img/menuBG.png");
+        Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[4];
         public Texture[] _buildingsTextures = new Texture[16];
-        public Texture[] _uiTextures = new Texture[12];
+        public Texture[] _uiTextures = new Texture[19];
         int _state;
         Menu _menu;
         Resolution _resolution;
         internal Font _font;
         internal Map _map;
         public BuildingFactory _buildingFactory;
-        DrawUI _drawUI;
-        internal ResourcesManager _resourcesManager;
+        public DrawUI _drawUI;
         ExperienceManager _experienceManager;
+        internal ResourcesManager _resourcesManager;
         CityHelper _cityHelper;
         MapUI _mapUI;
         WindowEvents _windowEvents;
         internal string _name = "test";
+        View _view;
+        Vector2f _center;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -77,6 +79,13 @@ namespace ProjectStellar
             _uiTextures[9] = new Texture("./resources/img/rock.png");
             _uiTextures[10] = new Texture("./resources/img/drop.png");
             _uiTextures[11] = new Texture("./resources/img/light.png");
+            _uiTextures[12] = new Texture("./resources/img/angry.png");
+            _uiTextures[13] = new Texture("./resources/img/confused.png");
+            _uiTextures[14] = new Texture("./resources/img/smile.png");
+            _uiTextures[15] = new Texture("./resources/img/navbar.png");
+            _uiTextures[16] = new Texture("./resources/img/ffWhite.png");
+            _uiTextures[17] = new Texture("./resources/img/PauseButtonWhite.png");
+            _uiTextures[18] = new Texture("./resources/img/PlayButtonWhite.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
@@ -92,7 +101,13 @@ namespace ProjectStellar
             _cityHelper = new CityHelper(_map);
             _cityHelper.CreateListBuilding();
 
-            _windowEvents = new WindowEvents(Window, this);
+            _center = new Vector2f(_resolution.X / 2, _resolution.Y / 2);
+            _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
+            Window.SetView(_view);
+            _windowEvents = new WindowEvents(Window, this, _resolution, _view);
+            Window.KeyPressed += _windowEvents.OnKeyPressed;
+            Window.MouseWheelMoved += _windowEvents.MouseWheel;
+            Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
             Window.KeyPressed += _windowEvents.KeyPressed;
@@ -119,12 +134,12 @@ namespace ProjectStellar
 
         public override void Draw(GameTime gameTime)
         {
-
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
                 if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
+                Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
