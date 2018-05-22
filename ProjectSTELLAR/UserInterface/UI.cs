@@ -25,6 +25,10 @@ namespace ProjectStellar
         private bool _buildSelected;
         private bool _destroySelected;
         Dictionary<Sprite, Building> _chosenBuildings;
+        private bool _tab1Selected;
+        private bool _tab2Selected;
+        private bool _tab3Selected;
+        private int _buildingSelected;
 
         Sprite _play;
         Sprite _pause;
@@ -83,6 +87,9 @@ namespace ProjectStellar
             _buildingList = buildingList;
             _buildingChoices = new BuildingChoice[16];
             _resourcesManager = resourcesManager;
+            _tab1Selected = true;
+            _tab2Selected = false;
+            _tab3Selected = false;
 
             _play = new Sprite(_ctx._uiTextures[0])
             {
@@ -137,35 +144,36 @@ namespace ProjectStellar
 
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
-                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 - 20)),
+                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 + 20)),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
 
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
             {
-                Position = new Vector2f((Width * 32 /*+ _boxSize*/), (Height * 32 - _boxSize * 5 - 20))
+                Position = new Vector2f((Width * 32 /*+ _boxSize*/), (Height * 32 - _boxSize * 5 + 20))
             };
 
 
             _houseSprite = new Sprite(_ctx._buildingsTextures[3])
             {
-                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 - 20))
+                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 20))
+                
             };
 
             _powerPlant = new Sprite(_ctx._buildingsTextures[4])
             {
-                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 - 20))
+                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 + 20))
 
             };
 
             _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
             {
-                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 - 20))
+                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 + 20))
             };
 
             _cityHall = new Sprite(_ctx._buildingsTextures[6])
             {
-                Position = new Vector2f((Width * 32 + 200), (Height * 32 - _boxSize * 5 - 20))
+                Position = new Vector2f((Width * 32 + 200), (Height * 32 - _boxSize * 5 + 20))
             };
 
             _fireStation = new Sprite(_ctx._buildingsTextures[8])
@@ -190,24 +198,24 @@ namespace ProjectStellar
 
             _sawMill = new Sprite(_ctx._buildingsTextures[12])
             {
-                Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5 + 60))
+                Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5 + 20))
 
             };
 
             _oreMine = new Sprite(_ctx._buildingsTextures[13])
             {
-                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 + 60))
+                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 + 20))
             };
 
             _metalMine = new Sprite(_ctx._buildingsTextures[14])
             {
-                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 60))
+                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 20))
 
             };
 
             _warehouse = new Sprite(_ctx._buildingsTextures[15])
             {
-                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 + 60))
+                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 + 20))
 
             };
 
@@ -234,7 +242,23 @@ namespace ProjectStellar
 
         }
 
+        internal bool IsTab1Active
+        {
+            get { return _tab1Selected; }
+            set { _tab1Selected = value; }
+        }
 
+        internal bool IsTab2Active
+        {
+            get { return _tab2Selected; }
+            set { _tab2Selected = value; }
+        }
+
+        internal bool IsTab3Active
+        {
+            get { return _tab3Selected; }
+            set { _tab3Selected = value; }
+        }
         public uint Width => _width;
 
         public uint Height => _height;
@@ -319,29 +343,44 @@ namespace ProjectStellar
             rec.OutlineColor = new Color(Color.Black);
             rec.OutlineThickness = 3.0f;
             rec.FillColor = new Color(Color.White);
-            rec.Size = new Vector2f(_boxSize * 8, _boxSize * 4);
+            rec.Size = new Vector2f((_boxSize * 8)-4, _boxSize * 4);
             rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
 
             RectangleShape onglet1 = new RectangleShape();
             onglet1.OutlineColor = new Color(Color.Blue);
             onglet1.OutlineThickness = 3.0f;
             onglet1.FillColor = new Color(Color.White);
-            onglet1.Size = new Vector2f(((_boxSize * 8) / 3 )-7, (_boxSize * 4)/6);
+            onglet1.Size = new Vector2f(((_boxSize * 8) / 3 )-6, (_boxSize * 4)/6);
             onglet1.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
+            Text text = new Text("Habitation", font);
+            text.Color = new Color(Color.Black);
+            text.CharacterSize = 12;
+            text.Position = new Vector2f((Width * 32) +2, (Height * 32 - _boxSize * 6));
+            text.Style = Text.Styles.Bold;
 
             RectangleShape onglet2 = new RectangleShape();
             onglet2.OutlineColor = new Color(Color.Red);
             onglet2.OutlineThickness = 3.0f;
             onglet2.FillColor = new Color(Color.White);
-            onglet2.Size = new Vector2f(((_boxSize * 8) /3  )-7, (_boxSize * 4) / 6);
+            onglet2.Size = new Vector2f(((_boxSize * 8) /3  )-6, (_boxSize * 4) / 6);
             onglet2.Position = new Vector2f((Width * 32) + 85, (Height * 32 - _boxSize * 6));
+            Text publicBuilding = new Text("Public", font);
+            publicBuilding.Color = new Color(Color.Black);
+            publicBuilding.CharacterSize = 12;
+            publicBuilding.Position = new Vector2f((Width * 32) +88, (Height * 32 - _boxSize * 6));
+            publicBuilding.Style = Text.Styles.Bold;
 
             RectangleShape onglet3 = new RectangleShape();
             onglet3.OutlineColor = new Color(Color.Yellow);
             onglet3.OutlineThickness = 3.0f;
             onglet3.FillColor = new Color(Color.White);
-            onglet3.Size = new Vector2f(((_boxSize * 8) / 3)-7, (_boxSize * 4) / 6);
+            onglet3.Size = new Vector2f(((_boxSize * 8) / 3)-6, (_boxSize * 4) / 6);
             onglet3.Position = new Vector2f((Width * 32) + 170, (Height * 32 - _boxSize * 6));
+            Text resourcesBuilding = new Text("Resources", font);
+            resourcesBuilding.Color = new Color(Color.Black);
+            resourcesBuilding.CharacterSize = 12;
+            resourcesBuilding.Position = new Vector2f((Width * 32) + 175, (Height * 32 - _boxSize * 6));
+            resourcesBuilding.Style = Text.Styles.Bold;
 
             _buildButton.Draw(window, RenderStates.Default);
             
@@ -353,9 +392,32 @@ namespace ProjectStellar
                     int j = 0;
 
                     window.Draw(rec);
-                    //window.Draw(onglet1);
-                    //window.Draw(onglet2);
-                    //window.Draw(onglet3);
+                    window.Draw(onglet1);
+                    window.Draw(onglet2);
+                    window.Draw(onglet3);
+                    window.Draw(text);
+                    window.Draw(publicBuilding);
+                    window.Draw(resourcesBuilding);
+
+                    if(onglet1.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _tab1Selected = true;
+                        _tab2Selected = false;
+                        _tab3Selected = false;
+                    }
+                    else if(onglet2.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+
+                        _tab1Selected = false;
+                        _tab2Selected = true;
+                        _tab3Selected = false;
+                    }
+                    else if(onglet3.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _tab1Selected = false;
+                        _tab2Selected = false;
+                        _tab3Selected = true;
+                    }
 
                     DrawBuildingChoices(window, font);
                 }
@@ -415,67 +477,165 @@ namespace ProjectStellar
             _sprites.Clear();
             _chosenBuildings.Clear();
 
-            _hutSprite.Draw(window, RenderStates.Default);
-            _sprites.Add(_hutSprite);
-            _chosenBuildings.Add(_hutSprite, _buildingList[13]);
-            
-            //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
+            if(IsTab1Active == true)
+            {
 
-            _houseSprite.Draw(window, RenderStates.Default);
-            _sprites.Add(_houseSprite);
-            _chosenBuildings.Add(_houseSprite, _buildingList[12]);
-            //_buildingChoices[j++] = _houseSprite;
+                _hutSprite.Draw(window, RenderStates.Default);
+                _sprites.Add(_hutSprite);
+                _chosenBuildings.Add(_hutSprite, _buildingList[13]);
 
-            _flatSprite.Draw(window, RenderStates.Default);
-            _sprites.Add(_flatSprite);
-            _chosenBuildings.Add(_flatSprite, _buildingList[11]);
-            //_buildingChoices[j++] = _flatSprite;
+                if (_hutSprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 1;
+                }
 
-            _powerPlant.Draw(window, RenderStates.Default);
-            _sprites.Add(_powerPlant);
-            _chosenBuildings.Add(_powerPlant, _buildingList[7]);
 
-            _pumpingStation.Draw(window, RenderStates.Default);
-            _sprites.Add(_pumpingStation);
-            _chosenBuildings.Add(_pumpingStation, _buildingList[8]);
+                    //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
 
-            _cityHall.Draw(window, RenderStates.Default);
-            _sprites.Add(_cityHall);
-            _chosenBuildings.Add(_cityHall, _buildingList[3]);
+                _houseSprite.Draw(window, RenderStates.Default);
+                _sprites.Add(_houseSprite);
+                _chosenBuildings.Add(_houseSprite, _buildingList[12]);
+                //_buildingChoices[j++] = _houseSprite;
 
-            _fireStation.Draw(window, RenderStates.Default);
-            _sprites.Add(_fireStation);
-            _chosenBuildings.Add(_fireStation, _buildingList[4]);
+                if (_houseSprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 2;
+                }
 
-            _hospital.Draw(window, RenderStates.Default);
-            _sprites.Add(_hospital);
-            _chosenBuildings.Add(_hospital, _buildingList[5]);
 
-            _police.Draw(window, RenderStates.Default);
-            _sprites.Add(_police);
-            _chosenBuildings.Add(_police, _buildingList[6]);
+                _flatSprite.Draw(window, RenderStates.Default);
+                _sprites.Add(_flatSprite);
+                _chosenBuildings.Add(_flatSprite, _buildingList[11]);
+                //_buildingChoices[j++] = _flatSprite;
 
-            _spaceStation.Draw(window, RenderStates.Default);
-            _sprites.Add(_spaceStation);
-            _chosenBuildings.Add(_spaceStation, _buildingList[9]);
+                if (_flatSprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 3;
+                }
 
-            _sawMill.Draw(window, RenderStates.Default);
-            _sprites.Add(_sawMill);
-            _chosenBuildings.Add(_sawMill, _buildingList[2]);
+            }
+            else if (IsTab2Active)
+            {
+                _cityHall.Draw(window, RenderStates.Default);
+                _sprites.Add(_cityHall);
+                _chosenBuildings.Add(_cityHall, _buildingList[3]);
 
-            _oreMine.Draw(window, RenderStates.Default);
-            _sprites.Add(_oreMine);
-            _chosenBuildings.Add(_oreMine, _buildingList[1]);
+                if (_cityHall.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 4;
+                }
 
-            _metalMine.Draw(window, RenderStates.Default);
-            _sprites.Add(_metalMine);
-            _chosenBuildings.Add(_metalMine, _buildingList[0]);
 
-            _warehouse.Draw(window, RenderStates.Default);
-            _sprites.Add(_warehouse);
-            _chosenBuildings.Add(_warehouse, _buildingList[10]);
+                _fireStation.Draw(window, RenderStates.Default);
+                _sprites.Add(_fireStation);
+                _chosenBuildings.Add(_fireStation, _buildingList[4]);
+
+                if (_fireStation.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 5;
+                }
+
+
+                _hospital.Draw(window, RenderStates.Default);
+                _sprites.Add(_hospital);
+                _chosenBuildings.Add(_hospital, _buildingList[5]);
+
+                if (_hospital.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 6;
+                }
+
+
+                _police.Draw(window, RenderStates.Default);
+                _sprites.Add(_police);
+                _chosenBuildings.Add(_police, _buildingList[6]);
+
+                if (_police.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 7;
+                }
+
+
+                _spaceStation.Draw(window, RenderStates.Default);
+                _sprites.Add(_spaceStation);
+                _chosenBuildings.Add(_spaceStation, _buildingList[9]);
+
+                if (_spaceStation.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 8;
+                }
+
+
+
+
+                _warehouse.Draw(window, RenderStates.Default);
+                _sprites.Add(_warehouse);
+                _chosenBuildings.Add(_warehouse, _buildingList[10]);
+
+                if (_warehouse.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 9;
+                }
+
+
+            }
+            else if (IsTab3Active)
+            {
+                _sawMill.Draw(window, RenderStates.Default);
+                _sprites.Add(_sawMill);
+                _chosenBuildings.Add(_sawMill, _buildingList[2]);
+
+                if (_sawMill.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 10;
+                }
+
+
+                _oreMine.Draw(window, RenderStates.Default);
+                _sprites.Add(_oreMine);
+                _chosenBuildings.Add(_oreMine, _buildingList[1]);
+
+                if (_oreMine.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 11;
+                }
+
+
+                _metalMine.Draw(window, RenderStates.Default);
+                _sprites.Add(_metalMine);
+                _chosenBuildings.Add(_metalMine, _buildingList[0]);
+
+                if (_metalMine.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 12;
+                }
+
+
+                _powerPlant.Draw(window, RenderStates.Default);
+                _sprites.Add(_powerPlant);
+                _chosenBuildings.Add(_powerPlant, _buildingList[7]);
+
+                if (_powerPlant.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 13;
+                }
+
+
+                _pumpingStation.Draw(window, RenderStates.Default);
+                _sprites.Add(_pumpingStation);
+                _chosenBuildings.Add(_pumpingStation, _buildingList[8]);
+
+                if (_pumpingStation.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _buildingSelected = 14;
+                }
+
+            }
+
 
         }
+
+     //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
         {
