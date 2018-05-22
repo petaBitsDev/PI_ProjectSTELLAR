@@ -656,8 +656,24 @@ namespace ProjectStellar
             _expBarFilled.Draw(window, RenderStates.Default);
         }
 
-        public bool CheckBuildingToBuild(float x, float y)
-     //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
+        //public bool CheckBuildingToBuild(float x, float y, ResourcesManager resources)
+        //{
+        //    if (_buildSelected == false) return false;
+        //    for (int i = 0; i < _sprites.Count; i++)
+        //    {
+        //        if (_sprites[i].GetGlobalBounds().Contains(x, y))
+        //        {
+
+        //            _chosenBuildings.TryGetValue(_sprites[i], out Building building);
+        //            if (!resources.CheckResourcesNeeded(building)) return false;
+        //            _mapCtx.ChosenBuilding = building;
+        //            //Console.WriteLine(type);
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
+        //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
         {
