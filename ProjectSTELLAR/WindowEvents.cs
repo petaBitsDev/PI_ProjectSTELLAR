@@ -128,7 +128,6 @@ namespace ProjectStellar
         {
             float delta;
             delta = e.Delta;
-            Console.WriteLine(delta);
             if (delta < 0)
             {
                 _view.Zoom(1.06f);

@@ -93,6 +93,7 @@ namespace ProjectStellar
             _tab2Selected = false;
             _tab3Selected = false;
             _experienceManager = experienceManager;
+            _windowEvents = ctx._windowEvents;
 
             _play = new Sprite(_ctx._uiTextures[18])
             {

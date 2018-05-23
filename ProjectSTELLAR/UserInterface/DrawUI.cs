@@ -46,7 +46,8 @@ namespace ProjectStellar
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
             _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
-         //   _mapUI.DrawGrid(window);
+            //   _mapUI.DrawGrid(window);
+            //window.SetView(window.DefaultView);
             _ui.DrawBuildButton(window, font);
             _ui.DrawDestroyButton(window);
             _ui.DrawResourcesBar(window, font, resources.NbResources);

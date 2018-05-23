@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[8];
-        public Texture[] _buildingsTextures = new Texture[4];
+        public Texture[] _buildingsTextures = new Texture[16];
         public Texture[] _uiTextures = new Texture[20];
         int _state;
         Menu _menu;
@@ -31,7 +31,7 @@ namespace ProjectStellar
         internal ResourcesManager _resourcesManager;
         CityHelper _cityHelper;
         MapUI _mapUI;
-        WindowEvents _windowEvents;
+        internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
         internal string _name = "test";
         View _view;
