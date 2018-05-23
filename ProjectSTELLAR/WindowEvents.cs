@@ -52,34 +52,35 @@ namespace ProjectStellar
 
             if (posX == (_resolution.X - 1))
             {
-                for(int i = 0; i < 20; i++)
-                {
-                    for(int j = 0; j < 20; j++)
-                    {
-                        if (_ctx._drawUI.MapUI.MapSprites[j, 20].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
+                //for(int i = 0; i < 20; i++)
+                //{
+                //    for(int j = 0; j < 20; j++)
+                //    {
+                //        if (_ctx._drawUI.MapUI.MapSprites[j, 20].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                //        {
+                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                //            _window.SetView(_view);
+                //        }
+                //    }
+                //}
+
                 _view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
                 _view.Move(new Vector2f(50, 0));
                 _window.SetView(_view);
             }
             else if (posX == 0)
             {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (_mapUI.MapSprites[j, 0].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    for (int j = 0; j < 20; j++)
+                //    {
+                //        if (_mapUI.MapSprites[j, 0].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                //        {
+                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                //            _window.SetView(_view);
+                //        }
+                //    }
+                //}
 
                 _view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
                 _view.Move(new Vector2f(-50, 0));
@@ -87,17 +88,17 @@ namespace ProjectStellar
             }
             else if (posY == 0)
             {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (_mapUI.MapSprites[0, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    for (int j = 0; j < 20; j++)
+                //    {
+                //        if (_mapUI.MapSprites[0, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                //        {
+                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                //            _window.SetView(_view);
+                //        }
+                //    }
+                //}
 
                 _view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
                 _view.Move(new Vector2f(0, -50));
@@ -105,17 +106,17 @@ namespace ProjectStellar
             }
             else if (posY == (_resolution.Y - 1))
             {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (_mapUI.MapSprites[20, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    for (int j = 0; j < 20; j++)
+                //    {
+                //        if (_mapUI.MapSprites[20, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
+                //        {
+                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
+                //            _window.SetView(_view);
+                //        }
+                //    }
+                //}
 
                 _view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
                 _view.Move(new Vector2f(0, 50));
@@ -123,19 +124,23 @@ namespace ProjectStellar
             }
         }
 
-        public void MouseWheel(object sender, EventArgs e)
+        public void MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            //int delta;
-            //delta = e.Delta;
-
-            //if(delta < 0)
-            //{
-            //_window.SetView(new View(new Vector2f(), new Vector2f()));
-            //}
-            //else
-            //{
-            //    _window.SetView(new View(new Vector2f(), new Vector2f()));
-            //}
+            float delta;
+            delta = e.Delta;
+            Console.WriteLine(delta);
+            if (delta < 0)
+            {
+                _view.Zoom(1.06f);
+                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _window.SetView(_view);
+            }
+            else
+            {
+                _view.Zoom(0.94f);
+                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _window.SetView(_view);
+            }
         }
 
         public void CheckClic(float x, float y)
@@ -171,6 +176,7 @@ namespace ProjectStellar
             else return false;
         }
 
+        public View CurrentView => _view;
         public void KeyPressed(object sender, EventArgs e)
         {
 

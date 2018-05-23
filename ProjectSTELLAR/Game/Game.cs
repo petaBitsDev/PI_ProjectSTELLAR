@@ -17,9 +17,9 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[4];
-        public Texture[] _buildingsTextures = new Texture[16];
-        public Texture[] _uiTextures = new Texture[19];
+        public Texture[] _menuTextures = new Texture[8];
+        public Texture[] _buildingsTextures = new Texture[4];
+        public Texture[] _uiTextures = new Texture[20];
         int _state;
         Menu _menu;
         Resolution _resolution;
@@ -46,10 +46,14 @@ namespace ProjectStellar
         public override void LoadContent()
         {
             DebugUtility.LoadContent();
-            _menuTextures[0] = new Texture("./resources/img/menuPlay.png");
-            _menuTextures[1] = new Texture("./resources/img/menuQuit.png");
-            _menuTextures[2] = new Texture("./resources/img/menuPlayActif.png");
-            _menuTextures[3] = new Texture("./resources/img/menuQuitActif.png");
+            _menuTextures[0] = new Texture("./resources/img/menuNewgame.png");
+            _menuTextures[1] = new Texture("./resources/img/menuLoadgame.png");
+            _menuTextures[2] = new Texture("./resources/img/menuQuit.png");
+            _menuTextures[3] = new Texture("./resources/img/menuNewActif.png");
+            _menuTextures[4] = new Texture("./resources/img/menuLoadActif.png");
+            _menuTextures[5] = new Texture("./resources/img/menuQuitActif.png");
+            _menuTextures[6] = new Texture("./resources/img/menuPlay.png");
+            _menuTextures[7] = new Texture("./resources/img/menuPlayActif.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -87,13 +91,13 @@ namespace ProjectStellar
             _uiTextures[16] = new Texture("./resources/img/ffWhite.png");
             _uiTextures[17] = new Texture("./resources/img/PauseButtonWhite.png");
             _uiTextures[18] = new Texture("./resources/img/PlayButtonWhite.png");
+            _uiTextures[19] = new Texture("./resources/img/settings.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
 
         public override void Initialize(GameTime gameTime)
         {
-            _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(30, 30);
             _resourcesManager = new ResourcesManager(_map);
@@ -104,6 +108,7 @@ namespace ProjectStellar
 
             _center = new Vector2f(_resolution.X / 2, _resolution.Y / 2);
             _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
+            _menu = new Menu(_resolution.X, _resolution.Y, this, _view);
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
@@ -146,6 +151,10 @@ namespace ProjectStellar
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
+            }
+            else if (MenuState == 2)
+            {
+                //load game
             }
         }
 
