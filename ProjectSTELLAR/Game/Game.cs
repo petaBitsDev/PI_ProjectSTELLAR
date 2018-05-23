@@ -17,7 +17,7 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[4];
+        public Texture[] _menuTextures = new Texture[8];
         public Texture[] _buildingsTextures = new Texture[4];
         public Texture[] _uiTextures = new Texture[19];
         int _state;
@@ -43,10 +43,14 @@ namespace ProjectStellar
         public override void LoadContent()
         {
             DebugUtility.LoadContent();
-            _menuTextures[0] = new Texture("./resources/img/menuPlay.png");
-            _menuTextures[1] = new Texture("./resources/img/menuQuit.png");
-            _menuTextures[2] = new Texture("./resources/img/menuPlayActif.png");
-            _menuTextures[3] = new Texture("./resources/img/menuQuitActif.png");
+            _menuTextures[0] = new Texture("./resources/img/menuNewgame.png");
+            _menuTextures[1] = new Texture("./resources/img/menuLoadgame.png");
+            _menuTextures[2] = new Texture("./resources/img/menuQuit.png");
+            _menuTextures[3] = new Texture("./resources/img/menuNewActif.png");
+            _menuTextures[4] = new Texture("./resources/img/menuLoadActif.png");
+            _menuTextures[5] = new Texture("./resources/img/menuQuitActif.png");
+            _menuTextures[6] = new Texture("./resources/img/menuPlay.png");
+            _menuTextures[7] = new Texture("./resources/img/menuPlayActif.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -78,7 +82,6 @@ namespace ProjectStellar
 
         public override void Initialize()
         {
-            _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(20, 20);
             _resourcesManager = new ResourcesManager(_map);
@@ -88,6 +91,7 @@ namespace ProjectStellar
 
             _center = new Vector2f(_resolution.X / 2, _resolution.Y / 2);
             _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
+            _menu = new Menu(_resolution.X, _resolution.Y, this, _view);
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.KeyPressed += _windowEvents.OnKeyPressed;
@@ -120,6 +124,10 @@ namespace ProjectStellar
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
+            }
+            else if (MenuState == 2)
+            {
+                //load game
             }
         }
 
