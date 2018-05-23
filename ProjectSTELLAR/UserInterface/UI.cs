@@ -255,7 +255,7 @@ namespace ProjectStellar
             _expBar = new RectangleShape()
             {
                 Size = new Vector2f(200, 30),
-                Position = new Vector2f((resolution.X / 10) * 4, resolution.Y - 40)
+                Position = new Vector2f((resolution.X / 10) * 3, resolution.Y - 40)
             };
 
             _expBarFilled = new RectangleShape(_expBar)

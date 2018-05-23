@@ -123,22 +123,6 @@ namespace ProjectStellar
             }
         }
 
-        public void OnKeyPressed(object sender, EventArgs e)
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
-            {
-                _view.Zoom(0.94f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
-            {
-                _view.Zoom(1.06f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
-            }
-        }
-
         public void MouseWheel(object sender, EventArgs e)
         {
             //int delta;
@@ -215,6 +199,18 @@ namespace ProjectStellar
                 //{
                 //    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", list[i].Name, list[i].Population, list[i].Date);
                 //}
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
+            {
+                _view.Zoom(0.94f);
+                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _window.SetView(_view);
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
+            {
+                _view.Zoom(1.06f);
+                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _window.SetView(_view);
             }
         }
     }

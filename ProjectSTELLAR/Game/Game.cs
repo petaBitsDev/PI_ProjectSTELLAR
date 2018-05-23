@@ -32,6 +32,7 @@ namespace ProjectStellar
         CityHelper _cityHelper;
         MapUI _mapUI;
         WindowEvents _windowEvents;
+        bool _areResourcesUpdated;
         internal string _name = "test";
         View _view;
         Vector2f _center;
@@ -94,7 +95,7 @@ namespace ProjectStellar
         {
             _menu = new Menu(_resolution.X, _resolution.Y, this);
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(20, 20);
+            _map = new Map(30, 30);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _experienceManager = new ExperienceManager(_resourcesManager);
@@ -105,9 +106,8 @@ namespace ProjectStellar
             _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
-            Window.KeyPressed += _windowEvents.OnKeyPressed;
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
-            Window.MouseMoved += _windowEvents.MouseMoved;
+            //Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
             Window.KeyPressed += _windowEvents.KeyPressed;
@@ -119,16 +119,19 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckMouse(Window);
             else if (_state == 1)
             {
-                if(gameTime.InGameTime.Minute == 00)
+                if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
-                    //_resourcesManager.NbResources["population"] += 10;
+                    _resourcesManager.NbResources["population"] += 10;
                     _experienceManager.CheckLevel();
                     //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-                    // _resourcesManager.UpdateResources();
+
+                    _resourcesManager.UpdateResources();
+                    _areResourcesUpdated = true;
                 }
+                else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
             }
         }
 
@@ -138,7 +141,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 30, 30, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
