@@ -146,8 +146,8 @@ namespace ProjectStellar
         {
             if (_ctx.MenuState != 0)
             {
-                if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
-                else if (CheckUI(x, y, _ctx.GameTime)) Console.WriteLine("ui");
+                if (CheckUI(x, y, _ctx.GameTime)) Console.WriteLine("ui");
+                else if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
             }
         }
 
