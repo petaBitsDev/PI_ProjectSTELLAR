@@ -22,7 +22,7 @@ namespace ProjectStellar
         GameTime _gameTime;
         List<Building> _buildingList;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<Building> buildingList)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<Building> buildingList, WindowEvents windowEvents)
         {
             _gameCtx = context;
             _mapCtx = ctx;
@@ -31,7 +31,7 @@ namespace ProjectStellar
             _height = height;
             _gameTime = gameTime;
             _buildingList = buildingList;
-            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager);
+            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager, windowEvents);
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution);
         }
 

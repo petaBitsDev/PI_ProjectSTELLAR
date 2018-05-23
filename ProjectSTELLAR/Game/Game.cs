@@ -92,7 +92,7 @@ namespace ProjectStellar
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.KeyPressed += _windowEvents.OnKeyPressed;
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
-            Window.MouseMoved += _windowEvents.MouseMoved;
+            //Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
@@ -115,7 +115,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _windowEvents);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
