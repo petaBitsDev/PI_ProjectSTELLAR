@@ -51,6 +51,7 @@ namespace ProjectStellar
             _ui.DrawDestroyButton(window);
             _ui.DrawBuildButton(window, font);
             _ui.DrawTimeBar(window, _gameTime, font);
+            _ui.DrawMenuInGame(window, font);
         }
 
         public MapUI MapUI => _mapUI;

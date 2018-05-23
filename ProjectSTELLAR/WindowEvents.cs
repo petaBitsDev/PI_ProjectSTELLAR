@@ -137,12 +137,23 @@ namespace ProjectStellar
             }
         }
 
-        public void MouseWheel(object sender, EventArgs e)
+        public void MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            //int delta;
-            //delta = ;
-
-            
+            float delta;
+            delta = e.Delta;
+            Console.WriteLine(delta);
+            if (delta < 0)
+            {
+                _view.Zoom(1.06f);
+                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _window.SetView(_view);
+            }
+            else
+            {
+                _view.Zoom(0.94f);
+                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _window.SetView(_view);
+            }
         }
 
         public void CheckClic(float x, float y)

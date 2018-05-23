@@ -47,6 +47,7 @@ namespace ProjectStellar
         private Sprite _smileSprite;
         private Sprite _angrySprite;
         private Sprite _confusedSprite;
+        private Sprite _settingsSprite;
 
         private BuildingChoice[] _buildingChoices;
         private List<Building> _buildingList;
@@ -170,6 +171,7 @@ namespace ProjectStellar
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
             _navbarSprite = new Sprite(_ctx._uiTextures[15]);
+            _settingsSprite = new Sprite(_ctx._uiTextures[19]);
         }
 
         public uint Width => _width;
@@ -182,29 +184,6 @@ namespace ProjectStellar
         /// <param name="window">The window.</param>
         public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
-            //Creates resources bar
-            //RectangleShape rec = new RectangleShape();
-            //rec.OutlineColor = new Color(Color.Red);
-            //rec.OutlineThickness = 2.0f;
-            //rec.FillColor = new Color(Color.Transparent);
-            //rec.Size = new Vector2f(_boxSize, (Height) * _boxSize);
-            //rec.Position = new Vector2f((Width * _boxSize) - _boxSize * 3, 2);
-
-            //for(int i = (int)(Width * _boxSize) + (int)(_boxSize * 3); i > (int)(Width * _boxSize); i--)
-            //{
-            //    for(int j = 0; j < Height * 32; j++)
-            //    {
-            //        _navbarSprite.Position = new Vector2f(i, j);
-            //        _navbarSprite.Draw(window, RenderStates.Default);
-            //    }
-            //}
-            //for(int x = 0; x < Width * 32; x++)
-            //{
-            //    int y = (int)Height * 32;
-            //    _navbarSprite.Position = new Vector2f(x, y);
-            //    _navbarSprite.Draw(window, RenderStates.Default);
-            //}
-
             //Displays Coins Sprite and number of coins
             _coinSprite.Position = new Vector2f(_windowEvents.CurrentView.Size.X - _boxSize * 3, 6);
             _coinSprite.Draw(window, RenderStates.Default);
@@ -278,7 +257,7 @@ namespace ProjectStellar
         {
             Text Time = new Text(gameTime.InGameTime.ToString("dd/MM/yyyy HH:mm"), font)
             {
-                //Position = new Vector2f(_windowEvents.CurrentView.Size.X + _boxSize, _windowEvents.CurrentView.Size.Y - _boxSize * 2),
+                Position = new Vector2f(_windowEvents.CurrentView.Size.X / 2 - _boxSize * 20, _windowEvents.CurrentView.Size.Y - _boxSize),
                 Color = Color.White,
                 CharacterSize = 23,
                 Style = Text.Styles.Bold
@@ -291,7 +270,6 @@ namespace ProjectStellar
             _fastForward.Position = new Vector2f(_windowEvents.CurrentView.Size.X / 2 + _boxSize * 3, _windowEvents.CurrentView.Size.Y - _boxSize);
             _fastForward.Draw(window, RenderStates.Default);
 
-            Time.Position = new Vector2f(_windowEvents.CurrentView.Size.X / 2 - _boxSize * 20, _windowEvents.CurrentView.Size.Y - _boxSize);
             Time.Draw(window, RenderStates.Default);
         }
 
@@ -380,7 +358,6 @@ namespace ProjectStellar
             hut.Draw(window, RenderStates.Default);
             _sprites.Add(_hutSprite);
             _chosenBuildings.Add(_hutSprite, _buildingList[13]);
-            
             //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
 
             _houseSprite.Draw(window, RenderStates.Default);
@@ -427,6 +404,12 @@ namespace ProjectStellar
         {
             get { return _destroySelected; }
             set { _destroySelected = value; }
+        }
+
+        public void DrawMenuInGame(RenderWindow window, Font font)
+        {
+            _settingsSprite.Position = new Vector2f(_windowEvents.CurrentView.Size.X - _boxSize * 3, 10);
+            _settingsSprite.Draw(window, RenderStates.Default);
         }
     }
 }

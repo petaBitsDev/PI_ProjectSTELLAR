@@ -19,7 +19,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[8];
         public Texture[] _buildingsTextures = new Texture[4];
-        public Texture[] _uiTextures = new Texture[19];
+        public Texture[] _uiTextures = new Texture[20];
         int _state;
         Menu _menu;
         Resolution _resolution;
@@ -76,6 +76,7 @@ namespace ProjectStellar
             _uiTextures[16] = new Texture("./resources/img/ffWhite.png");
             _uiTextures[17] = new Texture("./resources/img/PauseButtonWhite.png");
             _uiTextures[18] = new Texture("./resources/img/PlayButtonWhite.png");
+            _uiTextures[19] = new Texture("./resources/img/settings.png");
 
             _font = new Font("./resources/fonts/arial.ttf");
         }
@@ -83,7 +84,7 @@ namespace ProjectStellar
         public override void Initialize()
         {
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(20, 20);
+            _map = new Map(100, 100);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _cityHelper = new CityHelper(_map);
@@ -96,7 +97,7 @@ namespace ProjectStellar
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.KeyPressed += _windowEvents.OnKeyPressed;
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
-            //Window.MouseMoved += _windowEvents.MouseMoved;
+            Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
         }
@@ -119,7 +120,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 20, 20, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _windowEvents);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _windowEvents);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font);
                 _windowEvents.MapUI = _drawUI.MapUI;
