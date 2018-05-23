@@ -112,7 +112,7 @@ namespace ProjectStellar
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
-            //Window.MouseMoved += _windowEvents.MouseMoved;
+            Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
             Window.KeyPressed += _windowEvents.KeyPressed;

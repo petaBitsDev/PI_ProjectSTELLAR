@@ -45,15 +45,16 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
+            window.SetView(_gameCtx._windowEvents.View);
             _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
             //   _mapUI.DrawGrid(window);
-            //window.SetView(window.DefaultView);
+            window.SetView(window.DefaultView);
             _ui.DrawBuildButton(window, font);
             _ui.DrawDestroyButton(window);
             _ui.DrawResourcesBar(window, font, resources.NbResources);
             _ui.DrawTimeBar(window, gameTime, font);
             _ui.DrawExperience(window);
-            _ui.DrawMenuInGame(window, font);
+            //_ui.DrawMenuInGame(window, font);
         }
 
         public MapUI MapUI => _mapUI;

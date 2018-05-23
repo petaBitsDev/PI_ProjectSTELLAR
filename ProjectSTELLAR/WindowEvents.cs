@@ -66,7 +66,7 @@ namespace ProjectStellar
 
                 _view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
                 _view.Move(new Vector2f(50, 0));
-                _window.SetView(_view);
+                //_window.SetView(_view);
             }
             else if (posX == 0)
             {
@@ -84,7 +84,7 @@ namespace ProjectStellar
 
                 _view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
                 _view.Move(new Vector2f(-50, 0));
-                _window.SetView(_view);
+                //_window.SetView(_view);
             }
             else if (posY == 0)
             {
@@ -102,7 +102,7 @@ namespace ProjectStellar
 
                 _view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
                 _view.Move(new Vector2f(0, -50));
-                _window.SetView(_view);
+                //_window.SetView(_view);
             }
             else if (posY == (_resolution.Y - 1))
             {
@@ -120,7 +120,7 @@ namespace ProjectStellar
 
                 _view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
                 _view.Move(new Vector2f(0, 50));
-                _window.SetView(_view);
+                //_window.SetView(_view);
             }
         }
 
@@ -131,14 +131,14 @@ namespace ProjectStellar
             if (delta < 0)
             {
                 _view.Zoom(1.06f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
+                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                //_window.SetView(_view);
             }
             else
             {
                 _view.Zoom(0.94f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
+                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                //_window.SetView(_view);
             }
         }
 
@@ -207,16 +207,18 @@ namespace ProjectStellar
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
             {
-                _view.Zoom(0.94f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _view.Zoom(1.06f);
+                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
                 _window.SetView(_view);
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
             {
-                _view.Zoom(1.06f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
+                _view.Zoom(-1.06f);
+                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
                 _window.SetView(_view);
             }
         }
+
+        internal View View => _view;
     }
 }
