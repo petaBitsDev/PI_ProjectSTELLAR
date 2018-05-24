@@ -28,11 +28,15 @@ namespace ProjectStellar
         private bool _tab2Selected;
         private bool _tab3Selected;
         private int _buildingSelected;
+        bool _settingsSelected;
+        bool _exitSelected;
 
         Sprite _play;
         Sprite _pause;
         Sprite _fastForward;
         Sprite _navbarSprite;
+        Sprite _exitButton;
+        Sprite _settingsButton;
         RectangleShape _rectangleTimeBar;
         private Sprite _coinSprite;
         private Sprite _woodSprite;
@@ -92,6 +96,7 @@ namespace ProjectStellar
             _experienceManager = experienceManager;
             _buildingSelected = 0;
 
+            //TIME BAR
             _play = new Sprite(_ctx._uiTextures[18])
             {
                 Position = new Vector2f(_resolution.X / 2, _resolution.Y - 30),
@@ -117,6 +122,35 @@ namespace ProjectStellar
                 Position = new Vector2f(0, _resolution.Y - _boxSize)
             };
 
+            //UI BUTTONS
+            _buildButton = new Sprite(_ctx._uiTextures[3])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2 + _boxSize * 2)
+            };
+
+            _destroyButton = new Sprite(_ctx._uiTextures[20])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2 + _boxSize * 4),
+                //Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _settingsButton = new Sprite(_ctx._uiTextures[21])
+            {
+                //Scale = new Vector2f(0.5f, 0.5f)
+            };
+
+            //XP BAR
+            _expBar = new RectangleShape()
+            {
+                Size = new Vector2f(200, 30),
+                Position = new Vector2f((resolution.X / 10) * 3, resolution.Y - 40)
+            };
+
+            _expBarFilled = new RectangleShape(_expBar)
+            {
+                FillColor = Color.Blue
+            };
+
+            //RESOURCES
             _coinSprite = new Sprite(_ctx._uiTextures[5])
             {
                 Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 2),
@@ -159,109 +193,88 @@ namespace ProjectStellar
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
-            _buildButton = new Sprite(_ctx._uiTextures[3])
-            {
-                Position = new Vector2f((Width * 32 + _boxSize), (Height * 32 - _boxSize * 6))
-            };
+            _angrySprite = new Sprite(_ctx._uiTextures[12]);
+            _smileSprite = new Sprite(_ctx._uiTextures[14]);
+            _confusedSprite = new Sprite(_ctx._uiTextures[13]);
 
-            _destroyButton = new Sprite(_ctx._uiTextures[20])
-            {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2 + _boxSize * 4),
-                //Scale = new Vector2f(0.5f, 0.5f)
-            };
+            _exitButton = new Sprite(_ctx._uiTextures[22]);
+            _navbarSprite = new Sprite(_ctx._uiTextures[15]);
 
+            //HABITATIONS
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
             {
-                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 + 20)),
+                Position = new Vector2f(_resolution.X - _boxSize * 6, _resolution.Y / 2),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
 
             _hutSprite = new Sprite(_ctx._buildingsTextures[1])
             {
-                Position = new Vector2f((Width * 32 /*+ _boxSize*/), (Height * 32 - _boxSize * 5 + 20))
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
             };
 
 
             _houseSprite = new Sprite(_ctx._buildingsTextures[3])
             {
-                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 20))
+                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2)
 
             };
 
-            _powerPlant = new Sprite(_ctx._buildingsTextures[4])
-            {
-                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 + 20))
-
-            };
-
-            _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
-            {
-                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 + 20))
-            };
-
+            //PUBLIC BUILDINGS
             _cityHall = new Sprite(_ctx._buildingsTextures[6])
             {
-                Position = new Vector2f((Width * 32 + 200), (Height * 32 - _boxSize * 5 + 20))
+                Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
             };
 
             _fireStation = new Sprite(_ctx._buildingsTextures[8])
             {
-                Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5 + 20))
+                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2)
             };
 
             _hospital = new Sprite(_ctx._buildingsTextures[9])
             {
-                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 + 20))
+                Position = new Vector2f(_resolution.X - _boxSize * 6, _resolution.Y / 2)
             };
 
             _police = new Sprite(_ctx._buildingsTextures[10])
             {
-                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 20))
-            };
-
-            _spaceStation = new Sprite(_ctx._buildingsTextures[11])
-            {
-                Position = new Vector2f((Width * 32 + 120), (Height * 32 - _boxSize * 5 + 20))
-            };
-
-            _sawMill = new Sprite(_ctx._buildingsTextures[12])
-            {
-                Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 5 + 20))
-
-            };
-
-            _oreMine = new Sprite(_ctx._buildingsTextures[13])
-            {
-                Position = new Vector2f((Width * 32 + 40), (Height * 32 - _boxSize * 5 + 20))
-            };
-
-            _metalMine = new Sprite(_ctx._buildingsTextures[14])
-            {
-                Position = new Vector2f((Width * 32 + 80), (Height * 32 - _boxSize * 5 + 20))
-
+                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2)
             };
 
             _warehouse = new Sprite(_ctx._buildingsTextures[15])
             {
-                Position = new Vector2f((Width * 32 + 160), (Height * 32 - _boxSize * 5 + 20))
-
+                Position = new Vector2f(_resolution.X - _boxSize * 12, _resolution.Y / 2)
             };
 
-
-            _angrySprite = new Sprite(_ctx._uiTextures[12]);
-            _smileSprite = new Sprite(_ctx._uiTextures[14]);
-            _confusedSprite = new Sprite(_ctx._uiTextures[13]);
-            _navbarSprite = new Sprite(_ctx._uiTextures[15]);
-
-            _expBar = new RectangleShape()
+            _spaceStation = new Sprite(_ctx._buildingsTextures[11])
             {
-                Size = new Vector2f(200, 30),
-                Position = new Vector2f((resolution.X / 10) * 3, resolution.Y - 40)
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
             };
 
-            _expBarFilled = new RectangleShape(_expBar)
+            //RESOURCES BUILDINGS
+            _powerPlant = new Sprite(_ctx._buildingsTextures[4])
             {
-                FillColor = Color.Blue
+                Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
+            };
+
+            _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2)
+            };
+            
+            _sawMill = new Sprite(_ctx._buildingsTextures[12])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 6, _resolution.Y / 2)
+            };
+
+            _oreMine = new Sprite(_ctx._buildingsTextures[13])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2)
+            };
+
+            _metalMine = new Sprite(_ctx._buildingsTextures[14])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
+
             };
         }
 
@@ -377,48 +390,48 @@ namespace ProjectStellar
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Black);
             rec.OutlineThickness = 3.0f;
-            rec.FillColor = new Color(Color.White);
-            rec.Size = new Vector2f((_boxSize * 8) - 4, _boxSize * 4);
-            //rec.Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2);
-            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
+            rec.FillColor = new Color(30, 40, 40);
+            rec.Size = new Vector2f((_boxSize * 12) - 4, _boxSize * 6);
+            rec.Position = new Vector2f(_resolution.X - _boxSize * 12, _resolution.Y / 2 - _boxSize * 2);
+            //rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
 
             RectangleShape onglet1 = new RectangleShape();
             onglet1.OutlineColor = new Color(Color.Blue);
             onglet1.OutlineThickness = 3.0f;
-            onglet1.FillColor = new Color(Color.White);
-            onglet1.Size = new Vector2f(((_boxSize * 8) / 3) - 6, (_boxSize * 4) / 6);
-            onglet1.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
+            onglet1.FillColor = new Color(Color.Black);
+            onglet1.Size = new Vector2f(((_boxSize * 12) / 3) - 6, (_boxSize * 6) / 6);
+            onglet1.Position = new Vector2f(_resolution.X - _boxSize * 12, _resolution.Y / 2 - _boxSize * 2);
 
             Text text = new Text("Habitation", font);
-            text.Color = new Color(Color.Black);
-            text.CharacterSize = 12;
-            text.Position = new Vector2f((Width * 32) + 2, (Height * 32 - _boxSize * 6));
+            text.Color = new Color(Color.White);
+            text.CharacterSize = 16;
+            text.Position = new Vector2f(_resolution.X - _boxSize * 12 + 5, _resolution.Y / 2 - _boxSize * 2);
             text.Style = Text.Styles.Bold;
 
             RectangleShape onglet2 = new RectangleShape();
             onglet2.OutlineColor = new Color(Color.Red);
             onglet2.OutlineThickness = 3.0f;
-            onglet2.FillColor = new Color(Color.White);
-            onglet2.Size = new Vector2f(((_boxSize * 8) / 3) - 6, (_boxSize * 4) / 6);
-            onglet2.Position = new Vector2f((Width * 32) + 85, (Height * 32 - _boxSize * 6));
+            onglet2.FillColor = new Color(Color.Black);
+            onglet2.Size = new Vector2f(((_boxSize * 12) / 3) - 6, (_boxSize * 6) / 6);
+            onglet2.Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2 - _boxSize * 2);
 
             Text publicBuilding = new Text("Public", font);
-            publicBuilding.Color = new Color(Color.Black);
-            publicBuilding.CharacterSize = 12;
-            publicBuilding.Position = new Vector2f((Width * 32) + 88, (Height * 32 - _boxSize * 6));
+            publicBuilding.Color = new Color(Color.White);
+            publicBuilding.CharacterSize = 16;
+            publicBuilding.Position = new Vector2f(_resolution.X - _boxSize * 8 + 5, _resolution.Y / 2 - _boxSize * 2);
             publicBuilding.Style = Text.Styles.Bold;
 
             RectangleShape onglet3 = new RectangleShape();
             onglet3.OutlineColor = new Color(Color.Yellow);
             onglet3.OutlineThickness = 3.0f;
-            onglet3.FillColor = new Color(Color.White);
-            onglet3.Size = new Vector2f(((_boxSize * 8) / 3) - 6, (_boxSize * 4) / 6);
-            onglet3.Position = new Vector2f((Width * 32) + 170, (Height * 32 - _boxSize * 6));
+            onglet3.FillColor = new Color(Color.Black);
+            onglet3.Size = new Vector2f(((_boxSize * 12) / 3) - 6, (_boxSize * 6) / 6);
+            onglet3.Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2 - _boxSize * 2);
 
             Text resourcesBuilding = new Text("Resources", font);
-            resourcesBuilding.Color = new Color(Color.Black);
-            resourcesBuilding.CharacterSize = 12;
-            resourcesBuilding.Position = new Vector2f((Width * 32) + 175, (Height * 32 - _boxSize * 6));
+            resourcesBuilding.Color = new Color(Color.White);
+            resourcesBuilding.CharacterSize = 16;
+            resourcesBuilding.Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _resolution.Y / 2 - _boxSize * 2);
             resourcesBuilding.Style = Text.Styles.Bold;
 
             _buildButton.Draw(window, RenderStates.Default);
@@ -515,14 +528,14 @@ namespace ProjectStellar
             rec.OutlineThickness = 3.0f;
             rec.FillColor = new Color(Color.Black);
             rec.Size = new Vector2f((_boxSize * 6) , _boxSize * 2);
-            rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 3.5f));
+            rec.Position = new Vector2f(_resolution.X - _boxSize * 11, _resolution.Y / 2 + _boxSize * 5);
             
             if(_buildingSelected == 1)
             {
                 Text hut = new Text("Hut", font);
                 hut.Position = rec.Position;
                 hut.Color = Color.White;
-                hut.CharacterSize = 15;
+                hut.CharacterSize = 18;
                 
                 _chosenBuildings.TryGetValue(_hutSprite, out Building building);
 
@@ -562,7 +575,7 @@ namespace ProjectStellar
                 Text house = new Text("House", font);
                 house.Position = rec.Position;
                 house.Color = Color.White;
-                house.CharacterSize = 15;
+                house.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_houseSprite, out Building building);
                 if(building != null)
@@ -600,7 +613,7 @@ namespace ProjectStellar
                 Text flat = new Text("Flat", font);
                 flat.Position = rec.Position;
                 flat.Color = Color.White;
-                flat.CharacterSize = 15;
+                flat.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_flatSprite, out Building building);
 
@@ -640,7 +653,7 @@ namespace ProjectStellar
                 Text cityHall = new Text("CityHall", font);
                 cityHall.Position = rec.Position;
                 cityHall.Color = Color.White;
-                cityHall.CharacterSize = 13;
+                cityHall.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_cityHall, out Building building);
 
@@ -680,7 +693,7 @@ namespace ProjectStellar
                 Text fireStation = new Text("FireStation", font);
                 fireStation.Position = rec.Position;
                 fireStation.Color = Color.White;
-                fireStation.CharacterSize = 13;
+                fireStation.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_fireStation, out Building building);
 
@@ -720,7 +733,7 @@ namespace ProjectStellar
                 Text hospital = new Text("Hospital", font);
                 hospital.Position = rec.Position;
                 hospital.Color = Color.White;
-                hospital.CharacterSize = 13;
+                hospital.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_hospital, out Building building);
 
@@ -760,7 +773,7 @@ namespace ProjectStellar
                 Text police = new Text("Police", font);
                 police.Position = rec.Position;
                 police.Color = Color.White;
-                police.CharacterSize = 13;
+                police.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_police, out Building building);
 
@@ -800,7 +813,7 @@ namespace ProjectStellar
                 Text spaceStation = new Text("Space station", font);
                 spaceStation.Position = rec.Position;
                 spaceStation.Color = Color.White;
-                spaceStation.CharacterSize = 13;
+                spaceStation.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_spaceStation, out Building building);
 
@@ -840,7 +853,7 @@ namespace ProjectStellar
                 Text warehouse = new Text("Warehouse", font);
                 warehouse.Position = rec.Position;
                 warehouse.Color = Color.White;
-                warehouse.CharacterSize = 13;
+                warehouse.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_warehouse, out Building building);
 
@@ -880,7 +893,7 @@ namespace ProjectStellar
                 Text sawMill = new Text("Sawmill", font);
                 sawMill.Position = rec.Position;
                 sawMill.Color = Color.White;
-                sawMill.CharacterSize = 13;
+                sawMill.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_sawMill, out Building building);
 
@@ -920,7 +933,7 @@ namespace ProjectStellar
                 Text oreMine = new Text("Oremine", font);
                 oreMine.Position = rec.Position;
                 oreMine.Color = Color.White;
-                oreMine.CharacterSize = 13;
+                oreMine.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_oreMine, out Building building);
 
@@ -961,7 +974,7 @@ namespace ProjectStellar
                 Text metalMine = new Text("Metal mine", font);
                 metalMine.Position = rec.Position;
                 metalMine.Color = Color.White;
-                metalMine.CharacterSize = 15;
+                metalMine.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_metalMine, out Building building);
 
@@ -1001,7 +1014,7 @@ namespace ProjectStellar
                 Text powerPlant = new Text("powerPlant", font);
                 powerPlant.Position = rec.Position;
                 powerPlant.Color = Color.White;
-                powerPlant.CharacterSize = 15;
+                powerPlant.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_powerPlant, out Building building);
 
@@ -1041,7 +1054,7 @@ namespace ProjectStellar
                 Text pumpingStation = new Text("pumpingStation", font);
                 pumpingStation.Position = rec.Position;
                 pumpingStation.Color = Color.White;
-                pumpingStation.CharacterSize = 15;
+                pumpingStation.CharacterSize = 18;
 
                 _chosenBuildings.TryGetValue(_pumpingStation, out Building building);
 
@@ -1360,10 +1373,29 @@ namespace ProjectStellar
             set { _destroySelected = value; }
         }
 
+        public bool SettingsSelected
+        {
+            get { return _settingsSelected; }
+            set { _settingsSelected = value; }
+        }
+
+        public bool ExitSelected
+        {
+            get { return _exitSelected; }
+            set { _exitSelected = value; }
+        }
+
         public Map Map
         {
             get { return _mapCtx; }
             set { _mapCtx = value; }
+        }
+
+        public void DrawInGameMenu (RenderWindow window, Font font)
+        {
+            _settingsButton.Position = new Vector2f(_resolution.X - _boxSize, 0);
+            _settingsButton.Draw(window, RenderStates.Default);
+
         }
     }
 }
