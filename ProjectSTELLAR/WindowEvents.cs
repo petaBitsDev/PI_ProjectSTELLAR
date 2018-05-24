@@ -217,6 +217,10 @@ namespace ProjectStellar
                 //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
                 _window.SetView(_view);
             }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+            {
+                _ui.DrawInGameMenu(_window, _font);
+            }
         }
 
         internal View View => _view;

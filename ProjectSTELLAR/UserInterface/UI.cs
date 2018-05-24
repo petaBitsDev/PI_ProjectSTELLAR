@@ -33,7 +33,8 @@ namespace ProjectStellar
         int _selectedIndex;
         bool _hovering;
 
-        readonly Sprite[] _menu = new Sprite[4];
+        readonly Sprite[] _menu = new Sprite[2];
+        readonly Sprite[] _menuActif = new Sprite[2];
         Sprite _play;
         Sprite _pause;
         Sprite _fastForward;
@@ -153,6 +154,12 @@ namespace ProjectStellar
             };
             _menu[0] = _saveButton;
 
+            _saveButtonActive = new Sprite(_ctx._menuTextures[6])
+            {
+                Position = new Vector2f(_resolution.X / 2, _boxSize * 6)
+            };
+            _menuActif[0] = _saveButtonActive;
+
             _quitButton = new Sprite(_ctx._menuTextures[3])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 14),
@@ -160,17 +167,11 @@ namespace ProjectStellar
             };
             _menu[1] = _quitButton;
 
-            _saveButtonActive = new Sprite(_ctx._menuTextures[6])
-            {
-                Position = new Vector2f(_resolution.X / 2, _boxSize * 6)
-            };
-            _menu[2] = _saveButtonActive;
-
             _quitButtonActive = new Sprite(_ctx._menuTextures[7])
             {
                 Position = new Vector2f(_resolution.X / 2, _boxSize * 14)
             };
-            _menu[3] = _quitButtonActive;
+            _menuActif[1] = _quitButtonActive;
 
             //XP BAR
             _expBar = new RectangleShape()
@@ -1447,47 +1448,51 @@ namespace ProjectStellar
             rec.Position = new Vector2f(_boxSize * 3, _boxSize * 2);
             rec.FillColor = new Color(30, 30, 40);
 
-            if(_settingsButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-                SettingsSelected = true;
+                if (_settingsButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    SettingsSelected = true;
             }
+
             if(SettingsSelected)
             {
                 rec.Draw(window, RenderStates.Default);
                 _exitButton.Position = new Vector2f(rec.Position.X, rec.Position.Y);
                 _exitButton.Draw(window, RenderStates.Default);
-                _saveButton.Draw(window, RenderStates.Default);
-                _quitButton.Draw(window, RenderStates.Default);
 
                 _hovering = false;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
+                    _menu[i].Draw(window, RenderStates.Default);
+
                     if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                     {
-                        if (i<2)
-                        {
-                            _menu[i].Texture = _menu[i + 2].Texture;
-                        }
-                        _selectedIndex = i;
+                        _menu[i].Texture = _menuActif[i].Texture;
+                        SelectedItem = i;
                         _hovering = true;
                     }
-                }
-                if (_hovering == false)
-                {
-                    if (_selectedIndex != -1) _menu[_selectedIndex].Texture = _menu[_selectedIndex].Texture;
-                    _selectedIndex = -1;
-                }
-                else
-                {
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
+
+                    if (_hovering == false)
                     {
-                        if (_selectedIndex == 1) ; //launch game
-                        else if (_selectedIndex == 2 || _selectedIndex == 4) window.Close();
+                        if (_selectedIndex != -1)
+                        {
+                            _menu[0] = _saveButton;
+                            _menu[1] = _quitButton;
+                        }
+                        SelectedItem = -1;
+                    }
+                    else
+                    {
+                        if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        {
+                            if (_selectedIndex == 0) ; //launch game
+                            else if (_selectedIndex == 1) window.Close();
+                        }
                     }
                 }
                 if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
-                    ExitSelected = true;
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left)) ExitSelected = true;
                 }
                 if (ExitSelected)
                 {
@@ -1498,6 +1503,7 @@ namespace ProjectStellar
         public int SelectedItem
         {
             get { return _selectedIndex; }
+            set { _selectedIndex = value; }
         }
     }
 }

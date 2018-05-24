@@ -104,7 +104,7 @@ namespace ProjectStellar
         public override void Initialize(GameTime gameTime)
         {
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(30, 30);
+            _map = new Map(100, 100);
             _resourcesManager = new ResourcesManager(_map);
             _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _experienceManager = new ExperienceManager(_resourcesManager);
@@ -117,7 +117,7 @@ namespace ProjectStellar
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
-            Window.MouseMoved += _windowEvents.MouseMoved;
+            //Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
             Window.KeyPressed += _windowEvents.KeyPressed;
@@ -151,7 +151,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 30, 30, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
