@@ -30,13 +30,20 @@ namespace ProjectStellar
         private int _buildingSelected;
         bool _settingsSelected;
         bool _exitSelected;
+        int _selectedIndex;
+        bool _hovering;
 
+        readonly Sprite[] _menu = new Sprite[4];
         Sprite _play;
         Sprite _pause;
         Sprite _fastForward;
         Sprite _navbarSprite;
         Sprite _exitButton;
         Sprite _settingsButton;
+        Sprite _saveButton;
+        Sprite _saveButtonActive;
+        Sprite _quitButton;
+        Sprite _quitButtonActive;
         RectangleShape _rectangleTimeBar;
         private Sprite _coinSprite;
         private Sprite _woodSprite;
@@ -138,6 +145,32 @@ namespace ProjectStellar
                 Scale = new Vector2f(0.8f, 0.8f)
             };
             _exitButton = new Sprite(_ctx._uiTextures[22]);
+
+            _saveButton = new Sprite(_ctx._menuTextures[2])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 6),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menu[0] = _saveButton;
+
+            _quitButton = new Sprite(_ctx._menuTextures[3])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 14),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menu[1] = _quitButton;
+
+            _saveButtonActive = new Sprite(_ctx._menuTextures[6])
+            {
+                Position = new Vector2f(_resolution.X / 2, _boxSize * 6)
+            };
+            _menu[2] = _saveButtonActive;
+
+            _quitButtonActive = new Sprite(_ctx._menuTextures[7])
+            {
+                Position = new Vector2f(_resolution.X / 2, _boxSize * 14)
+            };
+            _menu[3] = _quitButtonActive;
 
             //XP BAR
             _expBar = new RectangleShape()
@@ -1423,8 +1456,36 @@ namespace ProjectStellar
                 rec.Draw(window, RenderStates.Default);
                 _exitButton.Position = new Vector2f(rec.Position.X, rec.Position.Y);
                 _exitButton.Draw(window, RenderStates.Default);
+                _saveButton.Draw(window, RenderStates.Default);
+                _quitButton.Draw(window, RenderStates.Default);
 
-                if(_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                _hovering = false;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        if (i<2)
+                        {
+                            _menu[i].Texture = _menu[i + 2].Texture;
+                        }
+                        _selectedIndex = i;
+                        _hovering = true;
+                    }
+                }
+                if (_hovering == false)
+                {
+                    if (_selectedIndex != -1) _menu[_selectedIndex].Texture = _menu[_selectedIndex].Texture;
+                    _selectedIndex = -1;
+                }
+                else
+                {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                    {
+                        if (_selectedIndex == 1) ; //launch game
+                        else if (_selectedIndex == 2 || _selectedIndex == 4) window.Close();
+                    }
+                }
+                if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     ExitSelected = true;
                 }
@@ -1433,6 +1494,10 @@ namespace ProjectStellar
                     SettingsSelected = false;
                 }
             }
+        }
+        public int SelectedItem
+        {
+            get { return _selectedIndex; }
         }
     }
 }

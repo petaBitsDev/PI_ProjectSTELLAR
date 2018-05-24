@@ -65,7 +65,7 @@ namespace ProjectStellar
                 if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     // Ici 2 est le nombre de cases avant d'arriver à la seconde texture du bouton
-                    _menu[i].Texture = _ctx._menuTextures[i + 3];
+                    _menu[i].Texture = _ctx._menuTextures[i + 4];
                     _selectedIndex = i;
                     _hovering = true;
                 }
