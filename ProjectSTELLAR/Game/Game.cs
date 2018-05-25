@@ -19,7 +19,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[10];
         public Texture[] _buildingsTextures = new Texture[16];
-        public Texture[] _uiTextures = new Texture[23];
+        public Texture[] _uiTextures = new Texture[24];
         int _state;
         Menu _menu;
         Resolution _resolution;
@@ -97,6 +97,7 @@ namespace ProjectStellar
             _uiTextures[20] = new Texture("./resources/img/wrecking-ball.png");
             _uiTextures[21] = new Texture("./resources/img/setting.png");
             _uiTextures[22] = new Texture("./resources/img/delete.png");
+            _uiTextures[23] = new Texture("./resources/img/users.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
