@@ -34,7 +34,7 @@ namespace ProjectStellar
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
         internal string _name = "test";
-        View _view;
+        internal View _view;
         Vector2f _center;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)

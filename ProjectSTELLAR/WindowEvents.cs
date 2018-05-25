@@ -47,16 +47,6 @@ namespace ProjectStellar
         {
             _window.Close();
         }
-
-        public void MouseClicked(object sender, EventArgs e)
-        {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left))
-            {
-                Vector2i pixelPos = Mouse.GetPosition(_window);
-                Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
-                CheckClic(worldPos.X, worldPos.Y);
-            }
-        }
         
         public void MouseMoved(object sender, EventArgs e)
         {
@@ -226,6 +216,16 @@ namespace ProjectStellar
             }
         }
 
+        public void MouseClicked(object sender, EventArgs e)
+        {
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                Vector2i pixelPos = Mouse.GetPosition(_window);
+                Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
+                CheckClic(worldPos.X, worldPos.Y);
+            }
+        }
+
         public void CheckClic(float x, float y)
         {
             if (_ctx.MenuState != 0)
@@ -253,7 +253,7 @@ namespace ProjectStellar
         public bool CheckUI(float x, float y, GameTime gameTime)
         {
             if (_ui.CheckTimeBar(x, y, gameTime)) return true;
-            else if (_ui.CheckBuildingToBuild(x, y, _ctx._resourcesManager)) return true;
+            else if (_ui.CheckBuildingToBuild(_window, _ctx._resourcesManager)) return true;
             else if (_ui.CheckBuildSelected(_window)) return true;
             else if (_ui.CheckDestroySelected(_window)) return true;
             else return false;

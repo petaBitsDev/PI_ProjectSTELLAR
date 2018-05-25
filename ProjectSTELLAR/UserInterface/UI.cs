@@ -487,6 +487,7 @@ namespace ProjectStellar
             if (_buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
                 _buildSelected = true;
+                _destroySelected = false;
                 return true;
             }
             return false;
@@ -1276,7 +1277,6 @@ namespace ProjectStellar
                 {
                     if (_buildingList[i].GetType() == building.GetType())
                     {
-                        _waterSprite.Draw(window, RenderStates.Default);
 
                         Text water = new Text("Water consomation : ", font);
                         water.Color = new Color(52, 152, 219);
@@ -1291,8 +1291,7 @@ namespace ProjectStellar
 
                         nbWater.Draw(window, RenderStates.Default);
                         water.Draw(window, RenderStates.Default);
-
-                        _electricitySprite.Draw(window, RenderStates.Default);
+                        
 
                         Text electricity = new Text("Electricity consomation : ", font);
                         electricity.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 4.9f));
@@ -1328,7 +1327,6 @@ namespace ProjectStellar
                         }
                         else
                         {
-                            _coinSprite.Draw(window, RenderStates.Default);
 
                             Text charges = new Text("Taxes : ", font);
                             charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 35 * 3.9f));
@@ -1350,12 +1348,12 @@ namespace ProjectStellar
             }
         }
 
-        public bool CheckBuildingToBuild(float x, float y, ResourcesManager resources)
+        public bool CheckBuildingToBuild(Window window, ResourcesManager resources)
         {
             if (_buildSelected == false) return false;
             for (int i = 0; i < _sprites.Count; i++)
             {
-                if (_sprites[i].GetGlobalBounds().Contains(x, y))
+                if (_sprites[i].GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
                 {
                     _chosenBuildings.TryGetValue(_sprites[i], out Building building);
                     if (!resources.CheckResourcesNeeded(building)) return false;
