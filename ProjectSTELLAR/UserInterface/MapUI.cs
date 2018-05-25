@@ -166,8 +166,6 @@ namespace ProjectStellar
                         _ctx.RemoveBuilding(_cases[i].X, _cases[i].Y);
                         _ui.DestroySelected = false;
                     }
-
-                  
                     return true;
                 }
             }

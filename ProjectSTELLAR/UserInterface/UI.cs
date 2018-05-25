@@ -150,28 +150,28 @@ namespace ProjectStellar
 
             _saveButton = new Sprite(_ctx._menuTextures[2])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 6),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menu[0] = _saveButton;
 
             _saveButtonActive = new Sprite(_ctx._menuTextures[6])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 6),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[0] = _saveButtonActive;
 
             _quitButton = new Sprite(_ctx._menuTextures[3])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 15),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 13),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menu[1] = _quitButton;
 
             _quitButtonActive = new Sprite(_ctx._menuTextures[7])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 15),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 13),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[1] = _quitButtonActive;
@@ -1278,7 +1278,6 @@ namespace ProjectStellar
                     _buildingSelected = 12;
                 }
 
-
                 _powerPlant.Draw(window, RenderStates.Default);
                 _sprites.Add(_powerPlant);
                 _chosenBuildings.Add(_powerPlant, _buildingList[7]);
@@ -1287,8 +1286,7 @@ namespace ProjectStellar
                 {
                     _buildingSelected = 13;
                 }
-
-
+                
                 _pumpingStation.Draw(window, RenderStates.Default);
                 _sprites.Add(_pumpingStation);
                 _chosenBuildings.Add(_pumpingStation, _buildingList[8]);
@@ -1306,25 +1304,6 @@ namespace ProjectStellar
             _expBar.Draw(window, RenderStates.Default);
             _expBarFilled.Draw(window, RenderStates.Default);
         }
-
-        //public bool CheckBuildingToBuild(float x, float y, ResourcesManager resources)
-        //{
-        //    if (_buildSelected == false) return false;
-        //    for (int i = 0; i < _sprites.Count; i++)
-        //    {
-        //        if (_sprites[i].GetGlobalBounds().Contains(x, y))
-        //        {
-
-        //            _chosenBuildings.TryGetValue(_sprites[i], out Building building);
-        //            if (!resources.CheckResourcesNeeded(building)) return false;
-        //            _mapCtx.ChosenBuilding = building;
-        //            //Console.WriteLine(type);
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-        //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
         {
@@ -1425,7 +1404,6 @@ namespace ProjectStellar
                     _chosenBuildings.TryGetValue(_sprites[i], out Building building);
                     if (!resources.CheckResourcesNeeded(building)) return false;
                     _mapCtx.ChosenBuilding = building;
-                    //Console.WriteLine(type);
                     return true;
                 }
             }
@@ -1462,7 +1440,7 @@ namespace ProjectStellar
             _settingsButton.Draw(window, RenderStates.Default);
 
             RectangleShape rec = new RectangleShape();
-            rec.Size = new Vector2f(_boxSize * 30, _boxSize * 20);
+            rec.Size = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y - _boxSize * 5);
             rec.Position = new Vector2f(_boxSize * 3, _boxSize * 2);
             rec.FillColor = new Color(30, 30, 40);
 
@@ -1496,7 +1474,7 @@ namespace ProjectStellar
 
                     if (_hovering == false)
                     {
-                        if (_selectedIndex != -1)
+                        if (SelectedItem != -1)
                         {
                             _menu[0] = _saveButton;
                             _menu[1] = _quitButton;
@@ -1507,14 +1485,14 @@ namespace ProjectStellar
                     {
                         if (Mouse.IsButtonPressed(Mouse.Button.Left))
                         {
-                            if (_selectedIndex == 0)
+                            if (SelectedItem == 0)
                             {
                                 SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager);
                                 Save.SaveGame(save, _ctx._name);
                                 Console.WriteLine("Saved");
                                 SettingsSelected = false;
                             }
-                            else if (_selectedIndex == 1) window.Close();
+                            else if (SelectedItem == 1) window.Close();
                         }
                     }
                 }

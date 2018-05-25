@@ -63,16 +63,12 @@ namespace ProjectStellar
 
             building = _map.Boxes[y, x];
 
+            if (sprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                window.Draw(rec);
+                _ui.DrawBuildingInformations(window, font, building, x, y);
 
-            
-                if (sprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-                {
-                    window.Draw(rec);
-                    _ui.DrawBuildingInformations(window, font, building, x, y);
-
-                }
-            
-      
+            }
         }
     }
 }
