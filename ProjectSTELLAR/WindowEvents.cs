@@ -20,8 +20,14 @@ namespace ProjectStellar
         Resolution _resolution;
         View _view;
         Font _font;
-        Vector2f _upLeftViewCoordinates;
-        Vector2f _downrightViewCoordinates;
+        float _x1;
+        float _x2;
+        float _y1;
+        float _y2;
+        float _xMax;
+        float _yMax;
+        //Vector2f _upLeftViewCoordinates;
+        //Vector2f _downrightViewCoordinates;
 
         public WindowEvents(RenderWindow Window, Game Game, Resolution resolution, View view)
         {
@@ -30,7 +36,11 @@ namespace ProjectStellar
             _font = _ctx._font;
             _resolution = resolution;
             _view = view;
-            _upLeftViewCoordinates = new Vector2f(0, 0);
+            //_upLeftViewCoordinates = new Vector2f(0, 0);
+            _x1 = 0;
+            _y1 = 0;
+            _x2 = _resolution.X * 0.9f;
+            _y2 = resolution.Y * 0.95f;
         }
 
         public void WindowClosed(object sender, EventArgs e)
@@ -50,7 +60,13 @@ namespace ProjectStellar
         
         public void MouseMoved(object sender, EventArgs e)
         {
-            if (_ctx.MenuState == 1) _downrightViewCoordinates = new Vector2f(_mapUI._x2y2.X, _mapUI._x2y2.Y);
+            if (_ctx.MenuState == 1)
+            {
+                _xMax = _mapUI._x2y2.X;
+                _yMax = _mapUI._x2y2.Y;
+                //_downrightViewCoordinates = new Vector2f(_mapUI._x2y2.X, _mapUI._x2y2.Y);
+
+            }
             int posX = Mouse.GetPosition(_window).X;
             int posY = Mouse.GetPosition(_window).Y;
             Vector2f currentCenter = _view.Center;
@@ -73,8 +89,10 @@ namespace ProjectStellar
                 //_view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
                 if (CheckCamera(new Vector2f(50, 0)))
                 {
-                    _upLeftViewCoordinates.X += 50;
-                    _downrightViewCoordinates.X += 50;
+                    //_upLeftViewCoordinates.X += 50;
+                    //_downrightViewCoordinates.X += 50;
+                    _x1 += 50;
+                    _x2 += 50;
                     _view.Move(new Vector2f(50, 0));
                     _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
@@ -98,8 +116,10 @@ namespace ProjectStellar
                 //_view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
                 if (CheckCamera(new Vector2f(-50, 0)))
                 {
-                    _upLeftViewCoordinates.X += -50;
-                    _downrightViewCoordinates.X += -50;
+                    _x1 += -50;
+                    _x2 += -50;
+                    //_upLeftViewCoordinates.X += -50;
+                    //_downrightViewCoordinates.X += -50;
                     _view.Move(new Vector2f(-50, 0));
                     _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
@@ -123,8 +143,10 @@ namespace ProjectStellar
                 //_view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
                 if (CheckCamera(new Vector2f(0, -50)))
                 {
-                    _upLeftViewCoordinates.Y += -50;
-                    _downrightViewCoordinates.Y += -50;
+                    _y1 += -50;
+                    _y2 += -50;
+                    //_upLeftViewCoordinates.Y += -50;
+                    //_downrightViewCoordinates.Y += -50;
                     _view.Move(new Vector2f(0, -50));
                     _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
@@ -151,8 +173,10 @@ namespace ProjectStellar
                 if (CheckCamera(new Vector2f(0, 50)))
                 {
                     //_view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
-                    _upLeftViewCoordinates.Y += 50;
-                    _downrightViewCoordinates.Y += 50;
+                    _y1 += 50;
+                    _y2 += 50;
+                    //_upLeftViewCoordinates.Y += 50;
+                    //_downrightViewCoordinates.Y += 50;
                     _view.Move(new Vector2f(0, 50));
                     _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
@@ -162,19 +186,19 @@ namespace ProjectStellar
 
         bool CheckCamera( Vector2f move)
         {
-            float xMax = (float)_resolution.X * 0.9f;
-            float yMax = (float)_resolution.Y * 0.95f;
+            //float xMax = (float)_resolution.X * 0.9f;
+            //float yMax = (float)_resolution.Y * 0.95f;
             //Vector2f x1y1 = new Vector2f(view.Center.X - view.Size.X / 2, view.Center.Y - view.Size.Y / 2);
             //Vector2f x2y2 = new Vector2f(view.Center.X + view.Size.X / 2, view.Center.Y + view.Size.Y / 2);
 
             //x1y1
-            if (_upLeftViewCoordinates.X + move.X < 0 || _upLeftViewCoordinates.Y + move.Y < 0) return false;
+            if (_x1 + move.X < 0 || _y1 + move.Y < 0) return false;
             //x2y1
-            else if (_downrightViewCoordinates.X + move.X < xMax || _upLeftViewCoordinates.Y + move.Y < 0) return false;
+            else if (_x2 + move.X > _xMax || _y1 + move.Y < 0) return false;
             //x1y2 ne fonctionne pas
-            else if (_upLeftViewCoordinates.X + move.X < 0 || _downrightViewCoordinates.Y + move.Y < 0) return false;
+            else if (_x1 + move.X < 0 || _y2 + move.Y > _yMax) return false;
             //x2y2 ne fonctionne pas
-            else if (_downrightViewCoordinates.X + move.X < xMax || _downrightViewCoordinates.Y + move.Y < yMax) return false;
+            else if (_x2 + move.X > _xMax || _y2 + move.Y > _yMax) return false;
             else return true;
 
 
