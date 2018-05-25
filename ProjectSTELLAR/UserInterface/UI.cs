@@ -156,20 +156,22 @@ namespace ProjectStellar
 
             _saveButtonActive = new Sprite(_ctx._menuTextures[6])
             {
-                Position = new Vector2f(_resolution.X / 2, _boxSize * 6)
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 6),
+                Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[0] = _saveButtonActive;
 
             _quitButton = new Sprite(_ctx._menuTextures[3])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 14),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 15),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menu[1] = _quitButton;
 
             _quitButtonActive = new Sprite(_ctx._menuTextures[7])
             {
-                Position = new Vector2f(_resolution.X / 2, _boxSize * 14)
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 10, _boxSize * 15),
+                Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[1] = _quitButtonActive;
 
@@ -1451,10 +1453,12 @@ namespace ProjectStellar
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
                 if (_settingsButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
                     SettingsSelected = true;
+                }
             }
 
-            if(SettingsSelected)
+            if(_settingsSelected)
             {
                 rec.Draw(window, RenderStates.Default);
                 _exitButton.Position = new Vector2f(rec.Position.X, rec.Position.Y);
@@ -1467,7 +1471,7 @@ namespace ProjectStellar
 
                     if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                     {
-                        _menu[i].Texture = _menuActif[i].Texture;
+                        _menu[i] = _menuActif[i];
                         SelectedItem = i;
                         _hovering = true;
                     }
@@ -1485,7 +1489,12 @@ namespace ProjectStellar
                     {
                         if (Mouse.IsButtonPressed(Mouse.Button.Left))
                         {
-                            if (_selectedIndex == 0) ; //launch game
+                            if (_selectedIndex == 0)
+                            {
+                                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager);
+                                Save.SaveGame(save, _ctx._name);
+                                Console.WriteLine("Saved");
+                            }
                             else if (_selectedIndex == 1) window.Close();
                         }
                     }
