@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
-{ 
+namespace ProjectStellar.Library
+{
     public class HospitalType : BuildingType
     {
         int _cost;
@@ -32,6 +32,16 @@ namespace ProjectStellar
             _cost = 30;
         }
 
+        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
+
+            resources.UpdateWhenCreate(this);
+            Building building = new Hospital(x, y);
+            map.AddBuilding(x, y, building);
+            _list.Add(building);
+        }
+
        // public override int Rock => _rock;
         public override int Wood => _wood;
         public override int Coin => _coin;
@@ -42,6 +52,8 @@ namespace ProjectStellar
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
         public List<Building> List => _list;
+
+        internal int NbHospital => this.List.Count;
 
     }
 }

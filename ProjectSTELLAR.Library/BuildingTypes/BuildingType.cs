@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     public abstract class BuildingType
     {
-        public void CreateInstance(int x, int y, ResourcesManager resources, Map map)
-        {
-            map.AddBuilding(x, y);
-            resources.UpdateWhenCreate(this);
-            
 
- 
+
+        public virtual void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            //map.AddBuilding(x, y);
+            //resources.UpdateWhenCreate(this);
         }
 
-        //public void DeleteInstance(int x, int y)
-        //{
-
-        //}
+        public virtual void DeleteInstance(int x, int y, Map map, Building building)
+        {
+            map.RemoveBuilding(x, y);
+            this.List.Remove(building);
+        }
 
         public abstract int Cost { get; }
         public abstract int Coin { get; }
@@ -31,6 +31,8 @@ namespace ProjectStellar
         public abstract int Electricity { get; }
         public abstract int Pollution { get; }
         public abstract int NbPeople { get; }
+        public abstract List<Building> List { get; }
+        
     }
 
 }

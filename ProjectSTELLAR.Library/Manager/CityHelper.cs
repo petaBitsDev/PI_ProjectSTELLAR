@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
     public class CityHelper
     {
        MetalMine metalMine;
        OreMine oreMine;
-       Sawmill sawMill;
+       SawMill sawMill;
        CityHall cityHall;
        FireStation fireStation ;
        Hospital hospital;

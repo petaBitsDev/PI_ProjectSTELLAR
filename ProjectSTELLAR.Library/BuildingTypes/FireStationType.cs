@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    public class WarehouseType : BuildingType
+    public class FireStationType : BuildingType
     {
         int _cost;
         int _coin;
@@ -19,17 +19,27 @@ namespace ProjectStellar
         int _nbPeople;
         List<Building> _list;
 
-        public WarehouseType()
+        public FireStationType()
         {
-            _rock = 15;
-            _wood = 30;
-            _coin = 10;
-            _metal = 5;
-            _electricity = 10;
-            _water = 0;
-            _pollution = 0;
-            _nbPeople = 5;
-            _cost = 0;
+            _rock = 45;
+            _wood = 10;
+            _coin = 35;
+            _metal = 80;
+            _electricity = 25;
+            _water = 70;
+            _pollution = 25;
+            _nbPeople = 22;
+            _cost = 35;
+        }
+
+        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
+
+            resources.UpdateWhenCreate(this);
+            Building building = new FireStation(x, y);
+            map.AddBuilding(x, y, building);
+            _list.Add(building);
         }
 
         public override int Rock => _rock;
@@ -43,5 +53,6 @@ namespace ProjectStellar
         public override int Cost => _cost;
         public override List<Building> List => _list;
 
+        internal int NbFireStation => this.List.Count;
     }
 }

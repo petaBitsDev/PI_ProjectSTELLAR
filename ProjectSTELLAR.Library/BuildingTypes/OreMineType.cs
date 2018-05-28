@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    public class FlatType : BuildingType
+    public class OreMineType : BuildingType
     {
         int _cost;
         int _coin;
@@ -19,17 +19,27 @@ namespace ProjectStellar
         int _nbPeople;
         List<Building> _list;
 
-        public FlatType()
+        public OreMineType()
         {
-            _rock = 75;
-            _wood = 100;
-            _coin = 55;
-            _metal = 40;
-            _electricity = 45;
-            _water = 60;
-            _pollution = 22;
-            _nbPeople = 100;
-            _cost = 80;
+            _rock = 0;
+            _wood = 15;
+            _coin = 25;
+            _metal = 5;
+            _electricity = 10;
+            _water = 10;
+            _pollution = 20;
+            _nbPeople = 15;
+            _cost = 0;
+        }
+
+        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
+
+            resources.UpdateWhenCreate(this);
+            Building building = new OreMine(x, y);
+            map.AddBuilding(x, y, building);
+            _list.Add(building);
         }
 
         public override int Cost => _cost;
@@ -42,5 +52,7 @@ namespace ProjectStellar
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override List<Building> List => _list;
+
+        internal int NbOreMine => this.List.Count;
     }
 }
