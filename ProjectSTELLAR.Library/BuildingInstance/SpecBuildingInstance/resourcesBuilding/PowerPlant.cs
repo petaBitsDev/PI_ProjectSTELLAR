@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    class PowerPlant : PowerPlantType
+    class PowerPlant : Building
     {
         float _x;
         float _y;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 { 
-    class Hut : HutType
+    class Hut : Building
     {
 
     float _x;

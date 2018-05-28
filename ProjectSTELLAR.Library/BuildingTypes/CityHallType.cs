@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    public class SpaceStationType : BuildingType
+    public class CityHallType : BuildingType
     {
         int _cost;
         int _coin;
@@ -18,19 +18,20 @@ namespace ProjectStellar
         int _pollution;
         int _nbPeople;
         List<Building> _list;
+        Map _map;
 
-
-        public SpaceStationType()
+        public CityHallType()
+         
         {
-            _rock = 70;
-            _wood = 120;
-            _coin = 100;
-            _metal = 90;
-            _electricity = 70;
-            _water = 50;
-            _pollution = 25;
-            _nbPeople = 30;
-            _cost = 70;
+            _rock = 100;
+            _wood = 150;
+            _coin = 80;
+            _metal = 50;
+            _electricity = 20;
+            _water = 20;
+            _pollution = 5;
+            _nbPeople = 50;
+            _cost = 200;
         }
 
         public override int Rock => _rock;
@@ -43,6 +44,5 @@ namespace ProjectStellar
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
         public override List<Building> List => _list;
-
     }
 }

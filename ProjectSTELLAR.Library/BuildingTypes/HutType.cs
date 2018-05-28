@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    public class SawmillType : BuildingType
+    public class HutType : BuildingType
     {
         int _cost;
         int _coin;
@@ -19,17 +19,17 @@ namespace ProjectStellar
         int _nbPeople;
         List<Building> _list;
 
-        public SawmillType()
+        public HutType()
         {
-            _rock = 15;
-            _wood = 0;
-            _coin = 25;
-            _metal = 5;
-            _electricity = 10;
-            _water = 10;
-            _pollution = 20;
-            _nbPeople = 15;
-            _cost = 0;
+            _rock = 25;
+            _wood = 50;
+            _coin = 15;
+            _metal = 0;
+            _electricity = 5;
+            _water = 5;
+            _pollution = 0;
+            _nbPeople = 5;
+            _cost = 20;
         }
 
         public override int Cost => _cost;

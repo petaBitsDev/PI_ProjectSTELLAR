@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    public class MetalMineType : BuildingType
+    public class FlatType : BuildingType
     {
         int _cost;
         int _coin;
@@ -19,17 +19,17 @@ namespace ProjectStellar
         int _nbPeople;
         List<Building> _list;
 
-        public MetalMineType()
+        public FlatType()
         {
-            _rock = 15;
-            _wood = 15;
-            _coin = 25;
-            _metal = 0;
-            _electricity = 10;
-            _water = 10;
-            _pollution = 20;
-            _nbPeople = 15;
-            _cost = 20;
+            _rock = 75;
+            _wood = 100;
+            _coin = 55;
+            _metal = 40;
+            _electricity = 45;
+            _water = 60;
+            _pollution = 22;
+            _nbPeople = 100;
+            _cost = 80;
         }
 
         public override int Cost => _cost;

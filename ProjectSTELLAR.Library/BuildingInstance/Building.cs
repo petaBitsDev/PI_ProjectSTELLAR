@@ -4,21 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    class Building 
+    public abstract class Building
     {
         BuildingType _buildingType;
-        float _x;
-        float _y;
+        int _x;
+        int _y;
         List<Building> _instanceBuilding = new List<Building>();
-        public Building(BuildingType buildingType, float x, float y)
-        {
-            _buildingType = buildingType;
-            _x = x;
-            _y = y;
-        }
 
-        public BuildingType BuildingType => _buildingType;
+        public int X => _x;
+        public int Y => _y;
+        public BuildingType Type => _buildingType;
     }
 }

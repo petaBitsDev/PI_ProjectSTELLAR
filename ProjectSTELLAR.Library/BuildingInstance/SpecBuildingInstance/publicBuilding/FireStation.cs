@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 { 
-    class FireStation : FireStationType
+    class FireStation : Building
     {
 
     float _x;

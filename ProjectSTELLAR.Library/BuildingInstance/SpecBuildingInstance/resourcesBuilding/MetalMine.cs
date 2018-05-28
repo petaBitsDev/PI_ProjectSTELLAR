@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
-    class MetalMine : MetalMineType
+    class MetalMine : Building
     {
         float _x;
         float _y;

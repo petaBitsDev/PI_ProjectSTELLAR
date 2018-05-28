@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
 
-    class Hospital : HospitalType
+    class Hospital : Building
 
     {
         float _x;
