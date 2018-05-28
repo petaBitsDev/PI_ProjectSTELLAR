@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectStellar
+{ 
     class policeStation : policeStationType
     {
     float _x;

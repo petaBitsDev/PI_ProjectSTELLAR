@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectStellar
+{ 
     class PumpingStation : PumpingStationType
     {
     float _x;
