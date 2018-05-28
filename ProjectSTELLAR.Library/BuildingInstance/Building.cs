@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library
+namespace ProjectStellar
 {
     class Building 
     {
@@ -18,5 +18,7 @@ namespace ProjectStellar.Library
             _x = x;
             _y = y;
         }
+
+        public BuildingType BuildingType => _buildingType;
     }
 }

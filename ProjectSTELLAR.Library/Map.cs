@@ -12,7 +12,7 @@ namespace ProjectStellar
         public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
         int _height;
         int _width;
-        Building _chosenBuilding;
+        BuildingType _chosenBuilding;
         public Building[,] _boxes;
 
         public Map (int width, int height)
@@ -26,7 +26,7 @@ namespace ProjectStellar
 
         public int Height => _height;
 
-        public Building ChosenBuilding
+        public BuildingType ChosenBuilding
         {
             get { return _chosenBuilding; }
             set { _chosenBuilding = value; }
@@ -42,7 +42,8 @@ namespace ProjectStellar
         {
             if(CheckBuilding(x,y) == false)
             {
-                _boxes[x, y] = _chosenBuilding;
+                Building b = new Building(_chosenBuilding, (float)x, (float)y);
+                _boxes[x, y] = b;
                 _chosenBuilding = null;
             }
             else
