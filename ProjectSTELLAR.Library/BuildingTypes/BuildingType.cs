@@ -14,10 +14,11 @@ namespace ProjectStellar.Library
             //resources.UpdateWhenCreate(this);
         }
 
-        //public void DeleteInstance(int x, int y)
-        //{
-
-        //}
+        public virtual void DeleteInstance(int x, int y, Map map, Building building)
+        {
+            map.RemoveBuilding(x, y);
+            this.List.Remove(building);
+        }
 
         public abstract int Cost { get; }
         public abstract int Coin { get; }

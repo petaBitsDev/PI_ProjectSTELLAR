@@ -42,7 +42,7 @@ namespace ProjectStellar.Library
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
-
+        
         public override int Rock => _rock;
         public override int Wood => _wood;
         public override int Coin => _coin;
