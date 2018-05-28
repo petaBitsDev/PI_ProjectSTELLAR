@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
 
-    class SawMill : SawMillType
+    class SawMill : SawmillType
     {
         float _x;
         float _y;
         public SawMill(float x, float y)
-            : base()
+            
         {
 
         }

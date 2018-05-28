@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.Building.Types
-{
+namespace ProjectStellar
+{ 
     public class HospitalType : BuildingType
     {
         int _cost;

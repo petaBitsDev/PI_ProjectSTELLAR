@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    class spaceStation : spaceStationType
+    class SpaceStation : SpaceStationType
     {
         float _x;
         float _y;
-        public spaceStation(float x, float y)
+        public SpaceStation(float x, float y)
             :base()
         {
             _x = x;

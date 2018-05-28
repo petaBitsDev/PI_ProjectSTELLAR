@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectStellar
-    class policeStation : policeStationType
+{ 
+    class PoliceStation : PoliceStationType
     {
     float _x;
     float _y;
-        public policeStation(float x, float y)
-            : base()
+        public PoliceStation(float x, float y)
         {
         _x = x;
         _y = y;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.Building.Types
+namespace ProjectStellar
 {
     public class CityHallType : BuildingType
     {
@@ -18,8 +18,10 @@ namespace ProjectStellar.Library.Building.Types
         int _pollution;
         int _nbPeople;
         List<Building> _list;
+        Map _map;
 
         public CityHallType()
+         
         {
             _rock = 100;
             _wood = 150;
@@ -30,6 +32,8 @@ namespace ProjectStellar.Library.Building.Types
             _pollution = 5;
             _nbPeople = 50;
             _cost = 200;
+            _map = map;
+
         }
 
         public override int Rock => _rock;
