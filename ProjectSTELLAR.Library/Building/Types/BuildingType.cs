@@ -4,15 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.Building
+namespace ProjectStellar.Library
 {
     public abstract class BuildingType
     {
-        public abstract void CreateInstance(int x, int y);
+        public void CreateInstance(int x, int y, ResourcesManager resources)
+        {
+            
+        }
 
         public abstract void DeleteInstance(int x, int y);
         
         public abstract int Count();
+
+        public abstract int Cost { get; }
+        public abstract int Coin { get; }
+        public abstract int Wood { get; }
+        public abstract int Rock { get; }
+        public abstract int Metal { get; }
+        public abstract int Water { get; }
+        public abstract int Electricity { get; }
+        public abstract int NbPeople { get; }
+        public abstract List<Building> List { get; }
     }
 
 }
