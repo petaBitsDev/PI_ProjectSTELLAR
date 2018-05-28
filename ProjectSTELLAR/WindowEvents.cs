@@ -141,7 +141,7 @@ namespace ProjectStellar
         {
             if (_ctx.MenuState != 0)
             {
-                if (CheckUI(x, y, _ctx.GameTime)) Console.WriteLine("ui");
+                if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
                 else if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
             }
         }
