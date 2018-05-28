@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library.Building.Types
 {
-    public class SpaceStationType : BuildingType
+    public class HospitalType : BuildingType
     {
         int _cost;
         int _coin;
@@ -18,17 +18,17 @@ namespace ProjectStellar.Library.Building.Types
         int _pollution;
         int _nbPeople;
 
-        public SpaceStationType()
+        public HospitalType()
         {
             _rock = 70;
-            _wood = 120;
-            _coin = 100;
-            _metal = 90;
-            _electricity = 70;
-            _water = 50;
-            _pollution = 25;
-            _nbPeople = 30;
-            _cost = 70;
+            _wood = 40;
+            _coin = 67;
+            _metal = 75;
+            _electricity = 45;
+            _water = 60;
+            _pollution = 15;
+            _nbPeople = 25;
+            _cost = 30;
         }
 
         public override int Rock => _rock;

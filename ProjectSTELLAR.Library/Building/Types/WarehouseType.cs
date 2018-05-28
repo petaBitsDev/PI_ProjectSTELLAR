@@ -17,7 +17,6 @@ namespace ProjectStellar.Library.Building.Types
         int _electricity;
         int _pollution;
         int _nbPeople;
-        List<Building> _list;
 
         public WarehouseType()
         {
@@ -32,20 +31,14 @@ namespace ProjectStellar.Library.Building.Types
             _cost = 0;
         }
 
-        public override int Rock { get; }
-        public override int Wood { get; }
-        public override int Coin { get; }
-        public override int Metal { get; }
-        public override int Electricity { get; }
-        public override int Water { get; }
-        public override int Pollution { get; }
-        public override int NbPeople { get; }
-        public override int Cost { get; }
-        
-
-        public override int Count()
-        {
-            return _list.Count;
-        }
+        public override int Rock => _rock;
+        public override int Wood => _wood;
+        public override int Coin => _coin;
+        public override int Metal => _metal;
+        public override int Electricity => _electricity;
+        public override int Water => _water;
+        public override int Pollution => _pollution;
+        public override int NbPeople => _nbPeople;
+        public override int Cost => _cost;
     }
 }

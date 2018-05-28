@@ -17,7 +17,6 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
-        List <Building> _list;
 
         public HutType()
         {
@@ -39,12 +38,6 @@ namespace ProjectStellar.Library
         public override int Metal => _metal;
         public override int Water => _water;
         public override int Electricity => _electricity;
-        public override int NbPeople => _nbPeople;
-        public override List<Building> List => _list;
-
-        public override int Count()
-        {
-            return _list.Count;
-        }
+        public override int NbPeople => _nbPeople;        
     }
 }
