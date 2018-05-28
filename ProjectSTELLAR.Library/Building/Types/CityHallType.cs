@@ -17,6 +17,7 @@ namespace ProjectStellar.Library.Building.Types
         int _electricity;
         int _pollution;
         int _nbPeople;
+        List<Building> _list;
 
         public CityHallType()
         {
@@ -40,5 +41,6 @@ namespace ProjectStellar.Library.Building.Types
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
+        public override List<Building> List => _list;
     }
 }
