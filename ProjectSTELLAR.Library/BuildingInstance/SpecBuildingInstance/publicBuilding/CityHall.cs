@@ -11,7 +11,6 @@ namespace ProjectStellar
     float _x;
     float _y;
     public CityHall(float x, float y)
-        : base()
         {
         _x = x;
         _y = y;

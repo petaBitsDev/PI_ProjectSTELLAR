@@ -23,6 +23,7 @@ namespace ProjectStellar
             Game Game = new Game(0, _launcher.Settings.Resolution, _launcher.Settings.IsFullScreen);
             Game.Run();
 
+            
           
         }
     }
