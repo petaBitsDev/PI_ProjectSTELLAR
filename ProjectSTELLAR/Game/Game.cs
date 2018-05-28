@@ -109,8 +109,8 @@ namespace ProjectStellar
             _cityHelper = new CityHelper(_map);
             _cityHelper.CreateListBuilding();
 
-            _center = new Vector2f((_resolution.X - 128) / 2, (_resolution.Y - 32) / 2);
-            _view = new View(_center, new Vector2f(_resolution.X - 128, _resolution.Y - 32));
+            _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
+            _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view);
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);

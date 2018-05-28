@@ -26,8 +26,6 @@ namespace ProjectStellar
         float _y2;
         float _xMax;
         float _yMax;
-        //Vector2f _upLeftViewCoordinates;
-        //Vector2f _downrightViewCoordinates;
 
         public WindowEvents(RenderWindow Window, Game Game, Resolution resolution, View view)
         {
@@ -36,7 +34,6 @@ namespace ProjectStellar
             _font = _ctx._font;
             _resolution = resolution;
             _view = view;
-            //_upLeftViewCoordinates = new Vector2f(0, 0);
             _x1 = 0;
             _y1 = 0;
             _x2 = _resolution.X * 0.9f;
@@ -54,133 +51,57 @@ namespace ProjectStellar
             {
                 _xMax = _mapUI._x2y2.X;
                 _yMax = _mapUI._x2y2.Y;
-                //_downrightViewCoordinates = new Vector2f(_mapUI._x2y2.X, _mapUI._x2y2.Y);
-
             }
+
             int posX = Mouse.GetPosition(_window).X;
             int posY = Mouse.GetPosition(_window).Y;
-            Vector2f currentCenter = _view.Center;
 
             // Right side
             if (posX == (_resolution.X - 1))
             {
-                //for(int i = 0; i < 20; i++)
-                //{
-                //    for(int j = 0; j < 20; j++)
-                //    {
-                //        if (_ctx._drawUI.MapUI.MapSprites[j, 20].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                //        {
-                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                //            _window.SetView(_view);
-                //        }
-                //    }
-                //}
-
-                //_view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
                 if (CheckCamera(new Vector2f(50, 0)))
                 {
-                    //_upLeftViewCoordinates.X += 50;
-                    //_downrightViewCoordinates.X += 50;
                     _x1 += 50;
                     _x2 += 50;
                     _view.Move(new Vector2f(50, 0));
-                    _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
-                //_window.SetView(_view);
             }
             // Left side
             else if (posX == 0)
             {
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    for (int j = 0; j < 20; j++)
-                //    {
-                //        if (_mapUI.MapSprites[j, 0].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                //        {
-                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                //            _window.SetView(_view);
-                //        }
-                //    }
-                //}
-
-                //_view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
                 if (CheckCamera(new Vector2f(-50, 0)))
                 {
                     _x1 += -50;
                     _x2 += -50;
-                    //_upLeftViewCoordinates.X += -50;
-                    //_downrightViewCoordinates.X += -50;
                     _view.Move(new Vector2f(-50, 0));
-                    _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
-                //_window.SetView(_view);
             }
             // Up side
             else if (posY == 0)
             {
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    for (int j = 0; j < 20; j++)
-                //    {
-                //        if (_mapUI.MapSprites[0, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                //        {
-                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                //            _window.SetView(_view);
-                //        }
-                //    }
-                //}
-
-                //_view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
                 if (CheckCamera(new Vector2f(0, -50)))
                 {
                     _y1 += -50;
                     _y2 += -50;
-                    //_upLeftViewCoordinates.Y += -50;
-                    //_downrightViewCoordinates.Y += -50;
                     _view.Move(new Vector2f(0, -50));
-                    _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
-                //_window.SetView(_view);
             }
             // Bottom side
             else if (posY == (_resolution.Y - 1))
             {
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    for (int j = 0; j < 20; j++)
-                //    {
-                //        if (_mapUI.MapSprites[20, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                //        {
-                //            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                //            _window.SetView(_view);
-                //        }
-                //    }
-                //}
-
-                //Console.WriteLine("x1 = {0}, x2 = {1} \0 y1 = {2}, y2 = {3}", _view.Viewport.Left, _view.Viewport.Width, _view.Viewport.Top, _view.Viewport.Height);
                 Console.WriteLine("X = {0}, Y = {1}", _view.Viewport.Height, _view.Viewport.Width);
 
                 if (CheckCamera(new Vector2f(0, 50)))
                 {
-                    //_view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
                     _y1 += 50;
                     _y2 += 50;
-                    //_upLeftViewCoordinates.Y += 50;
-                    //_downrightViewCoordinates.Y += 50;
                     _view.Move(new Vector2f(0, 50));
-                    _view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
                 }
-                //_window.SetView(_view);
             }
         }
 
         bool CheckCamera( Vector2f move)
         {
-            //float xMax = (float)_resolution.X * 0.9f;
-            //float yMax = (float)_resolution.Y * 0.95f;
-            //Vector2f x1y1 = new Vector2f(view.Center.X - view.Size.X / 2, view.Center.Y - view.Size.Y / 2);
-            //Vector2f x2y2 = new Vector2f(view.Center.X + view.Size.X / 2, view.Center.Y + view.Size.Y / 2);
-
             //x1y1
             if (_x1 + move.X < 0 || _y1 + move.Y < 0) return false;
             //x2y1
@@ -190,12 +111,6 @@ namespace ProjectStellar
             //x2y2 ne fonctionne pas
             else if (_x2 + move.X > _xMax || _y2 + move.Y > _yMax) return false;
             else return true;
-
-
-            //if (0 <= view.Viewport.Left + move.X && view.Viewport.Left + move.X <= xMax / 2)
-            //{
-            //    if (0 <= view.Viewport.Left + move.X)
-            //}
         }
 
         public void MouseWheel(object sender, MouseWheelEventArgs e)
@@ -205,14 +120,10 @@ namespace ProjectStellar
             if (delta < 0)
             {
                 _view.Zoom(1.06f);
-                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                //_window.SetView(_view);
             }
             else
             {
                 _view.Zoom(0.94f);
-                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                //_window.SetView(_view);
             }
         }
 
@@ -283,23 +194,14 @@ namespace ProjectStellar
                 {
                     Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
                 }
-
-                //for (int i = 0; i < list.Count; i++)
-                //{
-                //    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", list[i].Name, list[i].Population, list[i].Date);
-                //}
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
             {
                 _view.Zoom(1.06f);
-                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
             {
                 _view.Zoom(-1.06f);
-                //_view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
             }
         }
 

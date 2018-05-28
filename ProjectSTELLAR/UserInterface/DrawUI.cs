@@ -33,6 +33,7 @@ namespace ProjectStellar
             _buildingList = buildingList;
             _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager, experienceManager);
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution);
+            context._view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
         }
 
         public void RenderSprite
