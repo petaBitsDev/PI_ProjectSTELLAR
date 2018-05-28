@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        List<Building> _list;
 
         public HutType()
         {
