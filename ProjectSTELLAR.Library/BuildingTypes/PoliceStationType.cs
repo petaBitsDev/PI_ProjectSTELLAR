@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+<<<<<<< Updated upstream:ProjectSTELLAR.Library/Building/Types/PoliceStationType.cs
 namespace ProjectStellar
+=======
+namespace ProjectStellar.Library
+>>>>>>> Stashed changes:ProjectSTELLAR.Library/BuildingTypes/PoliceStationType.cs
 {
-    public class SpaceStationType : BuildingType
+    public class PoliceStationType : BuildingType
     {
         int _cost;
         int _coin;
@@ -19,18 +23,17 @@ namespace ProjectStellar
         int _nbPeople;
         List<Building> _list;
 
-
-        public SpaceStationType()
+        public PoliceStationType()
         {
-            _rock = 70;
-            _wood = 120;
-            _coin = 100;
-            _metal = 90;
-            _electricity = 70;
-            _water = 50;
-            _pollution = 25;
-            _nbPeople = 30;
-            _cost = 70;
+            _rock = 45;
+            _wood = 100;
+            _coin = 60;
+            _metal = 55;
+            _electricity = 25;
+            _water = 20;
+            _pollution = 15;
+            _nbPeople = 20;
+            _cost = 40;
         }
 
         public override int Rock => _rock;

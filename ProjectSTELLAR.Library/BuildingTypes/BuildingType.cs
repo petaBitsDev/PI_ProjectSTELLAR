@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     public abstract class BuildingType
     {
@@ -31,6 +31,7 @@ namespace ProjectStellar
         public abstract int Electricity { get; }
         public abstract int Pollution { get; }
         public abstract int NbPeople { get; }
+        public abstract List<Building> List { get; }
     }
 
 }

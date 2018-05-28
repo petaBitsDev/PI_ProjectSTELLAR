@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+<<<<<<< Updated upstream:ProjectSTELLAR.Library/Building/Types/WarehouseType.cs
 namespace ProjectStellar
+=======
+namespace ProjectStellar.Library
+>>>>>>> Stashed changes:ProjectSTELLAR.Library/BuildingTypes/WarehouseType.cs
 {
-    public class CityHallType : BuildingType
+    public class WarehouseType : BuildingType
     {
         int _cost;
         int _coin;
@@ -18,22 +22,18 @@ namespace ProjectStellar
         int _pollution;
         int _nbPeople;
         List<Building> _list;
-        Map _map;
 
-        public CityHallType()
-         
+        public WarehouseType()
         {
-            _rock = 100;
-            _wood = 150;
-            _coin = 80;
-            _metal = 50;
-            _electricity = 20;
-            _water = 20;
-            _pollution = 5;
-            _nbPeople = 50;
-            _cost = 200;
-            _map = map;
-
+            _rock = 15;
+            _wood = 30;
+            _coin = 10;
+            _metal = 5;
+            _electricity = 10;
+            _water = 0;
+            _pollution = 0;
+            _nbPeople = 5;
+            _cost = 0;
         }
 
         public override int Rock => _rock;
@@ -46,5 +46,6 @@ namespace ProjectStellar
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
         public override List<Building> List => _list;
+
     }
 }

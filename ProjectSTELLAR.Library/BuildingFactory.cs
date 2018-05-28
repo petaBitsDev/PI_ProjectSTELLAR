@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     public class BuildingFactory
     {
@@ -17,7 +17,7 @@ namespace ProjectStellar
             _resourcesManager = resourcesManager;
         }
 
-        public void CreateBuilding(int x , int y, Building building)
+        public void CreateBuilding(int x , int y, BuildingType building)
         {
             _ctx.AddBuilding(x, y);
             _resourcesManager.UpdateWhenCreate(building);
