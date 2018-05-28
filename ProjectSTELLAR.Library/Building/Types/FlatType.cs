@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    public class HutType : BuildingType
+    public class FlatType : BuildingType
     {
         int _cost;
         int _coin;
@@ -17,18 +17,19 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        List<Building> _list;
 
-        public HutType()
+        public FlatType()
         {
-            _rock = 25;
-            _wood = 50;
-            _coin = 15;
-            _metal = 0;
-            _electricity = 5;
-            _water = 5;
-            _pollution = 0;
-            _nbPeople = 5;
-            _cost = 20;
+            _rock = 75;
+            _wood = 100;
+            _coin = 55;
+            _metal = 40;
+            _electricity = 45;
+            _water = 60;
+            _pollution = 22;
+            _nbPeople = 100;
+            _cost = 80;
         }
 
         public override int Cost => _cost;
