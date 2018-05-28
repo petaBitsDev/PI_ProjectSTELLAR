@@ -29,6 +29,7 @@ namespace ProjectStellar
         bool test;
         Resolution _resolution;
         Sprite[,] _mapSprites;
+        internal Vector2f _x2y2;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution)
         {
@@ -40,6 +41,7 @@ namespace ProjectStellar
             _drawBuildings = new DrawBuildings(_gameCtx,ui, ctx);
             _ui = ui;
             _resolution = resolution;
+            _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
         }
 
         public Map MapContext

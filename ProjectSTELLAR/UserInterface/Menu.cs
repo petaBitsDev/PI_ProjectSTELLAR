@@ -8,48 +8,40 @@ namespace ProjectStellar
 {
     class Menu
     {
-        readonly Sprite[] _menu = new Sprite[2];
+        readonly Sprite[] _menu = new Sprite[3];
         static Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         static Sprite _backgroundSprite;
         private int _selectedIndex = -1;
         private bool _hovering;
         Font font = new Font("./resources/fonts/arial.ttf");
         Game _ctx;
+        View _view;
 
-        public Menu(float width, float height, Game ctx)
+        public Menu(float width, float height, Game ctx, View view)
         {
-            //Text menu1 = new Text
-            //{
-            //    Font = font,
-            //    Color = Color.White,
-            //    DisplayedString = "Play Game",
-            //    Position = new Vector2f(width / 2, height / (3 + 1) * 1)
-            //};
-            //menu[0] = menu1;
-
-            //Text menu2 = new Text
-            //{
-            //    Font = font,
-            //    Color = Color.White,
-            //    DisplayedString = "Exit Game",
-            //    Position = new Vector2f(width / 2, height / (3 + 1) * 2)
-            //};
-            //menu[1] = menu2;
             _ctx = ctx;
+            _view = view;
 
             Sprite button1 = new Sprite(_ctx._menuTextures[0])
             {
-                Position = new Vector2f((width / 7) * 2, height / (3 + 1) * 1),
-                Scale = new Vector2f(0.7f, 0.7f),
+                Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y * 1/3 - 40),
+                Scale = new Vector2f(0.5f, 0.5f),
             };
             _menu[0] = button1;
 
             Sprite button2 = new Sprite(_ctx._menuTextures[1])
             {
-                Position = new Vector2f((width / 7) * 2, height / (3 + 1) * 2.5f),
-                Scale = new Vector2f(0.7f, 0.7f),
+                Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y / 2),
+                Scale = new Vector2f(0.5f, 0.5f),
             };
             _menu[1] = button2;
+
+            Sprite button3 = new Sprite(_ctx._menuTextures[2])
+            {
+                Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y * 2/3 + 40),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menu[2] = button3;
         }
 
         public int SelectedItem
@@ -59,7 +51,7 @@ namespace ProjectStellar
 
         public void Draw(RenderWindow window)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 window.Draw(_menu[i]);
             }
@@ -68,12 +60,12 @@ namespace ProjectStellar
         public void CheckMouse(RenderWindow window)
         {
             _hovering = false;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     // Ici 2 est le nombre de cases avant d'arriver à la seconde texture du bouton
-                    _menu[i].Texture = _ctx._menuTextures[i + 2];
+                    _menu[i].Texture = _ctx._menuTextures[i + 3];
                     _selectedIndex = i;
                     _hovering = true;
                 }
@@ -87,8 +79,9 @@ namespace ProjectStellar
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    if (_selectedIndex == 0) _ctx.MenuState = 1 ; //launch game
-                    else if (_selectedIndex == 1) window.Close();
+                    if (_selectedIndex == 0) _ctx.MenuState = 1; //launch game
+                    else if (_selectedIndex == 1) _ctx.MenuState = 2;
+                    else if (_selectedIndex == 2) window.Close();
                 }
             }
         }
