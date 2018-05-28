@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
 
-    class SawMill : SawmillType
+    class SawMill : Building
     {
         float _x;
         float _y;

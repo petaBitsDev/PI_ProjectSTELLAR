@@ -9,14 +9,19 @@ namespace ProjectStellar
     class Building 
     {
         BuildingType _buildingType;
-        float _x;
-        float _y;
+        int _x;
+        int _y;
         List<Building> _instanceBuilding = new List<Building>();
-        public Building(BuildingType buildingType, float x, float y)
-        {
-            _buildingType = buildingType;
-            _x = x;
-            _y = y;
-        }
+    
+
+        public int X => _x;
+        public int Y => _y;
+        public BuildingType Type => _buildingType;
+        public List<Building> InstanceBuilding => _instanceBuilding;
+
+        //public BuildingType Hospital
+        //{
+        //    get {  _instanceBuilding.Contains<Hospital> }
+        //}
     }
 }

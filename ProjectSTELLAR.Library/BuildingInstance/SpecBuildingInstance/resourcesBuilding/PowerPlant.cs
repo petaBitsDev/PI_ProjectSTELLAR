@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    class PowerPlant : PowerPlantType
+    class PowerPlant : Building
     {
         float _x;
         float _y;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 { 
-    class Warehouse : WarehouseType
+    class Warehouse : Building
     {
 
     float _x;

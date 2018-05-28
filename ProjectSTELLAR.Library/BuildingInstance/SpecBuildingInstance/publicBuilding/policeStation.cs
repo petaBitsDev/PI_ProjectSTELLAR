@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 { 
-    class PoliceStation : PoliceStationType
+    class PoliceStation : Building
     {
     float _x;
     float _y;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 { 
-    class FireStation : FireStationType
+    class FireStation : Building
     {
 
     float _x;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar
 {
-    class MetalMine : MetalMineType
+    class MetalMine : Building
     {
         float _x;
         float _y;
