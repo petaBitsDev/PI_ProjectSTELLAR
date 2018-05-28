@@ -13,9 +13,10 @@ namespace ProjectStellar.Library
             
         }
 
-        public abstract void DeleteInstance(int x, int y);
-        
-        public abstract int Count();
+        public void DeleteInstance(int x, int y)
+        {
+
+        }
 
         public abstract int Cost { get; }
         public abstract int Coin { get; }
@@ -24,6 +25,7 @@ namespace ProjectStellar.Library
         public abstract int Metal { get; }
         public abstract int Water { get; }
         public abstract int Electricity { get; }
+        public abstract int Pollution { get; }
         public abstract int NbPeople { get; }
         public abstract List<Building> List { get; }
     }

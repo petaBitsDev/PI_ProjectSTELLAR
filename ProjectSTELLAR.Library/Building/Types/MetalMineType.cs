@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    public class HutType : BuildingType
+    public class MetalMineType : BuildingType
     {
         int _cost;
         int _coin;
@@ -17,18 +17,18 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
-        List <Building> _list;
+        List<Building> _list;
 
-        public HutType()
+        public MetalMineType()
         {
-            _rock = 25;
-            _wood = 50;
-            _coin = 15;
+            _rock = 15;
+            _wood = 15;
+            _coin = 25;
             _metal = 0;
-            _electricity = 5;
-            _water = 5;
-            _pollution = 0;
-            _nbPeople = 5;
+            _electricity = 10;
+            _water = 10;
+            _pollution = 20;
+            _nbPeople = 15;
             _cost = 20;
         }
 
