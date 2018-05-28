@@ -12,9 +12,6 @@ namespace ProjectStellar.Library
         {
             map.AddBuilding(x, y);
             resources.UpdateWhenCreate(this);
-            
-
- 
         }
 
         //public void DeleteInstance(int x, int y)

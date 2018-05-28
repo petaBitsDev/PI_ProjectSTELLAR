@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
     public class Map
@@ -38,17 +38,13 @@ namespace ProjectStellar
             set => _boxes = value;
         }
 
-        public void AddBuilding(int x, int y)
+        public void AddBuilding(int x, int y, Building building)
         {
             if(CheckBuilding(x,y) == false)
             {
-                _boxes[x, y] = _chosenBuilding;
-                _chosenBuilding = null;
+                _boxes[x, y] = building;
             }
-            else
-            {
-                _chosenBuilding = null;
-            }
+            _chosenBuilding = null;
         }
 
         public void RemoveBuilding(int x, int y)

@@ -10,7 +10,7 @@ namespace ProjectStellar.Library
     {
     int _x;
     int _y;
-    public CityHall()
+    public CityHall(int x, int y)
         {
         _x = x;
         _y = y;
