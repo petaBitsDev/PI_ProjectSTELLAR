@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class PowerPlant : Building
+    public class PowerPlant : BuildingType
     {
         int _electricityProduction;
         public PowerPlant(Map ctx, int electricityProduction)

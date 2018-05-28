@@ -47,9 +47,9 @@ namespace ProjectStellar
 
         }
 
-        static List<Building> _listBuilding = new List<Building>();
+        static List<BuildingType> _listBuilding = new List<BuildingType>();
 
-        public List<Building> ListBuilding
+        public List<BuildingType> ListBuilding
         {
             get
             {
@@ -79,7 +79,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach(Building b in _listBuilding)
+                foreach(BuildingType b in _listBuilding)
                 {
                     if (b is MetalMine metalMine) return metalMine;
                 }
@@ -91,7 +91,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is OreMine oreMine) return oreMine ;
                 }
@@ -103,7 +103,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is Sawmill sawmill) return sawmill;
                 }
@@ -115,7 +115,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is CityHall cityHall) return cityHall;
                 }
@@ -127,7 +127,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is FireStation fireStation) return fireStation;
                 }
@@ -139,7 +139,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is Hospital hospital) return hospital;
                 }
@@ -151,7 +151,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is PoliceStation policeStation) return policeStation;
                 }
@@ -163,7 +163,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is PowerPlant powerPlant) return powerPlant;
                 }
@@ -175,7 +175,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is PumpingStation pumpingStation) return pumpingStation;
                 }
@@ -187,7 +187,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is SpaceStation spaceStation) return spaceStation;
                 }
@@ -199,7 +199,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is Warehouse warehouse) return warehouse;
                 }
@@ -211,7 +211,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is Flat flat ) return flat;
                 }
@@ -223,7 +223,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is House house) return house;
                 }
@@ -235,7 +235,7 @@ namespace ProjectStellar
         {
             get
             {
-                foreach (Building b in _listBuilding)
+                foreach (BuildingType b in _listBuilding)
                 {
                     if (b is Hut hut) return hut;
                 }

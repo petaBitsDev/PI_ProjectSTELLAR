@@ -16,7 +16,7 @@ namespace ProjectStellar
         UI _ui;
         private CityHelper _listBuilding;
         Map _map;
-        Building building;
+        BuildingType building;
 
 
         public DrawBuildings(Game ctx, UI ui, Map map)

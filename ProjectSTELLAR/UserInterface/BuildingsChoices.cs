@@ -10,9 +10,9 @@ namespace ProjectStellar
     class BuildingChoice
     {
         Sprite _sprite;
-        Building _building;
+        BuildingType _building;
 
-        public BuildingChoice(Sprite sprite, Building building)
+        public BuildingChoice(Sprite sprite, BuildingType building)
         {
             _sprite = sprite;
             _building = building;
@@ -20,6 +20,6 @@ namespace ProjectStellar
 
         public Sprite Sprite => _sprite;
 
-        public Building Building => _building;
+        public BuildingType Building => _building;
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class MetalMine : Building
+    public class MetalMine : BuildingType
     {
         int _metalProdution;
         public MetalMine(Map ctx, int metalProduction)

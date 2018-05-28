@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class OreMine : Building
+    public class OreMine : BuildingType
     {
         int _rockProduction;
         public OreMine(Map ctx, int rockProduction)

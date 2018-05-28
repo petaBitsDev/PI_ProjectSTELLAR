@@ -48,7 +48,6 @@ namespace ProjectStellar
             else
             {
                 _chosenBuilding = null;
-                //throw new ArgumentException("You can't build a building if the box isn't empty");
             }
         }
 

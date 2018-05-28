@@ -20,9 +20,9 @@ namespace ProjectStellar
         uint _width;
         uint _height;
         GameTime _gameTime;
-        List<Building> _buildingList;
+        List<BuildingType> _buildingList;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<Building> buildingList, ExperienceManager experienceManager)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<BuildingType> buildingList, ExperienceManager experienceManager)
         {
             _gameCtx = context;
             _mapCtx = ctx;

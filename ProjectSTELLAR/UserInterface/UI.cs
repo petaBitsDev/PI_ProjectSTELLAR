@@ -23,7 +23,7 @@ namespace ProjectStellar
         uint _boxSize = 32;
         private bool _buildSelected;
         private bool _destroySelected;
-        Dictionary<Sprite, Building> _chosenBuildings;
+        Dictionary<Sprite, BuildingType> _chosenBuildings;
         private bool _tab1Selected;
         private bool _tab2Selected;
         private bool _tab3Selected;
@@ -68,14 +68,14 @@ namespace ProjectStellar
         private RectangleShape _expBarFilled;
 
         private BuildingChoice[] _buildingChoices;
-        private List<Building> _buildingList;
+        private List<BuildingType> _buildingList;
         private ResourcesManager _resourcesManager;
         private ExperienceManager _experienceManager;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<Building> buildingList, ResourcesManager resourcesManager, ExperienceManager experienceManager)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<BuildingType> buildingList, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _sprites = new List<Sprite>();
-            _chosenBuildings = new Dictionary<Sprite, Building>();
+            _chosenBuildings = new Dictionary<Sprite, BuildingType>();
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
@@ -538,7 +538,7 @@ namespace ProjectStellar
                 hut.Color = Color.White;
                 hut.CharacterSize = 18;
                 
-                _chosenBuildings.TryGetValue(_hutSprite, out Building building);
+                _chosenBuildings.TryGetValue(_hutSprite, out BuildingType building);
 
                 if(building != null)
                 {
@@ -578,7 +578,7 @@ namespace ProjectStellar
                 house.Color = Color.White;
                 house.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_houseSprite, out Building building);
+                _chosenBuildings.TryGetValue(_houseSprite, out BuildingType building);
                 if(building != null)
                 {
                     Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
@@ -616,7 +616,7 @@ namespace ProjectStellar
                 flat.Color = Color.White;
                 flat.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_flatSprite, out Building building);
+                _chosenBuildings.TryGetValue(_flatSprite, out BuildingType building);
 
                 if (building != null)
                 {
@@ -656,7 +656,7 @@ namespace ProjectStellar
                 cityHall.Color = Color.White;
                 cityHall.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_cityHall, out Building building);
+                _chosenBuildings.TryGetValue(_cityHall, out BuildingType building);
 
                 if(building != null)
                 {
@@ -696,7 +696,7 @@ namespace ProjectStellar
                 fireStation.Color = Color.White;
                 fireStation.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_fireStation, out Building building);
+                _chosenBuildings.TryGetValue(_fireStation, out BuildingType building);
 
                 if(building != null)
                 {
@@ -736,7 +736,7 @@ namespace ProjectStellar
                 hospital.Color = Color.White;
                 hospital.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_hospital, out Building building);
+                _chosenBuildings.TryGetValue(_hospital, out BuildingType building);
 
                 if(building != null)
                 {
@@ -776,7 +776,7 @@ namespace ProjectStellar
                 police.Color = Color.White;
                 police.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_police, out Building building);
+                _chosenBuildings.TryGetValue(_police, out BuildingType building);
 
                 if(building != null)
                 {
@@ -816,7 +816,7 @@ namespace ProjectStellar
                 spaceStation.Color = Color.White;
                 spaceStation.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_spaceStation, out Building building);
+                _chosenBuildings.TryGetValue(_spaceStation, out BuildingType building);
 
                 if(building != null)
                 {
@@ -856,7 +856,7 @@ namespace ProjectStellar
                 warehouse.Color = Color.White;
                 warehouse.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_warehouse, out Building building);
+                _chosenBuildings.TryGetValue(_warehouse, out BuildingType building);
 
                 if(building != null)
                 {
@@ -896,7 +896,7 @@ namespace ProjectStellar
                 sawMill.Color = Color.White;
                 sawMill.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_sawMill, out Building building);
+                _chosenBuildings.TryGetValue(_sawMill, out BuildingType building);
 
                 if(building != null)
                 {
@@ -936,7 +936,7 @@ namespace ProjectStellar
                 oreMine.Color = Color.White;
                 oreMine.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_oreMine, out Building building);
+                _chosenBuildings.TryGetValue(_oreMine, out BuildingType building);
 
                 if(building != null)
                 {
@@ -977,7 +977,7 @@ namespace ProjectStellar
                 metalMine.Color = Color.White;
                 metalMine.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_metalMine, out Building building);
+                _chosenBuildings.TryGetValue(_metalMine, out BuildingType building);
 
                 if(building != null)
                 {
@@ -1017,7 +1017,7 @@ namespace ProjectStellar
                 powerPlant.Color = Color.White;
                 powerPlant.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_powerPlant, out Building building);
+                _chosenBuildings.TryGetValue(_powerPlant, out BuildingType building);
 
                 if(building != null)
                 {
@@ -1057,7 +1057,7 @@ namespace ProjectStellar
                 pumpingStation.Color = Color.White;
                 pumpingStation.CharacterSize = 18;
 
-                _chosenBuildings.TryGetValue(_pumpingStation, out Building building);
+                _chosenBuildings.TryGetValue(_pumpingStation, out BuildingType building);
 
                 if(building != null)
                 {
@@ -1262,7 +1262,7 @@ namespace ProjectStellar
         //}
         //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
 
-        internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
+        internal void DrawBuildingInformations(RenderWindow window, Font font, BuildingType building, float X, float Y)
         {
             //RectangleShape rec = new RectangleShape();
             //rec.OutlineColor = new Color(Color.Black);
@@ -1355,7 +1355,7 @@ namespace ProjectStellar
             {
                 if (_sprites[i].GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
                 {
-                    _chosenBuildings.TryGetValue(_sprites[i], out Building building);
+                    _chosenBuildings.TryGetValue(_sprites[i], out BuildingType building);
                     if (!resources.CheckResourcesNeeded(building)) return false;
                     _mapCtx.ChosenBuilding = building;
                     //Console.WriteLine(type);

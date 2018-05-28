@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class House : Building
+    public class House : BuildingType
     {
         public House(Map ctx)
             :base(ctx, 40, 75, 40, 15, 20, 25, 10, 25, false, 45, 20)

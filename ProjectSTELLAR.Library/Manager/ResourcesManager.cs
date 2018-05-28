@@ -70,7 +70,7 @@ namespace ProjectStellar
             }
         }
 
-        public void UpdateWhenCreate(Building building)
+        public void UpdateWhenCreate(BuildingType building)
         {
             _nbResources["wood"] -= building.WoodNeeded;
             _nbResources["rock"] -= building.RockNeeded;
@@ -78,7 +78,7 @@ namespace ProjectStellar
             _nbResources["coins"] -= building.StellarCoinNeeded;
         }
 
-        public bool CheckResourcesNeeded(Building building)
+        public bool CheckResourcesNeeded(BuildingType building)
         {
             if (_nbResources["wood"] - building.WoodNeeded < 0) return false;
             else if (_nbResources["rock"] - building.RockNeeded < 0) return false;

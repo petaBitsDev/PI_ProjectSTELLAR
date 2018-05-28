@@ -12,7 +12,7 @@ namespace ProjectStellar
       public void create_building()
       {
           Map map = new Map(12,15);
-          Building sut = new Hut(map);
+          BuildingType sut = new Hut(map);
         
           Assert.That(sut.RockNeeded, Is.EqualTo(25));
           Assert.That(sut.WoodNeeded, Is.EqualTo(50));
@@ -30,13 +30,13 @@ namespace ProjectStellar
       public void check_if_destroy_a_building_if_it_exits_work_well()
       {
           Map map = new Map(12, 15);
-          Building sut = new Hut(map);
+          BuildingType sut = new Hut(map);
 
           sut.IsBuild = false;
 
         //  Assert.Throws<ArgumentException>(() => sut.Destroy());
 
-          Building sut1 = new Hut(map);
+          BuildingType sut1 = new Hut(map);
       
           Assert.That(sut1.IsBuild, Is.True);
           //sut1.Destroy();

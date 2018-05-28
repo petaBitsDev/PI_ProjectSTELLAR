@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class PumpingStation : Building
+    public class PumpingStation : BuildingType
     {
         int _waterProduction;
         public PumpingStation(Map ctx, int waterProduction)

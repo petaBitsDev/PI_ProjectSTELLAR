@@ -89,7 +89,7 @@ namespace ProjectStellar
             }
         }
         
-        public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
+        public void DrawMapTile(RenderWindow window, BuildingType[,] boxes, Font font)
         {
             _mapSprites = new Sprite[Height, Width];
 
@@ -127,7 +127,7 @@ namespace ProjectStellar
             set { test = value; }
         }
 
-        public Building ContainsBuilding(int X, int Y)
+        public BuildingType ContainsBuilding(int X, int Y)
         {
 
             int a = (int)X;

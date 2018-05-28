@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class PoliceStation : Building
+    public class PoliceStation : BuildingType
     {
         public PoliceStation(Map ctx)
             : base(ctx, 45, 100, 60, 55, 25, 20, 15, 20, true, 40, 90)

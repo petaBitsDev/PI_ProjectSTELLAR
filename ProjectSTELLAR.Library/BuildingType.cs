@@ -47,11 +47,9 @@ namespace ProjectStellar
 
         public int RockNeeded => _rockNeeded;
 
-
         public int WoodNeeded => _woodNeeded;
 
         public int MetalNeeded => _metalNeeded;
-
 
         public int StellarCoinNeeded => _stellarCoinNeeded;
 
@@ -71,17 +69,5 @@ namespace ProjectStellar
 
         protected Map Context => _ctx;
         public bool CostMoney => _costMoney;
-
-
-
-        //public void Destroy()
-        //{
-        //    if (!_isBuild) throw new ArgumentException("You can't destroy a building that haven't been built", nameof(_isBuild));
-        //    _isBuild = false;
-        //}
-
     }
-
-    
-     
 }

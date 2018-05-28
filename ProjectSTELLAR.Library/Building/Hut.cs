@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class Hut : Building
+    public class Hut : BuildingType
     {
             
         public  Hut(Map ctx)

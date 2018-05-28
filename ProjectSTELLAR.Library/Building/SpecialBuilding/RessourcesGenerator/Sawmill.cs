@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar
 {
     [Serializable]
-    public class Sawmill : Building
+    public class Sawmill : BuildingType
     {
 
         int _woodProduction;
