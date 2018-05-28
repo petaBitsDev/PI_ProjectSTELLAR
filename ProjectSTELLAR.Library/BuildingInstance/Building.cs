@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.Library
+namespace ProjectStellar.Library
 {
     public abstract class Building
     {

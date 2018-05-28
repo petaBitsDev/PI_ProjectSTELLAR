@@ -4,11 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-<<<<<<< Updated upstream:ProjectSTELLAR.Library/Building/Types/PowerPlantType.cs
-namespace ProjectStellar
-=======
 namespace ProjectStellar.Library
->>>>>>> Stashed changes:ProjectSTELLAR.Library/BuildingTypes/PowerPlantType.cs
 {
     public class PowerPlantType : BuildingType
     {

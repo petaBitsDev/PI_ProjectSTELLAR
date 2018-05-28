@@ -4,11 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-<<<<<<< Updated upstream:ProjectSTELLAR.Library/Building/Types/CityHallType.cs
-namespace ProjectStellar
-=======
 namespace ProjectStellar.Library
->>>>>>> Stashed changes:ProjectSTELLAR.Library/BuildingTypes/CityHallType.cs
 {
     public class CityHallType : BuildingType
     {
@@ -36,8 +32,6 @@ namespace ProjectStellar.Library
             _pollution = 5;
             _nbPeople = 50;
             _cost = 200;
-            _map = map;
-
         }
 
         public override int Rock => _rock;

@@ -4,13 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-<<<<<<< Updated upstream:ProjectSTELLAR.Library/Building/Types/HospitalType.cs
-namespace ProjectStellar
-{ 
-=======
 namespace ProjectStellar.Library
 {
->>>>>>> Stashed changes:ProjectSTELLAR.Library/BuildingTypes/HospitalType.cs
     public class HospitalType : BuildingType
     {
         int _cost;

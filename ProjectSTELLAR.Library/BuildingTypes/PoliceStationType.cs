@@ -4,11 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-<<<<<<< Updated upstream:ProjectSTELLAR.Library/Building/Types/PoliceStationType.cs
-namespace ProjectStellar
-=======
 namespace ProjectStellar.Library
->>>>>>> Stashed changes:ProjectSTELLAR.Library/BuildingTypes/PoliceStationType.cs
 {
     public class PoliceStationType : BuildingType
     {
