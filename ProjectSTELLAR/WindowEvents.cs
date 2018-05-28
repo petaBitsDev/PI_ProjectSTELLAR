@@ -20,6 +20,12 @@ namespace ProjectStellar
         Resolution _resolution;
         View _view;
         Font _font;
+        float _x1;
+        float _x2;
+        float _y1;
+        float _y2;
+        float _xMax;
+        float _yMax;
 
         public WindowEvents(RenderWindow Window, Game Game, Resolution resolution, View view)
         {
@@ -28,138 +34,115 @@ namespace ProjectStellar
             _font = _ctx._font;
             _resolution = resolution;
             _view = view;
+            _x1 = 0;
+            _y1 = 0;
+            _x2 = _resolution.X * 0.9f;
+            _y2 = resolution.Y * 0.95f;
         }
 
         public void WindowClosed(object sender, EventArgs e)
         {
             _window.Close();
         }
+        
+        public void MouseMoved(object sender, EventArgs e)
+        {
+            if (_ctx.MenuState == 1)
+            {
+                _xMax = _mapUI._x2y2.X;
+                _yMax = _mapUI._x2y2.Y;
+            }
+
+            int posX = Mouse.GetPosition(_window).X;
+            int posY = Mouse.GetPosition(_window).Y;
+
+            // Right side
+            if (posX == (_resolution.X - 1))
+            {
+                if (CheckCamera(new Vector2f(50, 0)))
+                {
+                    _x1 += 50;
+                    _x2 += 50;
+                    _view.Move(new Vector2f(50, 0));
+                }
+            }
+            // Left side
+            else if (posX == 0)
+            {
+                if (CheckCamera(new Vector2f(-50, 0)))
+                {
+                    _x1 += -50;
+                    _x2 += -50;
+                    _view.Move(new Vector2f(-50, 0));
+                }
+            }
+            // Up side
+            else if (posY == 0)
+            {
+                if (CheckCamera(new Vector2f(0, -50)))
+                {
+                    _y1 += -50;
+                    _y2 += -50;
+                    _view.Move(new Vector2f(0, -50));
+                }
+            }
+            // Bottom side
+            else if (posY == (_resolution.Y - 1))
+            {
+                Console.WriteLine("X = {0}, Y = {1}", _view.Viewport.Height, _view.Viewport.Width);
+
+                if (CheckCamera(new Vector2f(0, 50)))
+                {
+                    _y1 += 50;
+                    _y2 += 50;
+                    _view.Move(new Vector2f(0, 50));
+                }
+            }
+        }
+
+        bool CheckCamera( Vector2f move)
+        {
+            //x1y1
+            if (_x1 + move.X < 0 || _y1 + move.Y < 0) return false;
+            //x2y1
+            else if (_x2 + move.X > _xMax || _y1 + move.Y < 0) return false;
+            //x1y2 ne fonctionne pas
+            else if (_x1 + move.X < 0 || _y2 + move.Y > _yMax) return false;
+            //x2y2 ne fonctionne pas
+            else if (_x2 + move.X > _xMax || _y2 + move.Y > _yMax) return false;
+            else return true;
+        }
+
+        public void MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            float delta;
+            delta = e.Delta;
+            if (delta < 0)
+            {
+                _view.Zoom(1.06f);
+            }
+            else
+            {
+                _view.Zoom(0.94f);
+            }
+        }
 
         public void MouseClicked(object sender, EventArgs e)
         {
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-
-                CheckClic((float)Mouse.GetPosition(_window).X, (float)Mouse.GetPosition(_window).Y);
+                Vector2i pixelPos = Mouse.GetPosition(_window);
+                Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
+                CheckClic(worldPos.X, worldPos.Y);
             }
-        }
-        
-        public void MouseMoved(object sender, EventArgs e)
-        {
-            int posX = Mouse.GetPosition(_window).X;
-            int posY = Mouse.GetPosition(_window).Y;
-            Vector2f currentCenter = _view.Center;
-
-            if (posX == (_resolution.X - 1))
-            {
-                for(int i = 0; i < 20; i++)
-                {
-                    for(int j = 0; j < 20; j++)
-                    {
-                        if (_ctx._drawUI.MapUI.MapSprites[j, 20].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
-                _view.Center = new Vector2f(currentCenter.X + 50, currentCenter.Y);
-                _view.Move(new Vector2f(50, 0));
-                _window.SetView(_view);
-            }
-            else if (posX == 0)
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (_mapUI.MapSprites[j, 0].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
-
-                _view.Center = new Vector2f(currentCenter.X - 50, currentCenter.Y);
-                _view.Move(new Vector2f(-50, 0));
-                _window.SetView(_view);
-            }
-            else if (posY == 0)
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (_mapUI.MapSprites[0, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
-
-                _view.Center = new Vector2f(currentCenter.X, currentCenter.Y - 50);
-                _view.Move(new Vector2f(0, -50));
-                _window.SetView(_view);
-            }
-            else if (posY == (_resolution.Y - 1))
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (_mapUI.MapSprites[20, i].GetGlobalBounds().Contains(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y))
-                        {
-                            _view.Center = new Vector2f(currentCenter.X, currentCenter.Y);
-                            _window.SetView(_view);
-                        }
-                    }
-                }
-
-                _view.Center = new Vector2f(currentCenter.X, currentCenter.Y + 50);
-                _view.Move(new Vector2f(0, 50));
-                _window.SetView(_view);
-            }
-        }
-
-        public void OnKeyPressed(object sender, EventArgs e)
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
-            {
-                _view.Zoom(0.94f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
-            {
-                _view.Zoom(1.06f);
-                _view.Center = new Vector2f(_view.Size.X / 2, _view.Size.Y / 2);
-                _window.SetView(_view);
-            }
-        }
-
-        public void MouseWheel(object sender, EventArgs e)
-        {
-            //int delta;
-            //delta = e.Delta;
-
-            //if(delta < 0)
-            //{
-            //_window.SetView(new View(new Vector2f(), new Vector2f()));
-            //}
-            //else
-            //{
-            //    _window.SetView(new View(new Vector2f(), new Vector2f()));
-            //}
         }
 
         public void CheckClic(float x, float y)
         {
             if (_ctx.MenuState != 0)
             {
-                if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
-                else if (CheckUI(x, y, _ctx.GameTime)) Console.WriteLine("ui");
+                if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
+                else if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
             }
         }
 
@@ -181,12 +164,13 @@ namespace ProjectStellar
         public bool CheckUI(float x, float y, GameTime gameTime)
         {
             if (_ui.CheckTimeBar(x, y, gameTime)) return true;
-            else if (_ui.CheckBuildingToBuild(x, y, _ctx._resourcesManager)) return true;
+            else if (_ui.CheckBuildingToBuild(_window, _ctx._resourcesManager)) return true;
             else if (_ui.CheckBuildSelected(_window)) return true;
             else if (_ui.CheckDestroySelected(_window)) return true;
             else return false;
         }
 
+        public View CurrentView => _view;
         public void KeyPressed(object sender, EventArgs e)
         {
 
@@ -210,12 +194,17 @@ namespace ProjectStellar
                 {
                     Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
                 }
-
-                //for (int i = 0; i < list.Count; i++)
-                //{
-                //    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", list[i].Name, list[i].Population, list[i].Date);
-                //}
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
+            {
+                _view.Zoom(1.06f);
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
+            {
+                _view.Zoom(-1.06f);
             }
         }
+
+        internal View View => _view;
     }
 }
