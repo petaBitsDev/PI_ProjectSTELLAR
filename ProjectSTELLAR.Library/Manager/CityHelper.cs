@@ -24,6 +24,7 @@ namespace ProjectStellar.Library
         HouseType house;
         HutType hut;
         Map _map;
+
         public CityHelper(Map map)
         {
             _map = map;
@@ -132,3 +133,4 @@ namespace ProjectStellar.Library
             get { return cityHall; }
         }
     }
+}
