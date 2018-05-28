@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.Building.Types
+namespace ProjectStellar.Library
 {
     public class PowerPlantType : BuildingType
     {
