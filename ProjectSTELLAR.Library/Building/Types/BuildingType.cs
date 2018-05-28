@@ -27,7 +27,6 @@ namespace ProjectStellar.Library
         public abstract int Electricity { get; }
         public abstract int Pollution { get; }
         public abstract int NbPeople { get; }
-        public abstract int Pollution { get; }
     }
 
 }
