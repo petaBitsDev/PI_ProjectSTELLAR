@@ -17,7 +17,7 @@ namespace ProjectStellar
         int _electricity;
         int _pollution;
         int _nbPeople;
-        List<Building> _list;
+        public List<Building> _list = new List<Building>();
 
         public HospitalType()
         {
@@ -32,7 +32,7 @@ namespace ProjectStellar
             _cost = 30;
         }
 
-        public override int Rock => _rock;
+       // public override int Rock => _rock;
         public override int Wood => _wood;
         public override int Coin => _coin;
         public override int Metal => _metal;
@@ -41,7 +41,7 @@ namespace ProjectStellar
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
-        public override List<Building> List => _list;
+        public List<Building> List => _list;
 
     }
 }
