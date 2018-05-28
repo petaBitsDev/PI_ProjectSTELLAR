@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    class Hut : HutType
+    class Hut : Building
     {
 
     float _x;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 {
 
-    class Hospital : HospitalType
+    class Hospital : Building
 
     {
         float _x;

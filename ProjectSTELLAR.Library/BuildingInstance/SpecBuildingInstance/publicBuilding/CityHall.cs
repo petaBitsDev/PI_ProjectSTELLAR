@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    class CityHall : CityHallType
+    class CityHall : Building
     {
-    float _x;
-    float _y;
-    public CityHall(float x, float y)
+    int _x;
+    int _y;
+    public CityHall()
         {
         _x = x;
         _y = y;

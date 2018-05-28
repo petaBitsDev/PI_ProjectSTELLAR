@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    class Flat : FlatType
+    class Flat : Building
     {
         float _x;
         float _y;
