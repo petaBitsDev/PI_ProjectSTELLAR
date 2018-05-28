@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.BuildingInstance
+namespace ProjectStellar
 {
     class Building 
     {
         BuildingType _buildingType;
         float _x;
         float _y;
+        List<Building> _instanceBuilding = new List<Building>();
         public Building(BuildingType buildingType, float x, float y)
         {
             _buildingType = buildingType;
