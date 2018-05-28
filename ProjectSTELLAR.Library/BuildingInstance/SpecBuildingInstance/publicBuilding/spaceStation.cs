@@ -8,10 +8,13 @@ namespace ProjectStellar
 {
     class spaceStation : spaceStationType
     {
-        public spaceStation()
+        float _x;
+        float _y;
+        public spaceStation(float x, float y)
             :base()
         {
-
+            _x = x;
+            _y = y;
         }
     }
 }

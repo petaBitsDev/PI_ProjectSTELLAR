@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 namespace ProjectStellar
     class House : HouseType
     {
-        public House()
+
+    float _x;
+    float _y;
+        public House(float x, float y)
             : base()
         {
-
+        _x = x;
+        _y = y;
         }
     }
 }

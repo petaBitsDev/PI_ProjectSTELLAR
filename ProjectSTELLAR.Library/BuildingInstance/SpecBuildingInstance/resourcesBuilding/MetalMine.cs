@@ -4,9 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.resourcesBuilding
+namespace ProjectStellar
 {
-    class MetalMine
+    class MetalMine : MetalMineType
     {
+        float _x;
+        float _y;
+
+        public MetalMine(float x, float y)
+            : base()
+        {
+            _x = x;
+            _y = y;
+        }
     }
 }

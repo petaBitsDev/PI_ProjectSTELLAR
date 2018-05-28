@@ -4,9 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.publicBuilding
+namespace ProjectStellar
 {
-    class Hospital
+
+    class Hospital : HospitalType
+
     {
+        float _x;
+        float _y;
+        public Hospital(float x, float y)
+            : base()
+        {
+            _x = x;
+            _y = y;
+        }
     }
 }

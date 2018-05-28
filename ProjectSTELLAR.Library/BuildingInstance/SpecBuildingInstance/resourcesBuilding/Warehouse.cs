@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 namespace ProjectStellar
     class Warehouse : WarehouseType
     {
-        public Warehouse()
+
+    float _x;
+    float _y; 
+        public Warehouse(float x, float y)
             : base()
         {
-
+        _x = x;
+        _y = y;
         }
     }
 }

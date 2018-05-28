@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 namespace ProjectStellar
     class CityHall : CityHallType
     {
-    public CityHall()
+    float _x;
+    float _y;
+    public CityHall(float x, float y)
         : base()
         {
-
+        _x = x;
+        _y = y;
         }
     }
 }

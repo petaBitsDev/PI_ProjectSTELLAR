@@ -4,9 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.resourcesBuilding
+namespace ProjectStellar
 {
-    class OreMine
+
+    class OreMine : OreMineType
     {
+        float _x;
+        float _y;
+        public OreMine(float x, float y)
+            :base()
+        {
+            _x = x;
+            _y = y;
+        }
     }
 }

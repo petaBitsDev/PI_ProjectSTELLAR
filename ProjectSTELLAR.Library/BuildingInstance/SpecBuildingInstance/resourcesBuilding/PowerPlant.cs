@@ -8,10 +8,13 @@ namespace ProjectStellar
 {
     class PowerPlant : PowerPlantType
     {
-        public PowerPlant()
+        float _x;
+        float _y;
+        public PowerPlant(float x, float y )
             :base()
         {
-
+            _x = x;
+            _y = y;
         }
     }
 }

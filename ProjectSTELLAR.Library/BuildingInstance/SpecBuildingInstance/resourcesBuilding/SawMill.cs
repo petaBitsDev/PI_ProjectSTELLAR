@@ -9,7 +9,9 @@ namespace ProjectStellar
 
     class SawMill : SawMillType
     {
-        public SawMill()
+        float _x;
+        float _y;
+        public SawMill(float x, float y)
             : base()
         {
 

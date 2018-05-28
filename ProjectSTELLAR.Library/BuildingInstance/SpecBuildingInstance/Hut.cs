@@ -4,9 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance
-{
-    class Hut
+namespace ProjectStellar
+    class Hut : HutType
     {
+
+    float _x;
+    float _y;
+        public Hut(float x, float y)
+            : base()
+        {
+        _x = x;
+        _y = y;
+        }
     }
 }

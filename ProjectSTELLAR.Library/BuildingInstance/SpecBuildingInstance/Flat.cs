@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 namespace ProjectStellar
     class Flat : FlatType
     {
-        public Flat()
+        float _x;
+        float _y;
+        public Flat(float x, float y)
             : base()
         {
-
+        _x = x;
+        _y = y;
         }
     }
 }
