@@ -52,5 +52,7 @@ namespace ProjectStellar.Library
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override List<Building> List => _list;
+
+        internal int NbSawMill => this.List.Count;
     }
 }

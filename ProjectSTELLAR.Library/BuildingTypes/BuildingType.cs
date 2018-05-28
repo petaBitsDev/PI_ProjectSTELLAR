@@ -8,6 +8,8 @@ namespace ProjectStellar.Library
 {
     public abstract class BuildingType
     {
+
+
         public virtual void CreateInstance(int x, int y, ResourcesManager resources, Map map)
         {
             //map.AddBuilding(x, y);
@@ -30,6 +32,7 @@ namespace ProjectStellar.Library
         public abstract int Pollution { get; }
         public abstract int NbPeople { get; }
         public abstract List<Building> List { get; }
+        
     }
 
 }

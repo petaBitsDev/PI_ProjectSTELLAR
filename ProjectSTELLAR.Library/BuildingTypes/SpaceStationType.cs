@@ -54,5 +54,8 @@ namespace ProjectStellar.Library
         public override int Cost => _cost;
         public override List<Building> List => _list;
 
+        internal int NbSpaceStation => this.List.Count;
+      
+
     }
 }

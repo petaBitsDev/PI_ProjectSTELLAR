@@ -53,5 +53,7 @@ using System.Threading.Tasks;
         public override int Cost => _cost;
         public override List<Building> List => _list;
 
+        internal int NbPumpingStation => this.List.Count;
+
     }
 }
