@@ -20,17 +20,27 @@ using System.Threading.Tasks;
             List<Building> _list;
 
         public PumpingStationType()
-            {
-                _rock = 25;
-                _wood = 38;
-                _coin = 25;
-                _metal = 30;
-                _electricity = 30;
-                _water = 0;
-                _pollution = 15;
-                _nbPeople = 15;
-                _cost = 12;
-            }
+        {
+            _rock = 25;
+            _wood = 38;
+            _coin = 25;
+            _metal = 30;
+            _electricity = 30;
+            _water = 0;
+            _pollution = 15;
+            _nbPeople = 15;
+            _cost = 12;
+        }
+
+        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
+
+            resources.UpdateWhenCreate(this);
+            Building building = new PumpingStation(x, y);
+            map.AddBuilding(x, y, building);
+            _list.Add(building);
+        }
 
         public override int Rock => _rock;
         public override int Wood => _wood;

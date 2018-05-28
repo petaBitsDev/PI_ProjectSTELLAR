@@ -32,6 +32,16 @@ namespace ProjectStellar.Library
             _cost = 0;
         }
 
+        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
+
+            resources.UpdateWhenCreate(this);
+            Building building = new OreMine(x, y);
+            map.AddBuilding(x, y, building);
+            _list.Add(building);
+        }
+
         public override int Cost => _cost;
         public override int Coin => _coin;
         public override int Wood => _wood;

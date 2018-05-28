@@ -9,7 +9,7 @@ namespace ProjectStellar.Library
     [Serializable]
     public class Map
     {
-      //  public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
+        //public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
         int _height;
         int _width;
         Building _chosenBuilding;
