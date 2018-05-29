@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
     public class Map
@@ -12,7 +12,7 @@ namespace ProjectStellar
         public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
         int _height;
         int _width;
-        Building _chosenBuilding;
+        BuildingType _chosenBuilding;
         public Building[,] _boxes;
 
         public Map (int width, int height)
@@ -26,7 +26,7 @@ namespace ProjectStellar
 
         public int Height => _height;
 
-        public Building ChosenBuilding
+        public BuildingType ChosenBuilding
         {
             get { return _chosenBuilding; }
             set { _chosenBuilding = value; }
@@ -38,18 +38,29 @@ namespace ProjectStellar
             set => _boxes = value;
         }
 
-        public void AddBuilding(int x, int y)
+        public void AddBuilding(int x, int y, Building building)
         {
             if(CheckBuilding(x,y) == false)
             {
-                _boxes[x, y] = _chosenBuilding;
-                _chosenBuilding = null;
+                if(building.Size == 1) _boxes[x, y] = building;
+                else if (building.Size == 4)
+                {
+                    _boxes[x, y] = building;
+                    _boxes[x + 1, y] = building;
+                    _boxes[x, y + 1] = building;
+                    _boxes[x + 1, y + 1] = building;
+                }
+                else if (building.Size == 6)
+                {
+                    //_boxes[x, y] = building;
+                    //_boxes[x + 1, y] = building;
+                    //_boxes[x, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                }
             }
-            else
-            {
-                _chosenBuilding = null;
-                //throw new ArgumentException("You can't build a building if the box isn't empty");
-            }
+            _chosenBuilding = null;
         }
 
         public void RemoveBuilding(int x, int y)

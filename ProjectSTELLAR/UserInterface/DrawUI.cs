@@ -20,9 +20,9 @@ namespace ProjectStellar
         uint _width;
         uint _height;
         GameTime _gameTime;
-        List<Building> _buildingList;
+        List<BuildingType> _buildingList;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<Building> buildingList, ExperienceManager experienceManager)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<BuildingType> buildingList, ExperienceManager experienceManager)
         {
             _gameCtx = context;
             _mapCtx = ctx;
@@ -32,7 +32,8 @@ namespace ProjectStellar
             _gameTime = gameTime;
             _buildingList = buildingList;
             _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager, experienceManager);
-            _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution);
+            _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution, _resourcesCtx);
+            context._view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
         }
 
         public void RenderSprite
@@ -45,13 +46,16 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
+            window.SetView(_gameCtx._windowEvents.View);
             _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
-         //   _mapUI.DrawGrid(window);
-            _ui.DrawBuildButton(window, font);
-            _ui.DrawDestroyButton(window);
+            //   _mapUI.DrawGrid(window);
+            window.SetView(window.DefaultView);
             _ui.DrawResourcesBar(window, font, resources.NbResources);
             _ui.DrawTimeBar(window, gameTime, font);
+            _ui.DrawDestroyButton(window);
+            _ui.DrawBuildButton(window, font);
             _ui.DrawExperience(window);
+            _ui.DrawInGameMenu(window, font);
         }
 
         public MapUI MapUI => _mapUI;

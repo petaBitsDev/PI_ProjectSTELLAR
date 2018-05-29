@@ -29,8 +29,11 @@ namespace ProjectStellar
         bool test;
         Resolution _resolution;
         Sprite[,] _mapSprites;
+        internal Vector2f _x2y2;
+        ResourcesManager _resourcesManager;
+        Building _building;
 
-        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution)
+        public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
             _gameCtx = context;
             _ctx = ctx;
@@ -40,6 +43,8 @@ namespace ProjectStellar
             _drawBuildings = new DrawBuildings(_gameCtx,ui, ctx);
             _ui = ui;
             _resolution = resolution;
+            _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
+            _resourcesManager = resourcesManager;
         }
 
         public Map MapContext
@@ -109,11 +114,8 @@ namespace ProjectStellar
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
-                    
                         Type type = boxes[i, j].GetType();
-                     
                         _drawBuildings.Draw(type, window, j, i, font);
-                        
                     }
                 }
             }
@@ -127,7 +129,6 @@ namespace ProjectStellar
 
         public Building ContainsBuilding(int X, int Y)
         {
-
             int a = (int)X;
             int b = (int)Y;
            
@@ -138,10 +139,8 @@ namespace ProjectStellar
             }
             else
             {
-            BuildingExist = false;
-
-            return null;
-
+                BuildingExist = false;
+                return null;
             }
         }
 
@@ -151,23 +150,21 @@ namespace ProjectStellar
             Console.WriteLine("x = {0}, y = {1}", X, Y);
             for (int i = 0; i < _cases.Length; i++)
             {
-                ContainsBuilding(_cases[i].X, _cases[i].Y);
+                _building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
                 if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
-                        _gameCtx._buildingFactory.CreateBuilding(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding);
+                        _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         _ctx.ChosenBuilding = null;
                     }
                     else if (_ui.DestroySelected)
                     {
-                        _ctx.RemoveBuilding(_cases[i].X, _cases[i].Y);
+                        _ctx.ChosenBuilding.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, _building);
                         _ui.DestroySelected = false;
                     }
-
-                  
                     return true;
                 }
             }
