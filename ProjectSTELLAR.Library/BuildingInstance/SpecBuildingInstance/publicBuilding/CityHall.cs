@@ -8,12 +8,15 @@ namespace ProjectStellar.Library
 { 
     class CityHall : Building
     {
-    int _x;
-    int _y;
-    public CityHall(int x, int y)
+        int _x;
+        int _y;
+        int _size;
+
+        public CityHall(int x, int y)
         {
-        _x = x;
-        _y = y;
+            _x = x;
+            _y = y;
+            _size = 6;
         }
     }
 }

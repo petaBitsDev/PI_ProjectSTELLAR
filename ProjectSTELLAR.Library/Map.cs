@@ -42,7 +42,23 @@ namespace ProjectStellar.Library
         {
             if(CheckBuilding(x,y) == false)
             {
-                _boxes[x, y] = building;
+                if(building.Size == 1) _boxes[x, y] = building;
+                else if (building.Size == 4)
+                {
+                    _boxes[x, y] = building;
+                    _boxes[x + 1, y] = building;
+                    _boxes[x, y + 1] = building;
+                    _boxes[x + 1, y + 1] = building;
+                }
+                else if (building.Size == 6)
+                {
+                    //_boxes[x, y] = building;
+                    //_boxes[x + 1, y] = building;
+                    //_boxes[x, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                }
             }
             _chosenBuilding = null;
         }

@@ -8,14 +8,16 @@ namespace ProjectStellar.Library
 {
     class MetalMine : Building
     {
-        float _x;
-        float _y;
+        int _x;
+        int _y;
+        int _size;
 
-        public MetalMine(float x, float y)
+        public MetalMine(int x, int y)
             : base()
         {
             _x = x;
             _y = y;
+            _size = 4;
         }
     }
 }

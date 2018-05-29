@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library
+namespace ProjectStellar.Library
 { 
     class House : Building
     {
 
-    float _x;
-    float _y;
-        public House(float x, float y)
+        int _x;
+        int _y;
+        int _size;
+
+        public House(int x, int y)
             : base()
         {
-        _x = x;
-        _y = y;
+            _x = x;
+            _y = y;
+            _size = 1;
         }
     }
 }

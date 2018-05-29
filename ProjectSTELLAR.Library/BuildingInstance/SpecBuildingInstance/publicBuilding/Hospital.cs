@@ -10,13 +10,16 @@ namespace ProjectStellar.Library
     class Hospital : Building
 
     {
-        float _x;
-        float _y;
-        public Hospital(float x, float y)
+        int _x;
+        int _y;
+        int _size;
+
+        public Hospital(int x, int y)
             : base()
         {
             _x = x;
             _y = y;
+            _size = 6;
         }
     }
 }

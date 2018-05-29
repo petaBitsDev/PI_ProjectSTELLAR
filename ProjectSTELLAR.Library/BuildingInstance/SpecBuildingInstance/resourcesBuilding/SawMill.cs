@@ -9,12 +9,15 @@ namespace ProjectStellar.Library
 
     class SawMill : Building
     {
-        float _x;
-        float _y;
-        public SawMill(float x, float y)
-            
-        {
+        int _x;
+        int _y;
+        int _size;
 
+        public SawMill(int x, int y)
+        {
+            _x = x;
+            _y = y;
+            _size = 4;
         }
     }
 }

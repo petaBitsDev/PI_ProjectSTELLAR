@@ -8,14 +8,16 @@ namespace ProjectStellar.Library
 { 
     class FireStation : Building
     {
+        int _x;
+        int _y;
+        int _size;
 
-    float _x;
-    float _y;
-        public FireStation(float x, float y)
+        public FireStation(int x, int y)
             : base()
         {
-        _x = x;
-        _y = y;
+            _x = x;
+            _y = y;
+            _size = 4;
         }
     }
 }

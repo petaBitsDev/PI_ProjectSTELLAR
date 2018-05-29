@@ -8,13 +8,16 @@ namespace ProjectStellar.Library
 { 
     class PoliceStation : Building
     {
-    float _x;
-    float _y;
-        public policeStation(float x, float y)
+        int _x;
+        int _y;
+        int _size;
+
+        public PoliceStation(int x, int y)
             : base()
         {
-        _x = x;
-        _y = y;
+            _x = x;
+            _y = y;
+            _size = 4;
         }
     }
 }

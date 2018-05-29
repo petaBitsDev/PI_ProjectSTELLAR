@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 { 
     class PumpingStation : Building
-    {
-    float _x;
-    float _y;
+    { 
+        int _x;
+        int _y;
+        int _size;
 
-    public PumpingStation(float x, float y)
-        : base()
-    {
-        _x = x;
-        _y = y;
-    }
+        public PumpingStation(int x, int y)
+            : base()
+        {
+            _x = x;
+            _y = y;
+            _size = 4;
+        }
     }
 }
