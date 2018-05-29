@@ -8,17 +8,8 @@ namespace ProjectStellar.Library
 { 
     class Hut : Building
     {
-
-        int _x;
-        int _y;
-        int _size;
-
-        public Hut(int x, int y)
-            : base()
+        public Hut(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 1;
         }
     }
 }

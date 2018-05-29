@@ -8,18 +8,9 @@ namespace ProjectStellar.Library
 {
 
     class Hospital : Building
-
     {
-        int _x;
-        int _y;
-        int _size;
-
-        public Hospital(int x, int y)
-            : base()
+        public Hospital(BuildingType type, int x, int y): base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 6;
         }
     }
 }

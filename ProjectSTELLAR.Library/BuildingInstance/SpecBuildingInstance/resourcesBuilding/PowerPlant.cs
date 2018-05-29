@@ -8,16 +8,8 @@ namespace ProjectStellar.Library
 {
     class PowerPlant : Building
     {
-        int _x;
-        int _y;
-        int _size;
-
-        public PowerPlant(int x, int y )
-            :base()
+        public PowerPlant(BuildingType type, int x, int y ) : base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 4;
         }
     }
 }

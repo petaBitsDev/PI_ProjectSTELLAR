@@ -19,6 +19,7 @@ namespace ProjectStellar.Library
         int _nbPeople;
         string _type;
         public List<Building> _list = new List<Building>();
+        int _size;
 
         public HospitalType()
         {
@@ -32,6 +33,7 @@ namespace ProjectStellar.Library
             _nbPeople = 25;
             _cost = -30;
             _type = "public";
+            _size = 6;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -39,7 +41,7 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new Hospital(x, y);
+            Building building = new Hospital(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -55,8 +57,6 @@ namespace ProjectStellar.Library
         public override int Cost => _cost;
         public override string Type => _type;
         public override List<Building> List => _list;
-
-  
-
+        public override int Size => _size;
     }
 }

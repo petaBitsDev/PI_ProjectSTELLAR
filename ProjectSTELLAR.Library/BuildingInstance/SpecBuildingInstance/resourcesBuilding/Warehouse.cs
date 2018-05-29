@@ -8,16 +8,8 @@ namespace ProjectStellar.Library
 { 
     class Warehouse : Building
     {
-        int _x;
-        int _y;
-        int _size;
-
-        public Warehouse(int x, int y)
-            : base()
+        public Warehouse(BuildingType type, int x, int y) : base(type, x , y)
         {
-            _x = x;
-            _y = y;
-            _size = 4;
         }
     }
 }
