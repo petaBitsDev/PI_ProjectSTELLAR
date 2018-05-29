@@ -57,8 +57,6 @@ namespace ProjectStellar.Library
         public override int Cost => _cost;
         public override List<Building> List => _list;
         public override int Size => _size;
+        public override string Type => _type;
     }
 }
-
-        public override string Type => _type;
-        public override List<Building> List => _list;

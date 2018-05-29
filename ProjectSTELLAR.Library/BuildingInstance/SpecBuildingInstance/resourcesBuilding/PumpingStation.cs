@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 { 
     class PumpingStation : Building, IResourcesBuildings
-    {
+    {
         public PumpingStation(BuildingType type, int x, int y) : base(type, x, y)
         {
         }

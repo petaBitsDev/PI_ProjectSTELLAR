@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    {
-        public PoliceStation(BuildingType type, int x, int y) : base(type, x, y)
     class PoliceStation : Building, IPublicBuildings
+    {
+        public PoliceStation(BuildingType type, int x, int y) : base(type, x, y)
         {
         }
     }

@@ -46,7 +46,6 @@ namespace ProjectStellar.Library
             }
         }
 
-
         public bool CheckResourcesNeeded(BuildingType building)
         {
             if (_nbResources["wood"] - building.Wood < 0) return false;
@@ -55,6 +54,11 @@ namespace ProjectStellar.Library
             else if (_nbResources["coins"] - building.Coin < 0) return false;
 
             return true;
+        }
+
+        public void UpdateResources()
+        {
+
         }
     }
 }

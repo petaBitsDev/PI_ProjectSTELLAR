@@ -15,7 +15,6 @@ namespace ProjectStellar
         readonly Game _ctx;
         readonly Dictionary<Type, Texture> _textures = new Dictionary<Type, Texture>();
         UI _ui;
-        private CityHelper _listBuilding;
         Map _map;
         Building building;
 
@@ -40,8 +39,6 @@ namespace ProjectStellar
             _textures.Add(typeof(WarehouseType), _ctx._buildingsTextures[15]);
             _ui = ui;
             _map = map;
-            _listBuilding = new CityHelper(_map);
-
         }
 
         public void Draw (Type buildingType, RenderWindow window, int x, int y, Font font)

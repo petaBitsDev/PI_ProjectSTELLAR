@@ -11,7 +11,7 @@ namespace ProjectStellar
 {
     public class UI
     {
-        List<Sprite> _sprites;
+        Dictionary<Sprite, String> _sprites;
         CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
         Game _ctx;
         DrawUI _drawUIctx;
@@ -27,7 +27,7 @@ namespace ProjectStellar
         private bool _tab1Selected;
         private bool _tab2Selected;
         private bool _tab3Selected;
-        private int _buildingSelected;
+        private string _buildingSelected;
         bool _settingsSelected;
         bool _exitSelected;
 
@@ -348,7 +348,7 @@ namespace ProjectStellar
             nbMetal.Draw(window, RenderStates.Default);
 
             _electricitySprite.Draw(window, RenderStates.Default);
-            Text nbElec = new Text(_resourcesManager.ElectricityBalance.ToString(), font);
+            Text nbElec = new Text(resources["electricity"].ToString(), font);
             nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 8 + 2);
             nbElec.Color = Color.White;
             nbElec.CharacterSize = 16;
@@ -356,7 +356,7 @@ namespace ProjectStellar
             nbElec.Draw(window, RenderStates.Default);
 
             _waterSprite.Draw(window, RenderStates.Default);
-            Text nbWater = new Text(_resourcesManager.WaterBalance.ToString(), font);
+            Text nbWater = new Text(resources["water"].ToString(), font);
             nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 7 + 2);
             nbWater.Color = Color.White;
             nbWater.CharacterSize = 16;
@@ -1093,39 +1093,21 @@ namespace ProjectStellar
             
         private void DrawBuildingChoices(RenderWindow window, Font font)
         {
-            _sprites.Clear();
-            _chosenBuildings.Clear();
-
             if (IsTab1Active == true)
             {
                 _hutSprite.Draw(window, RenderStates.Default);
-                _sprites.Add(_hutSprite);
-                _chosenBuildings.Add(_hutSprite, _buildingList[13]);
-
-                if (_hutSprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-                {
-                    _buildingSelected = 1;
-                }
-                //_buildingChoices[j++] = new BuildingChoice(_hutSprite,);
-
+                _sprites.Add(_hutSprite, "HUT");
                 _houseSprite.Draw(window, RenderStates.Default);
-                _sprites.Add(_houseSprite);
-                _chosenBuildings.Add(_houseSprite, _buildingList[12]);
-                //_buildingChoices[j++] = _houseSprite;
-
-                if (_houseSprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-                {
-                    _buildingSelected = 2;
-                }
-
+                _sprites.Add(_houseSprite, "HOUSE");
                 _flatSprite.Draw(window, RenderStates.Default);
-                _sprites.Add(_flatSprite);
-                _chosenBuildings.Add(_flatSprite, _buildingList[11]);
-                //_buildingChoices[j++] = _flatSprite;
-
-                if (_flatSprite.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-                {
-                    _buildingSelected = 3;
+                _sprites.Add(_flatSprite, "FLAT");
+                
+                foreach(Sprite i in _sprites.Keys)
+                { 
+                    if(i.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _sprites.TryGetValue(i, out _buildingSelected);
+                    }
                 }
             }
             else if (IsTab2Active)
@@ -1290,7 +1272,6 @@ namespace ProjectStellar
 
                         nbWater.Draw(window, RenderStates.Default);
                         water.Draw(window, RenderStates.Default);
-                        
 
                         Text electricity = new Text("Electricity consomation : ", font);
                         electricity.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 4.9f));
@@ -1341,7 +1322,6 @@ namespace ProjectStellar
                             nbCharges.Draw(window, RenderStates.Default);
                             charges.Draw(window, RenderStates.Default);
                         }
-
                     }
                 }
             }

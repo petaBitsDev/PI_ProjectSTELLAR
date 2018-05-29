@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 {
     class Hospital : Building, IPublicBuildings
-
-    class Hospital : Building
-    {
+    {
         public Hospital(BuildingType type, int x, int y): base(type, x, y)
         {
         }
