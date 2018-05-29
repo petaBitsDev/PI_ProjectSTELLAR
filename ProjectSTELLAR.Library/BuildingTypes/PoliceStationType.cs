@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        string _type;
         List<Building> _list;
 
         public PoliceStationType()
@@ -29,7 +30,8 @@ namespace ProjectStellar.Library
             _water = 20;
             _pollution = 15;
             _nbPeople = 20;
-            _cost = 40;
+            _cost = -40;
+            _type = "public";
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -51,6 +53,7 @@ namespace ProjectStellar.Library
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
+        public override string Type => _type;
         public override List<Building> List => _list;
 
         internal int NbPoliceStation => this.List.Count;

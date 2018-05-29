@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        string _type;
         public List<Building> _list = new List<Building>();
 
         public HospitalType()
@@ -29,7 +30,8 @@ namespace ProjectStellar.Library
             _water = 60;
             _pollution = 15;
             _nbPeople = 25;
-            _cost = 30;
+            _cost = -30;
+            _type = "public";
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -42,7 +44,7 @@ namespace ProjectStellar.Library
             _list.Add(building);
         }
 
-       // public override int Rock => _rock;
+        public override int Rock => _rock;
         public override int Wood => _wood;
         public override int Coin => _coin;
         public override int Metal => _metal;
@@ -51,7 +53,8 @@ namespace ProjectStellar.Library
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
-        public List<Building> List => _list;
+        public override string Type => _type;
+        public override List<Building> List => _list;
 
         internal int NbHospital => this.List.Count;
 

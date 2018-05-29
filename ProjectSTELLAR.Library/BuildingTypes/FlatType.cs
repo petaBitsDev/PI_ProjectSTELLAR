@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        string _type;
         List<Building> _list;
 
         public FlatType()
@@ -30,6 +31,7 @@ namespace ProjectStellar.Library
             _pollution = 22;
             _nbPeople = 100;
             _cost = 80;
+            _type = "habitation";
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -51,6 +53,7 @@ namespace ProjectStellar.Library
         public override int Electricity => _electricity;
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
+        public override string Type => _type;
         public override List<Building> List => _list;
 
         internal int NbFlat => this.List.Count;
