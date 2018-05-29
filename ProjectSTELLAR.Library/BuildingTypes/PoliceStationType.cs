@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library
-{
+namespace ProjectStellar
     public class PoliceStationType : BuildingType
     {
         int _cost;
@@ -56,7 +55,7 @@ namespace ProjectStellar.Library
         public override string Type => _type;
         public override List<Building> List => _list;
 
-        internal int NbPoliceStation => this.List.Count;
+     
 
     }
 }

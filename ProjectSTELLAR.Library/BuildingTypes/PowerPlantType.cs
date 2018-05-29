@@ -53,9 +53,11 @@ namespace ProjectStellar.Library
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
-        public override string Type => _type;
         public override List<Building> List => _list;
 
-        internal int NbPowerPlant => this.List.Count;
+
     }
 }
+
+        public override string Type => _type;
+        public override List<Building> List => _list;
