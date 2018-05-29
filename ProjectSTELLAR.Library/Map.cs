@@ -9,10 +9,10 @@ namespace ProjectStellar.Library
     [Serializable]
     public class Map
     {
-        //public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
+        public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
         int _height;
         int _width;
-        Building _chosenBuilding;
+        BuildingType _chosenBuilding;
         public Building[,] _boxes;
 
         public Map (int width, int height)
@@ -26,7 +26,7 @@ namespace ProjectStellar.Library
 
         public int Height => _height;
 
-        public Building ChosenBuilding
+        public BuildingType ChosenBuilding
         {
             get { return _chosenBuilding; }
             set { _chosenBuilding = value; }
@@ -42,7 +42,23 @@ namespace ProjectStellar.Library
         {
             if(CheckBuilding(x,y) == false)
             {
-                _boxes[x, y] = building;
+                if(building.Size == 1) _boxes[x, y] = building;
+                else if (building.Size == 4)
+                {
+                    _boxes[x, y] = building;
+                    _boxes[x + 1, y] = building;
+                    _boxes[x, y + 1] = building;
+                    _boxes[x + 1, y + 1] = building;
+                }
+                else if (building.Size == 6)
+                {
+                    //_boxes[x, y] = building;
+                    //_boxes[x + 1, y] = building;
+                    //_boxes[x, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                    //_boxes[x + 1, y + 1] = building;
+                }
             }
             _chosenBuilding = null;
         }

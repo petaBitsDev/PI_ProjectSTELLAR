@@ -11,8 +11,10 @@ namespace ProjectStellar.Library
         BuildingType _buildingType;
         int _x;
         int _y;
+        int _size;
         List<Building> _instanceBuilding = new List<Building>();
 
+        public int Size => _size;
         public int X => _x;
         public int Y => _y;
         public BuildingType Type => _buildingType;

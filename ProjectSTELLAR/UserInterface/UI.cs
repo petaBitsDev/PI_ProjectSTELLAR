@@ -274,7 +274,6 @@ namespace ProjectStellar
             _metalMine = new Sprite(_ctx._buildingsTextures[14])
             {
                 Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
-
             };
         }
 
@@ -544,22 +543,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -581,22 +580,22 @@ namespace ProjectStellar
                 _chosenBuildings.TryGetValue(_houseSprite, out BuildingType building);
                 if(building != null)
                 {
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -622,22 +621,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
                     
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -662,22 +661,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -702,22 +701,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -742,22 +741,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -782,22 +781,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -822,22 +821,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -862,22 +861,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -902,22 +901,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -942,22 +941,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -983,22 +982,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -1023,22 +1022,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -1063,22 +1062,22 @@ namespace ProjectStellar
                 {
                     window.Draw(rec);
 
-                    Text woodNeeds = new Text("Wood cost : " + building.WoodNeeded, font);
+                    Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
                     woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
                     woodNeeds.Color = Color.White;
                     woodNeeds.CharacterSize = 15;
 
-                    Text rockNeeds = new Text("Rock cost : " + building.RockNeeded, font);
+                    Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
                     rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
                     rockNeeds.CharacterSize = 15;
                     rockNeeds.Color = Color.White;
 
-                    Text metalNeeds = new Text("Metal cost : " + building.MetalNeeded, font);
+                    Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
                     metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
                     metalNeeds.CharacterSize = 15;
                     metalNeeds.Color = Color.White;
 
-                    Text coinNeeds = new Text("Coin cost : " + building.StellarCoinNeeded, font);
+                    Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
                     coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
                     coinNeeds.CharacterSize = 15;
                     coinNeeds.Color = Color.White;
@@ -1262,7 +1261,7 @@ namespace ProjectStellar
         //}
         //   internal void DrawBuildingNeeds(RenderWindow window, Font font,)
 
-        internal void DrawBuildingInformations(RenderWindow window, Font font, BuildingType building, float X, float Y)
+        internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
         {
             //RectangleShape rec = new RectangleShape();
             //rec.OutlineColor = new Color(Color.Black);
@@ -1283,7 +1282,7 @@ namespace ProjectStellar
                         water.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 5.9f));
                         water.CharacterSize = 17;
 
-                        Text nbWater = new Text(_buildingList[i].WaterConsume + "/H", font);
+                        Text nbWater = new Text(_buildingList[i].Water + "/H", font);
                         nbWater.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 5.35f));
                         nbWater.Color = new Color(52, 152, 219);
                         nbWater.CharacterSize = 14;
@@ -1298,7 +1297,7 @@ namespace ProjectStellar
                         electricity.Color = new Color(236, 193, 5);
                         electricity.CharacterSize = 17;
 
-                        Text nbElectricity = new Text(_buildingList[i].ElectricityConsume + "/H", font);
+                        Text nbElectricity = new Text(_buildingList[i].Electricity + "/H", font);
                         nbElectricity.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 4.35f));
                         nbElectricity.CharacterSize = 14;
                         nbElectricity.Color = new Color(236, 193, 5);
@@ -1307,7 +1306,7 @@ namespace ProjectStellar
                         nbElectricity.Draw(window, RenderStates.Default);
                         electricity.Draw(window, RenderStates.Default);
 
-                        if (_buildingList[i].CostMoney == true)
+                        if (_buildingList[i].Cost > 0)
                         {
                             _coinSprite.Draw(window, RenderStates.Default);
 
@@ -1316,7 +1315,7 @@ namespace ProjectStellar
                             charges.Color = new Color(203, 67, 53);
                             charges.CharacterSize = 17;
 
-                            Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
+                            Text nbCharges = new Text(_buildingList[i].Cost + "/H", font);
                             nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(203, 67, 53);
@@ -1333,7 +1332,7 @@ namespace ProjectStellar
                             charges.Color = new Color(68, 198, 14);
                             charges.CharacterSize = 17;
 
-                            Text nbCharges = new Text(_buildingList[i].MoneyWinOrLost + "/H", font);
+                            Text nbCharges = new Text(_buildingList[i].Cost + "/H", font);
                             nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(68, 198, 14);

@@ -8,13 +8,16 @@ namespace ProjectStellar.Library
 {
     class PowerPlant : Building
     {
-        float _x;
-        float _y;
-        public PowerPlant(float x, float y )
+        int _x;
+        int _y;
+        int _size;
+
+        public PowerPlant(int x, int y )
             :base()
         {
             _x = x;
             _y = y;
+            _size = 4;
         }
     }
 }

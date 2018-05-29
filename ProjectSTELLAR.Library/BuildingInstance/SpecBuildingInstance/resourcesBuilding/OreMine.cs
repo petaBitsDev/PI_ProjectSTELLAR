@@ -9,13 +9,16 @@ namespace ProjectStellar.Library
 
     class OreMine : Building
     {
-        float _x;
-        float _y;
-        public OreMine(float x, float y)
+        int _x;
+        int _y;
+        int _size;
+
+        public OreMine(int x, int y)
             :base()
         {
             _x = x;
             _y = y;
+            _size = 4;
         }
     }
 }

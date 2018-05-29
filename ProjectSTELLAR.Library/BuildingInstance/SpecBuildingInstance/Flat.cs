@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library
-{ 
+namespace ProjectStellar.Library
+{
     class Flat : Building
     {
-        float _x;
-        float _y;
-        public Flat(float x, float y)
+        int _x;
+        int _y;
+        int _size;
+
+        public Flat(int x, int y)
             : base()
         {
-        _x = x;
-        _y = y;
+            _x = x;
+            _y = y;
+            _size = 4;
         }
     }
 }
