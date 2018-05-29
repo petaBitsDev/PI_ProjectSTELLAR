@@ -12,8 +12,22 @@ namespace ProjectStellar.Library
     {
         static Map _ctx;
         Dictionary<string, int> _nbResources = new Dictionary<string, int>();
-        CityHelper c = new CityHelper(_ctx);
-
+       
+        //CityHelper c = new CityHelper(_ctx);
+        //SpaceStationType _spaceStation = new SpaceStationType();
+        //PumpingStationType _pumpingStation = new PumpingStationType();
+        //PowerPlantType _powerPlant = new PowerPlantType();
+        //PoliceStationType _policeStation = new PoliceStationType();
+        //HospitalType _hospital = new HospitalType();
+        //FireStationType _fireStation = new FireStationType();
+        //CityHallType _cityhall = new CityHallType();
+        //HutType _hut = new HutType();
+        //HouseType _house = new HouseType();
+        //FlatType _flat = new FlatType();
+        //OreMineType _oreMine = new OreMineType();
+        //SawmillType _sawMill = new SawmillType();
+        //MetalMineType _metaMine = new MetalMineType();
+        //WarehouseType _warehouse = new WarehouseType();
 
         public ResourcesManager(Map ctx)
         {
@@ -24,6 +38,10 @@ namespace ProjectStellar.Library
             _nbResources.Add("coins", 5000);
             _nbResources.Add("pollution", 0);
             _nbResources.Add("population", 0);
+            _nbResources.Add("electricity", 0);
+            _nbResources.Add("water", 0);
+            _nbResources.Add("cost", 0);
+
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
@@ -39,7 +57,7 @@ namespace ProjectStellar.Library
             else
             {
 
-                _nbResources["wood"] += (c.GetSawmill.WoodProduction * cityManager.NbSawMill) ;
+                _nbResources["wood"] += (_sawMill.w * cityManager.NbSawMill) ;
             }
 
             if (!_nbResources.ContainsKey("rock"))
@@ -76,7 +94,10 @@ namespace ProjectStellar.Library
             _nbResources["rock"] -= building.Rock;
             _nbResources["metal"] -= building.Metal;
             _nbResources["coins"] -= building.Coin;
+            _nbResources["pollution"] -= building.Pollution;
+            _nbResources
         }
+
 
         public bool CheckResourcesNeeded(BuildingType building)
         {
@@ -87,58 +108,58 @@ namespace ProjectStellar.Library
 
             return true;
         }
-        public int Electricity
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
+        //public int Electricity
+        //{
+        //    get
+        //    {
+        //        CityManager cityManager = new CityManager(_ctx);
 
-                return (c.GetPowerPlant.ElectricityProduction * cityManager.NbPowerPlant);
-            }
-        }
+        //        return (c.GetPowerPlant.ElectricityProduction * cityManager.NbPowerPlant);
+        //    }
+        //}
 
-        public int Water
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
-                return (c.GetPumpingStation.WaterProduction * cityManager.NbPumpingStation);
+        //public int Water
+        //{
+        //    get
+        //    {
+        //        CityManager cityManager = new CityManager(_ctx);
+        //        return (c.GetPumpingStation.WaterProduction * cityManager.NbPumpingStation);
 
-            }
-        }
+        //    }
+        //}
 
-        public int ElectricityConsume
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
-                return ((c.GetCityHall.ElectricityConsume * cityManager.NbCityHall) + (c.GetFireStation.ElectricityConsume * cityManager.NbFireStation) + (c.GetFlat.ElectricityConsume * cityManager.NbFlat) + (c.GetHospital.ElectricityConsume * cityManager.NbHospital) + (c.GetHouse.ElectricityConsume * cityManager.NbHouse) + (c.GetHut.ElectricityConsume * cityManager.NbHut) + (c.GetMetalMine.ElectricityConsume * cityManager.NbMetalMine) + (c.GetOreMine.ElectricityConsume * cityManager.NbOreMine) + (c.GetPoliceStation.ElectricityConsume * cityManager.NbPoliceStation) + (c.GetPowerPlant.ElectricityConsume * cityManager.NbPowerPlant) + (c.GetPumpingStation.ElectricityConsume * cityManager.NbPumpingStation) + (c.GetSawmill.ElectricityConsume * cityManager.NbSawMill) + (c.GetSpaceStation.ElectricityConsume * cityManager.NbSpaceStation) + (c.GetWareHouse.ElectricityConsume * cityManager.NbWarehouse));
-            }
-        }
+        //public int ElectricityConsume
+        //{
+        //    get
+        //    {
+        //        CityManager cityManager = new CityManager(_ctx);
+        //        return ((c.GetCityHall.ElectricityConsume * cityManager.NbCityHall) + (c.GetFireStation.ElectricityConsume * cityManager.NbFireStation) + (c.GetFlat.ElectricityConsume * cityManager.NbFlat) + (c.GetHospital.ElectricityConsume * cityManager.NbHospital) + (c.GetHouse.ElectricityConsume * cityManager.NbHouse) + (c.GetHut.ElectricityConsume * cityManager.NbHut) + (c.GetMetalMine.ElectricityConsume * cityManager.NbMetalMine) + (c.GetOreMine.ElectricityConsume * cityManager.NbOreMine) + (c.GetPoliceStation.ElectricityConsume * cityManager.NbPoliceStation) + (c.GetPowerPlant.ElectricityConsume * cityManager.NbPowerPlant) + (c.GetPumpingStation.ElectricityConsume * cityManager.NbPumpingStation) + (c.GetSawmill.ElectricityConsume * cityManager.NbSawMill) + (c.GetSpaceStation.ElectricityConsume * cityManager.NbSpaceStation) + (c.GetWareHouse.ElectricityConsume * cityManager.NbWarehouse));
+        //    }
+        //}
 
-        public int WaterConsume
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
-                return ((c.GetCityHall.WaterConsume * cityManager.NbCityHall) + (c.GetFireStation.WaterConsume * cityManager.NbFireStation) + (c.GetFlat.WaterConsume * cityManager.NbFlat) + (c.GetHospital.WaterConsume * cityManager.NbHospital) + (c.GetHouse.WaterConsume * cityManager.NbHouse) + (c.GetHut.WaterConsume * cityManager.NbHut) + (c.GetMetalMine.WaterConsume * cityManager.NbMetalMine) + (c.GetOreMine.WaterConsume * cityManager.NbOreMine) + (c.GetPoliceStation.WaterConsume * cityManager.NbPoliceStation) + (c.GetPowerPlant.WaterConsume * cityManager.NbPowerPlant) + (c.GetPumpingStation.WaterConsume * cityManager.NbPumpingStation) + (c.GetSawmill.WaterConsume * cityManager.NbSawMill) + (c.GetSpaceStation.WaterConsume * cityManager.NbSpaceStation) + (c.GetWareHouse.WaterConsume * cityManager.NbWarehouse));
-            }
-        }
+        //public int WaterConsume
+        //{
+        //    get
+        //    {
+        //        CityManager cityManager = new CityManager(_ctx);
+        //        return ((c.GetCityHall.WaterConsume * cityManager.NbCityHall) + (c.GetFireStation.WaterConsume * cityManager.NbFireStation) + (c.GetFlat.WaterConsume * cityManager.NbFlat) + (c.GetHospital.WaterConsume * cityManager.NbHospital) + (c.GetHouse.WaterConsume * cityManager.NbHouse) + (c.GetHut.WaterConsume * cityManager.NbHut) + (c.GetMetalMine.WaterConsume * cityManager.NbMetalMine) + (c.GetOreMine.WaterConsume * cityManager.NbOreMine) + (c.GetPoliceStation.WaterConsume * cityManager.NbPoliceStation) + (c.GetPowerPlant.WaterConsume * cityManager.NbPowerPlant) + (c.GetPumpingStation.WaterConsume * cityManager.NbPumpingStation) + (c.GetSawmill.WaterConsume * cityManager.NbSawMill) + (c.GetSpaceStation.WaterConsume * cityManager.NbSpaceStation) + (c.GetWareHouse.WaterConsume * cityManager.NbWarehouse));
+        //    }
+        //}
 
-        public int ElectricityBalance
-        {
-            get
-            {
-                return Electricity - ElectricityConsume;
-            }
-        }
+        //public int ElectricityBalance
+        //{
+        //    get
+        //    {
+        //        return Electricity - ElectricityConsume;
+        //    }
+        //}
 
-        public int WaterBalance
-        {
-            get
-            {
-                return Water - WaterConsume;
-            }
-        }
+        //public int WaterBalance
+        //{
+        //    get
+        //    {
+        //        return Water - WaterConsume;
+        //    }
+        //}
     }
 }

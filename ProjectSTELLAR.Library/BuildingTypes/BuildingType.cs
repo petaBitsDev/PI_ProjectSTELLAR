@@ -32,7 +32,8 @@ namespace ProjectStellar.Library
         public abstract int Pollution { get; }
         public abstract int NbPeople { get; }
         public abstract List<Building> List { get; }
-        
+
+        public int NbBuilding => List.Count; 
     }
 
 }

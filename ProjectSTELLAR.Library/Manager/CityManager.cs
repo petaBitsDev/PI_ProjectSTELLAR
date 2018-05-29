@@ -13,8 +13,22 @@ namespace ProjectStellar.Library
         int _totalPollution;
         int _totalTaxes ;
         static  Map _ctx;
-        
 
+
+        SpaceStationType _spaceStation = new SpaceStationType();
+        PumpingStationType _pumpingStation = new PumpingStationType();
+        PowerPlantType _powerPlant = new PowerPlantType();
+        PoliceStationType _policeStation = new PoliceStationType();
+        HospitalType _hospital = new HospitalType();
+        FireStationType _fireStation = new FireStationType();
+        CityHallType _cityhall = new CityHallType();
+        HutType _hut = new HutType();
+        HouseType _house = new HouseType();
+        FlatType _flat = new FlatType();
+        OreMineType _oreMine = new OreMineType();
+        SawmillType _sawMill = new SawmillType();
+        MetalMineType _metaMine = new MetalMineType();
+        WarehouseType _warehouse = new WarehouseType();
 
         public CityManager(Map ctx)
         {
@@ -32,146 +46,21 @@ namespace ProjectStellar.Library
         {
             get {
              
-                return _totalCharges = (_spaceStation.Cost * _spaceStation.NbSpaceStation) + (c.GetPumpingStation.MoneyWinOrLost * NbPumpingStation) + (c.GetPowerPlant.MoneyWinOrLost * NbPowerPlant) + (c.GetPoliceStation.MoneyWinOrLost * NbPoliceStation) + (c.GetHospital.MoneyWinOrLost * NbHospital) + (c.GetFireStation.MoneyWinOrLost * NbFireStation) + (c.GetCityHall.MoneyWinOrLost * NbCityHall); }
+                return _totalCharges = (_spaceStation.Cost * _spaceStation.NbSpaceStation) + (_pumpingStation.Cost * _pumpingStation.NbPumpingStation) + (_powerPlant.Cost * _powerPlant.NbPowerPlant) + (_policeStation.Cost * _policeStation.NbPoliceStation) + (_hospital.Cost * _hospital.NbHospital) + (_fireStation.Cost * _fireStation.NbFireStation) + (_cityhall.Cost * _cityhall.NbCityHall); }
         }
 
         public int CityTaxes
         {
-            get { return _totalTaxes = (c.GetHut.MoneyWinOrLost * NbHut) + (c.GetHouse.MoneyWinOrLost * NbHouse) + (c.GetFlat.MoneyWinOrLost * NbFlat);  }
+            get { return _totalTaxes = (_hut.Cost * _hut.NbHut) + (_house.Cost* _house.NbHouse) + (_flat.Cost * _flat.NbFlat);  }
         }
 
         public int CityPollution
         {
-            get { return _totalPollution = (c.GetHut.AirPollution * NbHut) + (c.GetHouse.AirPollution * NbHouse) + (c.GetFlat.AirPollution * NbFlat) + (c.GetSpaceStation.AirPollution * NbSpaceStation) + (c.GetPumpingStation.AirPollution * NbPumpingStation) + (c.GetPowerPlant.AirPollution * NbPowerPlant) + (c.GetPoliceStation.AirPollution * NbPoliceStation) + (c.GetHospital.AirPollution * NbHospital) + (c.GetFireStation.AirPollution * NbFireStation) + (c.GetMetalMine.AirPollution * NbMetalMine) + (c.GetOreMine.AirPollution * NbOreMine) + (c.GetSawmill.AirPollution * NbSawMill); }
+            get { return _totalPollution = (_hut.Pollution * _hut.NbHut) + (_house.Pollution * _house.NbHouse) + (_flat.Pollution* _flat.NbFlat) + (_spaceStation.Pollution * _spaceStation.NbSpaceStation) + (_pumpingStation.Pollution * _pumpingStation.NbPumpingStation) + (_powerPlant.Pollution * _powerPlant.NbPowerPlant) + (_policeStation.Pollution * _policeStation.NbPoliceStation) + (_hospital.Pollution * _hospital.NbHospital) + (_fireStation.Pollution * _fireStation.NbFireStation) + (_metaMine.Pollution * _metaMine.NbMetalMine) + (_oreMine.Pollution * _oreMine.NbOreMine) + (_sawMill.Pollution * _sawMill.NbSawMill); }
 
         }
 
-        internal int NbHut
-        {
-            get
-            {
-              
-                _ctx.NbBuilding.TryGetValue(c.GetHut, out int nbHut);
-                return nbHut;
-            }
-        }
-
-        internal int NbHouse
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetHouse, out int nbHouse);
-                return nbHouse;
-            }
-        }
-
-        internal int NbFlat
-        {
-            get {
-                _ctx.NbBuilding.TryGetValue(c.GetFlat, out int nbFlat);
-             
-                return nbFlat;
-                }
-      
-        }
-
-        internal int NbWarehouse
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetWareHouse, out int nbWarehouse);
-                return nbWarehouse;
-            }
-        }
-
-        internal int NbSpaceStation
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetSpaceStation, out int nbSpaceStation);
-                return nbSpaceStation;
-            }
-        }
-
-        internal int NbPumpingStation
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetPumpingStation, out int nbPumpingStation);
-                return nbPumpingStation;
-            }
-        }
-
-        internal int NbPowerPlant
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetPowerPlant, out int nbPowerPlant);
-                return nbPowerPlant;
-            }
-        }
-
-        internal int NbPoliceStation
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetPoliceStation, out int nbPoliceStation);
-                return nbPoliceStation;
-            }
-        }
-
-        internal int NbHospital
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetHospital, out int nbHospital);
-                return nbHospital;
-            }
-        }
-
-        internal int NbFireStation
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetFireStation, out int nbFireStation);
-                return nbFireStation;
-            }
-        }
-
-        internal int NbCityHall
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetCityHall, out int nbCityHall);
-                return nbCityHall;
-            }
-        }
-        internal  int NbMetalMine
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetMetalMine, out int nbMetalMine);
-                return nbMetalMine;
-            }
-        }
-
-        internal  int NbOreMine
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetOreMine, out int nbOreMine);
-                return nbOreMine;
-            }
-        }
-
-        internal  int NbSawMill
-        {
-            get
-            {
-                _ctx.NbBuilding.TryGetValue(c.GetSawmill, out int nbSawMill);
-                return nbSawMill;
-            }
-        }
+  
 
           
     }
