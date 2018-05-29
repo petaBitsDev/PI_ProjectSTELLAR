@@ -9,14 +9,22 @@ namespace ProjectStellar.Library
     public abstract class Building
     {
         BuildingType _buildingType;
-        int _x;
-        int _y;
+        readonly int _x;
+        readonly int _y;
         int _size;
         List<Building> _instanceBuilding = new List<Building>();
 
-        public int Size => _size;
+        public Building(BuildingType buildingType, int x, int y)
+        {
+            _x = x;
+            _y = y;
+            _buildingType = buildingType;
+            _size = buildingType.Size;
+        }
+
         public int X => _x;
         public int Y => _y;
         public BuildingType Type => _buildingType;
+        public int Size => _size;
     }
 }
