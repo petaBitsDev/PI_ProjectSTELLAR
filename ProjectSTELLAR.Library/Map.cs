@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
     public class Map
     {
-      //  public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
+        public Dictionary<Building, int> _nbBuilding = new Dictionary<Building, int>();
         int _height;
         int _width;
         BuildingType _chosenBuilding;
@@ -38,18 +38,13 @@ namespace ProjectStellar
             set => _boxes = value;
         }
 
-        public void AddBuilding(int x, int y)
+        public void AddBuilding(int x, int y, Building building)
         {
             if(CheckBuilding(x,y) == false)
             {
-                Building b = new Building(_chosenBuilding, (float)x, (float)y);
-                _boxes[x, y] = b;
-                _chosenBuilding = null;
+                _boxes[x, y] = building;
             }
-            else
-            {
-                _chosenBuilding = null;
-            }
+            _chosenBuilding = null;
         }
 
         public void RemoveBuilding(int x, int y)

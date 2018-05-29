@@ -8,19 +8,17 @@ namespace ProjectStellar.Library
 {
     public abstract class BuildingType
     {
-        public void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        public virtual void CreateInstance(int x, int y, ResourcesManager resources, Map map)
         {
-            map.AddBuilding(x, y);
-            resources.UpdateWhenCreate(this);
-            
-
- 
+            //map.AddBuilding(x, y);
+            //resources.UpdateWhenCreate(this);
         }
 
-        //public void DeleteInstance(int x, int y)
-        //{
-
-        //}
+        public virtual void DeleteInstance(int x, int y, Map map, Building building)
+        {
+            map.RemoveBuilding(x, y);
+            this.List.Remove(building);
+        }
 
         public abstract int Cost { get; }
         public abstract int Coin { get; }

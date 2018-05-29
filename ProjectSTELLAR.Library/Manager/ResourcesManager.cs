@@ -72,18 +72,18 @@ namespace ProjectStellar.Library
 
         public void UpdateWhenCreate(BuildingType building)
         {
-            _nbResources["wood"] -= building.WoodNeeded;
-            _nbResources["rock"] -= building.RockNeeded;
-            _nbResources["metal"] -= building.MetalNeeded;
-            _nbResources["coins"] -= building.StellarCoinNeeded;
+            _nbResources["wood"] -= building.Wood;
+            _nbResources["rock"] -= building.Rock;
+            _nbResources["metal"] -= building.Metal;
+            _nbResources["coins"] -= building.Coin;
         }
 
         public bool CheckResourcesNeeded(BuildingType building)
         {
-            if (_nbResources["wood"] - building.WoodNeeded < 0) return false;
-            else if (_nbResources["rock"] - building.RockNeeded < 0) return false;
-            else if (_nbResources["metal"] - building.MetalNeeded < 0) return false;
-            else if (_nbResources["coins"] - building.StellarCoinNeeded < 0) return false;
+            if (_nbResources["wood"] - building.Wood < 0) return false;
+            else if (_nbResources["rock"] - building.Rock < 0) return false;
+            else if (_nbResources["metal"] - building.Metal < 0) return false;
+            else if (_nbResources["coins"] - building.Coin < 0) return false;
 
             return true;
         }
