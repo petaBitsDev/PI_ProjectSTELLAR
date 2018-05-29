@@ -22,7 +22,6 @@ namespace ProjectStellar.Library
         Map _map;
 
         public CityHallType()
-         
         {
             _rock = 100;
             _wood = 150;

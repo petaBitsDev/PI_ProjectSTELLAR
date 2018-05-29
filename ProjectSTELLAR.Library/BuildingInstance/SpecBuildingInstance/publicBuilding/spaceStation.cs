@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class SpaceStation : Building
+    class SpaceStation : Building, IPublicBuildings
     {
         int _x;
         int _y;

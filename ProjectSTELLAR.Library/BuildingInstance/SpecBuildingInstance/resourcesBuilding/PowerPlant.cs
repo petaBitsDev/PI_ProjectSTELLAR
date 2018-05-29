@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class PowerPlant : Building
+    class PowerPlant : Building, IResourcesBuildings
     {
         int _x;
         int _y;

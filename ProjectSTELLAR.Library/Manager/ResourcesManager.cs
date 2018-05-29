@@ -25,7 +25,6 @@ namespace ProjectStellar.Library
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
-
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
@@ -40,6 +39,7 @@ namespace ProjectStellar.Library
             _nbResources["water"] -= building.Water;
             _nbResources["electricity"] -= building.Electricity;
             _nbResources["cost"] += building.Cost;
+
             if (building.Type == "habitation")
             {
                 _nbResources["nbPeople"] += building.NbPeople;

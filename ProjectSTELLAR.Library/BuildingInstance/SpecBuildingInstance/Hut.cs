@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    class Hut : Building
+    class Hut : Building, IResidences
     {
-
         int _x;
         int _y;
         int _size;

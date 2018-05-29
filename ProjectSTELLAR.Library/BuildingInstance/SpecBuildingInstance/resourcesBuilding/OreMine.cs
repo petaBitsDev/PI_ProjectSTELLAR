@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-
-    class OreMine : Building
+    class OreMine : Building, IResourcesBuildings
     {
         int _x;
         int _y;

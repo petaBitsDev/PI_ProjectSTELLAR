@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 {
 
-    class SawMill : Building
+    class SawMill : Building, IResourcesBuildings
     {
         int _x;
         int _y;

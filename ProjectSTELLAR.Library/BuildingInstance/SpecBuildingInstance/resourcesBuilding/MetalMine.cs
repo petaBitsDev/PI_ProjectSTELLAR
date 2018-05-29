@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class MetalMine : Building
+    class MetalMine : Building, IResourcesBuildings
     {
         int _x;
         int _y;
