@@ -21,7 +21,7 @@ namespace ProjectStellar.Library
             _nbResources.Add("metal", 150);
             _nbResources.Add("coins", 5000);
             _nbResources.Add("pollution", 0);
-            _nbResources.Add("population", 0);
+            _nbResources.Add("nbPeople", 0);
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
