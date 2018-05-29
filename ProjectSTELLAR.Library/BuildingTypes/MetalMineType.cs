@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        string _type;
         List<Building> _list;
 
         public MetalMineType()
@@ -29,7 +30,8 @@ namespace ProjectStellar.Library
             _water = 10;
             _pollution = 20;
             _nbPeople = 15;
-            _cost = 20;
+            _cost = 0;
+            _type = "resource";
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -51,8 +53,9 @@ namespace ProjectStellar.Library
         public override int Electricity => _electricity;
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
+        public override string Type => _type;
         public override List<Building> List => _list;
 
-        internal int NbMetalMine => this.List.Count;
+  
     }
 }
