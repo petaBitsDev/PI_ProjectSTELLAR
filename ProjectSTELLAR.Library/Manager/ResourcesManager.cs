@@ -44,6 +44,8 @@ namespace ProjectStellar.Library
             {
                 _nbResources["nbPeople"] += building.NbPeople;
             }
+
+            
         }
 
 

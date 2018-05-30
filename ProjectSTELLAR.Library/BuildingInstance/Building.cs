@@ -12,8 +12,11 @@ namespace ProjectStellar.Library
         int _x;
         int _y;
         int _size;
+      
         List<Building> _instanceBuilding = new List<Building>();
 
+
+        public abstract bool OnFire { get; set; }
         public int Size => _size;
         public int X => _x;
         public int Y => _y;

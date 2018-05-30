@@ -18,6 +18,7 @@ using System.Threading.Tasks;
             int _pollution;
             int _nbPeople;
             string _type;
+            int _waterProduction;
             List<Building> _list;
 
         public PumpingStationType()
@@ -32,6 +33,7 @@ using System.Threading.Tasks;
             _nbPeople = 15;
             _cost = -12;
             _type = "resource";
+            _waterProduction = 70;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -54,6 +56,8 @@ using System.Threading.Tasks;
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
         public override string Type => _type;
+
+        public int WaterProduction => _waterProduction;
         public override List<Building> List => _list;
 
     

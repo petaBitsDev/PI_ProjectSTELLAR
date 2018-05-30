@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        int _metalProduction;
         string _type;
         List<Building> _list;
 
@@ -31,6 +32,7 @@ namespace ProjectStellar.Library
             _pollution = 20;
             _nbPeople = 15;
             _cost = 0;
+            _metalProduction = 50;
             _type = "resource";
         }
 
@@ -54,6 +56,8 @@ namespace ProjectStellar.Library
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override string Type => _type;
+
+        public int MetalProduction => _metalProduction;
         public override List<Building> List => _list;
 
   
