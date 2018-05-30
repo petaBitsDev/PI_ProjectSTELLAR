@@ -6,20 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    public class FireStation : Building
+    class FireStation : Building, IPublicBuildings
     {
-        int _x;
-        int _y;
-        int _size;
-        int _nbTruck;
-        bool _onFire;
-
-        public FireStation(int x, int y)
-            : base()
+        public FireStation(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 4;
             _nbTruck = 1;
             _onFire = false;
         }

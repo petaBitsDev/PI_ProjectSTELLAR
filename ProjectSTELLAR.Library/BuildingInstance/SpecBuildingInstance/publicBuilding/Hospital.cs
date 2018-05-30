@@ -6,22 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-
-    class Hospital : Building
-
+    class Hospital : Building, IPublicBuildings
     {
-        int _x;
-        int _y;
-        int _size;
-        bool _onFire;
-
-        public Hospital(int x, int y)
-            : base()
+        public Hospital(BuildingType type, int x, int y): base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 6;
-            _onFire = false;
         }
 
         public override bool OnFire

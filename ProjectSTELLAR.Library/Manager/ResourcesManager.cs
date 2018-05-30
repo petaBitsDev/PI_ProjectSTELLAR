@@ -25,7 +25,6 @@ namespace ProjectStellar.Library
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
-
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
@@ -40,6 +39,7 @@ namespace ProjectStellar.Library
             _nbResources["water"] -= building.Water;
             _nbResources["electricity"] -= building.Electricity;
             _nbResources["cost"] += building.Cost;
+
             if (building.Type == "habitation")
             {
                 _nbResources["nbPeople"] += building.NbPeople;
@@ -47,7 +47,6 @@ namespace ProjectStellar.Library
 
             
         }
-
 
         public bool CheckResourcesNeeded(BuildingType building)
         {
@@ -57,6 +56,11 @@ namespace ProjectStellar.Library
             else if (_nbResources["coins"] - building.Coin < 0) return false;
 
             return true;
+        }
+
+        public void UpdateResources()
+        {
+
         }
     }
 }

@@ -6,18 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class MetalMine : Building
+    class MetalMine : Building, IResourcesBuildings
     {
-        int _x;
-        int _y;
-        int _size;
         bool _onFire;
-        public MetalMine(int x, int y)
-            : base()
+        public MetalMine(BuildingType type, int x, int y) : base(type, x , y)
         {
-            _x = x;
-            _y = y;
-            _size = 4;
             _onFire = false;
         }
 

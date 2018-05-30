@@ -20,6 +20,7 @@ namespace ProjectStellar.Library
         int _metalProduction;
         string _type;
         List<Building> _list;
+        int _size;
 
         public MetalMineType()
         {
@@ -34,6 +35,7 @@ namespace ProjectStellar.Library
             _cost = 0;
             _metalProduction = 50;
             _type = "resource";
+            _size = 4;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -41,7 +43,7 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new MetalMine(x, y);
+            Building building = new MetalMine(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -59,7 +61,6 @@ namespace ProjectStellar.Library
 
         public int MetalProduction => _metalProduction;
         public override List<Building> List => _list;
-
-  
+        public override int Size => _size;
     }
 }

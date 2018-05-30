@@ -25,11 +25,9 @@ namespace ProjectStellar
         Resolution _resolution;
         internal Font _font;
         internal Map _map;
-        public BuildingFactory _buildingFactory;
         public DrawUI _drawUI;
         ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
-        CityHelper _cityHelper;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
@@ -104,10 +102,7 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(100, 100);
             _resourcesManager = new ResourcesManager(_map);
-            _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _experienceManager = new ExperienceManager(_resourcesManager);
-            _cityHelper = new CityHelper(_map);
-            _cityHelper.CreateListBuilding();
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));

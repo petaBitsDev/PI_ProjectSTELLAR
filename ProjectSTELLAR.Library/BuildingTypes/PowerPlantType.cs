@@ -20,6 +20,7 @@ namespace ProjectStellar.Library
         int _electricityProduction;
         string _type;
         List<Building> _list;
+        int _size;
 
         public PowerPlantType()
         {
@@ -33,6 +34,7 @@ namespace ProjectStellar.Library
             _nbPeople = 15;
             _cost = -12;
             _type = "resource";
+            _size = 4;
             _electricityProduction = 80;
         }
 
@@ -41,7 +43,7 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new PowerPlant(x, y);
+            Building building = new PowerPlant(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -56,12 +58,9 @@ namespace ProjectStellar.Library
         public override int NbPeople => _nbPeople;
         public override int Cost => _cost;
         public override List<Building> List => _list;
+        public override int Size => _size;
         public override string Type => _type;
-
         public int ElectricityProduction => _electricityProduction;
-      
-
     }
 }
-
      

@@ -6,21 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    class Hut : Building
+    class Hut : Building, IResidences
     {
-
-        int _x;
-        int _y;
-        int _size;
         bool _onFire;
-
-        public Hut(int x, int y)
-            : base()
+        public Hut(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 1;
-            _onFire = false;
         }
 
         public override bool OnFire

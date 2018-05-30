@@ -6,19 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-
-    class SawMill : Building
+    class SawMill : Building, IResourcesBuildings
     {
-        int _x;
-        int _y;
-        int _size;
         bool _onFire;
-
-        public SawMill(int x, int y)
+        public SawMill(BuildingType type, int x, int y) : base(type, x , y)
         {
-            _x = x;
-            _y = y;
-            _size = 4;
             _onFire = false;
         }
 

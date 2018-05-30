@@ -20,6 +20,7 @@ namespace ProjectStellar.Library
         int _rockProduction;
         string _type;
         List<Building> _list;
+        int _size;
 
         public OreMineType()
         {
@@ -33,6 +34,7 @@ namespace ProjectStellar.Library
             _nbPeople = 15;
             _cost = 0;
             _type = "resource";
+            _size = 4;
             _rockProduction = 80;
         }
 
@@ -41,7 +43,7 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new OreMine(x, y);
+            Building building = new OreMine(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -61,5 +63,6 @@ namespace ProjectStellar.Library
         public int RockProduction => _rockProduction;
 
   
+        public override int Size => _size;
     }
 }

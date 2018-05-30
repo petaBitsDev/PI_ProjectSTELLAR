@@ -20,6 +20,7 @@ using System.Threading.Tasks;
             string _type;
             int _waterProduction;
             List<Building> _list;
+            int _size;
 
         public PumpingStationType()
         {
@@ -33,7 +34,6 @@ using System.Threading.Tasks;
             _nbPeople = 15;
             _cost = -12;
             _type = "resource";
-            _waterProduction = 70;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -41,7 +41,7 @@ using System.Threading.Tasks;
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new PumpingStation(x, y);
+            Building building = new PumpingStation(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -59,8 +59,9 @@ using System.Threading.Tasks;
 
         public int WaterProduction => _waterProduction;
         public override List<Building> List => _list;
-
-    
-
+        public override int Size => _size;
     }
 }
+
+            _waterProduction = 70;
+            _size = 4;

@@ -20,6 +20,7 @@ namespace ProjectStellar.Library
         int _woodProduction;
         string _type;
         List<Building> _list;
+        int _size;
 
 
         public SawmillType()
@@ -35,6 +36,7 @@ namespace ProjectStellar.Library
             _cost = 0;
             _woodProduction = 80;
             _type = "resource";
+            _size = 4;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -42,7 +44,7 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new SawMill(x, y);
+            Building building = new SawMill(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -60,7 +62,6 @@ namespace ProjectStellar.Library
 
         public int WoodProduction => _woodProduction;
         public override List<Building> List => _list;
-
-
+        public override int Size => _size;
     }
 }

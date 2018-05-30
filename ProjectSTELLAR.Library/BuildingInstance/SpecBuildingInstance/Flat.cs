@@ -6,19 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class Flat : Building
+    class Flat : Building, IResidences
     {
-        int _x;
-        int _y;
-        int _size;
         bool _onFire;
-
-        public Flat(int x, int y)
-            : base()
+        public Flat(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 4;
             _onFire = false;
         }
         public override bool OnFire
@@ -28,3 +20,4 @@ namespace ProjectStellar.Library
         }
     }
 }
+        

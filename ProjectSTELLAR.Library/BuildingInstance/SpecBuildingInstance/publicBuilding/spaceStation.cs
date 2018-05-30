@@ -6,19 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class SpaceStation : Building
+    class SpaceStation : Building, IPublicBuildings
     {
-        int _x;
-        int _y;
-        int _size;
-        bool _onFire;
-        public SpaceStation(int x, int y)
-            :base()
+        public SpaceStation(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _x = x;
-            _y = y;
-            _size = 6;
-            _onFire = false;
         }
 
         public override bool OnFire
