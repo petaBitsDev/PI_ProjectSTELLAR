@@ -73,7 +73,7 @@ namespace ProjectStellar
         bool _settingsSelected;
         bool _exitSelected;
         
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, List<BuildingType> buildingList, ResourcesManager resourcesManager, ExperienceManager experienceManager)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _sprites = new Dictionary<Sprite, string>();
             _chosenBuildings = new Dictionary<Sprite, BuildingType>();
@@ -88,7 +88,6 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _buildSelected = false;
             _gameTime = gameTime;
-            _buildingList = buildingList;
             _buildingChoices = new BuildingChoice[16];
             _resourcesManager = resourcesManager;
             _tab1Selected = true;
@@ -1100,6 +1099,7 @@ namespace ProjectStellar
             {
                 _hutSprite.Draw(window, RenderStates.Default);
                 _sprites.Add(_hutSprite, "HUT");
+                _buildingTypeSprites.Add(_hutSprite, _mapCtx.BuildingTypes[])
                 _houseSprite.Draw(window, RenderStates.Default);
                 _sprites.Add(_houseSprite, "HOUSE");
                 _flatSprite.Draw(window, RenderStates.Default);

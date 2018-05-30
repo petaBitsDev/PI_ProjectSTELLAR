@@ -144,7 +144,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
