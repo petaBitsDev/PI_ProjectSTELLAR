@@ -24,6 +24,9 @@ namespace ProjectStellar
         List<BuildingType> _buildingList;
         Dictionary<Sprite, String> _sprites;
         Dictionary<Sprite, BuildingType> _buildingTypeSprites;
+        Dictionary<Sprite, BuildingType> _tab1Sprite;
+        Dictionary<Sprite, BuildingType> _tab2Sprite;
+        Dictionary<Sprite, BuildingType> _tab3Sprite;
         Sprite _spriteSelected;
         Sprite _play;
         Sprite _pause;
@@ -77,6 +80,9 @@ namespace ProjectStellar
         {
             _sprites = new Dictionary<Sprite, string>();
             _buildingTypeSprites = new Dictionary<Sprite, BuildingType>();
+            _tab1Sprite = new Dictionary<Sprite, BuildingType>();
+            _tab2Sprite = new Dictionary<Sprite, BuildingType>();
+            _tab3Sprite = new Dictionary<Sprite, BuildingType>();
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
@@ -574,61 +580,64 @@ namespace ProjectStellar
         {
             _sprites.Clear();
             _buildingTypeSprites.Clear();
+            _tab1Sprite.Clear();
+            _tab2Sprite.Clear();
+            _tab3Sprite.Clear();
 
             if (IsTab1Active == true)
             {
-                //_buildingTypeSprites.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
-                //_buildingTypeSprites.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
-                //_buildingTypeSprites.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+                _drawUIctx.RenderSprite(_hutSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_houseSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_flatSprite, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 64, 64);
+                _sprites.Add(_hutSprite, "HUT");
+                _sprites.Add(_houseSprite, "HOUSE");
+                _sprites.Add(_flatSprite, "FLAT");
+                _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+                _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+                _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
 
-                foreach(KeyValuePair<Sprite, BuildingType> buildingType in _buildingTypeSprites)
-                {
-                    //if(buildingType.Value == HutType)
-                }
-                //_hutSprite.Draw(window, RenderStates.Default);
-                //_sprites.Add(_hutSprite, "HUT");
-                //_houseSprite.Draw(window, RenderStates.Default);
-                //_sprites.Add(_houseSprite, "HOUSE");
-                //_flatSprite.Draw(window, RenderStates.Default);
-                //_sprites.Add(_flatSprite, "FLAT");
             }
             else if (IsTab2Active)
             {
-                _cityHall.Draw(window, RenderStates.Default);
-                _sprites.Add(_cityHall, "CITY HALL");
+                _drawUIctx.RenderSprite(_cityHall, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_fireStation, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_hospital, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_police, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_spaceStation, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_warehouse, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 32, 32);
+
                 _buildingTypeSprites.Add(_cityHall, _mapCtx.BuildingTypes[0]);
-                _fireStation.Draw(window, RenderStates.Default);
-                _sprites.Add(_fireStation, "FIRE STATION");
                 _buildingTypeSprites.Add(_fireStation, _mapCtx.BuildingTypes[1]);
-                _hospital.Draw(window, RenderStates.Default);
-                _sprites.Add(_hospital, "HOSPITAL");
                 _buildingTypeSprites.Add(_hospital, _mapCtx.BuildingTypes[3]);
-                _police.Draw(window, RenderStates.Default);
-                _sprites.Add(_police, "POLICE DEPARTMENT");
                 _buildingTypeSprites.Add(_police, _mapCtx.BuildingTypes[8]);
-                _spaceStation.Draw(window, RenderStates.Default);
-                _sprites.Add(_spaceStation, "SPACE STATION");
                 _buildingTypeSprites.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
-                _warehouse.Draw(window, RenderStates.Default);
-                _sprites.Add(_warehouse, "WAREHOUSE");
                 _buildingTypeSprites.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+
+                _sprites.Add(_cityHall, "CITY HALL");
+                _sprites.Add(_fireStation, "FIRE STATION");
+                _sprites.Add(_hospital, "HOSPITAL");
+                _sprites.Add(_police, "POLICE DEPARTMENT");
+                _sprites.Add(_spaceStation, "SPACE STATION");
+                _sprites.Add(_warehouse, "WAREHOUSE");
             }
             else if (IsTab3Active)
             {
-                _sawMill.Draw(window, RenderStates.Default);
+                _drawUIctx.RenderSprite(_sawMill, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_oreMine, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_metalMine, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_powerPlant, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_pumpingStation, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+
                 _sprites.Add(_sawMill, "SAWMILL");
-                _buildingTypeSprites.Add(_sawMill, _mapCtx.BuildingTypes[11]);
-                _oreMine.Draw(window, RenderStates.Default);
                 _sprites.Add(_oreMine, "ORE MINE");
-                _buildingTypeSprites.Add(_oreMine, _mapCtx.BuildingTypes[7]);
-                _metalMine.Draw(window, RenderStates.Default);
                 _sprites.Add(_metalMine, "METAL MINE");
-                _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
-                _powerPlant.Draw(window, RenderStates.Default);
                 _sprites.Add(_powerPlant, "POWER PLANT");
-                _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
-                _pumpingStation.Draw(window, RenderStates.Default);
                 _sprites.Add(_pumpingStation, "PUMPING STATION");
+
+                _buildingTypeSprites.Add(_sawMill, _mapCtx.BuildingTypes[11]);
+                _buildingTypeSprites.Add(_oreMine, _mapCtx.BuildingTypes[7]);
+                _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
+                _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
                 _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
             }
 
@@ -735,12 +744,44 @@ namespace ProjectStellar
         public bool CheckBuildingToBuild(Window window, ResourcesManager resources)
         {
             if (_buildSelected == false) return false;
-            foreach(Sprite sprite in _buildingTypeSprites.Keys)
+            if(_tab1Selected)
             {
-                _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
-                if (!resources.CheckResourcesNeeded(building)) return false;
-                _mapCtx.ChosenBuilding = building;
-                return true;
+                foreach(Sprite sprite in _tab1Sprite.Keys)
+                {
+                    if(sprite.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+                    {
+                        _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
+                        if (!resources.CheckResourcesNeeded(building)) return false;
+                        _mapCtx.ChosenBuilding = building;
+                        return true;
+                    }
+                }
+            }
+            else if (_tab2Selected)
+            {
+                foreach (Sprite sprite in _tab2Sprite.Keys)
+                {
+                    if (sprite.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+                    {
+                        _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
+                        if (!resources.CheckResourcesNeeded(building)) return false;
+                        _mapCtx.ChosenBuilding = building;
+                        return true;
+                    }
+                }
+            }
+            else if(_tab3Selected)
+            {
+                foreach (Sprite sprite in _tab3Sprite.Keys)
+                {
+                    if (sprite.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+                    {
+                        _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
+                        if (!resources.CheckResourcesNeeded(building)) return false;
+                        _mapCtx.ChosenBuilding = building;
+                        return true;
+                    }
+                }
             }
             return false;
         }

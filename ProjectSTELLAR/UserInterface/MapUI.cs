@@ -121,6 +121,7 @@ namespace ProjectStellar
                             if(boxes[i, j].Type == buildingType.Value)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                buildingType.Key.Position = new Vector2f(j * 32, i * 32);
                                 buildingType.Key.Draw(window, RenderStates.Default);
                             }
                             if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
