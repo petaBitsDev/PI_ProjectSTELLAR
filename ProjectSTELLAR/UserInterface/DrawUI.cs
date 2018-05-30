@@ -38,8 +38,9 @@ namespace ProjectStellar
             (Sprite tmpSprite, RenderWindow target, uint destX, uint destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
         {
             tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
-            tmpSprite.Position = new Vector2f(destX, destY);
-            target.Draw(tmpSprite);
+            Sprite sprite = new Sprite(tmpSprite);
+            sprite.Position = new Vector2f(destX, destY);
+            target.Draw(sprite);
         }
 
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)

@@ -23,7 +23,7 @@ namespace ProjectStellar
 
         List<BuildingType> _buildingList;
         Dictionary<Sprite, String> _sprites;
-        Dictionary<Sprite, BuildingType> _chosenBuildings;
+        Dictionary<Sprite, BuildingType> _buildingTypeSprites;
         Sprite _spriteSelected;
         Sprite _play;
         Sprite _pause;
@@ -76,7 +76,7 @@ namespace ProjectStellar
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _sprites = new Dictionary<Sprite, string>();
-            _chosenBuildings = new Dictionary<Sprite, BuildingType>();
+            _buildingTypeSprites = new Dictionary<Sprite, BuildingType>();
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
@@ -391,7 +391,6 @@ namespace ProjectStellar
             rec.FillColor = new Color(30, 40, 40);
             rec.Size = new Vector2f((_boxSize * 12) - 4, _boxSize * 6);
             rec.Position = new Vector2f(_resolution.X - _boxSize * 12, _resolution.Y / 2 - _boxSize * 2);
-            //rec.Position = new Vector2f((Width * 32), (Height * 32 - _boxSize * 6));
 
             RectangleShape onglet1 = new RectangleShape();
             onglet1.OutlineColor = new Color(Color.Blue);
@@ -536,8 +535,7 @@ namespace ProjectStellar
                 text.Color = Color.White;
                 text.CharacterSize = 18;
 
-                BuildingType building = _mapCtx.ChosenBuilding;
-                //_sprites.TryGetValue(_spriteSelected, out BuildingType building);
+                _buildingTypeSprites.TryGetValue(_spriteSelected, out BuildingType building);
 
                 if(building != null)
                 {
@@ -570,568 +568,68 @@ namespace ProjectStellar
                     window.Draw(text);
                 }
             }
-            //else if(_buildingSelected == 2)
-            //{
-            //    Text house = new Text("House", font);
-            //    house.Position = rec.Position;
-            //    house.Color = Color.White;
-            //    house.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_houseSprite, out BuildingType building);
-            //    if(building != null)
-            //    {
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(rec);
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(house);
-            //    }
-            //}
-            //else if(_buildingSelected == 3)
-            //{
-            //    Text flat = new Text("Flat", font);
-            //    flat.Position = rec.Position;
-            //    flat.Color = Color.White;
-            //    flat.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_flatSprite, out BuildingType building);
-
-            //    if (building != null)
-            //    {
-            //        window.Draw(rec);
-                    
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(flat);
-            //    }
-            //}
-            //else if(_buildingSelected == 4)
-            //{
-            //    Text cityHall = new Text("CityHall", font);
-            //    cityHall.Position = rec.Position;
-            //    cityHall.Color = Color.White;
-            //    cityHall.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_cityHall, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(cityHall);
-            //    }
-            //}
-            //else if(_buildingSelected == 5)
-            //{
-            //    Text fireStation = new Text("FireStation", font);
-            //    fireStation.Position = rec.Position;
-            //    fireStation.Color = Color.White;
-            //    fireStation.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_fireStation, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(fireStation);
-            //    }
-            //}
-            //else if(_buildingSelected == 6)
-            //{
-            //    Text hospital = new Text("Hospital", font);
-            //    hospital.Position = rec.Position;
-            //    hospital.Color = Color.White;
-            //    hospital.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_hospital, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(hospital);
-            //    }
-            //}
-            //else if(_buildingSelected == 7)
-            //{
-            //    Text police = new Text("Police", font);
-            //    police.Position = rec.Position;
-            //    police.Color = Color.White;
-            //    police.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_police, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(police);
-            //    }
-            //}
-            //else if(_buildingSelected == 8)
-            //{
-            //    Text spaceStation = new Text("Space station", font);
-            //    spaceStation.Position = rec.Position;
-            //    spaceStation.Color = Color.White;
-            //    spaceStation.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_spaceStation, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(spaceStation);
-            //    }
-            //}
-            //else if(_buildingSelected == 9)
-            //{
-            //    Text warehouse = new Text("Warehouse", font);
-            //    warehouse.Position = rec.Position;
-            //    warehouse.Color = Color.White;
-            //    warehouse.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_warehouse, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(warehouse);
-            //    }
-            //}
-            //else if(_buildingSelected == 10)
-            //{
-            //    Text sawMill = new Text("Sawmill", font);
-            //    sawMill.Position = rec.Position;
-            //    sawMill.Color = Color.White;
-            //    sawMill.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_sawMill, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(sawMill);
-            //    }
-            //}
-            //else if(_buildingSelected == 11)
-            //{
-            //    Text oreMine = new Text("Oremine", font);
-            //    oreMine.Position = rec.Position;
-            //    oreMine.Color = Color.White;
-            //    oreMine.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_oreMine, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(oreMine);
-            //    }
-        
-            //}
-            //else if(_buildingSelected == 12)
-            //{
-            //    Text metalMine = new Text("Metal mine", font);
-            //    metalMine.Position = rec.Position;
-            //    metalMine.Color = Color.White;
-            //    metalMine.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_metalMine, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(metalMine);
-            //    }
-            //}
-            //else if(_buildingSelected == 13)
-            //{
-            //    Text powerPlant = new Text("powerPlant", font);
-            //    powerPlant.Position = rec.Position;
-            //    powerPlant.Color = Color.White;
-            //    powerPlant.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_powerPlant, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(powerPlant);
-            //    }
-            //}
-            //else if(_buildingSelected == 14)
-            //{
-            //    Text pumpingStation = new Text("pumpingStation", font);
-            //    pumpingStation.Position = rec.Position;
-            //    pumpingStation.Color = Color.White;
-            //    pumpingStation.CharacterSize = 18;
-
-            //    _chosenBuildings.TryGetValue(_pumpingStation, out BuildingType building);
-
-            //    if(building != null)
-            //    {
-            //        window.Draw(rec);
-
-            //        Text woodNeeds = new Text("Wood cost : " + building.Wood, font);
-            //        woodNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 15);
-            //        woodNeeds.Color = Color.White;
-            //        woodNeeds.CharacterSize = 15;
-
-            //        Text rockNeeds = new Text("Rock cost : " + building.Rock, font);
-            //        rockNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 25);
-            //        rockNeeds.CharacterSize = 15;
-            //        rockNeeds.Color = Color.White;
-
-            //        Text metalNeeds = new Text("Metal cost : " + building.Metal, font);
-            //        metalNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 35);
-            //        metalNeeds.CharacterSize = 15;
-            //        metalNeeds.Color = Color.White;
-
-            //        Text coinNeeds = new Text("Coin cost : " + building.Coin, font);
-            //        coinNeeds.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 45);
-            //        coinNeeds.CharacterSize = 15;
-            //        coinNeeds.Color = Color.White;
-                    
-            //        window.Draw(woodNeeds);
-            //        window.Draw(rockNeeds);
-            //        window.Draw(metalNeeds);
-            //        window.Draw(coinNeeds);
-            //        window.Draw(pumpingStation);
-            //    }
-            //}
         }
             
         private void DrawBuildingChoices(RenderWindow window, Font font)
         {
             _sprites.Clear();
+            _buildingTypeSprites.Clear();
 
             if (IsTab1Active == true)
             {
-                _hutSprite.Draw(window, RenderStates.Default);
-                _sprites.Add(_hutSprite, "HUT");
-                _buildingTypeSprites.Add(_hutSprite, _mapCtx.BuildingTypes[])
-                _houseSprite.Draw(window, RenderStates.Default);
-                _sprites.Add(_houseSprite, "HOUSE");
-                _flatSprite.Draw(window, RenderStates.Default);
-                _sprites.Add(_flatSprite, "FLAT");
+                //_buildingTypeSprites.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
+                //_buildingTypeSprites.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+                //_buildingTypeSprites.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+
+                foreach(KeyValuePair<Sprite, BuildingType> buildingType in _buildingTypeSprites)
+                {
+                    //if(buildingType.Value == HutType)
+                }
+                //_hutSprite.Draw(window, RenderStates.Default);
+                //_sprites.Add(_hutSprite, "HUT");
+                //_houseSprite.Draw(window, RenderStates.Default);
+                //_sprites.Add(_houseSprite, "HOUSE");
+                //_flatSprite.Draw(window, RenderStates.Default);
+                //_sprites.Add(_flatSprite, "FLAT");
             }
             else if (IsTab2Active)
             {
                 _cityHall.Draw(window, RenderStates.Default);
                 _sprites.Add(_cityHall, "CITY HALL");
+                _buildingTypeSprites.Add(_cityHall, _mapCtx.BuildingTypes[0]);
                 _fireStation.Draw(window, RenderStates.Default);
                 _sprites.Add(_fireStation, "FIRE STATION");
+                _buildingTypeSprites.Add(_fireStation, _mapCtx.BuildingTypes[1]);
                 _hospital.Draw(window, RenderStates.Default);
                 _sprites.Add(_hospital, "HOSPITAL");
+                _buildingTypeSprites.Add(_hospital, _mapCtx.BuildingTypes[3]);
                 _police.Draw(window, RenderStates.Default);
                 _sprites.Add(_police, "POLICE DEPARTMENT");
+                _buildingTypeSprites.Add(_police, _mapCtx.BuildingTypes[8]);
                 _spaceStation.Draw(window, RenderStates.Default);
                 _sprites.Add(_spaceStation, "SPACE STATION");
+                _buildingTypeSprites.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
                 _warehouse.Draw(window, RenderStates.Default);
                 _sprites.Add(_warehouse, "WAREHOUSE");
+                _buildingTypeSprites.Add(_warehouse, _mapCtx.BuildingTypes[13]);
             }
             else if (IsTab3Active)
             {
                 _sawMill.Draw(window, RenderStates.Default);
                 _sprites.Add(_sawMill, "SAWMILL");
+                _buildingTypeSprites.Add(_sawMill, _mapCtx.BuildingTypes[11]);
                 _oreMine.Draw(window, RenderStates.Default);
                 _sprites.Add(_oreMine, "ORE MINE");
+                _buildingTypeSprites.Add(_oreMine, _mapCtx.BuildingTypes[7]);
                 _metalMine.Draw(window, RenderStates.Default);
                 _sprites.Add(_metalMine, "METAL MINE");
+                _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
                 _powerPlant.Draw(window, RenderStates.Default);
                 _sprites.Add(_powerPlant, "POWER PLANT");
+                _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
                 _pumpingStation.Draw(window, RenderStates.Default);
                 _sprites.Add(_pumpingStation, "PUMPING STATION");
+                _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
             }
 
             foreach (Sprite sprite in _sprites.Keys)
@@ -1162,9 +660,9 @@ namespace ProjectStellar
             //rec.Draw(window, RenderStates.Default);
             if (!object.Equals(building, null))
             {
-                for (int i = 0; i < _buildingList.Count; i++)
+                for (int i = 0; i < _mapCtx.BuildingTypes.Count; i++)
                 {
-                    if (_buildingList[i].GetType() == building.GetType())
+                    if (_mapCtx.BuildingTypes[i].GetType() == building.GetType())
                     {
 
                         Text water = new Text("Water consomation : ", font);
@@ -1172,7 +670,7 @@ namespace ProjectStellar
                         water.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 5.9f));
                         water.CharacterSize = 17;
 
-                        Text nbWater = new Text(_buildingList[i].Water + "/H", font);
+                        Text nbWater = new Text(_mapCtx.BuildingTypes[i].Water + "/H", font);
                         nbWater.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 5.35f));
                         nbWater.Color = new Color(52, 152, 219);
                         nbWater.CharacterSize = 14;
@@ -1186,7 +684,7 @@ namespace ProjectStellar
                         electricity.Color = new Color(236, 193, 5);
                         electricity.CharacterSize = 17;
 
-                        Text nbElectricity = new Text(_buildingList[i].Electricity + "/H", font);
+                        Text nbElectricity = new Text(_mapCtx.BuildingTypes[i].Electricity + "/H", font);
                         nbElectricity.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 4.35f));
                         nbElectricity.CharacterSize = 14;
                         nbElectricity.Color = new Color(236, 193, 5);
@@ -1195,7 +693,7 @@ namespace ProjectStellar
                         nbElectricity.Draw(window, RenderStates.Default);
                         electricity.Draw(window, RenderStates.Default);
 
-                        if (_buildingList[i].Cost > 0)
+                        if (_mapCtx.BuildingTypes[i].Cost > 0)
                         {
                             _coinSprite.Draw(window, RenderStates.Default);
 
@@ -1204,7 +702,7 @@ namespace ProjectStellar
                             charges.Color = new Color(203, 67, 53);
                             charges.CharacterSize = 17;
 
-                            Text nbCharges = new Text(_buildingList[i].Cost + "/H", font);
+                            Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
                             nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(203, 67, 53);
@@ -1215,13 +713,12 @@ namespace ProjectStellar
                         }
                         else
                         {
-
                             Text charges = new Text("Taxes : ", font);
                             charges.Position = new Vector2f((X * 32 + 12), (Y * 32 - 35 * 3.9f));
                             charges.Color = new Color(68, 198, 14);
                             charges.CharacterSize = 17;
 
-                            Text nbCharges = new Text(_buildingList[i].Cost + "/H", font);
+                            Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
                             nbCharges.Position = new Vector2f((X * 32 + 100), (Y * 32 - 32 * 3.35f));
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(68, 198, 14);
@@ -1238,16 +735,12 @@ namespace ProjectStellar
         public bool CheckBuildingToBuild(Window window, ResourcesManager resources)
         {
             if (_buildSelected == false) return false;
-            for (int i = 0; i < _sprites.Count; i++)
+            foreach(Sprite sprite in _buildingTypeSprites.Keys)
             {
-                if (_sprites[i].GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
-                {
-                    _chosenBuildings.TryGetValue(_sprites[i], out BuildingType building);
-                    if (!resources.CheckResourcesNeeded(building)) return false;
-                    _mapCtx.ChosenBuilding = building;
-                    //Console.WriteLine(type);
-                    return true;
-                }
+                _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
+                if (!resources.CheckResourcesNeeded(building)) return false;
+                _mapCtx.ChosenBuilding = building;
+                return true;
             }
             return false;
         }
@@ -1275,6 +768,8 @@ namespace ProjectStellar
             get { return _mapCtx; }
             set { _mapCtx = value; }
         }
+
+        public Dictionary<Sprite, BuildingType> BuildingTypeSprites => _buildingTypeSprites;
 
         public void DrawInGameMenu (RenderWindow window, Font font)
         {

@@ -124,7 +124,7 @@ namespace ProjectStellar
             {
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
-                    _resourcesManager.NbResources["population"] += 10;
+                    _resourcesManager.NbResources["nbPeople"] += 10;
                     _experienceManager.CheckLevel();
                     //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
@@ -162,7 +162,6 @@ namespace ProjectStellar
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
             _drawUI.UpdateMap(save.Map);
-            _buildingFactory.Map = save.Map;
         }
 
         public int MenuState

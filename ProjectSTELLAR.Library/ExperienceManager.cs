@@ -21,7 +21,7 @@ namespace ProjectStellar.Library
 
         public int CheckLevel()
         {
-            int pop = _resourcesManager.NbResources["population"];
+            int pop = _resourcesManager.NbResources["nbPeople"];
             int tempLevel = (int)Math.Floor(COEFFICIENT * Math.Sqrt(pop));
 
             if (tempLevel > _level) _level = tempLevel;
@@ -37,10 +37,10 @@ namespace ProjectStellar.Library
             actualLevelPop = (int)((_level / COEFFICIENT) * (_level / COEFFICIENT));
             goal = (int)(((_level + 1) / COEFFICIENT) * ((_level + 1) / COEFFICIENT));
             
-            if (_resourcesManager.NbResources["population"] <= actualLevelPop) return 0;
+            if (_resourcesManager.NbResources["nbPeople"] <= actualLevelPop) return 0;
             else
             {
-                int diffPop = _resourcesManager.NbResources["population"] - actualLevelPop;
+                int diffPop = _resourcesManager.NbResources["nbPeople"] - actualLevelPop;
                 return (int)((diffPop * 100) / (goal - actualLevelPop));
             }
         }
