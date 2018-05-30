@@ -72,12 +72,12 @@ namespace ProjectStellar.Library
                 }
                 else if (building.Size == 6)
                 {
-                    //_boxes[x, y] = building;
-                    //_boxes[x + 1, y] = building;
-                    //_boxes[x, y + 1] = building;
-                    //_boxes[x + 1, y + 1] = building;
-                    //_boxes[x + 1, y + 1] = building;
-                    //_boxes[x + 1, y + 1] = building;
+                    _boxes[x, y] = building;
+                    _boxes[x + 1, y] = building;
+                    _boxes[x, y + 1] = building;
+                    _boxes[x + 1, y + 1] = building;
+                    _boxes[x + 2, y] = building;
+                    _boxes[x + 1, y + 2] = building;
                 }
             }
             _chosenBuilding = null;

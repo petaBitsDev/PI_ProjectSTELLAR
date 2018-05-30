@@ -584,18 +584,47 @@ namespace ProjectStellar
             _tab2Sprite.Clear();
             _tab3Sprite.Clear();
 
+            _buildingTypeSprites.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+            _buildingTypeSprites.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+            _buildingTypeSprites.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
+            _buildingTypeSprites.Add(_cityHall, _mapCtx.BuildingTypes[0]);
+            _buildingTypeSprites.Add(_fireStation, _mapCtx.BuildingTypes[1]);
+            _buildingTypeSprites.Add(_hospital, _mapCtx.BuildingTypes[3]);
+            _buildingTypeSprites.Add(_police, _mapCtx.BuildingTypes[8]);
+            _buildingTypeSprites.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
+            _buildingTypeSprites.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+            _buildingTypeSprites.Add(_sawMill, _mapCtx.BuildingTypes[11]);
+            _buildingTypeSprites.Add(_oreMine, _mapCtx.BuildingTypes[7]);
+            _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
+            _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
+            _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+
+            _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+            _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+            _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
+
+            _tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
+            _tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
+            _tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
+            _tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
+            _tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
+            _tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+
+            _tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
+            _tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
+            _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
+            _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
+            _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+
             if (IsTab1Active == true)
             {
                 _drawUIctx.RenderSprite(_hutSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_houseSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_flatSprite, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _sprites.Add(_hutSprite, "HUT");
                 _sprites.Add(_houseSprite, "HOUSE");
                 _sprites.Add(_flatSprite, "FLAT");
-                _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
-                _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
-                _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
-
             }
             else if (IsTab2Active)
             {
@@ -605,13 +634,6 @@ namespace ProjectStellar
                 _drawUIctx.RenderSprite(_police, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_spaceStation, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_warehouse, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 32, 32);
-
-                _buildingTypeSprites.Add(_cityHall, _mapCtx.BuildingTypes[0]);
-                _buildingTypeSprites.Add(_fireStation, _mapCtx.BuildingTypes[1]);
-                _buildingTypeSprites.Add(_hospital, _mapCtx.BuildingTypes[3]);
-                _buildingTypeSprites.Add(_police, _mapCtx.BuildingTypes[8]);
-                _buildingTypeSprites.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
-                _buildingTypeSprites.Add(_warehouse, _mapCtx.BuildingTypes[13]);
 
                 _sprites.Add(_cityHall, "CITY HALL");
                 _sprites.Add(_fireStation, "FIRE STATION");
@@ -633,12 +655,6 @@ namespace ProjectStellar
                 _sprites.Add(_metalMine, "METAL MINE");
                 _sprites.Add(_powerPlant, "POWER PLANT");
                 _sprites.Add(_pumpingStation, "PUMPING STATION");
-
-                _buildingTypeSprites.Add(_sawMill, _mapCtx.BuildingTypes[11]);
-                _buildingTypeSprites.Add(_oreMine, _mapCtx.BuildingTypes[7]);
-                _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
-                _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
-                _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
             }
 
             foreach (Sprite sprite in _sprites.Keys)
@@ -744,6 +760,7 @@ namespace ProjectStellar
         public bool CheckBuildingToBuild(Window window, ResourcesManager resources)
         {
             if (_buildSelected == false) return false;
+
             if(_tab1Selected)
             {
                 foreach(Sprite sprite in _tab1Sprite.Keys)
@@ -811,6 +828,10 @@ namespace ProjectStellar
         }
 
         public Dictionary<Sprite, BuildingType> BuildingTypeSprites => _buildingTypeSprites;
+        public Dictionary<Sprite, BuildingType> Tab1Sprite => _tab1Sprite;
+        public Dictionary<Sprite, BuildingType> Tab2Sprite => _tab2Sprite;
+        public Dictionary<Sprite, BuildingType> Tab3Sprite => _tab3Sprite;
+
 
         public void DrawInGameMenu (RenderWindow window, Font font)
         {

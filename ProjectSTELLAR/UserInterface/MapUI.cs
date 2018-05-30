@@ -116,9 +116,9 @@ namespace ProjectStellar
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
-                        foreach(KeyValuePair<Sprite, BuildingType> buildingType in _ui.BuildingTypeSprites)
+                        foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab1Sprite)
                         {
-                            if(boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                                 buildingType.Key.Position = new Vector2f(j * 32, i * 32);
@@ -131,8 +131,36 @@ namespace ProjectStellar
                                 _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
                             }
                         }
-                        //BuildingType type = boxes[i, j].Type;
-                        //_drawBuildings.Draw(type, window, j, i, font);
+                        foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
+                        {
+                            if (boxes[i, j].Type == buildingType.Value)
+                            {
+                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                buildingType.Key.Position = new Vector2f(j * 32, i * 32);
+                                buildingType.Key.Draw(window, RenderStates.Default);
+                            }
+                            if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
+                            {
+                                window.SetView(_gameCtx._windowEvents.View);
+                                window.Draw(rec);
+                                _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
+                            }
+                        }
+                        foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
+                        {
+                            if (boxes[i, j].Type == buildingType.Value)
+                            {
+                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                buildingType.Key.Position = new Vector2f(j * 32, i * 32);
+                                buildingType.Key.Draw(window, RenderStates.Default);
+                            }
+                            if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
+                            {
+                                window.SetView(_gameCtx._windowEvents.View);
+                                window.Draw(rec);
+                                _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
+                            }
+                        }
                     }
                 }
             }

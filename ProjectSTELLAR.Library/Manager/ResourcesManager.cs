@@ -16,10 +16,10 @@ namespace ProjectStellar.Library
         public ResourcesManager(Map ctx)
         {
             _ctx = ctx;
-            _nbResources.Add("wood", 500);
-            _nbResources.Add("rock", 500);
-            _nbResources.Add("metal", 150);
-            _nbResources.Add("coins", 5000);
+            _nbResources.Add("wood", 500000);
+            _nbResources.Add("rock", 500000);
+            _nbResources.Add("metal", 15000);
+            _nbResources.Add("coins", 50000);
             _nbResources.Add("pollution", 0);
             _nbResources.Add("nbPeople", 0);
             _nbResources.Add("electricity", 0);
