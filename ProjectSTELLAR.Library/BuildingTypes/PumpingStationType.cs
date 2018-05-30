@@ -4,22 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-    namespace ProjectStellar.Library
+namespace ProjectStellar.Library
+{
+    [Serializable]
+    public class PumpingStationType : BuildingType
     {
-        public class PumpingStationType : BuildingType
-        {
-            int _cost;
-            int _coin;
-            int _wood;
-            int _rock;
-            int _metal;
-            int _water;
-            int _electricity;
-            int _pollution;
-            int _nbPeople;
-            string _type;
-            List<Building> _list;
-            int _size;
+        int _cost;
+        int _coin;
+        int _wood;
+        int _rock;
+        int _metal;
+        int _water;
+        int _electricity;
+        int _pollution;
+        int _nbPeople;
+        string _type;
+        List<Building> _list;
+        int _size;
 
         public PumpingStationType()
         {

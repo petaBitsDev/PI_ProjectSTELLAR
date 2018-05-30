@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-
+    [Serializable]
     class OreMine : Building
     {
         public OreMine(BuildingType type, int x, int y) : base(type, x, y)
