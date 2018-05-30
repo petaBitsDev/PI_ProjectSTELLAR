@@ -14,13 +14,33 @@ namespace ProjectStellar.Library
         int _width;
         BuildingType _chosenBuilding;
         public Building[,] _boxes;
+        readonly List<BuildingType> _buildingTypes;
 
         public Map (int width, int height)
         {
             _width = width;
             _height = height;
             _boxes = new Building[height, width];
+            _buildingTypes = new List<BuildingType>
+            {
+                new CityHallType(),
+                new FireStationType(),
+                new FlatType(),
+                new HospitalType(),
+                new HouseType(),
+                new HutType(),
+                new MetalMineType(),
+                new OreMineType(),
+                new PoliceStationType(),
+                new PowerPlantType(),
+                new PumpingStationType(),
+                new SawmillType(),
+                new SpaceStationType(),
+                new WarehouseType()
+            };
         }
+
+        public List<BuildingType> BuildingTypes => _buildingTypes;
 
         public int Width => _width;
 
