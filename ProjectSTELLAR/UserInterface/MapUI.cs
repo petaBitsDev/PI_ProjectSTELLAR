@@ -22,7 +22,7 @@ namespace ProjectStellar
         Game _gameCtx;
         DrawUI _drawUIctx;
         DrawBuildings _drawBuildings;
-        Cases[] _cases;
+        Case[] _cases;
         UI _ui;
         bool _buildingExist;
         RectangleShape rec = new RectangleShape();
@@ -45,6 +45,7 @@ namespace ProjectStellar
             _resolution = resolution;
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
+            _cases = new Case[Width * Height];
         }
 
         public Map MapContext
@@ -74,7 +75,7 @@ namespace ProjectStellar
             int i = 0;
 
             RectangleShape rec;
-            _cases = new Cases[Width * Height];
+            _cases = new Case[Width * Height];
 
             for (int x = 0; x < Width; x++)
             {
@@ -87,7 +88,7 @@ namespace ProjectStellar
                     rec.Size = new Vector2f(32, 32);
                     rec.Position = new Vector2f(x * 32, y* 32);
                     window.Draw(rec);
-                    _cases[i++] = new Cases(rec, y, x);
+                    //_cases[i++] = new Cases(rec, y, x);
                 }
             }
         }
@@ -100,9 +101,10 @@ namespace ProjectStellar
             //rec.FillColor = new Color(253, 254, 254);
             //rec.Size = new Vector2f(32 * 8, 32 * 4);
 
-            _mapSprites = new Sprite[Height, Width];
+            //_mapSprites = new Sprite[Height, Width];
             Vector2i pixelPos = Mouse.GetPosition(window);
             Vector2f worldPos = window.MapPixelToCoords(pixelPos, _gameCtx._windowEvents.View);
+            int k = 0;
 
             for (uint x = 0; x < Width; x++)
             {
@@ -110,11 +112,12 @@ namespace ProjectStellar
                 {
                     _bgSprite.Position = new Vector2f(y, x);
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
-                    _mapSprites[y, x] = _bgSprite;
+                    //_mapSprites[y, x] = _bgSprite;
+                    _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
                 }
             }
 
-            DrawGrid(window);
+            //DrawGrid(window);
 
             for (int i = 0; i < (boxes.Length / Height); i++)
             {
@@ -191,14 +194,14 @@ namespace ProjectStellar
         }
 
 
-        public bool CheckMap(float X, float Y, RenderWindow window, Font font)
+        public bool CheckMap(float x, float y, RenderWindow window, Font font)
         {
-            Console.WriteLine("x = {0}, y = {1}", X, Y);
+            Console.WriteLine("x = {0}, y = {1}", x, y);
             for (int i = 0; i < _cases.Length; i++)
             {
                 _building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
-                if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
+                if (_cases[i].Rec.Contains(x, y))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))

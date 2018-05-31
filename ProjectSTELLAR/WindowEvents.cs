@@ -161,26 +161,18 @@ namespace ProjectStellar
 
         public void MouseClicked(object sender, EventArgs e)
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left))
-            {
-                Vector2i pixelPos = Mouse.GetPosition(_window);
-                Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
-                CheckClic(worldPos.X, worldPos.Y);
-            }
-        }
-
-        public void CheckClic(float x, float y)
-        {
             if (_ctx.MenuState != 0)
             {
-                if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
-                else if (CheckMap(x, y, _window, _ctx._font)) Console.WriteLine("map");
-            }
-        }
+                
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    Vector2i pixelPos = Mouse.GetPosition(_window);
+                    Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
 
-        public bool CheckMap(float x, float y, RenderWindow window, Font font)
-        {
-            return (_mapUI.CheckMap(x, y, window, font));
+                    if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
+                    else if (_mapUI.CheckMap(worldPos.X, worldPos.Y, _window, _ctx._font)) Console.WriteLine("map");
+                }
+            }
         }
 
         public MapUI MapUI
