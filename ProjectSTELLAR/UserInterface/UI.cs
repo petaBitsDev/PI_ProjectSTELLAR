@@ -84,6 +84,8 @@ namespace ProjectStellar
         Sprite _quitButton;
         Sprite _quitButtonActive;
         Sprite _people;
+
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _sprites = new Dictionary<Sprite, string>();
             _buildingTypeSprites = new Dictionary<Sprite, BuildingType>();
@@ -352,7 +354,7 @@ namespace ProjectStellar
             RectangleShape rec = new RectangleShape();
             rec.FillColor = new Color(30, 40, 40);
             rec.Size = new Vector2f(_boxSize * 5, _resolution.Y);
-            rec.Position = new Vector2f(_resolution.X - _boxSize * 4, 0);
+            rec.Position = new Vector2f(_resolution.X - _boxSize * 4 - 5, 0);
 
             rec.Draw(window, RenderStates.Default);
 
@@ -391,7 +393,7 @@ namespace ProjectStellar
             nbMetal.Draw(window, RenderStates.Default);
 
             _electricitySprite.Draw(window, RenderStates.Default);
-            Text nbElec = new Text(_resourcesManager.ElectricityBalance.ToString(), font);
+            Text nbElec = new Text(resources["electricity"].ToString(), font);
             nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 8 + 2);
             nbElec.Color = Color.White;
             nbElec.CharacterSize = 16;
@@ -399,7 +401,7 @@ namespace ProjectStellar
             nbElec.Draw(window, RenderStates.Default);
 
             _waterSprite.Draw(window, RenderStates.Default);
-            Text nbWater = new Text(_resourcesManager.WaterBalance.ToString(), font);
+            Text nbWater = new Text(resources["water"].ToString(), font);
             nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 9 + 2);
             nbWater.Color = Color.White;
             nbWater.CharacterSize = 16;
@@ -418,7 +420,7 @@ namespace ProjectStellar
             _people.Draw(window, RenderStates.Default);
             if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
-                Text nbPeople = new Text(resources["population"].ToString(), font);
+                Text nbPeople = new Text(resources["nbPeople"].ToString(), font);
                 nbPeople.Position = new Vector2f(_resolution.X - _boxSize * 2 - 3, _boxSize * 13 + 2);
                 nbPeople.Color = Color.White;
                 nbPeople.CharacterSize = 16;
@@ -432,8 +434,8 @@ namespace ProjectStellar
         {
             RectangleShape rec = new RectangleShape();
             rec.FillColor = new Color(30, 40, 40);
-            rec.Size = new Vector2f(_resolution.X, _boxSize);
-            rec.Position = new Vector2f(0, _resolution.Y - _boxSize);
+            rec.Size = new Vector2f(_resolution.X, _boxSize * 2);
+            rec.Position = new Vector2f(0, _resolution.Y - _boxSize - 10);
             
             Text Time = new Text(gameTime.InGameTime.ToString("dd/MM/yyyy HH:mm"), font)
             {
@@ -512,7 +514,7 @@ namespace ProjectStellar
                     window.Draw(onglet1);
                     window.Draw(onglet2);
                     window.Draw(onglet3);
-                    window.Draw(text);
+                    window.Draw(text);
                     window.Draw(publicBuilding);
                     window.Draw(resourcesBuilding);
 
@@ -541,7 +543,7 @@ namespace ProjectStellar
                 }
                 else _buildSelected = false;
             }
-        }
+        }
 
         public void DrawDestroyButton(RenderWindow window)
         {
