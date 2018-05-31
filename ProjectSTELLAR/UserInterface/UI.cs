@@ -75,8 +75,15 @@ namespace ProjectStellar
         private string _buildingSelected;
         bool _settingsSelected;
         bool _exitSelected;
-        
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
+        int _selectedIndex;
+        bool _hovering;
+        readonly Sprite[] _menu = new Sprite[2];
+        readonly Sprite[] _menuActif = new Sprite[2];
+        Sprite _saveButton;
+        Sprite _saveButtonActive;
+        Sprite _quitButton;
+        Sprite _quitButtonActive;
+        Sprite _people;
         {
             _sprites = new Dictionary<Sprite, string>();
             _buildingTypeSprites = new Dictionary<Sprite, BuildingType>();
@@ -116,7 +123,7 @@ namespace ProjectStellar
 
             _fastForward = new Sprite(_ctx._uiTextures[16])
             {
-                Position = new Vector2f(_resolution.X / 2 + 32, _resolution.Y - _boxSize),
+                Position = new Vector2f(_resolution.X / 2 + 32, _resolution.Y - _boxSize + 3),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
@@ -130,24 +137,53 @@ namespace ProjectStellar
             //UI BUTTONS
             _buildButton = new Sprite(_ctx._uiTextures[3])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2 + _boxSize * 2)
+                Position = new Vector2f(_resolution.X - _boxSize * 3, _resolution.Y / 2 + _boxSize * 2)
             };
 
             _destroyButton = new Sprite(_ctx._uiTextures[20])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2 + _boxSize * 4),
+                Position = new Vector2f(_resolution.X - _boxSize * 3, _resolution.Y / 2 + _boxSize * 5),
                 //Scale = new Vector2f(0.5f, 0.5f)
             };
             _settingsButton = new Sprite(_ctx._uiTextures[21])
             {
-                //Scale = new Vector2f(0.5f, 0.5f)
+                Scale = new Vector2f(0.8f, 0.8f)
             };
+            _exitButton = new Sprite(_ctx._uiTextures[22]);
+
+            _saveButton = new Sprite(_ctx._menuTextures[2])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menu[0] = _saveButton;
+
+            _saveButtonActive = new Sprite(_ctx._menuTextures[6])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menuActif[0] = _saveButtonActive;
+
+            _quitButton = new Sprite(_ctx._menuTextures[3])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 13),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menu[1] = _quitButton;
+
+            _quitButtonActive = new Sprite(_ctx._menuTextures[7])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 13),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menuActif[1] = _quitButtonActive;
 
             //XP BAR
             _expBar = new RectangleShape()
             {
                 Size = new Vector2f(200, 30),
-                Position = new Vector2f((resolution.X / 10) * 3, resolution.Y - 40)
+                Position = new Vector2f((resolution.X / 10) * 3, resolution.Y - _boxSize)
             };
 
             _expBarFilled = new RectangleShape(_expBar)
@@ -158,51 +194,55 @@ namespace ProjectStellar
             //RESOURCES
             _coinSprite = new Sprite(_ctx._uiTextures[5])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 2),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 4),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _woodSprite = new Sprite(_ctx._uiTextures[7])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 3),
-                Scale = new Vector2f(0.8f, 0.8f)
-            };
-
-            _waterSprite = new Sprite(_ctx._uiTextures[10])
-            {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 7),
-                Scale = new Vector2f(0.8f, 0.8f)
-            };
-
-            _electricitySprite = new Sprite(_ctx._uiTextures[11])
-            {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 8),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 5),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _rockSprite = new Sprite(_ctx._uiTextures[9])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 4),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 6),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _metalSprite = new Sprite(_ctx._uiTextures[8])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 5),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 7),
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _electricitySprite = new Sprite(_ctx._uiTextures[11])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 8),
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _waterSprite = new Sprite(_ctx._uiTextures[10])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 9),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _pollutionSprite = new Sprite(_ctx._uiTextures[6])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _boxSize * 6),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 10),
                 Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _people = new Sprite(_ctx._uiTextures[23])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 11)
             };
 
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
 
-            _exitButton = new Sprite(_ctx._uiTextures[22]);
             _navbarSprite = new Sprite(_ctx._uiTextures[15]);
 
             //HABITATIONS
@@ -309,10 +349,17 @@ namespace ProjectStellar
         /// <param name="window">The window.</param>
         public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
         {
+            RectangleShape rec = new RectangleShape();
+            rec.FillColor = new Color(30, 40, 40);
+            rec.Size = new Vector2f(_boxSize * 5, _resolution.Y);
+            rec.Position = new Vector2f(_resolution.X - _boxSize * 4, 0);
+
+            rec.Draw(window, RenderStates.Default);
+
             //Displays Coins Sprite and number of coins
             _coinSprite.Draw(window, RenderStates.Default);
             Text nbCoins = new Text(resources["coins"].ToString(), font);
-            nbCoins.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 2 + 2);
+            nbCoins.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 4 + 2);
             nbCoins.Color = Color.White;
             nbCoins.CharacterSize = 16;
             nbCoins.Style = Text.Styles.Bold;
@@ -321,24 +368,15 @@ namespace ProjectStellar
             //Displays Wood Sprite and number of wood
             _woodSprite.Draw(window, RenderStates.Default);
             Text nbWood = new Text(resources["wood"].ToString(), font);
-            nbWood.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 3 + 2);
+            nbWood.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 5 + 2);
             nbWood.Color = Color.White;
             nbWood.CharacterSize = 16;
             nbWood.Style = Text.Styles.Bold;
             nbWood.Draw(window, RenderStates.Default);
 
-            //Displays Pollution Sprite and number
-            _pollutionSprite.Draw(window, RenderStates.Default);
-            Text nbPollution = new Text(resources["pollution"].ToString(), font);
-            nbPollution.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 6 + 2);
-            nbPollution.Color = Color.White;
-            nbPollution.CharacterSize = 16;
-            nbPollution.Style = Text.Styles.Bold;
-            nbPollution.Draw(window, RenderStates.Default);
-
             _rockSprite.Draw(window, RenderStates.Default);
             Text nbRock = new Text(resources["rock"].ToString(), font);
-            nbRock.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 4 + 2);
+            nbRock.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 6 + 2);
             nbRock.Color = Color.White;
             nbRock.CharacterSize = 16;
             nbRock.Style = Text.Styles.Bold;
@@ -346,33 +384,57 @@ namespace ProjectStellar
 
             _metalSprite.Draw(window, RenderStates.Default);
             Text nbMetal = new Text(resources["metal"].ToString(), font);
-            nbMetal.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 5 + 2);
+            nbMetal.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 7 + 2);
             nbMetal.Color = Color.White;
             nbMetal.CharacterSize = 16;
             nbMetal.Style = Text.Styles.Bold;
             nbMetal.Draw(window, RenderStates.Default);
 
             _electricitySprite.Draw(window, RenderStates.Default);
-            Text nbElec = new Text(resources["electricity"].ToString(), font);
-            nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 8 + 2);
+            Text nbElec = new Text(_resourcesManager.ElectricityBalance.ToString(), font);
+            nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 8 + 2);
             nbElec.Color = Color.White;
             nbElec.CharacterSize = 16;
             nbElec.Style = Text.Styles.Bold;
             nbElec.Draw(window, RenderStates.Default);
 
             _waterSprite.Draw(window, RenderStates.Default);
-            Text nbWater = new Text(resources["water"].ToString(), font);
-            nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2, _boxSize * 7 + 2);
+            Text nbWater = new Text(_resourcesManager.WaterBalance.ToString(), font);
+            nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 9 + 2);
             nbWater.Color = Color.White;
             nbWater.CharacterSize = 16;
             nbWater.Style = Text.Styles.Bold;
             nbWater.Draw(window, RenderStates.Default);
 
+            //Displays Pollution Sprite and number
+            _pollutionSprite.Draw(window, RenderStates.Default);
+            Text nbPollution = new Text(resources["pollution"].ToString(), font);
+            nbPollution.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 10 + 2);
+            nbPollution.Color = Color.White;
+            nbPollution.CharacterSize = 16;
+            nbPollution.Style = Text.Styles.Bold;
+            nbPollution.Draw(window, RenderStates.Default);
+
+            _people.Draw(window, RenderStates.Default);
+            if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                Text nbPeople = new Text(resources["population"].ToString(), font);
+                nbPeople.Position = new Vector2f(_resolution.X - _boxSize * 2 - 3, _boxSize * 13 + 2);
+                nbPeople.Color = Color.White;
+                nbPeople.CharacterSize = 16;
+                nbPeople.Style = Text.Styles.Bold;
+                nbPeople.Draw(window, RenderStates.Default);
+            }
             //window.Draw(rec);
         }
 
         public void DrawTimeBar(RenderWindow window, GameTime gameTime, Font font)
         {
+            RectangleShape rec = new RectangleShape();
+            rec.FillColor = new Color(30, 40, 40);
+            rec.Size = new Vector2f(_resolution.X, _boxSize);
+            rec.Position = new Vector2f(0, _resolution.Y - _boxSize);
+            
             Text Time = new Text(gameTime.InGameTime.ToString("dd/MM/yyyy HH:mm"), font)
             {
                 Position = new Vector2f(0, _resolution.Y - 32),
@@ -381,6 +443,7 @@ namespace ProjectStellar
                 Style = Text.Styles.Bold
             };
 
+            rec.Draw(window, RenderStates.Default);
             _rectangleTimeBar.Draw(window, RenderStates.Default);
             _pause.Draw(window, RenderStates.Default);
             _play.Draw(window, RenderStates.Default);
@@ -835,9 +898,80 @@ namespace ProjectStellar
 
         public void DrawInGameMenu (RenderWindow window, Font font)
         {
-            _settingsButton.Position = new Vector2f(_resolution.X - _boxSize, 0);
+            _settingsButton.Position = new Vector2f(_resolution.X - _boxSize * 2, 0);
             _settingsButton.Draw(window, RenderStates.Default);
 
+            RectangleShape rec = new RectangleShape();
+            rec.Size = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y - _boxSize * 5);
+            rec.Position = new Vector2f(_boxSize * 3, _boxSize * 2);
+            rec.FillColor = new Color(30, 30, 40);
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                if (_settingsButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    SettingsSelected = true;
+                }
+            }
+
+            if(_settingsSelected)
+            {
+                rec.Draw(window, RenderStates.Default);
+                _exitButton.Position = new Vector2f(rec.Position.X, rec.Position.Y);
+                _exitButton.Draw(window, RenderStates.Default);
+
+                ExitSelected = false;
+                _hovering = false;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    _menu[i].Draw(window, RenderStates.Default);
+
+                    if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _menu[i] = _menuActif[i];
+                        SelectedItem = i;
+                        _hovering = true;
+                    }
+
+                    if (_hovering == false)
+                    {
+                        if (SelectedItem != -1)
+                        {
+                            _menu[0] = _saveButton;
+                            _menu[1] = _quitButton;
+                        }
+                        SelectedItem = -1;
+                    }
+                    else
+                    {
+                        if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        {
+                            if (SelectedItem == 0)
+                            {
+                                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager);
+                                Save.SaveGame(save, _ctx._name);
+                                Console.WriteLine("Saved");
+                                SettingsSelected = false;
+                            }
+                            else if (SelectedItem == 1) window.Close();
+                        }
+                    }
+                }
+                if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left)) ExitSelected = true;
+                }
+                if (ExitSelected)
+                {
+                    SettingsSelected = false;
+                }
+            }
+        }
+        public int SelectedItem
+        {
+            get { return _selectedIndex; }
+            set { _selectedIndex = value; }
         }
     }
 }

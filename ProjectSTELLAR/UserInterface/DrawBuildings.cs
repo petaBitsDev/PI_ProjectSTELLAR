@@ -43,7 +43,7 @@ namespace ProjectStellar
 
         public void Draw (Type buildingType, RenderWindow window, int x, int y, Font font)
         {
-            Vector2i pixelPos = Mouse.GetPosition(window);
+            Vector2i pixelPos = Mouse.GetPosition(window);
             Vector2f worldPos = window.MapPixelToCoords(pixelPos, _ctx._windowEvents.View);
 
             //_textures.TryGetValue(buildingType, out Texture texture);
@@ -66,7 +66,7 @@ namespace ProjectStellar
 
             
             //    if (sprite.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-            //    {
+            //    {
             //        window.SetView(_ctx._windowEvents.View);
             //        window.Draw(rec);
             //        _ui.DrawBuildingInformations(window, font, building, x, y);

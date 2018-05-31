@@ -227,6 +227,10 @@ namespace ProjectStellar
             {
                 _view.Zoom(1.06f);
             }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+            {
+                _ui.DrawInGameMenu(_window, _font);
+            }
         }
 
         internal View View => _view;
