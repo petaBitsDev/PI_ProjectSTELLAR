@@ -618,6 +618,7 @@ namespace ProjectStellar
 
             if (IsTab1Active == true)
             {
+                //_hutSprite.Draw(window, RenderStates.Default);
                 _drawUIctx.RenderSprite(_hutSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_houseSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_flatSprite, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 64, 64);
@@ -676,20 +677,20 @@ namespace ProjectStellar
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, float X, float Y)
         {
-            //RectangleShape rec = new RectangleShape();
-            //rec.OutlineColor = new Color(Color.Black);
-            //rec.OutlineThickness = 3.0f;
-            //rec.FillColor = new Color(Color.White);
-            //rec.Size = new Vector2f(32 * 8, 32 * 4);
-            //rec.Position = new Vector2f(X, Y);
-            //rec.Draw(window, RenderStates.Default);
+            RectangleShape rec = new RectangleShape();
+            rec.OutlineColor = new Color(Color.Black);
+            rec.OutlineThickness = 3.0f;
+            rec.FillColor = new Color(Color.White);
+            rec.Size = new Vector2f(32 * 8, 32 * 4);
+            rec.Position = new Vector2f(X, Y);
+            rec.Draw(window, RenderStates.Default);
+
             if (!object.Equals(building, null))
             {
                 for (int i = 0; i < _mapCtx.BuildingTypes.Count; i++)
                 {
                     if (_mapCtx.BuildingTypes[i].GetType() == building.GetType())
                     {
-
                         Text water = new Text("Water consomation : ", font);
                         water.Color = new Color(52, 152, 219);
                         water.Position = new Vector2f((X * 32 + 12), (Y * 32 - 32 * 5.9f));

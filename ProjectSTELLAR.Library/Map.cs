@@ -76,8 +76,8 @@ namespace ProjectStellar.Library
                     _boxes[x + 1, y] = building;
                     _boxes[x, y + 1] = building;
                     _boxes[x + 1, y + 1] = building;
-                    _boxes[x + 2, y] = building;
-                    _boxes[x + 1, y + 1] = building;
+                    _boxes[x, y + 2] = building;
+                    _boxes[x + 1, y + 2] = building;
                     
                 }
             }

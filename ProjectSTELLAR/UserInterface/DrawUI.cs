@@ -49,10 +49,10 @@ namespace ProjectStellar
             _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
             //   _mapUI.DrawGrid(window);
             window.SetView(window.DefaultView);
+            _ui.DrawBuildButton(window, font);
             _ui.DrawResourcesBar(window, font, resources.NbResources);
             _ui.DrawTimeBar(window, gameTime, font);
             _ui.DrawDestroyButton(window);
-            _ui.DrawBuildButton(window, font);
             _ui.DrawExperience(window);
             _ui.DrawInGameMenu(window, font);
         }

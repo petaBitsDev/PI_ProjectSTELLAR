@@ -94,6 +94,12 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
+            //RectangleShape rec = new RectangleShape();
+            //rec.OutlineColor = new Color(Color.Transparent);
+            //rec.OutlineThickness = 3.0f;
+            //rec.FillColor = new Color(253, 254, 254);
+            //rec.Size = new Vector2f(32 * 8, 32 * 4);
+
             _mapSprites = new Sprite[Height, Width];
             Vector2i pixelPos = Mouse.GetPosition(window);
             Vector2f worldPos = window.MapPixelToCoords(pixelPos, _gameCtx._windowEvents.View);
@@ -116,50 +122,45 @@ namespace ProjectStellar
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
+                        //rec.Position = new Vector2f((i * 32), (j * 32 - 32 * 6));
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab1Sprite)
                         {
                             if (boxes[i, j].Type == buildingType.Value)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
-                                buildingType.Key.Position = new Vector2f(j * 32, i * 32);
-                                buildingType.Key.Draw(window, RenderStates.Default);
                             }
-                            if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                            {
-                                window.SetView(_gameCtx._windowEvents.View);
-                                window.Draw(rec);
-                                _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
-                            }
+                            //if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
+                            //{
+                            //    window.SetView(_gameCtx._windowEvents.View);
+                            //    window.Draw(rec);
+                            //    _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
+                            //}
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
                         {
                             if (boxes[i, j].Type == buildingType.Value)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
-                                buildingType.Key.Position = new Vector2f(j * 32, i * 32);
-                                buildingType.Key.Draw(window, RenderStates.Default);
                             }
-                            if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                            {
-                                window.SetView(_gameCtx._windowEvents.View);
-                                window.Draw(rec);
-                                _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
-                            }
+                            //if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
+                            //{
+                            //    window.SetView(_gameCtx._windowEvents.View);
+                            //    window.Draw(rec);
+                            //    _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
+                            //}
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
                         {
                             if (boxes[i, j].Type == buildingType.Value)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
-                                buildingType.Key.Position = new Vector2f(j * 32, i * 32);
-                                buildingType.Key.Draw(window, RenderStates.Default);
                             }
-                            if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                            {
-                                window.SetView(_gameCtx._windowEvents.View);
-                                window.Draw(rec);
-                                _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
-                            }
+                            //if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
+                            //{
+                            //    window.SetView(_gameCtx._windowEvents.View);
+                            //    window.Draw(rec);
+                            //    _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
+                            //}
                         }
                     }
                 }
