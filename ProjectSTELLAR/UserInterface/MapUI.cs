@@ -114,6 +114,13 @@ namespace ProjectStellar
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                     //_mapSprites[y, x] = _bgSprite;
                     _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
+                    if (_cases[k-1].Contains((int)worldPos.X, (int)worldPos.Y))
+                    {
+                        if (!object.Equals(boxes[_cases[k - 1].X, _cases[k - 1].Y], null))
+                        {
+                            _ui.DrawBuildingInformations(window, font, boxes[_cases[k - 1].X, _cases[k - 1].Y], (int)x, (int)y);
+                        }
+                    }
                 }
             }
 
@@ -132,12 +139,6 @@ namespace ProjectStellar
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
-                            //if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                            //{
-                            //    window.SetView(_gameCtx._windowEvents.View);
-                            //    window.Draw(rec);
-                            //    _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
-                            //}
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
                         {
@@ -145,12 +146,6 @@ namespace ProjectStellar
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
-                            //if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                            //{
-                            //    window.SetView(_gameCtx._windowEvents.View);
-                            //    window.Draw(rec);
-                            //    _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
-                            //}
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
                         {
@@ -158,12 +153,6 @@ namespace ProjectStellar
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
-                            //if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                            //{
-                            //    window.SetView(_gameCtx._windowEvents.View);
-                            //    window.Draw(rec);
-                            //    _ui.DrawBuildingInformations(window, font, boxes[i, j], i, j);
-                            //}
                         }
                     }
                 }
@@ -217,7 +206,6 @@ namespace ProjectStellar
                     return true;
                 }
             }
-
             return false;
         }
         public bool BuildingExist
