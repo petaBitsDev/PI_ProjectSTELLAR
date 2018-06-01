@@ -86,7 +86,28 @@ namespace ProjectStellar.Library
 
         public void RemoveBuilding(int x, int y)
         {
-            _boxes[x, y] = null;
+            int size = _boxes[x, y].Size;
+            int realX = _boxes[x, y].X;
+            int realY = _boxes[x, y].Y;
+
+            _boxes[realX, realY] = null;
+            if (size == 1) _boxes[realX, realY] = null;
+            else if (size == 4)
+            {
+                _boxes[realX, realY] = null;
+                _boxes[realX + 1, realY] = null;
+                _boxes[realX, realY + 1] = null;
+                _boxes[realX + 1, realY + 1] = null;
+            }
+            else if (size == 6)
+            {
+                _boxes[realX, realY] = null;
+                _boxes[realX + 1, realY] = null;
+                _boxes[realX, realY + 1] = null;
+                _boxes[realX + 1, realY + 1] = null;
+                _boxes[realX, realY + 2] = null;
+                _boxes[realX + 1, realY + 2] = null;
+            }
         }
 
         public bool CheckBuilding(int x, int y)
