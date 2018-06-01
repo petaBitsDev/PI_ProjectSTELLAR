@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-
-    class Hospital : Building
+    [Serializable]
+    class Hospital : Building, IPublicBuildings
     {
         public Hospital(BuildingType type, int x, int y): base(type, x, y)
         {
         }
     }
 }
-
-    [Serializable]
-    class Hospital : Building, IPublicBuildings

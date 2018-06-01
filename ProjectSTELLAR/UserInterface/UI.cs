@@ -322,6 +322,23 @@ namespace ProjectStellar
             {
                 Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
             };
+
+            _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+            _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+            _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
+
+            _tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
+            _tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
+            _tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
+            _tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
+            _tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
+            _tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+
+            _tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
+            _tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
+            _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
+            _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
+            _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
         }
 
         internal bool IsTab1Active
@@ -645,9 +662,9 @@ namespace ProjectStellar
         {
             _sprites.Clear();
             _buildingTypeSprites.Clear();
-            _tab1Sprite.Clear();
-            _tab2Sprite.Clear();
-            _tab3Sprite.Clear();
+            //_tab1Sprite.Clear();
+            //_tab2Sprite.Clear();
+            //_tab3Sprite.Clear();
 
             _buildingTypeSprites.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _buildingTypeSprites.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
@@ -664,22 +681,22 @@ namespace ProjectStellar
             _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
 
-            _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
-            _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
-            _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
+            //_tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+            //_tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+            //_tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
 
-            _tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
-            _tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
-            _tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
-            _tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
-            _tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
-            _tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+            //_tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
+            //_tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
+            //_tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
+            //_tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
+            //_tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
+            //_tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
 
-            _tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
-            _tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
-            _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
-            _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
-            _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+            //_tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
+            //_tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
+            //_tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
+            //_tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
+            //_tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
 
             if (IsTab1Active == true)
             {
@@ -892,6 +909,18 @@ namespace ProjectStellar
             set { _mapCtx = value; }
         }
 
+        public ResourcesManager ResourcesManager
+        {
+            get { return _resourcesManager; }
+            set { _resourcesManager = value; }
+        }
+
+        public ExperienceManager ExperienceManager
+        {
+            get { return _experienceManager; }
+            set { _experienceManager = value; }
+        }
+
         public Dictionary<Sprite, BuildingType> BuildingTypeSprites => _buildingTypeSprites;
         public Dictionary<Sprite, BuildingType> Tab1Sprite => _tab1Sprite;
         public Dictionary<Sprite, BuildingType> Tab2Sprite => _tab2Sprite;
@@ -951,7 +980,7 @@ namespace ProjectStellar
                         {
                             if (SelectedItem == 0)
                             {
-                                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager);
+                                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
                                 Save.SaveGame(save, _ctx._name);
                                 Console.WriteLine("Saved");
                                 SettingsSelected = false;
@@ -974,6 +1003,30 @@ namespace ProjectStellar
         {
             get { return _selectedIndex; }
             set { _selectedIndex = value; }
+        }
+
+        public void UpdateBuildingTabs()
+        {
+            _tab1Sprite.Clear();
+            _tab2Sprite.Clear();
+            _tab3Sprite.Clear();
+
+            _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
+            _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
+            _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
+
+            _tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
+            _tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
+            _tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
+            _tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
+            _tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
+            _tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+
+            _tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
+            _tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
+            _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
+            _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
+            _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
         }
     }
 }

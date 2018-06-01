@@ -67,11 +67,17 @@ namespace ProjectStellar
 
         public UI UI => _ui;
 
-        public void UpdateMap(Map map)
+        public void UpdateData(Map map, ResourcesManager resources, ExperienceManager experience)
         {
             Map = map;
             MapUI.MapContext = map;
             UI.Map = map;
+
+            _resourcesCtx = resources;
+            UI.ResourcesManager = resources;
+            UI.ExperienceManager = experience;
+            UI.UpdateBuildingTabs();
+            MapUI.ResourcesManager = resources;
         }
     }
 }

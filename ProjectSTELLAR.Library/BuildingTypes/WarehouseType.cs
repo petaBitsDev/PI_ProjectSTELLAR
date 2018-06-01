@@ -35,16 +35,7 @@ namespace ProjectStellar.Library
             _cost = 0;
             _type = "public";
             _size = 4;
-        }
-
-        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
-        {
-            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
-
-            resources.UpdateWhenCreate(this);
-            Building building = new Warehouse(this, x, y);
-            map.AddBuilding(x, y, building);
-            _list.Add(building);
+            _list = new List<Building>();
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -71,16 +62,3 @@ namespace ProjectStellar.Library
         public override int Size => _size;
     }
 }
-
-            _size = 4;
-            _list = new List<Building>();
-        }
-
-        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
-        {
-            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
-
-            resources.UpdateWhenCreate(this);
-            Building building = new Warehouse(this, x, y);
-            map.AddBuilding(x, y, building);
-            _list.Add(building);

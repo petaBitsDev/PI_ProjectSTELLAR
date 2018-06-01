@@ -26,7 +26,7 @@ namespace ProjectStellar
         internal Font _font;
         internal Map _map;
         public DrawUI _drawUI;
-        ExperienceManager _experienceManager;
+        internal ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
@@ -164,7 +164,8 @@ namespace ProjectStellar
             GameTime = save.GameTime;
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
-            _drawUI.UpdateMap(save.Map);
+            _experienceManager = save.ExperienceManager;
+            _drawUI.UpdateData(save.Map, save.ResourcesManager, save.ExperienceManager);
         }
 
         public int MenuState

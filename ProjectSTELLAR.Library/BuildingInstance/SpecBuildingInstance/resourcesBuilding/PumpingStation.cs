@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    class PumpingStation : Building
+    [Serializable]
+    class PumpingStation : Building, IResourcesBuildings
     {
         public PumpingStation(BuildingType type, int x, int y) : base(type, x, y)
         {
         }
     }
 }
-
-    [Serializable]
-    class PumpingStation : Building, IResourcesBuildings
