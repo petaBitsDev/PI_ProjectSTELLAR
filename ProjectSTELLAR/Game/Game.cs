@@ -25,16 +25,14 @@ namespace ProjectStellar
         Resolution _resolution;
         internal Font _font;
         internal Map _map;
-        public BuildingFactory _buildingFactory;
         public DrawUI _drawUI;
-        ExperienceManager _experienceManager;
+        internal ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
-        CityHelper _cityHelper;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
         internal string _name = "test";
-        View _view;
+        internal View _view;
         Vector2f _center;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
@@ -107,18 +105,15 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(100, 100);
             _resourcesManager = new ResourcesManager(_map);
-            _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _experienceManager = new ExperienceManager(_resourcesManager);
-            _cityHelper = new CityHelper(_map);
-            _cityHelper.CreateListBuilding();
 
-            _center = new Vector2f(_resolution.X / 2, _resolution.Y / 2);
-            _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y));
+            _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
+            _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view);
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
-            //Window.MouseMoved += _windowEvents.MouseMoved;
+            Window.MouseMoved += _windowEvents.MouseMoved;
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
             Window.KeyPressed += _windowEvents.KeyPressed;
@@ -132,7 +127,7 @@ namespace ProjectStellar
             {
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
-                    _resourcesManager.NbResources["population"] += 10;
+                    _resourcesManager.NbResources["nbPeople"] += 10;
                     _experienceManager.CheckLevel();
                     //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
@@ -152,7 +147,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
@@ -169,8 +164,8 @@ namespace ProjectStellar
             GameTime = save.GameTime;
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
-            _drawUI.UpdateMap(save.Map);
-            _buildingFactory.Map = save.Map;
+            _experienceManager = save.ExperienceManager;
+            _drawUI.UpdateData(save.Map, save.ResourcesManager, save.ExperienceManager);
         }
 
         public int MenuState

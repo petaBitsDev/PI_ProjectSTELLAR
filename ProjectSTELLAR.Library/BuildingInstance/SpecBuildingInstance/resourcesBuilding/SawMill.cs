@@ -4,17 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
-    public class Hospital : Building
+    class SawMill : Building, IResourcesBuildings
     {
-        public Hospital(Map ctx)
-            : base(ctx, 70, 40, 67, 75, 45, 60, 15, 25, true, 30, 45)
+        public SawMill(BuildingType type, int x, int y) : base(type, x , y)
         {
-
         }
-
-     
     }
 }
