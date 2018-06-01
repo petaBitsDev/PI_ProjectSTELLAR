@@ -206,7 +206,13 @@ namespace ProjectStellar
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
             {
-                _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
+                if (!_ui.SettingsSelected)
+                    _ui.SettingsSelected = true;
+                else
+                {
+                    _ui.SettingsSelected = false;
+                    _ctx.GameTime.TimeScale = 60f;
+                }
             }
         }
 
