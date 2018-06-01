@@ -185,7 +185,7 @@ namespace ProjectStellar
             _expBar = new RectangleShape()
             {
                 Size = new Vector2f(200, 30),
-                Position = new Vector2f((resolution.X / 10) * 3, resolution.Y - _boxSize)
+                Position = new Vector2f(resolution.X - 204, resolution.Y - _boxSize)
             };
 
             _expBarFilled = new RectangleShape(_expBar)
@@ -378,7 +378,7 @@ namespace ProjectStellar
             //Displays Coins Sprite and number of coins
             _coinSprite.Draw(window, RenderStates.Default);
             Text nbCoins = new Text(resources["coins"].ToString(), font);
-            nbCoins.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 4 + 2);
+            nbCoins.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 4 + 2);
             nbCoins.Color = Color.White;
             nbCoins.CharacterSize = 16;
             nbCoins.Style = Text.Styles.Bold;
@@ -387,7 +387,7 @@ namespace ProjectStellar
             //Displays Wood Sprite and number of wood
             _woodSprite.Draw(window, RenderStates.Default);
             Text nbWood = new Text(resources["wood"].ToString(), font);
-            nbWood.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 5 + 2);
+            nbWood.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 5 + 2);
             nbWood.Color = Color.White;
             nbWood.CharacterSize = 16;
             nbWood.Style = Text.Styles.Bold;
@@ -395,7 +395,7 @@ namespace ProjectStellar
 
             _rockSprite.Draw(window, RenderStates.Default);
             Text nbRock = new Text(resources["rock"].ToString(), font);
-            nbRock.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 6 + 2);
+            nbRock.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 6 + 2);
             nbRock.Color = Color.White;
             nbRock.CharacterSize = 16;
             nbRock.Style = Text.Styles.Bold;
@@ -403,7 +403,7 @@ namespace ProjectStellar
 
             _metalSprite.Draw(window, RenderStates.Default);
             Text nbMetal = new Text(resources["metal"].ToString(), font);
-            nbMetal.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 7 + 2);
+            nbMetal.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 7 + 2);
             nbMetal.Color = Color.White;
             nbMetal.CharacterSize = 16;
             nbMetal.Style = Text.Styles.Bold;
@@ -411,7 +411,7 @@ namespace ProjectStellar
 
             _electricitySprite.Draw(window, RenderStates.Default);
             Text nbElec = new Text(resources["electricity"].ToString(), font);
-            nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 8 + 2);
+            nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 8 + 2);
             nbElec.Color = Color.White;
             nbElec.CharacterSize = 16;
             nbElec.Style = Text.Styles.Bold;
@@ -419,7 +419,7 @@ namespace ProjectStellar
 
             _waterSprite.Draw(window, RenderStates.Default);
             Text nbWater = new Text(resources["water"].ToString(), font);
-            nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 9 + 2);
+            nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 9 + 2);
             nbWater.Color = Color.White;
             nbWater.CharacterSize = 16;
             nbWater.Style = Text.Styles.Bold;
@@ -428,7 +428,7 @@ namespace ProjectStellar
             //Displays Pollution Sprite and number
             _pollutionSprite.Draw(window, RenderStates.Default);
             Text nbPollution = new Text(resources["pollution"].ToString(), font);
-            nbPollution.Position = new Vector2f(_resolution.X - _boxSize * 2 - 10, _boxSize * 10 + 2);
+            nbPollution.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 10 + 2);
             nbPollution.Color = Color.White;
             nbPollution.CharacterSize = 16;
             nbPollution.Style = Text.Styles.Bold;
@@ -438,7 +438,7 @@ namespace ProjectStellar
             if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
                 Text nbPeople = new Text(resources["nbPeople"].ToString(), font);
-                nbPeople.Position = new Vector2f(_resolution.X - _boxSize * 2 - 3, _boxSize * 13 + 2);
+                nbPeople.Position = new Vector2f(_resolution.X - _boxSize * 2 - 8, _boxSize * 13 + 2);
                 nbPeople.Color = Color.White;
                 nbPeople.CharacterSize = 16;
                 nbPeople.Style = Text.Styles.Bold;
