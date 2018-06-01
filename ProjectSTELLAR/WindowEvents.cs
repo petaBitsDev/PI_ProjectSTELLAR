@@ -161,7 +161,7 @@ namespace ProjectStellar
 
         public void MouseClicked(object sender, EventArgs e)
         {
-            if (_ctx.MenuState != 0)
+            if (_ctx.MenuState == 1)
             {
                 
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))

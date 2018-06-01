@@ -31,7 +31,7 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
-        Building _building;
+        //Building _building;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -183,14 +183,15 @@ namespace ProjectStellar
         }
 
 
-        public bool CheckMap(float x, float y, RenderWindow window, Font font)
+        public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
-            Console.WriteLine("x = {0}, y = {1}", x, y);
+            Building building;
+            Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
             for (int i = 0; i < _cases.Length; i++)
             {
-                _building = ContainsBuilding(_cases[i].X, _cases[i].Y);
+                building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
-                if (_cases[i].Rec.Contains(x, y))
+                if (_cases[i].Rec.Contains(mouseX, mouseY))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
@@ -198,11 +199,12 @@ namespace ProjectStellar
                         _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         _ctx.ChosenBuilding = null;
                     }
-                    else if (_ui.DestroySelected)
+                    else if (_ui.DestroySelected && building != null)
                     {
-                        _ctx.ChosenBuilding.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, _building);
+                        building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building);
                         _ui.DestroySelected = false;
                     }
+                    else return false;
                     return true;
                 }
             }
