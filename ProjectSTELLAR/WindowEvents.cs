@@ -63,29 +63,6 @@ namespace ProjectStellar
             {
                 _xMax = _mapUI._x2y2.X;
                 _yMax = _mapUI._x2y2.Y;
-
-                //if(posX >= 0 && posX < _resolution.X * 0.9f)
-                //{
-                //    if(posY >= 0 && posY < _resolution.Y * 0.95f)
-                //    {
-                //        for (int x = 0; x < _ctx._map.Boxes.Length; x++)
-                //        {
-                //            for (int y = 0; y < _ctx._map.Boxes.Length; y++)
-                //            {
-                //                rec.Position = new Vector2f((x * 32), (y * 32 - 32 * 6));
-                //                foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ctx._drawUI.UI.BuildingTypeSprites)
-                //                {
-                //                    if (buildingType.Key.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
-                //                    {
-                //                        _window.SetView(View);
-                //                        _window.Draw(rec);
-                //                        _ui.DrawBuildingInformations(_window, _ctx._font, _ctx._map.Boxes[x, y], x, y);
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
             }
 
             // Right side
@@ -229,7 +206,7 @@ namespace ProjectStellar
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
             {
-                _ui.DrawInGameMenu(_window, _font);
+                _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
             }
         }
 

@@ -114,25 +114,14 @@ namespace ProjectStellar
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                     //_mapSprites[y, x] = _bgSprite;
                     _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
-                    if (_cases[k-1].Contains((int)worldPos.X, (int)worldPos.Y))
-                    {
-                        if (!object.Equals(boxes[_cases[k - 1].X, _cases[k - 1].Y], null))
-                        {
-                            _ui.DrawBuildingInformations(window, font, boxes[_cases[k - 1].X, _cases[k - 1].Y], (int)x, (int)y);
-                        }
-                    }
                 }
             }
-
-            //DrawGrid(window);
-
             for (int i = 0; i < (boxes.Length / Height); i++)
             {
                 for (int j = 0; j < (boxes.Length / Width); j++)
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
-                        //rec.Position = new Vector2f((i * 32), (j * 32 - 32 * 6));
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab1Sprite)
                         {
                             if (boxes[i, j].Type == buildingType.Value)
@@ -156,6 +145,17 @@ namespace ProjectStellar
                         }
                     }
                 }
+            }
+
+            for(int a = 0; a < _cases.Length; a++)
+            {
+                if (_cases[a].Contains((int)worldPos.X, (int)worldPos.Y))
+                {
+                    if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                    {
+                        _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
+                    }
+                }    
             }
         }
      
@@ -181,7 +181,6 @@ namespace ProjectStellar
                 return null;
             }
         }
-
 
         public bool CheckMap(float x, float y, RenderWindow window, Font font)
         {

@@ -739,16 +739,23 @@ namespace ProjectStellar
             _expBarFilled.Draw(window, RenderStates.Default);
         }
 
-        internal void DrawBuildingInformations(RenderWindow window, Font font, Building building, int x, int y)
+        internal void DrawBuildingInformations(RenderWindow window, Font font, Building building)
         {
             RectangleShape rec = new RectangleShape();
             rec.OutlineColor = new Color(Color.Black);
             rec.OutlineThickness = 3.0f;
             rec.FillColor = new Color(Color.White);
             rec.Size = new Vector2f(32 * 8, 32 * 4);
-            rec.Position = new Vector2f(y * 32, x * 32);
-            rec.Draw(window, RenderStates.Default);
 
+            if ((building.X * 32 - 32 * 6) >= 0)
+            {
+                rec.Position = new Vector2f((building.Y * 32), (building.X * 32 - 32 * 5));
+            }
+            else
+            {
+                rec.Position = new Vector2f(building.Y * 32, building.X * 32 + 32 * 5);
+            }
+            rec.Draw(window, RenderStates.Default);
             foreach (KeyValuePair<Sprite, BuildingType> buildingType in BuildingTypeSprites)
             {
                 for (int i = 0; i < _mapCtx.BuildingTypes.Count; i++)
@@ -757,65 +764,61 @@ namespace ProjectStellar
                     {
                         Text water = new Text("Water consomation : ", font);
                         water.Color = new Color(52, 152, 219);
-                        water.Position = new Vector2f((x * 32 + 12), (y * 32 - 32 * 5.9f));
+                        water.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 32 * 4.9f));
                         water.CharacterSize = 17;
+                        water.Draw(window, RenderStates.Default);
 
                         Text nbWater = new Text(_mapCtx.BuildingTypes[i].Water + "/H", font);
-                        nbWater.Position = new Vector2f((x * 32 + 100), (y * 32 - 32 * 5.35f));
+                        nbWater.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 4.35f));
                         nbWater.Color = new Color(52, 152, 219);
                         nbWater.CharacterSize = 14;
                         nbWater.Style = Text.Styles.Bold;
-
                         nbWater.Draw(window, RenderStates.Default);
-                        water.Draw(window, RenderStates.Default);
-
+                        
                         Text electricity = new Text("Electricity consomation : ", font);
-                        electricity.Position = new Vector2f((x * 32 + 12), (y * 32 - 32 * 4.9f));
+                        electricity.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 32 * 3.9f));
                         electricity.Color = new Color(236, 193, 5);
                         electricity.CharacterSize = 17;
+                        electricity.Draw(window, RenderStates.Default);
 
                         Text nbElectricity = new Text(_mapCtx.BuildingTypes[i].Electricity + "/H", font);
-                        nbElectricity.Position = new Vector2f((x * 32 + 100), (y * 32 - 32 * 4.35f));
+                        nbElectricity.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 3.2f));
                         nbElectricity.CharacterSize = 14;
                         nbElectricity.Color = new Color(236, 193, 5);
                         nbElectricity.Style = Text.Styles.Bold;
-
                         nbElectricity.Draw(window, RenderStates.Default);
-                        electricity.Draw(window, RenderStates.Default);
-
+                        
                         if (_mapCtx.BuildingTypes[i].Cost > 0)
                         {
-                            _coinSprite.Draw(window, RenderStates.Default);
+                            //_coinSprite.Draw(window, RenderStates.Default);
 
                             Text charges = new Text("Charges : ", font);
-                            charges.Position = new Vector2f((x * 32 + 12), (y * 32 - 32 * 3.9f));
+                            charges.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 32 * 2.8f));
                             charges.Color = new Color(203, 67, 53);
                             charges.CharacterSize = 17;
+                            charges.Draw(window, RenderStates.Default);
 
                             Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
-                            nbCharges.Position = new Vector2f((x * 32 + 100), (y * 32 - 32 * 3.35f));
+                            nbCharges.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 2.5f));
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(203, 67, 53);
                             nbCharges.Style = Text.Styles.Bold;
-
                             nbCharges.Draw(window, RenderStates.Default);
-                            charges.Draw(window, RenderStates.Default);
                         }
                         else
                         {
                             Text charges = new Text("Taxes : ", font);
-                            charges.Position = new Vector2f((x * 32 + 12), (y * 32 - 35 * 3.9f));
+                            charges.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 35 * 2.7f));
                             charges.Color = new Color(68, 198, 14);
                             charges.CharacterSize = 17;
+                            charges.Draw(window, RenderStates.Default);
 
                             Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
-                            nbCharges.Position = new Vector2f((x * 32 + 100), (y * 32 - 32 * 3.35f));
+                            nbCharges.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 2.5f));
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(68, 198, 14);
                             nbCharges.Style = Text.Styles.Bold;
-
                             nbCharges.Draw(window, RenderStates.Default);
-                            charges.Draw(window, RenderStates.Default);
                         }
                     }
                 }
@@ -898,7 +901,7 @@ namespace ProjectStellar
         public Dictionary<Sprite, BuildingType> Tab3Sprite => _tab3Sprite;
 
 
-        public void DrawInGameMenu (RenderWindow window, Font font)
+        public void DrawInGameMenu (RenderWindow window, Font font, GameTime gameTime)
         {
             _settingsButton.Position = new Vector2f(_resolution.X - _boxSize * 2, 0);
             _settingsButton.Draw(window, RenderStates.Default);
@@ -918,6 +921,8 @@ namespace ProjectStellar
 
             if(_settingsSelected)
             {
+                gameTime.TimeScale = 0f;
+
                 rec.Draw(window, RenderStates.Default);
                 _exitButton.Position = new Vector2f(rec.Position.X, rec.Position.Y);
                 _exitButton.Draw(window, RenderStates.Default);
@@ -966,6 +971,7 @@ namespace ProjectStellar
                 }
                 if (ExitSelected)
                 {
+                    gameTime.TimeScale = 60f;
                     SettingsSelected = false;
                 }
             }
