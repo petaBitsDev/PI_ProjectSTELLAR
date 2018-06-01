@@ -11,7 +11,6 @@ namespace ProjectStellar.Library
 {
     public static class Save
     {
-
         public static List<SaveGameMetadata> List()
         {
             IFormatter formatter = new BinaryFormatter();
