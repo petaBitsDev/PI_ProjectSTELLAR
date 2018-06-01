@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     public abstract class BuildingType
     {
         public virtual void CreateInstance(int x, int y, ResourcesManager resources, Map map)

@@ -223,6 +223,12 @@ namespace ProjectStellar
             }
         }
         public Sprite[,] MapSprites => _mapSprites;
+
+        public ResourcesManager ResourcesManager
+        {
+            get { return _resourcesManager; }
+            set { _resourcesManager = value; }
+        }
     }
 }
 

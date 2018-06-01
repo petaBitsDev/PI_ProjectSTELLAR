@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     class SpaceStation : Building, IPublicBuildings
     {
         public SpaceStation(BuildingType type, int x, int y) : base(type, x, y)

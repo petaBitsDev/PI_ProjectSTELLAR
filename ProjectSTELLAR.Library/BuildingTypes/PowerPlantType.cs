@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     public class PowerPlantType : BuildingType
     {
         int _cost;

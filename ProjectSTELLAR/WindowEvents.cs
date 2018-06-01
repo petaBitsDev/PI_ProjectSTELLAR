@@ -177,7 +177,7 @@ namespace ProjectStellar
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
-                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager);
+                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
                 Save.SaveGame(save, _ctx._name);
                 Console.WriteLine("Saved");
             }

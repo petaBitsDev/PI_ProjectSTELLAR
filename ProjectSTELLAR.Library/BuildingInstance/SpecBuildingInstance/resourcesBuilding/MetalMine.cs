@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     class MetalMine : Building, IResourcesBuildings
     {
         public MetalMine(BuildingType type, int x, int y) : base(type, x , y)

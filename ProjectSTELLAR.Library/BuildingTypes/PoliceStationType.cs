@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-
+    [Serializable]
     public class PoliceStationType : BuildingType
     {
         int _cost;
