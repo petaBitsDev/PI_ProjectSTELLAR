@@ -531,7 +531,8 @@ namespace ProjectStellar
                     window.Draw(onglet1);
                     window.Draw(onglet2);
                     window.Draw(onglet3);
-                    window.Draw(text);
+                    window.Draw(text);
+
                     window.Draw(publicBuilding);
                     window.Draw(resourcesBuilding);
 
@@ -560,7 +561,8 @@ namespace ProjectStellar
                 }
                 else _buildSelected = false;
             }
-        }
+        }
+
 
         public void DrawDestroyButton(RenderWindow window)
         {

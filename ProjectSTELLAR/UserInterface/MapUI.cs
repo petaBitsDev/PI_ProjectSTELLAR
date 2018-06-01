@@ -182,6 +182,30 @@ namespace ProjectStellar
             }
         }
 
+        public bool CheckPlace(int x, int y, int size)
+        {
+            if (size == 6)
+            {
+                if (!Equals(_ctx.Boxes[x, y], null)) return false;
+                if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
+                if (!Equals(_ctx.Boxes[x, y + 2], null)) return false;
+                if (!Equals(_ctx.Boxes[x + 1, y], null)) return false;
+                if (!Equals(_ctx.Boxes[x + 1, y + 1], null)) return false;
+                if (!Equals(_ctx.Boxes[x + 1, y + 2], null)) return false;
+            }
+            else if (size == 4)
+            {
+                if (!Equals(_ctx.Boxes[x, y], null)) return false;
+                if (!Equals(_ctx.Boxes[x + 1, y], null)) return false;
+                if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
+                if (!Equals(_ctx.Boxes[x + 1, y + 1], null)) return false;
+            }
+            else
+            {
+                if (!Equals(_ctx.Boxes[x, y], null)) return false;
+            }
+            return true;
+        }
 
         public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
@@ -196,7 +220,8 @@ namespace ProjectStellar
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
-                        _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
+                        if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
+                            _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         _ctx.ChosenBuilding = null;
                     }
                     else if (_ui.DestroySelected && building != null)
@@ -210,6 +235,7 @@ namespace ProjectStellar
             }
             return false;
         }
+
         public bool BuildingExist
         {
             get
