@@ -20,9 +20,8 @@ namespace ProjectStellar
         uint _width;
         uint _height;
         GameTime _gameTime;
-        List<BuildingType> _buildingList;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, List<BuildingType> buildingList, ExperienceManager experienceManager)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
             _gameCtx = context;
             _mapCtx = ctx;
@@ -30,18 +29,18 @@ namespace ProjectStellar
             _width = width;
             _height = height;
             _gameTime = gameTime;
-            _buildingList = buildingList;
-            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, _buildingList, resourcesManager, experienceManager);
+            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, resourcesManager, experienceManager);
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution, _resourcesCtx);
-            context._view.Viewport = new FloatRect(0, 0, 0.9f, 0.95f);
+            context._view.Viewport = new FloatRect(0, 0, 0.93f, 0.95f);
         }
 
         public void RenderSprite
             (Sprite tmpSprite, RenderWindow target, uint destX, uint destY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
         {
             tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
-            tmpSprite.Position = new Vector2f(destX, destY);
-            target.Draw(tmpSprite);
+            Sprite sprite = new Sprite(tmpSprite);
+            sprite.Position = new Vector2f(destX, destY);
+            target.Draw(sprite);
         }
 
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
@@ -52,8 +51,8 @@ namespace ProjectStellar
             window.SetView(window.DefaultView);
             _ui.DrawResourcesBar(window, font, resources.NbResources);
             _ui.DrawTimeBar(window, gameTime, font);
-            _ui.DrawDestroyButton(window);
             _ui.DrawBuildButton(window, font);
+            _ui.DrawDestroyButton(window);
             _ui.DrawExperience(window);
             _ui.DrawInGameMenu(window, font);
         }

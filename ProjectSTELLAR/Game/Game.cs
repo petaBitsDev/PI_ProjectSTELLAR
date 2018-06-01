@@ -17,19 +17,17 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[8];
+        public Texture[] _menuTextures = new Texture[10];
         public Texture[] _buildingsTextures = new Texture[16];
-        public Texture[] _uiTextures = new Texture[23];
+        public Texture[] _uiTextures = new Texture[24];
         int _state;
         Menu _menu;
         Resolution _resolution;
         internal Font _font;
         internal Map _map;
-        public BuildingFactory _buildingFactory;
         public DrawUI _drawUI;
         ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
-        CityHelper _cityHelper;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
@@ -48,12 +46,14 @@ namespace ProjectStellar
             DebugUtility.LoadContent();
             _menuTextures[0] = new Texture("./resources/img/menuNewgame.png");
             _menuTextures[1] = new Texture("./resources/img/menuLoadgame.png");
-            _menuTextures[2] = new Texture("./resources/img/menuQuit.png");
-            _menuTextures[3] = new Texture("./resources/img/menuNewActif.png");
-            _menuTextures[4] = new Texture("./resources/img/menuLoadActif.png");
-            _menuTextures[5] = new Texture("./resources/img/menuQuitActif.png");
-            _menuTextures[6] = new Texture("./resources/img/menuPlay.png");
-            _menuTextures[7] = new Texture("./resources/img/menuPlayActif.png");
+            _menuTextures[2] = new Texture("./resources/img/menuSavegame.png");
+            _menuTextures[3] = new Texture("./resources/img/menuQuit.png");
+            _menuTextures[4] = new Texture("./resources/img/menuNewActif.png");
+            _menuTextures[5] = new Texture("./resources/img/menuLoadActif.png");
+            _menuTextures[6] = new Texture("./resources/img/menuSaveActif.png");
+            _menuTextures[7] = new Texture("./resources/img/menuQuitActif.png");
+            _menuTextures[8] = new Texture("./resources/img/menuPlay.png");
+            _menuTextures[9] = new Texture("./resources/img/menuPlayActif.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -95,6 +95,7 @@ namespace ProjectStellar
             _uiTextures[20] = new Texture("./resources/img/wrecking-ball.png");
             _uiTextures[21] = new Texture("./resources/img/setting.png");
             _uiTextures[22] = new Texture("./resources/img/delete.png");
+            _uiTextures[23] = new Texture("./resources/img/users.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
@@ -104,10 +105,7 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
             _map = new Map(100, 100);
             _resourcesManager = new ResourcesManager(_map);
-            _buildingFactory = new BuildingFactory(_map, _resourcesManager);
             _experienceManager = new ExperienceManager(_resourcesManager);
-            _cityHelper = new CityHelper(_map);
-            _cityHelper.CreateListBuilding();
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
@@ -129,7 +127,7 @@ namespace ProjectStellar
             {
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
-                    _resourcesManager.NbResources["population"] += 10;
+                    _resourcesManager.NbResources["nbPeople"] += 10;
                     _experienceManager.CheckLevel();
                     //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
@@ -149,7 +147,7 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _cityHelper.ListBuilding, _experienceManager);
+                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
@@ -167,7 +165,6 @@ namespace ProjectStellar
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
             _drawUI.UpdateMap(save.Map);
-            _buildingFactory.Map = save.Map;
         }
 
         public int MenuState

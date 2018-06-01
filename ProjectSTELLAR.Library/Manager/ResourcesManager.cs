@@ -16,16 +16,15 @@ namespace ProjectStellar.Library
         public ResourcesManager(Map ctx)
         {
             _ctx = ctx;
-            _nbResources.Add("wood", 500);
-            _nbResources.Add("rock", 500);
-            _nbResources.Add("metal", 150);
-            _nbResources.Add("coins", 5000);
+            _nbResources.Add("wood", 500000);
+            _nbResources.Add("rock", 500000);
+            _nbResources.Add("metal", 15000);
+            _nbResources.Add("coins", 50000);
             _nbResources.Add("pollution", 0);
             _nbResources.Add("nbPeople", 0);
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
-
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
@@ -40,12 +39,12 @@ namespace ProjectStellar.Library
             _nbResources["water"] -= building.Water;
             _nbResources["electricity"] -= building.Electricity;
             _nbResources["cost"] += building.Cost;
+
             if (building.Type == "habitation")
             {
                 _nbResources["nbPeople"] += building.NbPeople;
             }
         }
-
 
         public bool CheckResourcesNeeded(BuildingType building)
         {
@@ -55,6 +54,11 @@ namespace ProjectStellar.Library
             else if (_nbResources["coins"] - building.Coin < 0) return false;
 
             return true;
+        }
+
+        public void UpdateResources()
+        {
+
         }
     }
 }

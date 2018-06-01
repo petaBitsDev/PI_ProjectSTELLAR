@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 { 
-    [Serializable]
     class CityHall : Building
     {
         public CityHall(BuildingType type, int x, int y) : base(type, x, y)
@@ -14,3 +14,6 @@ namespace ProjectStellar.Library
         }
     }
 }
+
+    [Serializable]
+    class CityHall : Building, IPublicBuildings

@@ -35,6 +35,7 @@ namespace ProjectStellar.Library
             _cost = 20;
             _type = "habitation";
             _size = 1;
+            _list = new List<Building>();
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)

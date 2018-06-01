@@ -26,7 +26,7 @@ namespace ProjectStellar.Library
 
         public string Name => _name;
 
-        public int Population => _resourcesManager.NbResources["population"];
+        public int Population => _resourcesManager.NbResources["nbPeople"];
 
         public DateTime Date => _gameTime.InGameTime;
 

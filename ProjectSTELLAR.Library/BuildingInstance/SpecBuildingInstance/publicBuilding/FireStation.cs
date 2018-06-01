@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 { 
     [Serializable]
-    class FireStation : Building
+    class FireStation : Building, IPublicBuildings
     {
         public FireStation(BuildingType type, int x, int y) : base(type, x, y)
         {

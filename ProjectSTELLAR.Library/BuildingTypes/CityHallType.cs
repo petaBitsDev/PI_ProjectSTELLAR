@@ -23,7 +23,6 @@ namespace ProjectStellar.Library
         int _size;
 
         public CityHallType()
-         
         {
             _rock = 100;
             _wood = 150;
@@ -62,3 +61,18 @@ namespace ProjectStellar.Library
         public override int Size => _size;
     }
 }
+
+            _size = 6;
+            _list = new List<Building>();
+        }
+
+        public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
+        {
+            if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
+
+            resources.UpdateWhenCreate(this);
+            Building building = new CityHall(this, x, y);
+            map.AddBuilding(x, y, building);
+            _list.Add(building);
+        }
+

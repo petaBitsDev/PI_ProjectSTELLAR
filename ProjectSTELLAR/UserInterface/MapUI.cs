@@ -22,7 +22,7 @@ namespace ProjectStellar
         Game _gameCtx;
         DrawUI _drawUIctx;
         DrawBuildings _drawBuildings;
-        Cases[] _cases;
+        Case[] _cases;
         UI _ui;
         bool _buildingExist;
         RectangleShape rec = new RectangleShape();
@@ -31,7 +31,7 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
-        Building _building;
+        //Building _building;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -45,6 +45,7 @@ namespace ProjectStellar
             _resolution = resolution;
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
+            _cases = new Case[Width * Height];
         }
 
         public Map MapContext
@@ -74,7 +75,7 @@ namespace ProjectStellar
             int i = 0;
 
             RectangleShape rec;
-            _cases = new Cases[Width * Height];
+            _cases = new Case[Width * Height];
 
             for (int x = 0; x < Width; x++)
             {
@@ -87,26 +88,43 @@ namespace ProjectStellar
                     rec.Size = new Vector2f(32, 32);
                     rec.Position = new Vector2f(x * 32, y* 32);
                     window.Draw(rec);
-                    _cases[i++] = new Cases(rec, y, x);
+                    //_cases[i++] = new Cases(rec, y, x);
                 }
             }
         }
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
-            _mapSprites = new Sprite[Height, Width];
+            //RectangleShape rec = new RectangleShape();
+            //rec.OutlineColor = new Color(Color.Transparent);
+            //rec.OutlineThickness = 3.0f;
+            //rec.FillColor = new Color(253, 254, 254);
+            //rec.Size = new Vector2f(32 * 8, 32 * 4);
+
+            //_mapSprites = new Sprite[Height, Width];
+            Vector2i pixelPos = Mouse.GetPosition(window);
+            Vector2f worldPos = window.MapPixelToCoords(pixelPos, _gameCtx._windowEvents.View);
+            int k = 0;
 
             for (uint x = 0; x < Width; x++)
             {
                 for (uint y = 0; y < Height; y++)
                 {
-                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
                     _bgSprite.Position = new Vector2f(y, x);
-                    _mapSprites[y, x] = _bgSprite;
+                    _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
+                    //_mapSprites[y, x] = _bgSprite;
+                    _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
+                    if (_cases[k-1].Contains((int)worldPos.X, (int)worldPos.Y))
+                    {
+                        if (!object.Equals(boxes[_cases[k - 1].X, _cases[k - 1].Y], null))
+                        {
+                            _ui.DrawBuildingInformations(window, font, boxes[_cases[k - 1].X, _cases[k - 1].Y], (int)x, (int)y);
+                        }
+                    }
                 }
             }
 
-            DrawGrid(window);
+            //DrawGrid(window);
 
             for (int i = 0; i < (boxes.Length / Height); i++)
             {
@@ -114,8 +132,28 @@ namespace ProjectStellar
                 {
                     if (!object.Equals(boxes[i, j], null))
                     {
-                        Type type = boxes[i, j].GetType();
-                        _drawBuildings.Draw(type, window, j, i, font);
+                        //rec.Position = new Vector2f((i * 32), (j * 32 - 32 * 6));
+                        foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab1Sprite)
+                        {
+                            if (boxes[i, j].Type == buildingType.Value)
+                            {
+                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                            }
+                        }
+                        foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
+                        {
+                            if (boxes[i, j].Type == buildingType.Value)
+                            {
+                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                            }
+                        }
+                        foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
+                        {
+                            if (boxes[i, j].Type == buildingType.Value)
+                            {
+                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                            }
+                        }
                     }
                 }
             }
@@ -145,14 +183,15 @@ namespace ProjectStellar
         }
 
 
-        public bool CheckMap(float X, float Y, RenderWindow window, Font font)
+        public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
-            Console.WriteLine("x = {0}, y = {1}", X, Y);
+            Building building;
+            Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
             for (int i = 0; i < _cases.Length; i++)
             {
-                _building = ContainsBuilding(_cases[i].X, _cases[i].Y);
+                building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
-                if (_cases[i].Rec.GetGlobalBounds().Contains(X, Y))
+                if (_cases[i].Rec.Contains(mouseX, mouseY))
                 {
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
@@ -160,15 +199,15 @@ namespace ProjectStellar
                         _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         _ctx.ChosenBuilding = null;
                     }
-                    else if (_ui.DestroySelected)
+                    else if (_ui.DestroySelected && building != null)
                     {
-                        _ctx.ChosenBuilding.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, _building);
+                        building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building);
                         _ui.DestroySelected = false;
                     }
+                    else return false;
                     return true;
                 }
             }
-
             return false;
         }
         public bool BuildingExist

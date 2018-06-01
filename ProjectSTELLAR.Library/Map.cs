@@ -14,13 +14,33 @@ namespace ProjectStellar.Library
         int _width;
         BuildingType _chosenBuilding;
         public Building[,] _boxes;
+        readonly List<BuildingType> _buildingTypes;
 
         public Map (int width, int height)
         {
             _width = width;
             _height = height;
             _boxes = new Building[height, width];
+            _buildingTypes = new List<BuildingType>
+            {
+                new CityHallType(),
+                new FireStationType(),
+                new FlatType(),
+                new HospitalType(),
+                new HouseType(),
+                new HutType(),
+                new MetalMineType(),
+                new OreMineType(),
+                new PoliceStationType(),
+                new PowerPlantType(),
+                new PumpingStationType(),
+                new SawmillType(),
+                new SpaceStationType(),
+                new WarehouseType()
+            };
         }
+
+        public List<BuildingType> BuildingTypes => _buildingTypes;
 
         public int Width => _width;
 
@@ -52,12 +72,13 @@ namespace ProjectStellar.Library
                 }
                 else if (building.Size == 6)
                 {
-                    //_boxes[x, y] = building;
-                    //_boxes[x + 1, y] = building;
-                    //_boxes[x, y + 1] = building;
-                    //_boxes[x + 1, y + 1] = building;
-                    //_boxes[x + 1, y + 1] = building;
-                    //_boxes[x + 1, y + 1] = building;
+                    _boxes[x, y] = building;
+                    _boxes[x + 1, y] = building;
+                    _boxes[x, y + 1] = building;
+                    _boxes[x + 1, y + 1] = building;
+                    _boxes[x, y + 2] = building;
+                    _boxes[x + 1, y + 2] = building;
+                    
                 }
             }
             _chosenBuilding = null;
@@ -65,7 +86,28 @@ namespace ProjectStellar.Library
 
         public void RemoveBuilding(int x, int y)
         {
-            _boxes[x, y] = null;
+            int size = _boxes[x, y].Size;
+            int realX = _boxes[x, y].X;
+            int realY = _boxes[x, y].Y;
+
+            _boxes[realX, realY] = null;
+            if (size == 1) _boxes[realX, realY] = null;
+            else if (size == 4)
+            {
+                _boxes[realX, realY] = null;
+                _boxes[realX + 1, realY] = null;
+                _boxes[realX, realY + 1] = null;
+                _boxes[realX + 1, realY + 1] = null;
+            }
+            else if (size == 6)
+            {
+                _boxes[realX, realY] = null;
+                _boxes[realX + 1, realY] = null;
+                _boxes[realX, realY + 1] = null;
+                _boxes[realX + 1, realY + 1] = null;
+                _boxes[realX, realY + 2] = null;
+                _boxes[realX + 1, realY + 2] = null;
+            }
         }
 
         public bool CheckBuilding(int x, int y)
