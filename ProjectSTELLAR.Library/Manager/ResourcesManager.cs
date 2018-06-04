@@ -11,6 +11,7 @@ namespace ProjectStellar.Library
     public class ResourcesManager
     {
         static Map _ctx;
+        int _maxPopulation;
         Dictionary<string, int> _nbResources = new Dictionary<string, int>();
        
         public ResourcesManager(Map ctx)
@@ -25,6 +26,7 @@ namespace ProjectStellar.Library
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
+            _maxPopulation = 0;
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
@@ -40,9 +42,15 @@ namespace ProjectStellar.Library
             _nbResources["electricity"] -= building.Electricity;
             _nbResources["cost"] += building.Cost;
 
+            if (building.Type == "habitation") _maxPopulation += building.NbPeople;
+        }
+
+        public void UpdateWhenDestroy(BuildingType building)
+        {
             if (building.Type == "habitation")
             {
-                _nbResources["nbPeople"] += building.NbPeople;
+                _maxPopulation = _maxPopulation - building.NbPeople < 0 ? 0 : _maxPopulation - building.NbPeople;
+                _nbResources["nbPeople"] = _nbResources["nbPeople"] - building.NbPeople < 0 ? 0 : _nbResources["nbPeople"] - building.NbPeople;
             }
         }
 
@@ -58,7 +66,12 @@ namespace ProjectStellar.Library
 
         public void UpdateResources()
         {
+            int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
+            Random random = new Random();
 
+            // Prochaine intégration de la satifaction
+            if (0 < maxAdd)
+                _nbResources["nbPeople"] += random.Next(0, maxAdd + 1);
         }
     }
 }
