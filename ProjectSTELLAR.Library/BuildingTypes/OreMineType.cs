@@ -18,9 +18,12 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        int _rockProduction;
         string _type;
         List<Building> _list;
         int _size;
+        int _rockCapacity;
+        int _maxRockCapacity = 0;
 
         public OreMineType()
         {
@@ -36,6 +39,8 @@ namespace ProjectStellar.Library
             _type = "resource";
             _size = 4;
             _list = new List<Building>();
+            _rockProduction = 80;
+            _rockCapacity = 800;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -46,6 +51,7 @@ namespace ProjectStellar.Library
             Building building = new OreMine(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
+            MaxRockCapacity += _maxRockCapacity;
         }
 
         public override int Cost => _cost;
@@ -59,6 +65,16 @@ namespace ProjectStellar.Library
         public override int NbPeople => _nbPeople;
         public override string Type => _type;
         public override List<Building> List => _list;
+
+        public int RockProduction => _rockProduction;
+
+        public override int NbBuilding => _list.Count;
         public override int Size => _size;
+
+        public int MaxRockCapacity
+        {
+            get { return _maxRockCapacity; }
+            set { _maxRockCapacity = value; }
+        }
     }
 }
