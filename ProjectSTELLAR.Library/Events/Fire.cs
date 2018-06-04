@@ -36,7 +36,7 @@ namespace ProjectStellar.Library
 
         }
 
-      public bool PreviousFire
+      public bool PreviousEvent
 
         {
 
@@ -48,7 +48,7 @@ namespace ProjectStellar.Library
 
 
 
-        public bool IsOnFire
+        public bool IsEventHappening
 
         {
 
@@ -58,7 +58,7 @@ namespace ProjectStellar.Library
          }
 
 
-        public int NbFireMax
+        public int NbEventMax
 
         {
 
@@ -70,7 +70,7 @@ namespace ProjectStellar.Library
 
 
 
-        public int NbFireReal
+        public int NbEventReal
 
         {
 
@@ -82,7 +82,7 @@ namespace ProjectStellar.Library
 
 
 
-        public float FireProbability
+        public float EventProbability
 
         {
 
@@ -94,7 +94,7 @@ namespace ProjectStellar.Library
 
 
 
-        public Building BuildingOnFire
+        public Building BuildingHasEvent
 
         {
 
@@ -104,22 +104,30 @@ namespace ProjectStellar.Library
 
         }
 
-        private void CalcuNbFireMax(FireStation firestation)
+        public void CalculNbEventMax()
 
         {
-            if (firestation.NbTruck< 2)
+            FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
+            int totalnbTruck = 0;
+            for(int i = 0; i < fireStationType.List.Count; i++)
+            {
+                FireStation f = (FireStation)fireStationType.List[i];
+                totalnbTruck += f.NbVehicule;
+            }
+
+            if (totalnbTruck< 2)
 
             {
 
-                NbFireMax = 3;
+                NbEventMax = 3;
 
             }
 
-            else if (firestation.NbTruck >= 2 || firestation.NbTruck <= 4)
+            else if (totalnbTruck >= 2 || totalnbTruck <= 4)
 
             {
 
-                NbFireMax = 7;
+                NbEventMax = 7;
 
             }
 
@@ -127,144 +135,135 @@ namespace ProjectStellar.Library
 
             {
 
-                NbFireMax = 15;
+                NbEventMax = 15;
 
             }
 
         }
 
 
-        private void CalculNbFireReal(FireStation fireStation)
+        public void CalculNbEventReal()
 
         {
             Random random = new Random();
 
-            CalcuNbFireMax(fireStation);
+            CalculNbEventMax();
 
-            NbFireReal = random.Next(NbFireMax += 1);
+            NbEventReal = random.Next(NbEventMax + 1);
 
         }
 
 
 
-        private void CalculFireProbability()
+        public void CalculEventProbability()
 
         {
 
-            if (PreviousFire == false)
+            if (PreviousEvent == false)
 
             {
-               FireProbability += 0.3f;
+               EventProbability += 0.3f;
             }
 
             else
 
             {
-                FireProbability -= 0.3f;
-            }
+                EventProbability -= 0.3f;
+            } 
 
         }
 
 
 
-        private void BuildingFire(BuildingType  building)
+        public void BuildingEvent()
 
         {
+            Random random = new Random();
+            int _idxBuildingType;
+            _idxBuildingType = random.Next(_ctx.BuildingTypes.Count);
+            BuildingType buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
             int _idxBuilding;
-            Random random = new Random();
-            _idxBuilding = random.Next(building.List.Count);
+          
+            _idxBuilding = random.Next(buildingSelected.List.Count);
            
 
-            if(building.List[_idxBuilding].GetType() == typeof(FireStation))
+            if(Equals(buildingSelected, typeof(FireStationType)))
             {
-                BuildingFire(building);
+                BuildingEvent();
             }
-            else if (building.List[_idxBuilding].OnFire == true)
+            else if (buildingSelected.List[_idxBuilding].OnFire == true)
             {
-                BuildingFire(building);
+                BuildingEvent();
 
             }
             else
             {
-                building.List[_idxBuilding].OnFire = true;
-                BuildingOnFire = building.List[_idxBuilding];
+                buildingSelected.List[_idxBuilding].OnFire = true;
+                BuildingHasEvent = buildingSelected.List[_idxBuilding];
             }
 
         }
 
 
 
-        private void IsBuildingGettingOnFire()
+        public void IsBuildingGettingEvent()
 
         {
             int probability;
             Random random = new Random();
             probability = random.Next(1, 101);
 
-            if (probability <= FireProbability * 100)
+            if (probability <= EventProbability * 100)
 
             {
-                IsOnFire = true;
+                IsEventHappening = true;
             }
 
             else
 
             {
-                 IsOnFire = false;
+                 IsEventHappening = false;
             }
 
         }
 
 
 
-        public void NewFire(BuildingType building, FireStation fireStation)
+        public void NewEvent()
 
         {
             bool _isFireStation = false;
 
-            CalculFireProbability();
+            CalculEventProbability();
+            FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
+            if (fireStationType.List.Count != 0) _isFireStation = true;
 
-            foreach(Building b in building.List)
-            {
-                if (building.List.GetType() == typeof(FireStation))
-                {
-                    _isFireStation = true;
-                }
-                else
-                {
-                    _isFireStation = false;
-                }
-            }
-            
+
+
+
             if (_isFireStation == true)
 
             {
-
-                if (building.List.Count > 10)
-
-                {
-
-                        CalculNbFireReal(fireStation);
-                        for (int i = 0; i <= NbFireReal; i++)
+             
+                        CalculNbEventReal();
+                        for (int i = 0; i <= NbEventReal; i++)
 
                         {
 
-                        IsBuildingGettingOnFire();
+                        IsBuildingGettingEvent();
 
-                        if (IsOnFire == true)
+                        if (IsEventHappening == true)
 
                         {
-                            BuildingFire(building);
-                            PreviousFire = true;
+                            BuildingEvent();
+                            PreviousEvent = true;
                         }
 
                         else
 
                         {
-                            PreviousFire = false;
+                            PreviousEvent = false;
                         }
-
-                    }
 
                 }
 
@@ -272,7 +271,6 @@ namespace ProjectStellar.Library
 
         }
 
-
-
+  
     }
 }

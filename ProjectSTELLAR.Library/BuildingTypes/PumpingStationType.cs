@@ -60,8 +60,9 @@ using System.Threading.Tasks;
         public int WaterProduction => _waterProduction;
         public override List<Building> List => _list;
         public override int Size => _size;
+
+        public override int NbBuilding => _list.Count;
     }
 }
 
-            _waterProduction = 70;
-            _size = 4;
+           

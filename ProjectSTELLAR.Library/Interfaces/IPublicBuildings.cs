@@ -6,18 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class CityHelper
+    public interface IPublicBuildings
     {
-
-        Map _ctx;
-        public CityHelper(Map map)
-        {
-            _ctx = map;
-        }
-
-
-
-
-
+        bool OnFire { get; set; }
+       
     }
 }

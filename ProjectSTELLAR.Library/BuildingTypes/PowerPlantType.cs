@@ -61,6 +61,7 @@ namespace ProjectStellar.Library
         public override int Size => _size;
         public override string Type => _type;
         public int ElectricityProduction => _electricityProduction;
+        public override int NbBuilding => _list.Count;
     }
 }
      

@@ -522,9 +522,13 @@ namespace ProjectStellar
 
             Fire fire = new Fire(map);
 
-            fire.NbFireReal = 2;
-            fire.IsOnFire = true;
-            fire.NewFire(houseType, )
+            fire.FireProbability = 1;
+            fire.BuildingOnFire = house.List[1];
+            fire.NewFire();
+
+            Assert.That(house.List[1].OnFire, Is.EqualTo(true));
+
+
 
 
 

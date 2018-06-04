@@ -21,6 +21,8 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _woodCapacity;
+        int _maxWoodCapacity = 0;
 
 
         public SawmillType()
@@ -37,6 +39,7 @@ namespace ProjectStellar.Library
             _woodProduction = 80;
             _type = "resource";
             _size = 4;
+            _woodCapacity = 1000;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -47,6 +50,7 @@ namespace ProjectStellar.Library
             Building building = new SawMill(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
+            MaxWoodCapacity += _woodCapacity;
         }
 
         public override int Cost => _cost;
@@ -63,5 +67,12 @@ namespace ProjectStellar.Library
         public int WoodProduction => _woodProduction;
         public override List<Building> List => _list;
         public override int Size => _size;
+        public override int NbBuilding => _list.Count;
+
+        public int MaxWoodCapacity
+        {
+            get { return _maxWoodCapacity; }
+            set { _maxWoodCapacity = 0; }
+        }
     }
 }

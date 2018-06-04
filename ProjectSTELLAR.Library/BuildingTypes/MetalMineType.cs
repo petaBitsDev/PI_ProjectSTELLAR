@@ -21,6 +21,9 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _maxMetalCapacity = 0;
+        int _metalCapacity;
+
 
         public MetalMineType()
         {
@@ -36,6 +39,7 @@ namespace ProjectStellar.Library
             _metalProduction = 50;
             _type = "resource";
             _size = 4;
+            _metalCapacity = 500;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -46,6 +50,7 @@ namespace ProjectStellar.Library
             Building building = new MetalMine(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
+            MaxMetalCapacity += _metalCapacity;
         }
 
         public override int Cost => _cost;
@@ -62,5 +67,12 @@ namespace ProjectStellar.Library
         public int MetalProduction => _metalProduction;
         public override List<Building> List => _list;
         public override int Size => _size;
+        public override int NbBuilding => _list.Count;
+
+        public int MaxMetalCapacity
+        {
+            get { return _maxMetalCapacity; }
+            set { _maxMetalCapacity = value; }
+        }
     }
 }
