@@ -24,7 +24,7 @@ namespace ProjectStellar.Library
         void CalculNbEventReal();
         void CalculEventProbability();
 
-        void BuildingHasEvent();
+        void BuildingEvent();
 
         void IsBuildingGettingEvent();
 
