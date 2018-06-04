@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
-    public class Hut : Building
+    class SpaceStation : Building, IPublicBuildings
     {
-            
-        public  Hut(Map ctx)
-            :base(ctx, 25, 50, 15, 0, 5, 5, 0, 5, false, 20, 5)
+        public SpaceStation(BuildingType type, int x, int y) : base(type, x, y)
         {
-
         }
     }
 }
