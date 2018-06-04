@@ -216,6 +216,14 @@ namespace ProjectStellar
             }
         }
 
+        public string TextEntered(object sender, TextEventArgs e)
+        {
+            if(_ctx.IsNewGame)
+            {
+
+            }
+        }
+
         internal View View => _view;
     }
 }

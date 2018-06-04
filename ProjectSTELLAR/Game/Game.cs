@@ -34,6 +34,7 @@ namespace ProjectStellar
         internal string _name = "test";
         internal View _view;
         Vector2f _center;
+        bool _isNewGame;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -147,7 +148,11 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw(Window);
             else if (MenuState == 1)
             {
-                if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
+                if (_drawUI == null)
+                {
+                    _isNewGame = true;
+                    _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
+                }
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
@@ -172,6 +177,12 @@ namespace ProjectStellar
         {
             get { return _state; }
             set { _state = value; }
+        }
+
+        public bool IsNewGame
+        {
+            get { return _isNewGame; }
+            set { _isNewGame = value; }
         }
     }
 }

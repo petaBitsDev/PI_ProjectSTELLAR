@@ -36,7 +36,7 @@ namespace ProjectStellar
             };
             _menu[1] = button2;
 
-            Sprite button3 = new Sprite(_ctx._menuTextures[2])
+            Sprite button3 = new Sprite(_ctx._menuTextures[3])
             {
                 Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y * 2/3 + 40),
                 Scale = new Vector2f(0.5f, 0.5f)
@@ -64,7 +64,7 @@ namespace ProjectStellar
             {
                 if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
-                    // Ici 2 est le nombre de cases avant d'arriver à la seconde texture du bouton
+                    // Ici 4 est le nombre de cases avant d'arriver à la seconde texture du bouton
                     _menu[i].Texture = _ctx._menuTextures[i + 4];
                     _selectedIndex = i;
                     _hovering = true;
