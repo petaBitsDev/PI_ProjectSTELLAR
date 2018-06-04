@@ -22,6 +22,7 @@ namespace ProjectStellar
         public Texture[] _uiTextures = new Texture[24];
         int _state;
         Menu _menu;
+        NewGame _newGame;
         Resolution _resolution;
         internal Font _font;
         internal Map _map;
@@ -110,6 +111,7 @@ namespace ProjectStellar
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view);
+            _newGame = new NewGame(_resolution.X, _resolution.Y, this, _font);
             Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
@@ -117,6 +119,8 @@ namespace ProjectStellar
             Window.Closed += _windowEvents.WindowClosed;
             Window.MouseButtonPressed += _windowEvents.MouseClicked;
             Window.KeyPressed += _windowEvents.KeyPressed;
+            Window.TextEntered += _windowEvents.TextEntered;
+            Window.SetKeyRepeatEnabled(false);
         }
 
         public override void Update(GameTime gameTime)
@@ -145,6 +149,7 @@ namespace ProjectStellar
         {
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw(Window);
+            else if (MenuState == 3) _newGame.Draw(Window);
             else if (MenuState == 1)
             {
                 if (_drawUI == null) _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
@@ -173,5 +178,7 @@ namespace ProjectStellar
             get { return _state; }
             set { _state = value; }
         }
+
+        public NewGame NewGame => _newGame;
     }
 }
