@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library.Interfaces
+namespace ProjectStellar.Library
 {
-    class Class1
+    public interface IServiceBuildings
     {
     }
 }

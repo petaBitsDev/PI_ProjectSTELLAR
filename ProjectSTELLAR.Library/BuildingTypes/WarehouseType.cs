@@ -18,9 +18,15 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        int _woodCapacity;
+        int _metalCapacity;
+        int _rockCapacity;
         string _type;
         List<Building> _list;
         int _size;
+        int _maxMetalCapacity = 0;
+        int _maxWoodCapacity = 0;
+        int _maxRockCapacity = 0;
 
         public WarehouseType()
         {
@@ -36,6 +42,10 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 4;
             _list = new List<Building>();
+            _woodCapacity = 3000;
+            _metalCapacity = 1000;
+            _rockCapacity = 2000;
+            
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -46,6 +56,9 @@ namespace ProjectStellar.Library
             Building building = new Warehouse(this, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
+            _maxMetalCapacity += _metalCapacity;
+            _maxWoodCapacity += _woodCapacity;
+            _maxRockCapacity += RockCapacity;
         }
 
         public override int Rock => _rock;
@@ -60,5 +73,41 @@ namespace ProjectStellar.Library
         public override string Type => _type;
         public override List<Building> List => _list;
         public override int Size => _size;
+
+        public int WoodCapacity
+        {
+            get { return _woodCapacity; }
+            set { _woodCapacity = value; }
+        }
+        public int RockCapacity
+        {
+            get { return _rockCapacity; }
+            set { _rockCapacity = value; }
+        }
+        public int MetalCapacity
+        {
+            get { return _metalCapacity; }
+            set { _metalCapacity = value; }
+        }
+
+        public override int NbBuilding => _list.Count;
+
+        public int MaxMetalCapacity
+        {
+            get { return _maxMetalCapacity; }
+            set { _maxMetalCapacity = value; }
+        }
+
+        public int MaxWoodCapacity
+        {
+            get { return _maxWoodCapacity; }
+            set { _maxWoodCapacity = value; }
+        }
+
+        public int MaxRockCapacity
+        {
+            get { return _maxRockCapacity; }
+            set { _maxRockCapacity = value; }
+        }
     }
 }

@@ -31,6 +31,8 @@ namespace ProjectStellar.Library
 
         public void UpdateWhenCreate(BuildingType building)
         {
+            
+
             _nbResources["wood"] -= building.Wood;
             _nbResources["rock"] -= building.Rock;
             _nbResources["metal"] -= building.Metal;
@@ -44,6 +46,18 @@ namespace ProjectStellar.Library
             {
                 _nbResources["nbPeople"] += building.NbPeople;
             }
+            if (Equals(building, _ctx.BuildingTypes[9]))
+            {
+                PowerPlantType a = (PowerPlantType)_ctx.BuildingTypes.ElementAt(9);
+                _nbResources["electricity"] += a.ElectricityProduction;
+            }
+            if(Equals(building, _ctx.BuildingTypes[10]))
+            {
+                PumpingStationType pumping = (PumpingStationType)_ctx.BuildingTypes.ElementAt(10);
+                _nbResources["water"] += pumping.WaterProduction;
+            }
+
+            
         }
 
         public bool CheckResourcesNeeded(BuildingType building)
@@ -58,7 +72,60 @@ namespace ProjectStellar.Library
 
         public void UpdateResources()
         {
+            SawmillType sawmillType = (SawmillType)_ctx.BuildingTypes[11];
+            OreMineType oreMineType = (OreMineType)_ctx.BuildingTypes[7];
+            MetalMineType metalMineType = (MetalMineType)_ctx.BuildingTypes[6];
+            WarehouseType warehouseType = (WarehouseType)_ctx.BuildingTypes[13];
+
+
+            if (sawmillType.MaxWoodCapacity >= sawmillType.WoodProduction * sawmillType.NbBuilding)
+            {
+                _nbResources["wood"] += sawmillType.WoodProduction * sawmillType.NbBuilding;
+                sawmillType.MaxWoodCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+            } 
+            else if(sawmillType.MaxWoodCapacity < sawmillType.WoodProduction * sawmillType.NbBuilding)
+            {
+                if(warehouseType.MaxWoodCapacity >= sawmillType.WoodProduction * sawmillType.NbBuilding)
+                {
+                    _nbResources["wood"] += sawmillType.WoodProduction * sawmillType.NbBuilding;
+                    warehouseType.MaxWoodCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+                }
+            }
+
+            if(oreMineType.MaxRockCapacity >= oreMineType.RockProduction * oreMineType.NbBuilding)
+            {
+                _nbResources["rock"] += oreMineType.RockProduction * oreMineType.NbBuilding;
+                oreMineType.MaxRockCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+
+            }
+            else if(metalMineType.MaxMetalCapacity < metalMineType.MetalProduction * metalMineType.NbBuilding)
+            {
+                if(warehouseType.MaxRockCapacity >= oreMineType.RockProduction * oreMineType.NbBuilding)
+                {
+                    _nbResources["rock"] += oreMineType.RockProduction * oreMineType.NbBuilding;
+                    warehouseType.MaxRockCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+
+                }
+            }
+
+            if(metalMineType.MaxMetalCapacity >= metalMineType.MetalProduction * metalMineType.NbBuilding)
+            {
+                _nbResources["metal"] += metalMineType.MetalProduction * metalMineType.NbBuilding;
+                metalMineType.MaxMetalCapacity -= metalMineType.MetalProduction * metalMineType.NbBuilding;
+            }
+            else if (metalMineType.MaxMetalCapacity < metalMineType.MetalProduction * metalMineType.NbBuilding)
+            {
+                if(warehouseType.MaxMetalCapacity >= metalMineType.MetalProduction * metalMineType.NbBuilding)
+                {
+                    _nbResources["metal"] += metalMineType.MetalProduction * metalMineType.NbBuilding;
+                    warehouseType.MaxMetalCapacity -= metalMineType.MetalProduction * metalMineType.NbBuilding;
+                }
+            }
+
+            _nbResources["coins"] += _nbResources["cost"];
 
         }
+
+       
     }
 }

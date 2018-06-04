@@ -23,20 +23,20 @@ namespace ProjectStellar.Library
             _boxes = new Building[height, width];
             _buildingTypes = new List<BuildingType>
             {
-                new CityHallType(),
-                new FireStationType(),
-                new FlatType(),
-                new HospitalType(),
-                new HouseType(),
-                new HutType(),
-                new MetalMineType(),
-                new OreMineType(),
-                new PoliceStationType(),
-                new PowerPlantType(),
-                new PumpingStationType(),
-                new SawmillType(),
-                new SpaceStationType(),
-                new WarehouseType()
+              /* 0 */new CityHallType(),
+              /* 1 */new FireStationType(),
+              /* 2 */new FlatType(),
+              /* 3 */new HospitalType(),
+              /* 4 */new HouseType(),
+              /* 5 */new HutType(),
+              /* 6 */new MetalMineType(),
+              /* 7 */new OreMineType(),
+              /* 8 */new PoliceStationType(),
+              /* 9 */new PowerPlantType(),
+              /* 10*/ new PumpingStationType(),
+              /* 11*/ new SawmillType(),
+              /* 12*/ new SpaceStationType(),
+              /* 13*/ new WarehouseType()
             };
         }
 

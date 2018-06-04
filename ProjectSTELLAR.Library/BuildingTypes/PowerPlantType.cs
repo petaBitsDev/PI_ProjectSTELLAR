@@ -18,6 +18,7 @@ namespace ProjectStellar.Library
         int _electricity;
         int _pollution;
         int _nbPeople;
+        int _electricityProduction;
         string _type;
         List<Building> _list;
         int _size;
@@ -36,6 +37,7 @@ namespace ProjectStellar.Library
             _type = "resource";
             _size = 4;
             _list = new List<Building>();
+            _electricityProduction = 80;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -60,5 +62,8 @@ namespace ProjectStellar.Library
         public override List<Building> List => _list;
         public override int Size => _size;
         public override string Type => _type;
+        public int ElectricityProduction => _electricityProduction;
+        public override int NbBuilding => _list.Count;
     }
 }
+     
