@@ -41,9 +41,8 @@ namespace ProjectStellar.Library
 
         public override bool IsVictimCrime
         {
-            get { return _isCrimeVictim; }
-            set { _isCrimeVictim = value; }
+            get { return _isVictimCrime; }
+            set { _isVictimCrime = value; }
         }
     }
     }
-}
