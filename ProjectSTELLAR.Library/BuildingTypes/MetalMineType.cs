@@ -40,11 +40,8 @@ namespace ProjectStellar.Library
             _metalProduction = 50;
             _type = "resource";
             _size = 4;
-<<<<<<< HEAD
             _list = new List<Building>();
-=======
             _metalCapacity = 500;
->>>>>>> event
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
