@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 { 
     [Serializable]
-    class FireStation : Building, IPublicBuildings, IServiceBuildings
+    class FireStation : Building, IServiceBuildings
     {
         bool _onFire;
         int _nbTruck;

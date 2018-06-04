@@ -504,29 +504,29 @@ namespace ProjectStellar
 
         public void check_the_apparition_of_fire()
         {
-            Map map = new Map(12,32);
-            FireStationType fireStationType = new FireStationType();
-            HouseType houseType = new HouseType();
-            HouseType house = new HouseType();
-            ResourcesManager resourcesManager = new ResourcesManager(map);
-            fireStationType.CreateInstance(2, 5, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
-            house.CreateInstance(1, 3, resourcesManager, map);
+            //Map map = new Map(12,32);
+            //FireStationType fireStationType = new FireStationType();
+            //HouseType houseType = new HouseType();
+            //HouseType house = new HouseType();
+            //ResourcesManager resourcesManager = new ResourcesManager(map);
+            //fireStationType.CreateInstance(2, 5, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
+            //house.CreateInstance(1, 3, resourcesManager, map);
 
 
-            Fire fire = new Fire(map);
+            //Fire fire = new Fire(map);
 
-            fire.FireProbability = 1;
-            fire.BuildingOnFire = house.List[1];
-            fire.NewFire();
+            //fire.FireProbability = 1;
+            //fire.BuildingOnFire = house.List[1];
+            //fire.NewFire();
 
-            Assert.That(house.List[1].OnFire, Is.EqualTo(true));
+            //Assert.That(house.List[1].OnFire, Is.EqualTo(true));
 
 
 
