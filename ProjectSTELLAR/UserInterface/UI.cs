@@ -63,6 +63,7 @@ namespace ProjectStellar
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
+        Sprite _mouseSprite;
 
         uint _width;
         uint _height;
@@ -339,6 +340,8 @@ namespace ProjectStellar
             _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+
+            _mouseSprite = new Sprite();
         }
 
         internal bool IsTab1Active
@@ -575,6 +578,7 @@ namespace ProjectStellar
             {
                 _buildSelected = true;
                 _destroySelected = false;
+                //window.SetMouseCursorVisible(false);
                 return true;
             }
             return false;
@@ -857,6 +861,9 @@ namespace ProjectStellar
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
                         _mapCtx.ChosenBuilding = building;
+                        window.SetMouseCursorVisible(false);
+                        _mouseSprite = new Sprite(sprite);
+                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
                         return true;
                     }
                 }
@@ -870,6 +877,9 @@ namespace ProjectStellar
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
                         _mapCtx.ChosenBuilding = building;
+                        window.SetMouseCursorVisible(false);
+                        _mouseSprite = new Sprite(sprite);
+                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
                         return true;
                     }
                 }
@@ -883,6 +893,9 @@ namespace ProjectStellar
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
                         _mapCtx.ChosenBuilding = building;
+                        window.SetMouseCursorVisible(false);
+                        _mouseSprite = new Sprite(sprite);
+                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
                         return true;
                     }
                 }
@@ -1037,6 +1050,20 @@ namespace ProjectStellar
             _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+        }
+
+        public void DrawMouseCursor(RenderWindow window)
+        {
+            if (!Equals(_mouseSprite, null))
+            {
+                _mouseSprite.Draw(window, RenderStates.Default);
+            }
+        }
+
+        public Sprite mouseSprite
+        {
+            get { return _mouseSprite; }
+            set { _mouseSprite = value; }
         }
     }
 }
