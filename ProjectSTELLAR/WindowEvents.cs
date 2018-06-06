@@ -63,6 +63,10 @@ namespace ProjectStellar
             {
                 _xMax = _mapUI._x2y2.X;
                 _yMax = _mapUI._x2y2.Y;
+                if (!Equals(_ui.mouseSprite, null))
+                {
+                    _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                }
             }
 
             // Right side
@@ -147,6 +151,13 @@ namespace ProjectStellar
 
                     if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
                     else if (_mapUI.CheckMap(worldPos.X, worldPos.Y, _window, _ctx._font)) Console.WriteLine("map");
+                }
+
+                if (Mouse.IsButtonPressed(Mouse.Button.Right))
+                {
+                    _window.SetMouseCursorVisible(true);
+                    _ui.mouseSprite = null;
+                    _ui.Map.ChosenBuilding = null;
                 }
             }
             else if (_ctx.MenuState == 3)
@@ -237,6 +248,18 @@ namespace ProjectStellar
                     _ctx.NewGame.Name += e.Unicode;
                 }
             }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+            {
+                if (!_ui.SettingsSelected)
+                    _ui.SettingsSelected = true;
+                else
+                {
+                    _ui.SettingsSelected = false;
+                    _ctx.GameTime.TimeScale = 60f;
+                }
+            }
         }
+
+        internal View View => _view;
     }
 }
