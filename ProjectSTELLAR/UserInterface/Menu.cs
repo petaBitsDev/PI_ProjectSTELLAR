@@ -49,21 +49,21 @@ namespace ProjectStellar
             };
             _menu[2] = _quitGame;
 
-            Sprite button4 = new Sprite(_ctx._menuTextures[4])
+            Sprite button4 = new Sprite(_ctx._menuTextures[5])
             {
                 Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y * 1 / 3 - 40),
                 Scale = new Vector2f(0.5f, 0.5f),
             };
             _menuActif[0] = button4;
 
-            Sprite button5 = new Sprite(_ctx._menuTextures[5])
+            Sprite button5 = new Sprite(_ctx._menuTextures[6])
             {
                 Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y / 2),
                 Scale = new Vector2f(0.5f, 0.5f),
             };
             _menuActif[1] = button5;
 
-            Sprite button6 = new Sprite(_ctx._menuTextures[7])
+            Sprite button6 = new Sprite(_ctx._menuTextures[8])
             {
                 Position = new Vector2f(_view.Size.X / 2 - 200, _view.Size.Y * 2 / 3 + 40),
                 Scale = new Vector2f(0.5f, 0.5f)

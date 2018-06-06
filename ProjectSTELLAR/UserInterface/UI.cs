@@ -70,8 +70,8 @@ namespace ProjectStellar
         Sprite _saveButtonActive;
         Sprite _quitButton;
         Sprite _quitButtonActive;
-        Sprite _loadButton;
-        Sprite _loadButtonActive;
+        Sprite _returnButton;
+        Sprite _returnButtonActive;
         Sprite _mouseSprite;
 
         uint _width;
@@ -163,26 +163,26 @@ namespace ProjectStellar
             };
             _menu[0] = _saveButton;
 
-            _saveButtonActive = new Sprite(_ctx._menuTextures[6])
+            _saveButtonActive = new Sprite(_ctx._menuTextures[7])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 2),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[0] = _saveButtonActive;
 
-            _loadButton = new Sprite(_ctx._menuTextures[1])
+            _returnButton = new Sprite(_ctx._menuTextures[4])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 8),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
-            _menu[1] = _loadButton;
+            _menu[1] = _returnButton;
 
-            _loadButtonActive = new Sprite(_ctx._menuTextures[5])
+            _returnButtonActive = new Sprite(_ctx._menuTextures[9])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 8),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
-            _menuActif[1] = _loadButtonActive;
+            _menuActif[1] = _returnButtonActive;
 
             _quitButton = new Sprite(_ctx._menuTextures[3])
             {
@@ -191,7 +191,7 @@ namespace ProjectStellar
             };
             _menu[2] = _quitButton;
 
-            _quitButtonActive = new Sprite(_ctx._menuTextures[7])
+            _quitButtonActive = new Sprite(_ctx._menuTextures[8])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 14),
                 Scale = new Vector2f(0.5f, 0.5f)
@@ -1005,7 +1005,7 @@ namespace ProjectStellar
                         if (SelectedItem != -1)
                         {
                             _menu[0] = _saveButton;
-                            _menu[1] = _loadButton;
+                            _menu[1] = _returnButton;
                             _menu[2] = _quitButton;
                         }
                         SelectedItem = -1;
@@ -1025,7 +1025,7 @@ namespace ProjectStellar
                             }
                             else if (SelectedItem == 1)
                             {
-
+                                _ctx.MenuState = 0;
                             }
                             else if (SelectedItem == 2) window.Close();
                         }

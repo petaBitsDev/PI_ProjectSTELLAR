@@ -259,7 +259,5 @@ namespace ProjectStellar
                 }
             }
         }
-
-        internal View View => _view;
     }
 }

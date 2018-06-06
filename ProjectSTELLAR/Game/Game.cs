@@ -17,7 +17,7 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[11];
+        public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[16];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
@@ -33,7 +33,7 @@ namespace ProjectStellar
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
-        internal string _name = "test2";
+        internal string _name;
         internal string _gameName;
         internal View _view;
         Vector2f _center;
@@ -52,13 +52,15 @@ namespace ProjectStellar
             _menuTextures[1] = new Texture("./resources/img/menuLoadgame.png");
             _menuTextures[2] = new Texture("./resources/img/menuSavegame.png");
             _menuTextures[3] = new Texture("./resources/img/menuQuit.png");
-            _menuTextures[4] = new Texture("./resources/img/menuNewActif.png");
-            _menuTextures[5] = new Texture("./resources/img/menuLoadActif.png");
-            _menuTextures[6] = new Texture("./resources/img/menuSaveActif.png");
-            _menuTextures[7] = new Texture("./resources/img/menuQuitActif.png");
-            _menuTextures[8] = new Texture("./resources/img/menuPlay.png");
-            _menuTextures[9] = new Texture("./resources/img/menuPlayActif.png");
-            _menuTextures[10] = new Texture("./resources/img/back.png");
+            _menuTextures[4] = new Texture("./resources/img/returnMainMenu.png");
+            _menuTextures[5] = new Texture("./resources/img/menuNewActif.png");
+            _menuTextures[6] = new Texture("./resources/img/menuLoadActif.png");
+            _menuTextures[7] = new Texture("./resources/img/menuSaveActif.png");
+            _menuTextures[8] = new Texture("./resources/img/menuQuitActif.png");
+            _menuTextures[9] = new Texture("./resources/img/returnActif.png");
+            _menuTextures[10] = new Texture("./resources/img/menuPlay.png");
+            _menuTextures[11] = new Texture("./resources/img/menuPlayActif.png");
+            _menuTextures[12] = new Texture("./resources/img/back.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -152,7 +154,6 @@ namespace ProjectStellar
         {
             _backgroundSprite.Draw(Window, RenderStates.Default);
             if (MenuState == 0) _menu.Draw();
-            else if (MenuState == 3) _newGame.Draw(Window);
             else if (MenuState == 1)
             {
                 if (_drawUI == null)
@@ -170,6 +171,7 @@ namespace ProjectStellar
                 _menuLoadGame.Draw(Window);
                 if(_menuLoadGame.SaveSelected) LoadGame(_menuLoadGame.ChosenSave);
             }
+            else if (MenuState == 3) _newGame.Draw(Window);
         }
 
         internal void LoadGame(SaveGame save)
