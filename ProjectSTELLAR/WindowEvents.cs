@@ -140,7 +140,6 @@ namespace ProjectStellar
         {
             if (_ctx.MenuState == 1)
             {
-                
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
                     Vector2i pixelPos = Mouse.GetPosition(_window);
@@ -148,6 +147,13 @@ namespace ProjectStellar
 
                     if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
                     else if (_mapUI.CheckMap(worldPos.X, worldPos.Y, _window, _ctx._font)) Console.WriteLine("map");
+                }
+            }
+            else if (_ctx.MenuState == 3)
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    _ctx.NewGame.CheckButtons(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
                 }
             }
         }

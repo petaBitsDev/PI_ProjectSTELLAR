@@ -173,6 +173,12 @@ namespace ProjectStellar
             _drawUI.UpdateData(save.Map, save.ResourcesManager, save.ExperienceManager);
         }
 
+        internal void StartNewGame()
+        {
+            _name = _newGame.Name;
+            MenuState = 1;
+        }
+
         public int MenuState
         {
             get { return _state; }
