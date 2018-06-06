@@ -140,7 +140,6 @@ namespace ProjectStellar
         {
             if (_ctx.MenuState == 1)
             {
-                
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
                     Vector2i pixelPos = Mouse.GetPosition(_window);
@@ -148,6 +147,13 @@ namespace ProjectStellar
 
                     if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
                     else if (_mapUI.CheckMap(worldPos.X, worldPos.Y, _window, _ctx._font)) Console.WriteLine("map");
+                }
+            }
+            else if (_ctx.MenuState == 3)
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    _ctx.NewGame.CheckButtons(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
                 }
             }
         }
@@ -174,42 +180,63 @@ namespace ProjectStellar
         public View CurrentView => _view;
         public void KeyPressed(object sender, EventArgs e)
         {
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+            if (_ctx.MenuState != 3)
             {
-                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
-                Save.SaveGame(save, _ctx._name);
-                Console.WriteLine("Saved");
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.L))
-            {
-                SaveGame save = Save.LoadGame(_ctx._name);
-                _ctx.LoadGame(save);
-                Console.WriteLine("Loaded");
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.T))
-            {
-                List<SaveGameMetadata> list = Save.List();
-
-                foreach (SaveGameMetadata metadata in list)
+                if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
-                    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
+                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                    Save.SaveGame(save, _ctx._name);
+                    Console.WriteLine("Saved");
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.L))
+                {
+                    SaveGame save = Save.LoadGame(_ctx._name);
+                    _ctx.LoadGame(save);
+                    Console.WriteLine("Loaded");
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.T))
+                {
+                    List<SaveGameMetadata> list = Save.List();
+
+                    foreach (SaveGameMetadata metadata in list)
+                    {
+                        Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
+                    }
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
+                {
+                    _view.Zoom(0.94f);
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
+                {
+                    _view.Zoom(1.06f);
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                {
+                    _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
                 }
             }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
+            else
             {
-                _view.Zoom(0.94f);
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
-            {
-                _view.Zoom(1.06f);
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
-            {
-                _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
+                if (Keyboard.IsKeyPressed(Keyboard.Key.BackSpace))
+                {
+                    if (_ctx.NewGame.Name.Length > 0)
+                        _ctx.NewGame.Name = _ctx.NewGame.Name.Remove(_ctx.NewGame.Name.Length - 1);
+                }
             }
         }
 
         internal View View => _view;
+
+        public void TextEntered(object sender, TextEventArgs e)
+        {
+            if (_ctx.MenuState == 3)
+            {
+                if ((e.Unicode[0] > 30 && (e.Unicode[0] < 128 || e.Unicode[0] > 159)))
+                {
+                    _ctx.NewGame.Name += e.Unicode;
+                }
+            }
+        }
     }
 }

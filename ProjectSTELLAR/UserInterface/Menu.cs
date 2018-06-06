@@ -79,7 +79,7 @@ namespace ProjectStellar
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    if (_selectedIndex == 0) _ctx.MenuState = 1; //launch game
+                    if (_selectedIndex == 0) _ctx.MenuState = 3; //launch game
                     else if (_selectedIndex == 1) _ctx.MenuState = 2;
                     else if (_selectedIndex == 2) window.Close();
                 }
