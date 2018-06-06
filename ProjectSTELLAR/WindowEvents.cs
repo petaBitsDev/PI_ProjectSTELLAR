@@ -153,6 +153,13 @@ namespace ProjectStellar
                     if (CheckUI(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _ctx.GameTime)) Console.WriteLine("ui");
                     else if (_mapUI.CheckMap(worldPos.X, worldPos.Y, _window, _ctx._font)) Console.WriteLine("map");
                 }
+
+                if (Mouse.IsButtonPressed(Mouse.Button.Right))
+                {
+                    _window.SetMouseCursorVisible(true);
+                    _ui.mouseSprite = null;
+                    _ui.Map.ChosenBuilding = null;
+                }
             }
         }
 
