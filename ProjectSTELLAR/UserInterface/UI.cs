@@ -261,7 +261,6 @@ namespace ProjectStellar
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
-
             _navbarSprite = new Sprite(_ctx._uiTextures[15]);
 
             //HABITATIONS
