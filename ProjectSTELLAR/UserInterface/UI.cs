@@ -999,38 +999,40 @@ namespace ProjectStellar
                         _menu[i] = _menuActif[i];
                         SelectedItem = i;
                     }
+                }
 
-                    if (_hovering == false)
+                if (_hovering == false)
+                {
+                    if (SelectedItem != -1)
                     {
-                        if (SelectedItem != -1)
-                        {
-                            _menu[0] = _saveButton;
-                            _menu[1] = _returnButton;
-                            _menu[2] = _quitButton;
-                        }
-                        SelectedItem = -1;
+                        _menu[0] = _saveButton;
+                        _menu[1] = _returnButton;
+                        _menu[2] = _quitButton;
                     }
-                    else
+                    SelectedItem = -1;
+                }
+                else
+                {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
                     {
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        if (SelectedItem == 0)
                         {
-                            if (SelectedItem == 0)
-                            {
-                                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
-                                Save.SaveGame(save, _ctx._name);
-                                Console.WriteLine("Saved");
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                            Save.SaveGame(save, _ctx._name);
+                            Console.WriteLine("Saved");
 
-                                gameTime.TimeScale = 60f;
-                                SettingsSelected = false;
-                            }
-                            else if (SelectedItem == 1)
-                            {
-                                _ctx.MenuState = 0;
-                            }
-                            else if (SelectedItem == 2) window.Close();
+                            gameTime.TimeScale = 60f;
+                            SettingsSelected = false;
                         }
+                        else if (SelectedItem == 1)
+                        {
+                            _settingsSelected = false;
+                            _ctx.MenuState = 0;
+                        }
+                        else if (SelectedItem == 2) window.Close();
                     }
                 }
+
                 if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     if (Mouse.IsButtonPressed(Mouse.Button.Left)) ExitSelected = true;

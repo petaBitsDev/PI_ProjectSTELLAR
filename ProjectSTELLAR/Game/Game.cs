@@ -21,9 +21,9 @@ namespace ProjectStellar
         public Texture[] _buildingsTextures = new Texture[16];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
-        Menu _menu;
+        internal Menu _menu;
         NewGame _newGame;
-        MenuLoadGame _menuLoadGame;
+        internal MenuLoadGame _menuLoadGame;
         Resolution _resolution;
         internal Font _font;
         internal Map _map;
@@ -132,7 +132,7 @@ namespace ProjectStellar
 
         public override void Update(GameTime gameTime)
         {
-            if (_state == 0) _menu.CheckMouse(Window);
+            if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
@@ -169,7 +169,7 @@ namespace ProjectStellar
             else if (MenuState == 2)
             {
                 _menuLoadGame.Draw(Window);
-                if(_menuLoadGame.SaveSelected) LoadGame(_menuLoadGame.ChosenSave);
+                //if (_menuLoadGame.SaveSelected) LoadGame(_menuLoadGame.ChosenSave);
             }
             else if (MenuState == 3) _newGame.Draw(Window);
         }

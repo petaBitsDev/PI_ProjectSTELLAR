@@ -26,7 +26,7 @@ namespace ProjectStellar
             _width = width;
             _height = height;
             _view = view;
-            _backButton = new Sprite(_ctx._menuTextures[10])
+            _backButton = new Sprite(_ctx._menuTextures[12])
             {
                 Position = new Vector2f(32, 32)
             };
@@ -45,10 +45,10 @@ namespace ProjectStellar
         {
             List<SaveGameMetadata> list = Save.List();
             int i = 1;
+            _backButton.Draw(window, RenderStates.Default);
 
             foreach(SaveGameMetadata metadata in list)
             {
-                _backButton.Draw(window, RenderStates.Default);
 
                 RectangleShape rec = new RectangleShape();
                 rec.Size = new Vector2f(32 * 15, 32 * 3);
@@ -100,20 +100,51 @@ namespace ProjectStellar
                         date.Draw(window, RenderStates.Default);
                     }
 
-                    if(Mouse.IsButtonPressed(Mouse.Button.Left))
+                    //if(Mouse.IsButtonPressed(Mouse.Button.Left))
+                    //{
+                    //    _chosenSave = metadata.Name;
+                    //    _saveSelected = true;
+                    //    _saveChoice = Save.LoadGame(_chosenSave);
+                    //}
+                }
+
+                //if(_backButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                //{
+                //    if(Mouse.IsButtonPressed(Mouse.Button.Left))
+                //    {
+                //        _ctx.MenuState = 0;
+                //    }
+                //}
+            }
+        }
+
+        public void CheckMouse(float mouseX, float mouseY)
+        {
+            List<SaveGameMetadata> list = Save.List();
+            int i = 1;
+
+            if (_backButton.GetGlobalBounds().Contains(mouseX, mouseY))
+                _ctx.MenuState = 0;
+            else
+            {
+                foreach (SaveGameMetadata metadata in list)
+                {
+                    RectangleShape rec = new RectangleShape()
+                    {
+                        Size = new Vector2f(32 * 15, 32 * 3),
+                        Position = new Vector2f(_ctx.Resolution.X / 2 - (32 * 8), i * 32)
+                    };
+
+                    if (rec.GetGlobalBounds().Contains(mouseX, mouseY))
                     {
                         _chosenSave = metadata.Name;
                         _saveSelected = true;
                         _saveChoice = Save.LoadGame(_chosenSave);
+                        _ctx.LoadGame(_saveChoice);
+                        _ctx.MenuState = 1;
                     }
-                }
 
-                if(_backButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-                {
-                    if(Mouse.IsButtonPressed(Mouse.Button.Left))
-                    {
-                        _ctx.MenuState = 0;
-                    }
+                    i += 4;
                 }
             }
         }

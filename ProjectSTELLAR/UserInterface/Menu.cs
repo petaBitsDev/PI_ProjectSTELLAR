@@ -84,7 +84,7 @@ namespace ProjectStellar
             }
         }
 
-        public void CheckMouse(RenderWindow window)
+        public void CheckHoveringMouse(RenderWindow window)
         {
             _hovering = false;
             for (int i = 0; i < 3; i++)
@@ -107,15 +107,13 @@ namespace ProjectStellar
                 }
                 _selectedIndex = -1;
             }
-            else
-            {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    if (_selectedIndex == 0) _ctx.MenuState = 3; //launch game
-                    else if (_selectedIndex == 1) _ctx.MenuState = 2;
-                    else if (_selectedIndex == 2) window.Close();
-                }
-            }
+        }
+
+        public void CheckMouse(RenderWindow window)
+        {
+            if (_selectedIndex == 0) _ctx.MenuState = 3; //launch game
+            else if (_selectedIndex == 1) _ctx.MenuState = 2;
+            else if (_selectedIndex == 2) window.Close();
         }
 
         public bool IsHovering => _hovering;

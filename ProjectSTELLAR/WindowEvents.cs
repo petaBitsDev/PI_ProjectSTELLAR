@@ -142,6 +142,7 @@ namespace ProjectStellar
 
         public void MouseClicked(object sender, EventArgs e)
         {
+            // Jeu
             if (_ctx.MenuState == 1)
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
@@ -160,12 +161,20 @@ namespace ProjectStellar
                     _ui.Map.ChosenBuilding = null;
                 }
             }
-            else if (_ctx.MenuState == 3)
+            // Menu principal
+            else if (_ctx.MenuState == 0 && Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    _ctx.NewGame.CheckButtons(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
-                }
+                _ctx._menu.CheckMouse(_window);
+            }
+            // Menu chargement de sauvegarde
+            else if (_ctx.MenuState == 2 && Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+            }
+            // Menu création nouvelle partie
+            else if (_ctx.MenuState == 3 && Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                 _ctx.NewGame.CheckButtons(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
             }
         }
 
@@ -191,7 +200,7 @@ namespace ProjectStellar
         public View CurrentView => _view;
         public void KeyPressed(object sender, EventArgs e)
         {
-            if (_ctx.MenuState != 3)
+            if (_ctx.MenuState == 1)
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
@@ -227,7 +236,7 @@ namespace ProjectStellar
                     _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
                 }
             }
-            else
+            else if (_ctx.MenuState == 3)
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.BackSpace))
                 {
