@@ -84,7 +84,7 @@ namespace ProjectStellar.Library
             if(Equals(building, _ctx.BuildingTypes[10]))
             {
                 PumpingStationType pumping = (PumpingStationType)_ctx.BuildingTypes.ElementAt(10);
-                _nbResources["water"] _= pumping.WaterProduction;
+                _nbResources["water"] -= pumping.WaterProduction;
             }
 
             
