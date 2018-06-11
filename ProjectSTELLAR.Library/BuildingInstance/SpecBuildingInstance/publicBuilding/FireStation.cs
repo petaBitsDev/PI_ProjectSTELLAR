@@ -19,6 +19,8 @@ namespace ProjectStellar.Library
         FireStation _origin;
         List<Truck> _Vehicule = new List<Truck>();
         Truck _freeTruck;
+        DateTime _timeToGo;
+        Double distance;
 
         public FireStation(BuildingType type, int x, int y, Map map) : base(type, x, y)
         {
@@ -29,6 +31,16 @@ namespace ProjectStellar.Library
         }
 
 
+        public void FireStationWorking()
+        {
+            if(fire.IsEventHappening == true)
+            {
+                BuildingDistance();
+                CheckTruckStatement();
+                _timeToGo.AddMilliseconds(distance/FreeTruck.Speed*Math.Pow(10, -3));
+            }
+        }
+
         private void BuildingDistance()
         {
             double max = double.MaxValue;
@@ -37,7 +49,7 @@ namespace ProjectStellar.Library
             {
                 for(int j =0; j<fire.BuildingHasEvent.Count; j++)
                 {
-                    Double distance = Math.Sqrt(Math.Pow((fire.BuildingHasEvent[j].X - fireStationType.List[i].X), 2.00) + Math.Pow((fire.BuildingHasEvent[j].Y - fireStationType.List[i].Y), 2.00));
+                     distance = Math.Sqrt(Math.Pow((fire.BuildingHasEvent[j].X - fireStationType.List[i].X), 2.00) + Math.Pow((fire.BuildingHasEvent[j].Y - fireStationType.List[i].Y), 2.00));
 
                     if(distance < max)
                     {
