@@ -186,8 +186,12 @@ namespace ProjectStellar
 
         internal void StartNewGame()
         {
-            _name = _newGame.Name;
-            MenuState = 1;
+            if (_newGame.Name != "" && _newGame.Name != null)
+            {
+                _name = _newGame.Name;
+                _newGame.Name = "";
+                MenuState = 1;
+            }
         }
 
         public int MenuState
