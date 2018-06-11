@@ -60,9 +60,19 @@ namespace ProjectStellar
         Sprite _metalMine;
         Sprite _oreMine;
         Sprite _warehouse;
+        Sprite _people;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
+        readonly Sprite[] _menu = new Sprite[3];
+        readonly Sprite[] _menuActif = new Sprite[3];
+        Sprite _saveButton;
+        Sprite _saveButtonActive;
+        Sprite _quitButton;
+        Sprite _quitButtonActive;
+        Sprite _returnButton;
+        Sprite _returnButtonActive;
+        Sprite _mouseSprite;
 
         uint _width;
         uint _height;
@@ -77,13 +87,6 @@ namespace ProjectStellar
         bool _exitSelected;
         int _selectedIndex;
         bool _hovering;
-        readonly Sprite[] _menu = new Sprite[2];
-        readonly Sprite[] _menuActif = new Sprite[2];
-        Sprite _saveButton;
-        Sprite _saveButtonActive;
-        Sprite _quitButton;
-        Sprite _quitButtonActive;
-        Sprite _people;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
@@ -155,31 +158,45 @@ namespace ProjectStellar
 
             _saveButton = new Sprite(_ctx._menuTextures[2])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 2),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menu[0] = _saveButton;
 
-            _saveButtonActive = new Sprite(_ctx._menuTextures[6])
+            _saveButtonActive = new Sprite(_ctx._menuTextures[7])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 2),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[0] = _saveButtonActive;
 
+            _returnButton = new Sprite(_ctx._menuTextures[4])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 8),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menu[1] = _returnButton;
+
+            _returnButtonActive = new Sprite(_ctx._menuTextures[9])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 8),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+            _menuActif[1] = _returnButtonActive;
+
             _quitButton = new Sprite(_ctx._menuTextures[3])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 13),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 14),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
-            _menu[1] = _quitButton;
+            _menu[2] = _quitButton;
 
-            _quitButtonActive = new Sprite(_ctx._menuTextures[7])
+            _quitButtonActive = new Sprite(_ctx._menuTextures[8])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 13),
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 14),
                 Scale = new Vector2f(0.5f, 0.5f)
             };
-            _menuActif[1] = _quitButtonActive;
+            _menuActif[2] = _quitButtonActive;
 
             //XP BAR
             _expBar = new RectangleShape()
@@ -244,7 +261,6 @@ namespace ProjectStellar
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
-
             _navbarSprite = new Sprite(_ctx._uiTextures[15]);
 
             //HABITATIONS
@@ -339,6 +355,8 @@ namespace ProjectStellar
             _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+
+            _mouseSprite = new Sprite();
         }
 
         internal bool IsTab1Active
@@ -575,6 +593,7 @@ namespace ProjectStellar
             {
                 _buildSelected = true;
                 _destroySelected = false;
+                //window.SetMouseCursorVisible(false);
                 return true;
             }
             return false;
@@ -857,6 +876,9 @@ namespace ProjectStellar
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
                         _mapCtx.ChosenBuilding = building;
+                        window.SetMouseCursorVisible(false);
+                        _mouseSprite = new Sprite(sprite);
+                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
                         return true;
                     }
                 }
@@ -870,6 +892,9 @@ namespace ProjectStellar
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
                         _mapCtx.ChosenBuilding = building;
+                        window.SetMouseCursorVisible(false);
+                        _mouseSprite = new Sprite(sprite);
+                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
                         return true;
                     }
                 }
@@ -883,6 +908,9 @@ namespace ProjectStellar
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
                         _mapCtx.ChosenBuilding = building;
+                        window.SetMouseCursorVisible(false);
+                        _mouseSprite = new Sprite(sprite);
+                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
                         return true;
                     }
                 }
@@ -961,15 +989,15 @@ namespace ProjectStellar
                 ExitSelected = false;
                 _hovering = false;
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     _menu[i].Draw(window, RenderStates.Default);
 
                     if (_menu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                     {
+                        _hovering = true;
                         _menu[i] = _menuActif[i];
                         SelectedItem = i;
-                        _hovering = true;
                     }
 
                     if (_hovering == false)
@@ -977,7 +1005,8 @@ namespace ProjectStellar
                         if (SelectedItem != -1)
                         {
                             _menu[0] = _saveButton;
-                            _menu[1] = _quitButton;
+                            _menu[1] = _returnButton;
+                            _menu[2] = _quitButton;
                         }
                         SelectedItem = -1;
                     }
@@ -994,7 +1023,11 @@ namespace ProjectStellar
                                 gameTime.TimeScale = 60f;
                                 SettingsSelected = false;
                             }
-                            else if (SelectedItem == 1) window.Close();
+                            else if (SelectedItem == 1)
+                            {
+                                _ctx.MenuState = 0;
+                            }
+                            else if (SelectedItem == 2) window.Close();
                         }
                     }
                 }
@@ -1037,6 +1070,20 @@ namespace ProjectStellar
             _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+        }
+
+        public void DrawMouseCursor(RenderWindow window)
+        {
+            if (!Equals(_mouseSprite, null))
+            {
+                _mouseSprite.Draw(window, RenderStates.Default);
+            }
+        }
+
+        public Sprite mouseSprite
+        {
+            get { return _mouseSprite; }
+            set { _mouseSprite = value; }
         }
     }
 }

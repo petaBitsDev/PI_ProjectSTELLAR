@@ -11,6 +11,7 @@ namespace ProjectStellar.Library
     public class ResourcesManager
     {
         static Map _ctx;
+        int _maxPopulation;
         Dictionary<string, int> _nbResources = new Dictionary<string, int>();
        
         public ResourcesManager(Map ctx)
@@ -25,6 +26,7 @@ namespace ProjectStellar.Library
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
+            _maxPopulation = 0;
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
@@ -38,23 +40,48 @@ namespace ProjectStellar.Library
             _nbResources["metal"] -= building.Metal;
             _nbResources["coins"] -= building.Coin;
             _nbResources["pollution"] -= building.Pollution;
-            _nbResources["water"] -= building.Water;
-            _nbResources["electricity"] -= building.Electricity;
+            if(Equals(building, _ctx.BuildingTypes[10]))
+            {
+                _nbResources["water"] += building.Water;
+
+            }
+            else
+            {
+                _nbResources["water"] -= building.Water;
+
+            }
+
+            if(Equals(building, _ctx.BuildingTypes[9]))
+            {
+                _nbResources["electricity"] += building.Electricity;
+
+            }
+            else
+            {
+                _nbResources["electricity"] -= building.Electricity;
+
+            }
             _nbResources["cost"] += building.Cost;
 
+            if (building.Type == "habitation") _maxPopulation += building.NbPeople;
+        }
+
+        public void UpdateWhenDestroy(BuildingType building)
+        {
             if (building.Type == "habitation")
             {
-                _nbResources["nbPeople"] += building.NbPeople;
+                _maxPopulation = _maxPopulation - building.NbPeople < 0 ? 0 : _maxPopulation - building.NbPeople;
+                _nbResources["nbPeople"] = _nbResources["nbPeople"] - building.NbPeople < 0 ? 0 : _nbResources["nbPeople"] - building.NbPeople;
             }
             if (Equals(building, _ctx.BuildingTypes[9]))
             {
                 PowerPlantType a = (PowerPlantType)_ctx.BuildingTypes.ElementAt(9);
-                _nbResources["electricity"] += a.ElectricityProduction;
+                _nbResources["electricity"] -= a.ElectricityProduction;
             }
             if(Equals(building, _ctx.BuildingTypes[10]))
             {
                 PumpingStationType pumping = (PumpingStationType)_ctx.BuildingTypes.ElementAt(10);
-                _nbResources["water"] += pumping.WaterProduction;
+                _nbResources["water"] _= pumping.WaterProduction;
             }
 
             
@@ -72,12 +99,17 @@ namespace ProjectStellar.Library
 
         public void UpdateResources()
         {
+            int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
+            Random random = new Random();
+            // Prochaine intégration de la satifaction
+            if (0 < maxAdd)
+                _nbResources["nbPeople"] += random.Next(0, maxAdd + 1);
+
             SawmillType sawmillType = (SawmillType)_ctx.BuildingTypes[11];
             OreMineType oreMineType = (OreMineType)_ctx.BuildingTypes[7];
             MetalMineType metalMineType = (MetalMineType)_ctx.BuildingTypes[6];
             WarehouseType warehouseType = (WarehouseType)_ctx.BuildingTypes[13];
-
-
+            
             if (sawmillType.MaxWoodCapacity >= sawmillType.WoodProduction * sawmillType.NbBuilding)
             {
                 _nbResources["wood"] += sawmillType.WoodProduction * sawmillType.NbBuilding;

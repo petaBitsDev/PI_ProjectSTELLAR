@@ -223,10 +223,12 @@ namespace ProjectStellar
                         if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
                             _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         _ctx.ChosenBuilding = null;
+                        window.SetMouseCursorVisible(true);
+                        _ui.mouseSprite = null;
                     }
                     else if (_ui.DestroySelected && building != null)
                     {
-                        building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building);
+                        building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building, _resourcesManager);
                         _ui.DestroySelected = false;
                     }
                     else return false;
