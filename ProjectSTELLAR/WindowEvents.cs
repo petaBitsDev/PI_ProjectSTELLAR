@@ -147,6 +147,25 @@ namespace ProjectStellar
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
+                    if (_ui.SettingsSelected)
+                    {
+                        if (_ui.SelectedItem == 0)
+                        {
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                            Save.SaveGame(save, _ctx._name);
+                            Console.WriteLine("Saved");
+
+                            _ctx.GameTime.TimeScale = 60f;
+                            _ui.SettingsSelected = false;
+                        }
+                        else if (_ui.SelectedItem == 1)
+                        {
+                            _ui.SettingsSelected = false;
+                            _ctx.MenuState = 0;
+                        }
+                        else if (_ui.SelectedItem == 2) _window.Close();
+                    }
+
                     Vector2i pixelPos = Mouse.GetPosition(_window);
                     Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
 
@@ -165,16 +184,19 @@ namespace ProjectStellar
             else if (_ctx.MenuState == 0 && Mouse.IsButtonPressed(Mouse.Button.Left))
             {
                 _ctx._menu.CheckMouse(_window);
+                Console.WriteLine("Principal");
             }
             // Menu chargement de sauvegarde
             else if (_ctx.MenuState == 2 && Mouse.IsButtonPressed(Mouse.Button.Left))
             {
                 _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                Console.WriteLine("Load");
             }
             // Menu création nouvelle partie
             else if (_ctx.MenuState == 3 && Mouse.IsButtonPressed(Mouse.Button.Left))
             {
                  _ctx.NewGame.CheckButtons(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                Console.WriteLine("New");
             }
         }
 
