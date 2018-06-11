@@ -992,27 +992,6 @@ namespace ProjectStellar
                     }
                     SelectedItem = -1;
                 }
-                else
-                {
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                    {
-                        if (SelectedItem == 0)
-                        {
-                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
-                            Save.SaveGame(save, _ctx._name);
-                            Console.WriteLine("Saved");
-
-                            gameTime.TimeScale = 60f;
-                            SettingsSelected = false;
-                        }
-                        else if (SelectedItem == 1)
-                        {
-                            _settingsSelected = false;
-                            _ctx.MenuState = 0;
-                        }
-                        else if (SelectedItem == 2) window.Close();
-                    }
-                }
 
                 if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
