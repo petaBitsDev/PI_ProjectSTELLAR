@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace ProjectStellar.Library
 {
@@ -24,6 +25,11 @@ namespace ProjectStellar.Library
 
         Building _building;
 
+        Timer timer = new Timer();
+
+        bool _eventHandle;
+
+
         public Crime(Map ctx)
 
         {
@@ -33,6 +39,15 @@ namespace ProjectStellar.Library
             _previousCrime = false;
 
             _crimeProbability = 0.17f;
+
+            _eventHandle = true;
+
+        }
+
+        public bool EventHandle
+        {
+            get { return _eventHandle; }
+            set { _eventHandle = value; }
 
         }
 
@@ -149,8 +164,11 @@ namespace ProjectStellar.Library
             else IsEventHappening = false;
         }
 
-        public void NewEvent()
+        public void NewEvent(GameTime gameTime)
         {
+            DateTime now = gameTime.InGameTime;
+            DateTime endOfEvent = now.AddMinutes(2);
+            
             bool _isPoliceStation = false;
 
             CalculEventProbability();
@@ -165,6 +183,7 @@ namespace ProjectStellar.Library
                     IsBuildingGettingEvent();
                     if(IsEventHappening == true)
                     {
+                        if(gameTime.InGameTime.Equals(endOfEvent)) EventHandle = false;
                         BuildingEvent();
                         PreviousEvent = true;
                     }

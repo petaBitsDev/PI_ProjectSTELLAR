@@ -43,7 +43,8 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new FireStation(this, x, y);
+            FireStation building = new FireStation(this, x, y, map);
+            building.CreateTruck();
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }

@@ -12,13 +12,16 @@ namespace ProjectStellar.Library
 
         bool IsEventHappening { get; set; }
 
+        bool EventHandle { get; set; }
+
         int NbEventMax { get; set; }
 
         int NbEventReal { get; set; }
 
         float EventProbability { get; set; }
 
-        Building BuildingHasEvent { get; set; }
+
+        List<Building> BuildingHasEvent { get; set; }
 
         void CalculNbEventMax();
         void CalculNbEventReal();
@@ -28,7 +31,7 @@ namespace ProjectStellar.Library
 
         void IsBuildingGettingEvent();
 
-        void NewEvent();
+        void NewEvent(GameTime);
 
     }
 }

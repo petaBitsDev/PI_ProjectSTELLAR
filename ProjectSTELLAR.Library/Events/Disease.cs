@@ -24,6 +24,8 @@ namespace ProjectStellar.Library
 
         bool _isTakingABed;
 
+        bool _eventHandle;
+
         public Disease(Map ctx)
         {
             _ctx = ctx;
@@ -31,6 +33,11 @@ namespace ProjectStellar.Library
             _previousDisease = false;
         }
 
+        public bool EventHandle
+        {
+            get { return _eventHandle; }
+            set { _eventHandle = true; }
+        }
         public bool IsTakingABed
         {
             get { return _isTakingABed; }
@@ -167,8 +174,11 @@ namespace ProjectStellar.Library
             }
         }
 
-        public void NewEvent()
+        public void NewEvent(GameTime gameTime)
         {
+            DateTime now = gameTime.InGameTime;
+            DateTime endOfEvent = now.AddMinutes(2);
+
             bool _isHospital = false;
 
             CalculEventProbability();
@@ -184,6 +194,7 @@ namespace ProjectStellar.Library
                     IsBuildingGettingEvent();
                     if (IsEventHappening == true)
                     {
+                        if (gameTime.InGameTime.Equals(endOfEvent)) EventHandle = false;
                         BuildingEvent();
                         PreviousEvent = true;
                     }

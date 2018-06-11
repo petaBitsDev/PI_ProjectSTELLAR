@@ -14,13 +14,15 @@ namespace ProjectStellar.Library
 
         bool _isOnFire;
 
+        bool _eventHandle;
+
         bool _previousFire;
 
         int _nbFireMax;
 
         int _nbFireReal;
 
-        Building _building;
+        List<Building> _building;
 
 
 
@@ -34,6 +36,12 @@ namespace ProjectStellar.Library
 
             _fireProbability = 0.14f;
 
+        }
+
+        public bool EventHandle
+        {
+            get { return _eventHandle; }
+            set { _eventHandle = value; }
         }
 
       public bool PreviousEvent
@@ -94,7 +102,7 @@ namespace ProjectStellar.Library
 
 
 
-        public Building BuildingHasEvent
+        public List<Building> BuildingHasEvent
 
         {
 
@@ -199,7 +207,7 @@ namespace ProjectStellar.Library
             else
             {
                 buildingSelected.List[_idxBuilding].OnFire = true;
-                BuildingHasEvent = buildingSelected.List[_idxBuilding];
+                BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
             }
 
         }
@@ -229,9 +237,12 @@ namespace ProjectStellar.Library
 
 
 
-        public void NewEvent()
+        public void NewEvent(GameTime gameTime)
 
         {
+            DateTime now = gameTime.InGameTime;
+            DateTime endOfEvent = now.AddMinutes(2);
+
             bool _isFireStation = false;
 
             CalculEventProbability();
@@ -255,6 +266,8 @@ namespace ProjectStellar.Library
                         if (IsEventHappening == true)
 
                         {
+                       //     if (gameTime.InGameTime.Equals(endOfEvent)) EventHandle = false;
+
                             BuildingEvent();
                             PreviousEvent = true;
                         }
