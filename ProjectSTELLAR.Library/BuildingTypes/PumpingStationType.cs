@@ -37,6 +37,7 @@ namespace ProjectStellar.Library
             _type = "resource";
             _size = 4;
             _list = new List<Building>();
+            _waterProduction = 80;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
