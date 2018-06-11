@@ -42,18 +42,21 @@ namespace ProjectStellar.Library
             _nbResources["pollution"] -= building.Pollution;
             if(Equals(building, _ctx.BuildingTypes[10]))
             {
-                _nbResources["water"] += building.Water;
+                PumpingStationType pumpingStation = (PumpingStationType)building;
+                _nbResources["water"] += pumpingStation.WaterProduction;
 
             }
             else
             {
+                
                 _nbResources["water"] -= building.Water;
 
             }
 
             if(Equals(building, _ctx.BuildingTypes[9]))
             {
-                _nbResources["electricity"] += building.Electricity;
+               PowerPlantType powerPlant = (PowerPlantType)building;
+                _nbResources["electricity"] += powerPlant.ElectricityProduction;
 
             }
             else
