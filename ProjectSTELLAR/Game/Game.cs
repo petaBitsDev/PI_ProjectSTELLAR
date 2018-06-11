@@ -181,12 +181,17 @@ namespace ProjectStellar
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
             _experienceManager = save.ExperienceManager;
+            _name = save.Name;
         }
 
         internal void StartNewGame()
         {
-            _name = _newGame.Name;
-            MenuState = 1;
+            if (_newGame.Name != "" && _newGame.Name != null)
+            {
+                _name = _newGame.Name;
+                _newGame.Name = "";
+                MenuState = 1;
+            }
         }
 
         public int MenuState

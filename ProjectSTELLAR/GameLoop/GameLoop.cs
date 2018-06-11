@@ -74,7 +74,6 @@ namespace ProjectStellar
                 }
             }
         }
-
         public abstract void LoadContent();
         public abstract void Initialize(GameTime gameTime);
         public abstract void Update(GameTime gameTime);
