@@ -790,7 +790,7 @@ namespace ProjectStellar
                         water.Draw(window, RenderStates.Default);
 
                         Text nbWater = new Text(_mapCtx.BuildingTypes[i].Water + "/H", font);
-                        nbWater.Position = new Vector2f(rec.Position.X + 80, rec.Position.Y + 10);
+                        nbWater.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 10);
                         nbWater.Color = new Color(52, 152, 219);
                         nbWater.CharacterSize = 14;
                         nbWater.Style = Text.Styles.Bold;
@@ -803,7 +803,7 @@ namespace ProjectStellar
                         electricity.Draw(window, RenderStates.Default);
 
                         Text nbElectricity = new Text(_mapCtx.BuildingTypes[i].Electricity + "/H", font);
-                        nbElectricity.Position = new Vector2f(rec.Position.X + 80, rec.Position.Y + 50);
+                        nbElectricity.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 50);
                         nbElectricity.CharacterSize = 14;
                         nbElectricity.Color = new Color(236, 193, 5);
                         nbElectricity.Style = Text.Styles.Bold;
@@ -818,7 +818,7 @@ namespace ProjectStellar
                             charges.Draw(window, RenderStates.Default);
 
                             Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
-                            nbCharges.Position = new Vector2f(rec.Position.X + 80, rec.Position.Y + 80);
+                            nbCharges.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 80);
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(203, 67, 53);
                             nbCharges.Style = Text.Styles.Bold;
@@ -833,7 +833,7 @@ namespace ProjectStellar
                             charges.Draw(window, RenderStates.Default);
 
                             Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
-                            nbCharges.Position = new Vector2f(rec.Position.X + 80, rec.Position.Y + 80);
+                            nbCharges.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 80);
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(68, 198, 14);
                             nbCharges.Style = Text.Styles.Bold;
