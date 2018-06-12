@@ -213,49 +213,49 @@ namespace ProjectStellar
             //RESOURCES
             _coinSprite = new Sprite(_ctx._uiTextures[5])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 4),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 3),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _woodSprite = new Sprite(_ctx._uiTextures[7])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 5),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 4),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _rockSprite = new Sprite(_ctx._uiTextures[9])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 6),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 5),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _metalSprite = new Sprite(_ctx._uiTextures[8])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 7),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 6),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _electricitySprite = new Sprite(_ctx._uiTextures[11])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 8),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 7),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _waterSprite = new Sprite(_ctx._uiTextures[10])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 9),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 8),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _pollutionSprite = new Sprite(_ctx._uiTextures[6])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 10),
+                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 9),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _people = new Sprite(_ctx._uiTextures[23])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 11)
+                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 10)
             };
 
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
@@ -316,12 +316,12 @@ namespace ProjectStellar
             //RESOURCES BUILDINGS
             _powerPlant = new Sprite(_ctx._buildingsTextures[4])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
             };
 
             _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2)
+                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2)
             };
             
             _sawMill = new Sprite(_ctx._buildingsTextures[12])
@@ -331,12 +331,12 @@ namespace ProjectStellar
 
             _oreMine = new Sprite(_ctx._buildingsTextures[13])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2)
+                Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2)
             };
 
             _metalMine = new Sprite(_ctx._buildingsTextures[14])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
+                Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
             };
 
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
@@ -396,7 +396,7 @@ namespace ProjectStellar
             //Displays Coins Sprite and number of coins
             _coinSprite.Draw(window, RenderStates.Default);
             Text nbCoins = new Text(resources["coins"].ToString(), font);
-            nbCoins.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 4 + 2);
+            nbCoins.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 3 + 2);
             nbCoins.Color = Color.White;
             nbCoins.CharacterSize = 16;
             nbCoins.Style = Text.Styles.Bold;
@@ -405,7 +405,7 @@ namespace ProjectStellar
             //Displays Wood Sprite and number of wood
             _woodSprite.Draw(window, RenderStates.Default);
             Text nbWood = new Text(resources["wood"].ToString(), font);
-            nbWood.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 5 + 2);
+            nbWood.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 4 + 2);
             nbWood.Color = Color.White;
             nbWood.CharacterSize = 16;
             nbWood.Style = Text.Styles.Bold;
@@ -413,7 +413,7 @@ namespace ProjectStellar
 
             _rockSprite.Draw(window, RenderStates.Default);
             Text nbRock = new Text(resources["rock"].ToString(), font);
-            nbRock.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 6 + 2);
+            nbRock.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 5 + 2);
             nbRock.Color = Color.White;
             nbRock.CharacterSize = 16;
             nbRock.Style = Text.Styles.Bold;
@@ -421,7 +421,7 @@ namespace ProjectStellar
 
             _metalSprite.Draw(window, RenderStates.Default);
             Text nbMetal = new Text(resources["metal"].ToString(), font);
-            nbMetal.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 7 + 2);
+            nbMetal.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 6 + 2);
             nbMetal.Color = Color.White;
             nbMetal.CharacterSize = 16;
             nbMetal.Style = Text.Styles.Bold;
@@ -429,7 +429,7 @@ namespace ProjectStellar
 
             _electricitySprite.Draw(window, RenderStates.Default);
             Text nbElec = new Text(resources["electricity"].ToString(), font);
-            nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 8 + 2);
+            nbElec.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 7 + 2);
             nbElec.Color = Color.White;
             nbElec.CharacterSize = 16;
             nbElec.Style = Text.Styles.Bold;
@@ -437,7 +437,7 @@ namespace ProjectStellar
 
             _waterSprite.Draw(window, RenderStates.Default);
             Text nbWater = new Text(resources["water"].ToString(), font);
-            nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 9 + 2);
+            nbWater.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 8 + 2);
             nbWater.Color = Color.White;
             nbWater.CharacterSize = 16;
             nbWater.Style = Text.Styles.Bold;
@@ -446,7 +446,7 @@ namespace ProjectStellar
             //Displays Pollution Sprite and number
             _pollutionSprite.Draw(window, RenderStates.Default);
             Text nbPollution = new Text(resources["pollution"].ToString(), font);
-            nbPollution.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 10 + 2);
+            nbPollution.Position = new Vector2f(_resolution.X - _boxSize * 2 - 17, _boxSize * 9 + 2);
             nbPollution.Color = Color.White;
             nbPollution.CharacterSize = 16;
             nbPollution.Style = Text.Styles.Bold;
@@ -456,7 +456,7 @@ namespace ProjectStellar
             if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
                 Text nbPeople = new Text(resources["nbPeople"].ToString(), font);
-                nbPeople.Position = new Vector2f(_resolution.X - _boxSize * 2 - 8, _boxSize * 13 + 2);
+                nbPeople.Position = new Vector2f(_resolution.X - _boxSize * 2 - 8, _boxSize * 12 + 2);
                 nbPeople.Color = Color.White;
                 nbPeople.CharacterSize = 16;
                 nbPeople.Style = Text.Styles.Bold;
@@ -702,23 +702,6 @@ namespace ProjectStellar
             _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
 
-            //_tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
-            //_tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
-            //_tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
-
-            //_tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
-            //_tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
-            //_tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
-            //_tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
-            //_tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
-            //_tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
-
-            //_tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
-            //_tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
-            //_tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
-            //_tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
-            //_tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
-
             if (IsTab1Active == true)
             {
                 _drawUIctx.RenderSprite(_hutSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
@@ -747,11 +730,11 @@ namespace ProjectStellar
             }
             else if (IsTab3Active)
             {
-                _drawUIctx.RenderSprite(_sawMill, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_sawMill, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_oreMine, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 32, 32);
-                _drawUIctx.RenderSprite(_metalMine, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 32, 32);
-                _drawUIctx.RenderSprite(_powerPlant, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
-                _drawUIctx.RenderSprite(_pumpingStation, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_metalMine, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_powerPlant, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                _drawUIctx.RenderSprite(_pumpingStation, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
 
                 _sprites.Add(_sawMill, "SAWMILL");
                 _sprites.Add(_oreMine, "ORE MINE");
@@ -802,25 +785,25 @@ namespace ProjectStellar
                     {
                         Text water = new Text("Water consomation : ", font);
                         water.Color = new Color(52, 152, 219);
-                        water.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 32 * 4.9f));
+                        water.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 10);
                         water.CharacterSize = 17;
                         water.Draw(window, RenderStates.Default);
 
                         Text nbWater = new Text(_mapCtx.BuildingTypes[i].Water + "/H", font);
-                        nbWater.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 4.35f));
+                        nbWater.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 10);
                         nbWater.Color = new Color(52, 152, 219);
                         nbWater.CharacterSize = 14;
                         nbWater.Style = Text.Styles.Bold;
                         nbWater.Draw(window, RenderStates.Default);
                         
                         Text electricity = new Text("Electricity consomation : ", font);
-                        electricity.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 32 * 3.9f));
+                        electricity.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 50);
                         electricity.Color = new Color(236, 193, 5);
                         electricity.CharacterSize = 17;
                         electricity.Draw(window, RenderStates.Default);
 
                         Text nbElectricity = new Text(_mapCtx.BuildingTypes[i].Electricity + "/H", font);
-                        nbElectricity.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 3.2f));
+                        nbElectricity.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 50);
                         nbElectricity.CharacterSize = 14;
                         nbElectricity.Color = new Color(236, 193, 5);
                         nbElectricity.Style = Text.Styles.Bold;
@@ -828,16 +811,14 @@ namespace ProjectStellar
                         
                         if (_mapCtx.BuildingTypes[i].Cost > 0)
                         {
-                            //_coinSprite.Draw(window, RenderStates.Default);
-
                             Text charges = new Text("Charges : ", font);
-                            charges.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 32 * 2.8f));
+                            charges.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 80);
                             charges.Color = new Color(203, 67, 53);
                             charges.CharacterSize = 17;
                             charges.Draw(window, RenderStates.Default);
 
                             Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
-                            nbCharges.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 2.5f));
+                            nbCharges.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 80);
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(203, 67, 53);
                             nbCharges.Style = Text.Styles.Bold;
@@ -846,13 +827,13 @@ namespace ProjectStellar
                         else
                         {
                             Text charges = new Text("Taxes : ", font);
-                            charges.Position = new Vector2f((building.Y * 32 + 12), (building.X * 32 - 35 * 2.7f));
+                            charges.Position = new Vector2f(rec.Position.X + 10, rec.Position.Y + 80);
                             charges.Color = new Color(68, 198, 14);
                             charges.CharacterSize = 17;
                             charges.Draw(window, RenderStates.Default);
 
                             Text nbCharges = new Text(_mapCtx.BuildingTypes[i].Cost + "/H", font);
-                            nbCharges.Position = new Vector2f((building.Y * 32 + 100), (building.X * 32 - 32 * 2.5f));
+                            nbCharges.Position = new Vector2f(rec.Position.X + 32 * 6, rec.Position.Y + 80);
                             nbCharges.CharacterSize = 14;
                             nbCharges.Color = new Color(68, 198, 14);
                             nbCharges.Style = Text.Styles.Bold;
@@ -999,38 +980,19 @@ namespace ProjectStellar
                         _menu[i] = _menuActif[i];
                         SelectedItem = i;
                     }
-
-                    if (_hovering == false)
-                    {
-                        if (SelectedItem != -1)
-                        {
-                            _menu[0] = _saveButton;
-                            _menu[1] = _returnButton;
-                            _menu[2] = _quitButton;
-                        }
-                        SelectedItem = -1;
-                    }
-                    else
-                    {
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                        {
-                            if (SelectedItem == 0)
-                            {
-                                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
-                                Save.SaveGame(save, _ctx._name);
-                                Console.WriteLine("Saved");
-
-                                gameTime.TimeScale = 60f;
-                                SettingsSelected = false;
-                            }
-                            else if (SelectedItem == 1)
-                            {
-                                _ctx.MenuState = 0;
-                            }
-                            else if (SelectedItem == 2) window.Close();
-                        }
-                    }
                 }
+
+                if (_hovering == false)
+                {
+                    if (SelectedItem != -1)
+                    {
+                        _menu[0] = _saveButton;
+                        _menu[1] = _returnButton;
+                        _menu[2] = _quitButton;
+                    }
+                    SelectedItem = -1;
+                }
+
                 if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     if (Mouse.IsButtonPressed(Mouse.Button.Left)) ExitSelected = true;
@@ -1042,6 +1004,7 @@ namespace ProjectStellar
                 }
             }
         }
+
         public int SelectedItem
         {
             get { return _selectedIndex; }
