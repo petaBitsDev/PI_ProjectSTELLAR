@@ -753,11 +753,17 @@ namespace ProjectStellar
             }
         }
            
-        public void DrawExperience(RenderWindow window)
+        public void DrawExperience(RenderWindow window, Font font)
         {
             _expBarFilled.Size = new Vector2f(_expBar.Size.X * ((float)_experienceManager.GetPercentage() / 100f), _expBar.Size.Y);
             _expBar.Draw(window, RenderStates.Default);
             _expBarFilled.Draw(window, RenderStates.Default);
+
+            Text level = new Text("Level : "+ _experienceManager.Level.ToString(), font);
+            level.Position = new Vector2f(_resolution.X - 32 * 15, _resolution.Y - 32);
+            level.CharacterSize = 25;
+            level.Style = Text.Styles.Bold;
+            level.Draw(window, RenderStates.Default);
         }
 
         internal void DrawBuildingInformations(RenderWindow window, Font font, Building building)

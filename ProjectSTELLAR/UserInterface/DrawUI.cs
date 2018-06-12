@@ -53,7 +53,7 @@ namespace ProjectStellar
             _ui.DrawTimeBar(window, gameTime, font);
             _ui.DrawBuildButton(window, font);
             _ui.DrawDestroyButton(window);
-            _ui.DrawExperience(window);
+            _ui.DrawExperience(window, font);
             _ui.DrawInGameMenu(window, font, gameTime);
             _ui.DrawMouseCursor(window);
         }

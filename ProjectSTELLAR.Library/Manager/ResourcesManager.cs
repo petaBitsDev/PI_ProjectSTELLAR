@@ -57,7 +57,6 @@ namespace ProjectStellar.Library
             {
                PowerPlantType powerPlant = (PowerPlantType)building;
                 _nbResources["electricity"] += powerPlant.ElectricityProduction;
-
             }
             else
             {
@@ -86,8 +85,6 @@ namespace ProjectStellar.Library
                 PumpingStationType pumping = (PumpingStationType)_ctx.BuildingTypes.ElementAt(10);
                 _nbResources["water"] -= pumping.WaterProduction;
             }
-
-            
         }
 
         public bool CheckResourcesNeeded(BuildingType building)
