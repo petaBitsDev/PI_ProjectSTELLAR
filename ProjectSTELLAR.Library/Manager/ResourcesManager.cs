@@ -158,6 +158,9 @@ namespace ProjectStellar.Library
 
         }
 
-       
+        public Map Map
+        {
+            set { _ctx = value; }
+        }
     }
 }
