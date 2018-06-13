@@ -19,6 +19,7 @@ namespace ProjectStellar
         private bool _hovering;
         Sprite _backButton;
         bool _saveSelected;
+        List<FloatRect> _deletes;
 
         public MenuLoadGame(float width, float height, Game ctx, View view)
         {
@@ -46,6 +47,7 @@ namespace ProjectStellar
             List<SaveGameMetadata> list = Save.List();
             int i = 1;
             _backButton.Draw(window, RenderStates.Default);
+            _deletes = new List<FloatRect>();
 
             foreach(SaveGameMetadata metadata in list)
             {
@@ -56,7 +58,12 @@ namespace ProjectStellar
                 rec.FillColor = new Color(30, 40, 40);
                 rec.OutlineColor = new Color(Color.Black);
                 rec.OutlineThickness = 3.0f;
-                
+                Sprite delete = new Sprite(_ctx._uiTextures[22])
+                {
+                    Position = new Vector2f(rec.Position.X + rec.Size.X + 15, rec.Position.Y + 10)
+                };
+                _deletes.Add(new FloatRect(delete.Position.X, delete.Position.Y, delete.Texture.Size.X, delete.Texture.Size.Y));
+
                 Text nom = new Text(metadata.Name.ToString(), _ctx._font)
                 {
                     CharacterSize = 25,
@@ -86,6 +93,7 @@ namespace ProjectStellar
                 nom.Draw(window, RenderStates.Default);
                 population.Draw(window, RenderStates.Default);
                 date.Draw(window, RenderStates.Default);
+                delete.Draw(window, RenderStates.Default);
 
                 if (rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
@@ -99,22 +107,7 @@ namespace ProjectStellar
                         population.Draw(window, RenderStates.Default);
                         date.Draw(window, RenderStates.Default);
                     }
-
-                    //if(Mouse.IsButtonPressed(Mouse.Button.Left))
-                    //{
-                    //    _chosenSave = metadata.Name;
-                    //    _saveSelected = true;
-                    //    _saveChoice = Save.LoadGame(_chosenSave);
-                    //}
                 }
-
-                //if(_backButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
-                //{
-                //    if(Mouse.IsButtonPressed(Mouse.Button.Left))
-                //    {
-                //        _ctx.MenuState = 0;
-                //    }
-                //}
             }
         }
 
@@ -122,6 +115,7 @@ namespace ProjectStellar
         {
             List<SaveGameMetadata> list = Save.List();
             int i = 1;
+            int j = 0;
 
             if (_backButton.GetGlobalBounds().Contains(mouseX, mouseY))
                 _ctx.MenuState = 0;
@@ -143,8 +137,14 @@ namespace ProjectStellar
                         _ctx.LoadGame(_saveChoice);
                         _ctx.MenuState = 1;
                     }
+                    else if (_deletes[j].Contains(mouseX, mouseY))
+                    {
+                        Console.WriteLine("delete" + metadata.Name);
+                        Save.DeleteSave(metadata.Name);
+                    }
 
                     i += 4;
+                    j++;
                 }
             }
         }
