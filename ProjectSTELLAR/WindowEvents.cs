@@ -47,21 +47,21 @@ namespace ProjectStellar
         
         public void MouseMoved(object sender, EventArgs e)
         {
+            Vector2i pixelPos = Mouse.GetPosition(_window);
+            Vector2f worldPos = _window.MapPixelToCoords(pixelPos, View);
+
+            RectangleShape rec = new RectangleShape();
+            rec.OutlineColor = new Color(Color.Transparent);
+            rec.OutlineThickness = 3.0f;
+            rec.FillColor = new Color(253, 254, 254);
+            rec.Size = new Vector2f(32 * 8, 32 * 4);
+
+            int posX = Mouse.GetPosition(_window).X;
+            int posY = Mouse.GetPosition(_window).Y;
+
             if (_ctx.MenuState == 1)
             {
-                Vector2i pixelPos = Mouse.GetPosition(_window);
-                Vector2f worldPos = _window.MapPixelToCoords(pixelPos, View);
-
-                RectangleShape rec = new RectangleShape();
-                rec.OutlineColor = new Color(Color.Transparent);
-                rec.OutlineThickness = 3.0f;
-                rec.FillColor = new Color(253, 254, 254);
-                rec.Size = new Vector2f(32 * 8, 32 * 4);
-
-                int posX = Mouse.GetPosition(_window).X;
-                int posY = Mouse.GetPosition(_window).Y;
-
-                if (_ctx.MenuState == 1)
+                if (!Equals(_mapUI, null))
                 {
                     _xMax = _mapUI._x2y2.X;
                     _yMax = _mapUI._x2y2.Y;
@@ -70,48 +70,48 @@ namespace ProjectStellar
                         _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
                     }
                 }
+            }
 
-                // Right side
-                if (posX == (_resolution.X - 1))
+            // Right side
+            if (posX == (_resolution.X - 1))
+            {
+                if (CheckCamera(new Vector2f(50, 0)))
                 {
-                    if (CheckCamera(new Vector2f(50, 0)))
-                    {
-                        _x1 += 50;
-                        _x2 += 50;
-                        _view.Move(new Vector2f(50, 0));
-                    }
+                    _x1 += 50;
+                    _x2 += 50;
+                    _view.Move(new Vector2f(50, 0));
                 }
-                // Left side
-                else if (posX == 0)
+            }
+            // Left side
+            else if (posX == 0)
+            {
+                if (CheckCamera(new Vector2f(-50, 0)))
                 {
-                    if (CheckCamera(new Vector2f(-50, 0)))
-                    {
-                        _x1 += -50;
-                        _x2 += -50;
-                        _view.Move(new Vector2f(-50, 0));
-                    }
+                    _x1 += -50;
+                    _x2 += -50;
+                    _view.Move(new Vector2f(-50, 0));
                 }
-                // Up side
-                else if (posY == 0)
+            }
+            // Up side
+            else if (posY == 0)
+            {
+                if (CheckCamera(new Vector2f(0, -50)))
                 {
-                    if (CheckCamera(new Vector2f(0, -50)))
-                    {
-                        _y1 += -50;
-                        _y2 += -50;
-                        _view.Move(new Vector2f(0, -50));
-                    }
+                    _y1 += -50;
+                    _y2 += -50;
+                    _view.Move(new Vector2f(0, -50));
                 }
-                // Bottom side
-                else if (posY == (_resolution.Y - 1))
-                {
-                    Console.WriteLine("X = {0}, Y = {1}", _view.Viewport.Height, _view.Viewport.Width);
+            }
+            // Bottom side
+            else if (posY == (_resolution.Y - 1))
+            {
+                Console.WriteLine("X = {0}, Y = {1}", _view.Viewport.Height, _view.Viewport.Width);
 
-                    if (CheckCamera(new Vector2f(0, 50)))
-                    {
-                        _y1 += 50;
-                        _y2 += 50;
-                        _view.Move(new Vector2f(0, 50));
-                    }
+                if (CheckCamera(new Vector2f(0, 50)))
+                {
+                    _y1 += 50;
+                    _y2 += 50;
+                    _view.Move(new Vector2f(0, 50));
                 }
             }
         }

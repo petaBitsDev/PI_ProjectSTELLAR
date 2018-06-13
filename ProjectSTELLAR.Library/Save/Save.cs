@@ -21,7 +21,6 @@ namespace ProjectStellar.Library
             FileStream saveListFile;
             List<SaveGameMetadata> saveList;
             Directory.CreateDirectory(_path);
-            Console.WriteLine(_path);
 
             try
             {
@@ -64,9 +63,9 @@ namespace ProjectStellar.Library
                 newSaveMetadata = new SaveGameMetadata(name, saveGame.Date, saveGame.Population);
                 saveList.Add(newSaveMetadata);
             }
-                file = File.OpenWrite(_path + _list);
-                formatter.Serialize(file, saveList);
-                file.Close();
+            file = File.OpenWrite(_path + _list);
+            formatter.Serialize(file, saveList);
+            file.Close();
 
             file = File.OpenWrite(savePath);
             formatter.Serialize(file, saveGame);
@@ -85,6 +84,35 @@ namespace ProjectStellar.Library
             file.Close();
 
             return saveGame;
+        }
+
+        public static bool DeleteSave(string name)
+        {
+            string filePath = _path + _list;
+            IFormatter formatter = new BinaryFormatter();
+            Stream file;
+            List<SaveGameMetadata> list = List();
+            SaveGame saveGame;
+            try
+            {
+                foreach(SaveGameMetadata saveMetadata in list)
+                {
+                    if (saveMetadata.Name == name)
+                    {
+                        list.Remove(saveMetadata);
+                        File.Delete(_path + name + _ext);
+                        file = File.OpenWrite(_path + _list);
+                        formatter.Serialize(file, list);
+                        file.Close();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }
