@@ -5,140 +5,162 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace ProjectStellar
+namespace ProjectStellar.Library
 {
     [Serializable]
     public class ResourcesManager
     {
         static Map _ctx;
+        int _maxPopulation;
         Dictionary<string, int> _nbResources = new Dictionary<string, int>();
-        CityHelper c = new CityHelper(_ctx);
-
-
+       
         public ResourcesManager(Map ctx)
         {
             _ctx = ctx;
-            _nbResources.Add("wood", 500);
-            _nbResources.Add("rock", 500);
-            _nbResources.Add("metal", 150);
-            _nbResources.Add("coins", 5000);
+            _nbResources.Add("wood", 500000);
+            _nbResources.Add("rock", 500000);
+            _nbResources.Add("metal", 15000);
+            _nbResources.Add("coins", 50000);
             _nbResources.Add("pollution", 0);
-            _nbResources.Add("population", 0);
+            _nbResources.Add("nbPeople", 0);
+            _nbResources.Add("electricity", 0);
+            _nbResources.Add("water", 0);
+            _nbResources.Add("cost", 0);
+            _maxPopulation = 0;
         }
 
         public Dictionary<string, int> NbResources => _nbResources;
-        
-        public void UpdateResources()
+
+        public void UpdateWhenCreate(BuildingType building)
         {
-            CityManager cityManager = new CityManager(_ctx);
+            
 
-            if (!_nbResources.ContainsKey("wood"))
+            _nbResources["wood"] -= building.Wood;
+            _nbResources["rock"] -= building.Rock;
+            _nbResources["metal"] -= building.Metal;
+            _nbResources["coins"] -= building.Coin;
+            _nbResources["pollution"] -= building.Pollution;
+            if(Equals(building, _ctx.BuildingTypes[10]))
             {
-                _nbResources.Add("wood", 500);
+                PumpingStationType pumpingStation = (PumpingStationType)building;
+                _nbResources["water"] += pumpingStation.WaterProduction;
+
             }
             else
             {
+                
+                _nbResources["water"] -= building.Water;
 
-                _nbResources["wood"] += (c.GetSawmill.WoodProduction * cityManager.NbSawMill) ;
             }
 
-            if (!_nbResources.ContainsKey("rock"))
+            if(Equals(building, _ctx.BuildingTypes[9]))
             {
-                _nbResources.Add("rock", 500);
+               PowerPlantType powerPlant = (PowerPlantType)building;
+                _nbResources["electricity"] += powerPlant.ElectricityProduction;
             }
             else
             {
-                _nbResources["rock"] += (c.GetOreMine.RockProduction * cityManager.NbOreMine);
-            }
+                _nbResources["electricity"] -= building.Electricity;
 
-            if (!_nbResources.ContainsKey("metal"))
-            {
-                _nbResources.Add("metal", 150);
             }
-            else
-            {
-                _nbResources["metal"] += (c.GetMetalMine.MetalProduction * cityManager.NbMetalMine);
-            }
+            _nbResources["cost"] += building.Cost;
 
-            if (!_nbResources.ContainsKey("coins"))
+            if (building.Type == "habitation") _maxPopulation += building.NbPeople;
+        }
+
+        public void UpdateWhenDestroy(BuildingType building)
+        {
+            if (building.Type == "habitation")
             {
-                _nbResources.Add("coins", 5000);
+                _maxPopulation = _maxPopulation - building.NbPeople < 0 ? 0 : _maxPopulation - building.NbPeople;
+                _nbResources["nbPeople"] = _nbResources["nbPeople"] - building.NbPeople < 0 ? 0 : _nbResources["nbPeople"] - building.NbPeople;
             }
-            else
+            if (Equals(building, _ctx.BuildingTypes[9]))
             {
-                _nbResources["coins"] += cityManager.CityBalance;
+                PowerPlantType a = (PowerPlantType)_ctx.BuildingTypes.ElementAt(9);
+                _nbResources["electricity"] -= a.ElectricityProduction;
+            }
+            if(Equals(building, _ctx.BuildingTypes[10]))
+            {
+                PumpingStationType pumping = (PumpingStationType)_ctx.BuildingTypes.ElementAt(10);
+                _nbResources["water"] -= pumping.WaterProduction;
             }
         }
 
-        public void UpdateWhenCreate(Building building)
+        public bool CheckResourcesNeeded(BuildingType building)
         {
-            _nbResources["wood"] -= building.WoodNeeded;
-            _nbResources["rock"] -= building.RockNeeded;
-            _nbResources["metal"] -= building.MetalNeeded;
-            _nbResources["coins"] -= building.StellarCoinNeeded;
-        }
-
-        public bool CheckResourcesNeeded(Building building)
-        {
-            if (_nbResources["wood"] - building.WoodNeeded < 0) return false;
-            else if (_nbResources["rock"] - building.RockNeeded < 0) return false;
-            else if (_nbResources["metal"] - building.MetalNeeded < 0) return false;
-            else if (_nbResources["coins"] - building.StellarCoinNeeded < 0) return false;
+            if (_nbResources["wood"] - building.Wood < 0) return false;
+            else if (_nbResources["rock"] - building.Rock < 0) return false;
+            else if (_nbResources["metal"] - building.Metal < 0) return false;
+            else if (_nbResources["coins"] - building.Coin < 0) return false;
 
             return true;
         }
-        public int Electricity
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
 
-                return (c.GetPowerPlant.ElectricityProduction * cityManager.NbPowerPlant);
+        public void UpdateResources()
+        {
+            int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
+            Random random = new Random();
+            // Prochaine intégration de la satifaction
+            if (0 < maxAdd)
+                _nbResources["nbPeople"] += random.Next(0, maxAdd + 1);
+
+            SawmillType sawmillType = (SawmillType)_ctx.BuildingTypes[11];
+            OreMineType oreMineType = (OreMineType)_ctx.BuildingTypes[7];
+            MetalMineType metalMineType = (MetalMineType)_ctx.BuildingTypes[6];
+            WarehouseType warehouseType = (WarehouseType)_ctx.BuildingTypes[13];
+            
+            if (sawmillType.MaxWoodCapacity >= sawmillType.WoodProduction * sawmillType.NbBuilding)
+            {
+                _nbResources["wood"] += sawmillType.WoodProduction * sawmillType.NbBuilding;
+                sawmillType.MaxWoodCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+            } 
+            else if(sawmillType.MaxWoodCapacity < sawmillType.WoodProduction * sawmillType.NbBuilding)
+            {
+                if(warehouseType.MaxWoodCapacity >= sawmillType.WoodProduction * sawmillType.NbBuilding)
+                {
+                    _nbResources["wood"] += sawmillType.WoodProduction * sawmillType.NbBuilding;
+                    warehouseType.MaxWoodCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+                }
             }
+
+            if(oreMineType.MaxRockCapacity >= oreMineType.RockProduction * oreMineType.NbBuilding)
+            {
+                _nbResources["rock"] += oreMineType.RockProduction * oreMineType.NbBuilding;
+                oreMineType.MaxRockCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+
+            }
+            else if(metalMineType.MaxMetalCapacity < metalMineType.MetalProduction * metalMineType.NbBuilding)
+            {
+                if(warehouseType.MaxRockCapacity >= oreMineType.RockProduction * oreMineType.NbBuilding)
+                {
+                    _nbResources["rock"] += oreMineType.RockProduction * oreMineType.NbBuilding;
+                    warehouseType.MaxRockCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
+
+                }
+            }
+
+            if(metalMineType.MaxMetalCapacity >= metalMineType.MetalProduction * metalMineType.NbBuilding)
+            {
+                _nbResources["metal"] += metalMineType.MetalProduction * metalMineType.NbBuilding;
+                metalMineType.MaxMetalCapacity -= metalMineType.MetalProduction * metalMineType.NbBuilding;
+            }
+            else if (metalMineType.MaxMetalCapacity < metalMineType.MetalProduction * metalMineType.NbBuilding)
+            {
+                if(warehouseType.MaxMetalCapacity >= metalMineType.MetalProduction * metalMineType.NbBuilding)
+                {
+                    _nbResources["metal"] += metalMineType.MetalProduction * metalMineType.NbBuilding;
+                    warehouseType.MaxMetalCapacity -= metalMineType.MetalProduction * metalMineType.NbBuilding;
+                }
+            }
+
+            _nbResources["coins"] += _nbResources["cost"];
+
         }
 
-        public int Water
+        public Map Map
         {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
-                return (c.GetPumpingStation.WaterProduction * cityManager.NbPumpingStation);
-
-            }
-        }
-
-        public int ElectricityConsume
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
-                return ((c.GetCityHall.ElectricityConsume * cityManager.NbCityHall) + (c.GetFireStation.ElectricityConsume * cityManager.NbFireStation) + (c.GetFlat.ElectricityConsume * cityManager.NbFlat) + (c.GetHospital.ElectricityConsume * cityManager.NbHospital) + (c.GetHouse.ElectricityConsume * cityManager.NbHouse) + (c.GetHut.ElectricityConsume * cityManager.NbHut) + (c.GetMetalMine.ElectricityConsume * cityManager.NbMetalMine) + (c.GetOreMine.ElectricityConsume * cityManager.NbOreMine) + (c.GetPoliceStation.ElectricityConsume * cityManager.NbPoliceStation) + (c.GetPowerPlant.ElectricityConsume * cityManager.NbPowerPlant) + (c.GetPumpingStation.ElectricityConsume * cityManager.NbPumpingStation) + (c.GetSawmill.ElectricityConsume * cityManager.NbSawMill) + (c.GetSpaceStation.ElectricityConsume * cityManager.NbSpaceStation) + (c.GetWareHouse.ElectricityConsume * cityManager.NbWarehouse));
-            }
-        }
-
-        public int WaterConsume
-        {
-            get
-            {
-                CityManager cityManager = new CityManager(_ctx);
-                return ((c.GetCityHall.WaterConsume * cityManager.NbCityHall) + (c.GetFireStation.WaterConsume * cityManager.NbFireStation) + (c.GetFlat.WaterConsume * cityManager.NbFlat) + (c.GetHospital.WaterConsume * cityManager.NbHospital) + (c.GetHouse.WaterConsume * cityManager.NbHouse) + (c.GetHut.WaterConsume * cityManager.NbHut) + (c.GetMetalMine.WaterConsume * cityManager.NbMetalMine) + (c.GetOreMine.WaterConsume * cityManager.NbOreMine) + (c.GetPoliceStation.WaterConsume * cityManager.NbPoliceStation) + (c.GetPowerPlant.WaterConsume * cityManager.NbPowerPlant) + (c.GetPumpingStation.WaterConsume * cityManager.NbPumpingStation) + (c.GetSawmill.WaterConsume * cityManager.NbSawMill) + (c.GetSpaceStation.WaterConsume * cityManager.NbSpaceStation) + (c.GetWareHouse.WaterConsume * cityManager.NbWarehouse));
-            }
-        }
-
-        public int ElectricityBalance
-        {
-            get
-            {
-                return Electricity - ElectricityConsume;
-            }
-        }
-
-        public int WaterBalance
-        {
-            get
-            {
-                return Water - WaterConsume;
-            }
+            set { _ctx = value; }
         }
     }
 }
