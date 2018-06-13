@@ -61,6 +61,7 @@ namespace ProjectStellar
         Sprite _oreMine;
         Sprite _warehouse;
         Sprite _people;
+        Sprite _lockSprite;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
@@ -338,6 +339,8 @@ namespace ProjectStellar
             {
                 Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
             };
+
+            _lockSprite = new Sprite(_ctx._buildingsTextures[16]);
 
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
@@ -705,6 +708,7 @@ namespace ProjectStellar
             if (IsTab1Active == true)
             {
                 _drawUIctx.RenderSprite(_hutSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level > _mapCtx.BuildingTypes[5].UnlockingLevel) _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_houseSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
                 _drawUIctx.RenderSprite(_flatSprite, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 64, 64);
 
