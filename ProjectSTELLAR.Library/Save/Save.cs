@@ -11,22 +11,27 @@ namespace ProjectStellar.Library
 {
     public static class Save
     {
+        static string _path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/ProjectStellar/";
+        static string _list = "list.bin";
+        static string _ext = ".sav";
+
         public static List<SaveGameMetadata> List()
         {
             IFormatter formatter = new BinaryFormatter();
             FileStream saveListFile;
             List<SaveGameMetadata> saveList;
+            Directory.CreateDirectory(_path);
 
             try
             {
-                saveListFile = File.OpenRead(@"./saves/list.bin");
+                saveListFile = File.OpenRead(_path + _list);
                 saveList = (List<SaveGameMetadata>)formatter.Deserialize(saveListFile);
                 saveListFile.Close();
                 return saveList;
             }
             catch (Exception e)
             {
-                saveListFile = File.Create(@"./saves/list.bin");
+                saveListFile = File.Create(_path + _list);
                 formatter.Serialize(saveListFile, new List<SaveGameMetadata>());
                 saveListFile.Close();
                 return (new List<SaveGameMetadata>());
@@ -40,8 +45,7 @@ namespace ProjectStellar.Library
             bool saveExists = false;
             SaveGameMetadata newSaveMetadata;
             Stream file;
-            string savePath = @"./saves/" + name + ".sav";
-            string listPath = @"./saves/list.bin";
+            string savePath = _path + name + _ext;
 
             foreach (SaveGameMetadata metadata in saveList)
             {
@@ -59,9 +63,9 @@ namespace ProjectStellar.Library
                 newSaveMetadata = new SaveGameMetadata(name, saveGame.Date, saveGame.Population);
                 saveList.Add(newSaveMetadata);
             }
-                file = File.OpenWrite(listPath);
-                formatter.Serialize(file, saveList);
-                file.Close();
+            file = File.OpenWrite(_path + _list);
+            formatter.Serialize(file, saveList);
+            file.Close();
 
             file = File.OpenWrite(savePath);
             formatter.Serialize(file, saveGame);
@@ -70,7 +74,7 @@ namespace ProjectStellar.Library
 
         public static SaveGame LoadGame(string name)
         {
-            string filePath = @"./saves/" + name + ".sav";
+            string filePath = _path + name + _ext;
             IFormatter formatter = new BinaryFormatter();
             SaveGame saveGame;
             Stream file;
@@ -80,6 +84,35 @@ namespace ProjectStellar.Library
             file.Close();
 
             return saveGame;
+        }
+
+        public static bool DeleteSave(string name)
+        {
+            string filePath = _path + _list;
+            IFormatter formatter = new BinaryFormatter();
+            Stream file;
+            List<SaveGameMetadata> list = List();
+            SaveGame saveGame;
+            try
+            {
+                foreach(SaveGameMetadata saveMetadata in list)
+                {
+                    if (saveMetadata.Name == name)
+                    {
+                        list.Remove(saveMetadata);
+                        File.Delete(_path + name + _ext);
+                        file = File.OpenWrite(_path + _list);
+                        formatter.Serialize(file, list);
+                        file.Close();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }
