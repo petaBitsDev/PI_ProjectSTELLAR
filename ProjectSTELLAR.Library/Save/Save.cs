@@ -11,22 +11,28 @@ namespace ProjectStellar.Library
 {
     public static class Save
     {
+        static string _path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/ProjectStellar/";
+        static string _list = "list.bin";
+        static string _ext = ".sav";
+
         public static List<SaveGameMetadata> List()
         {
             IFormatter formatter = new BinaryFormatter();
             FileStream saveListFile;
             List<SaveGameMetadata> saveList;
+            Directory.CreateDirectory(_path);
+            Console.WriteLine(_path);
 
             try
             {
-                saveListFile = File.OpenRead(@"./saves/list.bin");
+                saveListFile = File.OpenRead(_path + _list);
                 saveList = (List<SaveGameMetadata>)formatter.Deserialize(saveListFile);
                 saveListFile.Close();
                 return saveList;
             }
             catch (Exception e)
             {
-                saveListFile = File.Create(@"./saves/list.bin");
+                saveListFile = File.Create(_path + _list);
                 formatter.Serialize(saveListFile, new List<SaveGameMetadata>());
                 saveListFile.Close();
                 return (new List<SaveGameMetadata>());
@@ -40,8 +46,7 @@ namespace ProjectStellar.Library
             bool saveExists = false;
             SaveGameMetadata newSaveMetadata;
             Stream file;
-            string savePath = @"./saves/" + name + ".sav";
-            string listPath = @"./saves/list.bin";
+            string savePath = _path + name + _ext;
 
             foreach (SaveGameMetadata metadata in saveList)
             {
@@ -59,7 +64,7 @@ namespace ProjectStellar.Library
                 newSaveMetadata = new SaveGameMetadata(name, saveGame.Date, saveGame.Population);
                 saveList.Add(newSaveMetadata);
             }
-                file = File.OpenWrite(listPath);
+                file = File.OpenWrite(_path + _list);
                 formatter.Serialize(file, saveList);
                 file.Close();
 
@@ -70,7 +75,7 @@ namespace ProjectStellar.Library
 
         public static SaveGame LoadGame(string name)
         {
-            string filePath = @"./saves/" + name + ".sav";
+            string filePath = _path + name + _ext;
             IFormatter formatter = new BinaryFormatter();
             SaveGame saveGame;
             Stream file;
