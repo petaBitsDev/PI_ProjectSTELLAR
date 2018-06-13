@@ -34,7 +34,7 @@ namespace ProjectStellar.Library
         public abstract string Type { get; }
         public abstract int Size { get; }
         public abstract List<Building> List { get; }
-       
+        public abstract int UnlockingLevel { get; }
         public abstract int NbBuilding { get;}
     }
 

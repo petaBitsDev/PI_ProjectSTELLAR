@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[16];
+        public Texture[] _buildingsTextures = new Texture[17];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
         internal Menu _menu;
@@ -77,6 +77,7 @@ namespace ProjectStellar
             _buildingsTextures[13] = new Texture("./resources/img/cave.png");
             _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
             _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
+            _buildingsTextures[16] = new Texture("./resources/img/padlock.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -109,7 +110,6 @@ namespace ProjectStellar
         public override void Initialize(GameTime gameTime)
         {
             _backgroundSprite = new Sprite(_backgroundTexture);
-            
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));

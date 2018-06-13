@@ -21,10 +21,11 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _unlockingLevel;
 
         public HutType()
         {
-            _rock = 25;
+            _rock = 0;
             _wood = 50;
             _coin = 15;
             _metal = 0;
@@ -36,6 +37,7 @@ namespace ProjectStellar.Library
             _type = "habitation";
             _size = 1;
             _list = new List<Building>();
+            _unlockingLevel = 0;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -61,5 +63,6 @@ namespace ProjectStellar.Library
         public override List<Building> List => _list;
         public override int Size => _size;
         public override int NbBuilding => _list.Count;
+        public override int UnlockingLevel => _unlockingLevel;
     }
 }

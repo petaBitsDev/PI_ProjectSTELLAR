@@ -21,6 +21,7 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _unlockingLevel;
 
         public FlatType()
         {
@@ -35,6 +36,7 @@ namespace ProjectStellar.Library
             _cost = 80;
             _type = "habitation";
             _size = 4;
+            _unlockingLevel = 5;
             _list = new List<Building>();
         }
 
@@ -48,6 +50,7 @@ namespace ProjectStellar.Library
             _list.Add(building);
         }
 
+        public override int UnlockingLevel => _unlockingLevel;
         public override int Cost => _cost;
         public override int Coin => _coin;
         public override int Wood => _wood;

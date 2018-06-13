@@ -33,8 +33,6 @@ namespace ProjectStellar.Library
 
         public void UpdateWhenCreate(BuildingType building)
         {
-            
-
             _nbResources["wood"] -= building.Wood;
             _nbResources["rock"] -= building.Rock;
             _nbResources["metal"] -= building.Metal;
@@ -44,13 +42,10 @@ namespace ProjectStellar.Library
             {
                 PumpingStationType pumpingStation = (PumpingStationType)building;
                 _nbResources["water"] += pumpingStation.WaterProduction;
-
             }
             else
             {
-                
                 _nbResources["water"] -= building.Water;
-
             }
 
             if(Equals(building, _ctx.BuildingTypes[9]))
@@ -61,7 +56,6 @@ namespace ProjectStellar.Library
             else
             {
                 _nbResources["electricity"] -= building.Electricity;
-
             }
             _nbResources["cost"] += building.Cost;
 
@@ -136,7 +130,6 @@ namespace ProjectStellar.Library
                 {
                     _nbResources["rock"] += oreMineType.RockProduction * oreMineType.NbBuilding;
                     warehouseType.MaxRockCapacity -= sawmillType.WoodProduction * sawmillType.NbBuilding;
-
                 }
             }
 
@@ -153,9 +146,7 @@ namespace ProjectStellar.Library
                     warehouseType.MaxMetalCapacity -= metalMineType.MetalProduction * metalMineType.NbBuilding;
                 }
             }
-
             _nbResources["coins"] += _nbResources["cost"];
-
         }
 
         public Map Map

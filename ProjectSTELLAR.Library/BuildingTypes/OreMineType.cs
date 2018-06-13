@@ -24,6 +24,7 @@ namespace ProjectStellar.Library
         int _size;
         int _rockCapacity;
         int _maxRockCapacity = 0;
+        int _unlockingLevel;
 
         public OreMineType()
         {
@@ -41,6 +42,7 @@ namespace ProjectStellar.Library
             _list = new List<Building>();
             _rockProduction = 80;
             _rockCapacity = 800;
+            _unlockingLevel = 1;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -65,7 +67,7 @@ namespace ProjectStellar.Library
         public override int NbPeople => _nbPeople;
         public override string Type => _type;
         public override List<Building> List => _list;
-
+        public override int UnlockingLevel => _unlockingLevel;
         public int RockProduction => _rockProduction;
 
         public override int NbBuilding => _list.Count;
