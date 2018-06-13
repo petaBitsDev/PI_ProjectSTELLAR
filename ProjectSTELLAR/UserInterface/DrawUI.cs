@@ -47,15 +47,16 @@ namespace ProjectStellar
         {
             //   _mapUI.DrawGrid(window);
             window.SetView(_gameCtx._windowEvents.View);
-            _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
+            //_mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
             window.SetView(window.DefaultView);
-            _ui.DrawResourcesBar(window, font, resources.NbResources);
-            _ui.DrawTimeBar(window, gameTime, font);
+            //_ui.DrawResourcesBar(window, font, resources.NbResources);
+            //_ui.DrawTimeBar(window, gameTime, font);
             _ui.DrawBuildButton(window, font);
-            _ui.DrawDestroyButton(window);
-            _ui.DrawExperience(window);
-            _ui.DrawInGameMenu(window, font, gameTime);
-            _ui.DrawMouseCursor(window);
+            //_ui.DrawDestroyButton(window);
+            //_ui.DrawExperience(window);
+            //_ui.DrawInGameMenu(window, font, gameTime);
+            //_ui.DrawMouseCursor(window);
+            _ui.DrawCircle(window);
         }
 
         public MapUI MapUI => _mapUI;

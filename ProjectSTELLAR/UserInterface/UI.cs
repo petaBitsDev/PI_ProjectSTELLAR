@@ -530,7 +530,7 @@ namespace ProjectStellar
                 {
                     int j = 0;
 
-                    window.Draw(rec);
+                    //window.Draw(rec);
                     window.Draw(onglet1);
                     window.Draw(onglet2);
                     window.Draw(onglet3);
@@ -1064,6 +1064,155 @@ namespace ProjectStellar
         {
             get { return _mouseSprite; }
             set { _mouseSprite = value; }
+        }
+
+        public void DrawCircle(RenderWindow window)
+        {   // BACKGROUND //
+            CircleShape backgroundRemoveCircle = new CircleShape(40);
+            backgroundRemoveCircle.FillColor = new Color(Color.White);
+            backgroundRemoveCircle.Position = new Vector2f(-10, _resolution.Y - (5 * 25) - 75 -15);
+
+            backgroundRemoveCircle.Draw(window, RenderStates.Default);
+
+            CircleShape backgroundBuildCircle = new CircleShape(70);
+            backgroundBuildCircle.FillColor = new Color(Color.White);
+            backgroundBuildCircle.Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20);
+
+            backgroundBuildCircle.Draw(window, RenderStates.Default);
+
+            RectangleShape leftBackgroundRectangle = new RectangleShape();
+            leftBackgroundRectangle.Size = new Vector2f(30, 200);
+            leftBackgroundRectangle.FillColor = new Color(Color.White);
+            leftBackgroundRectangle.Position = new Vector2f(0, _resolution.Y - (5 * 25) - 75 - 15);
+
+            leftBackgroundRectangle.Draw(window, RenderStates.Default);
+
+            RectangleShape bottomBackgroundRectangle = new RectangleShape();
+            bottomBackgroundRectangle.Size = new Vector2f(_resolution.X - 25, 90);
+            bottomBackgroundRectangle.FillColor = new Color(Color.White);
+            bottomBackgroundRectangle.Position = new Vector2f(0, _resolution.Y - 2 * 15 - 20);
+
+            bottomBackgroundRectangle.Draw(window, RenderStates.Default);
+
+            CircleShape rightBackgroundCircle = new CircleShape(25);
+            rightBackgroundCircle.FillColor = new Color(Color.White);
+            rightBackgroundCircle.Position = new Vector2f(_resolution.X-50, _resolution.Y-50);
+
+            rightBackgroundCircle.Draw(window, RenderStates.Default);
+
+            RectangleShape rightBackgroundRectangle = new RectangleShape();
+            rightBackgroundRectangle.Size = new Vector2f(_resolution.X, 50);
+            rightBackgroundRectangle.FillColor = new Color(Color.White);
+            rightBackgroundRectangle.Position = new Vector2f(0, _resolution.Y - 2 * 15);
+
+            rightBackgroundRectangle.Draw(window, RenderStates.Default);
+            // END BACKGROUND //
+
+            CircleShape buildCircle = new CircleShape(50);
+            buildCircle.OutlineColor = new Color(Color.Black);
+            buildCircle.OutlineThickness = 1.0f;
+            buildCircle.FillColor = new Color(Color.Blue);
+            buildCircle.Position = new Vector2f(15, _resolution.Y - 2*50 - 50);
+
+            buildCircle.Draw(window, RenderStates.Default);
+
+            _buildButton = new Sprite(_ctx._uiTextures[3])
+            {
+                Position = new Vector2f(50-32/2, _resolution.Y - 2 * 50-32)
+            };
+
+            _buildButton.Draw(window, RenderStates.Default);
+
+            CircleShape removeCircle = new CircleShape(25);
+            removeCircle.OutlineColor = new Color(Color.Black);
+            removeCircle.OutlineThickness = 1.0f;
+            removeCircle.FillColor = new Color(Color.Green);
+            removeCircle.Position = new Vector2f(5, _resolution.Y - (5*25) - 75);
+            
+            removeCircle.Draw(window, RenderStates.Default);
+
+            _destroyButton = new Sprite(_ctx._uiTextures[20])
+            {
+                Position = new Vector2f(25-32/4, _resolution.Y - (5 * 25) - 32*2),
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
+
+            _destroyButton.Draw(window, RenderStates.Default);
+
+            CircleShape timeCircleLeft = new CircleShape(15);
+            timeCircleLeft.OutlineColor = new Color(Color.Black);
+            timeCircleLeft.OutlineThickness = 1.0f;
+            timeCircleLeft.FillColor = new Color(Color.White);
+            timeCircleLeft.Position = new Vector2f(0 + 5, _resolution.Y - 2*15 -10);
+
+            timeCircleLeft.Draw(window, RenderStates.Default);
+
+            CircleShape timeCircleRight = new CircleShape(15);
+            timeCircleRight.OutlineColor = new Color(Color.Black);
+            timeCircleRight.OutlineThickness = 1.0f;
+            timeCircleRight.FillColor = new Color(Color.White);
+            timeCircleRight.Position = new Vector2f(105 + 5, _resolution.Y - 2 * 15 - 10);
+
+            timeCircleRight.Draw(window, RenderStates.Default);
+
+            RectangleShape timeRectangle = new RectangleShape();
+            timeRectangle.Size = new Vector2f(105, 30);
+            timeRectangle.OutlineColor = new Color(Color.Black);
+            timeRectangle.OutlineThickness = 1.0f;
+            timeRectangle.FillColor = new Color(Color.White);
+            timeRectangle.Position = new Vector2f(15 + 5, _resolution.Y - 2 * 15 - 10);
+
+            timeRectangle.Draw(window, RenderStates.Default);
+
+            CircleShape moneyCircleLeft = new CircleShape(15);
+            moneyCircleLeft.OutlineColor = new Color(Color.Black);
+            moneyCircleLeft.OutlineThickness = 1.0f;
+            moneyCircleLeft.FillColor = new Color(Color.White);
+            moneyCircleLeft.Position = new Vector2f(150 + 5, _resolution.Y - 2 * 15 - 10);
+
+            moneyCircleLeft.Draw(window, RenderStates.Default);
+
+            CircleShape moneyCircleRight = new CircleShape(15);
+            moneyCircleRight.OutlineColor = new Color(Color.Black);
+            moneyCircleRight.OutlineThickness = 1.0f;
+            moneyCircleRight.FillColor = new Color(Color.White);
+            moneyCircleRight.Position = new Vector2f(350 + 5, _resolution.Y - 2 * 15 - 10);
+
+            moneyCircleRight.Draw(window, RenderStates.Default);
+
+            RectangleShape moneyRectangle = new RectangleShape();
+            moneyRectangle.Size = new Vector2f(200, 30);
+            moneyRectangle.OutlineColor = new Color(Color.Black);
+            moneyRectangle.OutlineThickness = 1.0f;
+            moneyRectangle.FillColor = new Color(Color.White);
+            moneyRectangle.Position = new Vector2f(150+ 15 + 5, _resolution.Y - 2 * 15 - 10);
+
+            moneyRectangle.Draw(window, RenderStates.Default);
+
+            CircleShape resourceCircleLeft = new CircleShape(15);
+            resourceCircleLeft.OutlineColor = new Color(Color.Black);
+            resourceCircleLeft.OutlineThickness = 1.0f;
+            resourceCircleLeft.FillColor = new Color(Color.White);
+            resourceCircleLeft.Position = new Vector2f(350+ 45 + 5, _resolution.Y - 2 * 15 - 10);
+
+            resourceCircleLeft.Draw(window, RenderStates.Default);
+
+            CircleShape resourceCircleRight = new CircleShape(15);
+            resourceCircleRight.OutlineColor = new Color(Color.Black);
+            resourceCircleRight.OutlineThickness = 1.0f;
+            resourceCircleRight.FillColor = new Color(Color.White);
+            resourceCircleRight.Position = new Vector2f(350 + 45+ 400 + 5, _resolution.Y - 2 * 15 - 10);
+
+            resourceCircleRight.Draw(window, RenderStates.Default);
+
+            RectangleShape resourceRectangle = new RectangleShape();
+            resourceRectangle.Size = new Vector2f(400, 30);
+            resourceRectangle.OutlineColor = new Color(Color.Black);
+            resourceRectangle.OutlineThickness = 1.0f;
+            resourceRectangle.FillColor = new Color(Color.White);
+            resourceRectangle.Position = new Vector2f(350 + 45 + 15 + 5, _resolution.Y - 2 * 15 - 10);
+
+            resourceRectangle.Draw(window, RenderStates.Default);
         }
     }
 }
