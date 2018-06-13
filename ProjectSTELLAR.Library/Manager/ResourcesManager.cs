@@ -148,5 +148,10 @@ namespace ProjectStellar.Library
             }
             _nbResources["coins"] += _nbResources["cost"];
         }
+
+        public Map Map
+        {
+            set { _ctx = value; }
+        }
     }
 }

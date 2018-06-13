@@ -171,6 +171,7 @@ namespace ProjectStellar
             GameTime = save.GameTime;
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
+            _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
             _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
