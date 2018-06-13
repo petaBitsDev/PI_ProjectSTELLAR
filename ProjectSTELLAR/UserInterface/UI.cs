@@ -862,11 +862,18 @@ namespace ProjectStellar
                     {
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
-                        _mapCtx.ChosenBuilding = building;
-                        window.SetMouseCursorVisible(false);
-                        _mouseSprite = new Sprite(sprite);
-                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
-                        return true;
+                        else if(building.UnlockingLevel > _experienceManager.Level)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            _mapCtx.ChosenBuilding = building;
+                            window.SetMouseCursorVisible(false);
+                            _mouseSprite = new Sprite(sprite);
+                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+                            return true;
+                        }
                     }
                 }
             }
@@ -878,11 +885,18 @@ namespace ProjectStellar
                     {
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
-                        _mapCtx.ChosenBuilding = building;
-                        window.SetMouseCursorVisible(false);
-                        _mouseSprite = new Sprite(sprite);
-                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
-                        return true;
+                        else if (building.UnlockingLevel > _experienceManager.Level)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            _mapCtx.ChosenBuilding = building;
+                            window.SetMouseCursorVisible(false);
+                            _mouseSprite = new Sprite(sprite);
+                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+                            return true;
+                        }
                     }
                 }
             }
@@ -894,11 +908,18 @@ namespace ProjectStellar
                     {
                         _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
                         if (!resources.CheckResourcesNeeded(building)) return false;
-                        _mapCtx.ChosenBuilding = building;
-                        window.SetMouseCursorVisible(false);
-                        _mouseSprite = new Sprite(sprite);
-                        _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
-                        return true;
+                        else if (building.UnlockingLevel > _experienceManager.Level)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            _mapCtx.ChosenBuilding = building;
+                            window.SetMouseCursorVisible(false);
+                            _mouseSprite = new Sprite(sprite);
+                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+                            return true;
+                        }
                     }
                 }
             }
