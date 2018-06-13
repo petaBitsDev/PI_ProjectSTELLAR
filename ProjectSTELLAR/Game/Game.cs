@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[16];
+        public Texture[] _buildingsTextures = new Texture[17];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
         internal Menu _menu;

@@ -340,7 +340,10 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
             };
 
-            _lockSprite = new Sprite(_ctx._buildingsTextures[16]);
+            _lockSprite = new Sprite(_ctx._buildingsTextures[16])
+            {
+                Scale = new Vector2f(0.5f, 0.5f)
+            };
 
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
@@ -719,11 +722,28 @@ namespace ProjectStellar
             else if (IsTab2Active)
             {
                 _drawUIctx.RenderSprite(_cityHall, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[0].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_fireStation, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[1].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_hospital, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[3].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_police, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[8].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_spaceStation, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[12].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_warehouse, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[13].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 64, 64);
 
                 _sprites.Add(_cityHall, "CITY HALL");
                 _sprites.Add(_fireStation, "FIRE STATION");
@@ -735,10 +755,24 @@ namespace ProjectStellar
             else if (IsTab3Active)
             {
                 _drawUIctx.RenderSprite(_sawMill, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[11].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 6, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_oreMine, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[7].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 4, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_metalMine, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[6].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 2, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_powerPlant, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[9].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 64, 64);
+
                 _drawUIctx.RenderSprite(_pumpingStation, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[10].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 64, 64);
 
                 _sprites.Add(_sawMill, "SAWMILL");
                 _sprites.Add(_oreMine, "ORE MINE");
