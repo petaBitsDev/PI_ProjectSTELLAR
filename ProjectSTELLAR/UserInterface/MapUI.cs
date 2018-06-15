@@ -95,13 +95,6 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
-            //RectangleShape rec = new RectangleShape();
-            //rec.OutlineColor = new Color(Color.Transparent);
-            //rec.OutlineThickness = 3.0f;
-            //rec.FillColor = new Color(253, 254, 254);
-            //rec.Size = new Vector2f(32 * 8, 32 * 4);
-
-            //_mapSprites = new Sprite[Height, Width];
             Vector2i pixelPos = Mouse.GetPosition(window);
             Vector2f worldPos = window.MapPixelToCoords(pixelPos, _gameCtx._windowEvents.View);
             int k = 0;
@@ -112,7 +105,6 @@ namespace ProjectStellar
                 {
                     _bgSprite.Position = new Vector2f(y, x);
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
-                    //_mapSprites[y, x] = _bgSprite;
                     _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
                 }
             }
@@ -156,6 +148,11 @@ namespace ProjectStellar
                         _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
                     }
                 }    
+            }
+
+            for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
+            {
+                //Draw SpaceShips
             }
         }
      
@@ -236,6 +233,11 @@ namespace ProjectStellar
                 }
             }
             return false;
+        }
+
+        public void DrawSpaceShips(RenderWindow window, Building[,] boxes)
+        {
+
         }
 
         public bool BuildingExist

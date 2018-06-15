@@ -30,7 +30,6 @@ namespace ProjectStellar.Library
             _isCrimeVictim = false;
         }
 
-
         public abstract bool IsVictimCrime{get; set;}
         public abstract bool OnFire { get; set; }
         public abstract bool IsSick { get; set; }

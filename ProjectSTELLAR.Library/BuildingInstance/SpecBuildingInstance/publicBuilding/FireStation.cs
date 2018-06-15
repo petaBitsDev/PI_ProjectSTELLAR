@@ -45,4 +45,4 @@ namespace ProjectStellar.Library
             set { _isVictimCrime = value; }
         }
     }
-    }
+}

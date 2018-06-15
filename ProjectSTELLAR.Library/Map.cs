@@ -15,6 +15,9 @@ namespace ProjectStellar.Library
         BuildingType _chosenBuilding;
         public Building[,] _boxes;
         readonly List<BuildingType> _buildingTypes;
+        List<SpaceShips> _spaceShips;
+        SpaceShipsTypes _spaceShipType;
+        int _nbSpaceShip;
 
         public Map (int width, int height)
         {
@@ -23,21 +26,24 @@ namespace ProjectStellar.Library
             _boxes = new Building[height, width];
             _buildingTypes = new List<BuildingType>
             {
-              /* 0 */new CityHallType(),
-              /* 1 */new FireStationType(),
-              /* 2 */new FlatType(),
-              /* 3 */new HospitalType(),
-              /* 4 */new HouseType(),
-              /* 5 */new HutType(),
-              /* 6 */new MetalMineType(),
-              /* 7 */new OreMineType(),
-              /* 8 */new PoliceStationType(),
-              /* 9 */new PowerPlantType(),
+              /* 0 */ new CityHallType(),
+              /* 1 */ new FireStationType(),
+              /* 2 */ new FlatType(),
+              /* 3 */ new HospitalType(),
+              /* 4 */ new HouseType(),
+              /* 5 */ new HutType(),
+              /* 6 */ new MetalMineType(),
+              /* 7 */ new OreMineType(),
+              /* 8 */ new PoliceStationType(),
+              /* 9 */ new PowerPlantType(),
               /* 10*/ new PumpingStationType(),
               /* 11*/ new SawmillType(),
               /* 12*/ new SpaceStationType(),
-              /* 13*/ new WarehouseType()
+              /* 13*/ new WarehouseType(),
             };
+
+            _spaceShipType = new SpaceShipsTypes();
+            _spaceShips = new List<SpaceShips>();
         }
 
         public List<BuildingType> BuildingTypes => _buildingTypes;
@@ -109,6 +115,16 @@ namespace ProjectStellar.Library
             }
         }
 
+        public void GenerateSpaceShips (ResourcesManager resourcesManager)
+        {
+            _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
+
+            for(int i = 0; i < _nbSpaceShip; i++)
+            {
+                _spaceShipType.CreateInstance(this);
+            }
+        }
+
         public bool CheckBuilding(int x, int y)
         {
             if (_boxes[x, y] != null) return true;
@@ -120,5 +136,9 @@ namespace ProjectStellar.Library
             get { return _nbBuilding; }
             set { _nbBuilding = value; }
         }
+
+        public int NbSpaceShips => _nbSpaceShip;
+
+        public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
     }
 }

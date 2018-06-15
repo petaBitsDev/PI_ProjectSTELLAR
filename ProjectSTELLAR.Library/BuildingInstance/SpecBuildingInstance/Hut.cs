@@ -34,6 +34,5 @@ namespace ProjectStellar.Library
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
         }
-
     }
 }
