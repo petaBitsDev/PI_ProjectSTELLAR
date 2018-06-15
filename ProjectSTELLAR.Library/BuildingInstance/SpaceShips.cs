@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     public class SpaceShips : SpaceShipsTypes
     {
         int _x;
@@ -18,49 +19,45 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 0.02;
+            _speed = 10;
             _position = GetNextRandomPosition();
             _x = _position.X;
             _y = _position.Y;
         }
 
-        internal double GetNextRandomDouble(double min, double max)
+        internal int GetNextRandomInt(int min, int max)
         {
-            return _random.NextDouble() * (max - min) + min;
+            return _random.Next(min, max);
         }
 
         internal Vector GetNextRandomPosition()
         {
-            double x = GetNextRandomDouble(-1.0, 1.0);
-            double y = GetNextRandomDouble(-1.0, 1.0);
-            return new Vector((int)x, (int)y);
+            int x = GetNextRandomInt(0, 100);
+            int y = GetNextRandomInt(0, 100);
+            return new Vector(x, y);
         }
 
         internal Vector GetRandomDirection()
         {
-            double x = GetNextRandomDouble(-1.0, 1.0);
-            double y = Math.Sqrt(1 - x * x);
-            if (GetNextRandomDouble(0, 1) < 0.5) y = -y;
+            double x = GetNextRandomInt(0, 100);
+            double y = GetNextRandomInt(0, 100);
 
             return new Vector((int)x, (int)y);
         }
         public void Update()
         {
             Position = MathHelpers.MoveTo(Position, _direction, _speed);
-            Position = MathHelpers.Limit(Position, -1, 1);
+            Position = MathHelpers.Limit(Position, 0, 100);
             UpdateDirection();
         }
 
-        void UpdateDirection()
+        public void UpdateDirection()
         {
-            double beta = GetNextRandomDouble(Math.PI / -8.0, Math.PI / 8.0);
-            double alpha = Math.Acos(_direction.X);
-            double x = Math.Cos(alpha + beta);
+            int x = GetNextRandomInt(0, 100);
+            int y = GetNextRandomInt(0, 100);
 
-            alpha = Math.Asin(_direction.Y);
-            double y = Math.Sin(alpha + beta);
-
-            _direction = new Vector((int)x, (int)y);
+            _direction = new Vector(x, y);
+            Console.WriteLine(_direction.X.ToString(), _direction.Y.ToString(), _position);
         }
 
         public Vector Position

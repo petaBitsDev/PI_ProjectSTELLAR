@@ -118,9 +118,13 @@ namespace ProjectStellar.Library
         {
             _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
 
-            for(int i = 0; i <= _nbSpaceShip; i++)
+            if (_nbSpaceShip >= 1)
             {
-                _spaceShipType.CreateInstance(this);
+                for (int i = 0; i <= _nbSpaceShip; i++)
+                {
+                    _spaceShipType.CreateInstance(this);
+                    _spaceShipList.Add(_spaceShipType.LastAdded);
+                }
             }
         }
 

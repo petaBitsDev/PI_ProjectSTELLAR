@@ -93,9 +93,15 @@ namespace ProjectStellar.Library
 
         public void UpdateResources()
         {
+            _ctx.GenerateSpaceShips(this);
+            for (int i = 0; i < _ctx.SpaceShipsList.Count; i++)
+            {
+                _ctx.SpaceShipsList[i].Update();
+            }
+
             int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
             Random random = new Random();
-            _ctx.GenerateSpaceShips(this);
+          
             // Prochaine intégration de la satifaction
             if (0 < maxAdd)
                 _nbResources["nbPeople"] += random.Next(0, maxAdd + 1);

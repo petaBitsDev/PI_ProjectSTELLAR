@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     public class SpaceShipsTypes
     {
         List<SpaceShips> _list;
+        SpaceShips _lastAdded;
 
         public SpaceShipsTypes()
         {
@@ -19,6 +21,13 @@ namespace ProjectStellar.Library
         {
             SpaceShips spaceShip = new SpaceShips();
             _list.Add(spaceShip);
+            _lastAdded = spaceShip;
+        }
+
+        public SpaceShips LastAdded
+        {
+            get { return _lastAdded; }
+            set { _lastAdded = value; }
         }
 
         public List<SpaceShips> List =>  _list;

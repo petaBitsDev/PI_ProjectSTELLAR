@@ -2,6 +2,7 @@
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     public struct Vector
     {
         int _x;

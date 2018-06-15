@@ -2,6 +2,7 @@
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     static class MathHelpers
     {
         internal static Vector MoveTo(Vector position, Vector direction, double speed)

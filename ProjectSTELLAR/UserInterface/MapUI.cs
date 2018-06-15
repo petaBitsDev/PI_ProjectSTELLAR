@@ -155,9 +155,10 @@ namespace ProjectStellar
 
             for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
-                _spaceShip1.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
-                _spaceShip1.Draw(window, RenderStates.Default);
                 _ctx.SpaceShipsList[b].Update();
+                _spaceShip1.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
+                _spaceShip1.Scale = new Vector2f(0.4f, 0.4f);
+                _spaceShip1.Draw(window, RenderStates.Default);
             }
         }
 
