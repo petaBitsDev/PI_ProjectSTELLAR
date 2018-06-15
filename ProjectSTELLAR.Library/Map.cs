@@ -80,7 +80,7 @@ namespace ProjectStellar.Library
                     _boxes[x + 1, y + 2] = building;
                 }
             }
-            _chosenBuilding = null;
+            //_chosenBuilding = null;
         }
 
         public void RemoveBuilding(int x, int y)
