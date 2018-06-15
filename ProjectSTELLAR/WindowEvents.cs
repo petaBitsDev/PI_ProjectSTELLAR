@@ -260,6 +260,10 @@ namespace ProjectStellar
                 {
                     _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
                 }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+                {
+                    _ctx._resourcesManager.NbResources["nbPeople"] += 500;
+                }
             }
             else if (_ctx.MenuState == 3)
             {

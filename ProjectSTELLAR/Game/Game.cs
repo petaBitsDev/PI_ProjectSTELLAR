@@ -30,6 +30,7 @@ namespace ProjectStellar
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
+        internal SatisfactionManager _satisfactionManager;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
@@ -125,6 +126,7 @@ namespace ProjectStellar
             Window.SetKeyRepeatEnabled(false);
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view, Window);
             _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this, _view);
+            _satisfactionManager = new SatisfactionManager();
         }
 
         public override void Update(GameTime gameTime)
@@ -140,8 +142,9 @@ namespace ProjectStellar
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
 
-                    _resourcesManager.UpdateResources();
+                    _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
+                    _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
             }

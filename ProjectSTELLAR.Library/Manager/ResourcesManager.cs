@@ -91,9 +91,10 @@ namespace ProjectStellar.Library
             return true;
         }
 
-        public void UpdateResources()
+        public void UpdateResources(float satisfaction)
         {
             int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
+            if (satisfaction <= 0.2) maxAdd = 0;
             Random random = new Random();
             // Prochaine intégration de la satifaction
             if (0 < maxAdd)
