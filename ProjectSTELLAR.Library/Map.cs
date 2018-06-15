@@ -15,15 +15,17 @@ namespace ProjectStellar.Library
         BuildingType _chosenBuilding;
         public Building[,] _boxes;
         readonly List<BuildingType> _buildingTypes;
-        List<SpaceShips> _spaceShips;
         SpaceShipsTypes _spaceShipType;
         int _nbSpaceShip;
+        List<SpaceShips> _spaceShipList;
 
         public Map (int width, int height)
         {
             _width = width;
             _height = height;
             _boxes = new Building[height, width];
+            _spaceShipType = new SpaceShipsTypes();
+            _spaceShipList = new List<SpaceShips>();
             _buildingTypes = new List<BuildingType>
             {
               /* 0 */ new CityHallType(),
@@ -41,9 +43,6 @@ namespace ProjectStellar.Library
               /* 12*/ new SpaceStationType(),
               /* 13*/ new WarehouseType(),
             };
-
-            _spaceShipType = new SpaceShipsTypes();
-            _spaceShips = new List<SpaceShips>();
         }
 
         public List<BuildingType> BuildingTypes => _buildingTypes;
@@ -119,7 +118,7 @@ namespace ProjectStellar.Library
         {
             _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
 
-            for(int i = 0; i < _nbSpaceShip; i++)
+            for(int i = 0; i <= _nbSpaceShip; i++)
             {
                 _spaceShipType.CreateInstance(this);
             }
@@ -139,6 +138,6 @@ namespace ProjectStellar.Library
 
         public int NbSpaceShips => _nbSpaceShip;
 
-        public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
+        public List<SpaceShips> SpaceShipsList => _spaceShipList;
     }
 }

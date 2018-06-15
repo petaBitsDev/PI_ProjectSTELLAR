@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    [Serializable]
     public class SpaceShipsTypes
     {
-        Vector _position;
-        readonly Random _random;
         List<SpaceShips> _list;
 
         public SpaceShipsTypes()
@@ -23,10 +20,6 @@ namespace ProjectStellar.Library
             SpaceShips spaceShip = new SpaceShips();
             _list.Add(spaceShip);
         }
-
-        public int X => _position.X;
-
-        public int Y => _position.Y;
 
         public List<SpaceShips> List =>  _list;
     }

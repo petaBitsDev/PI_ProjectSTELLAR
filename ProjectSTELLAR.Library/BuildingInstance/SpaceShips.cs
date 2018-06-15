@@ -17,6 +17,7 @@ namespace ProjectStellar.Library
 
         public SpaceShips ()
         {
+            _random = new Random();
             _speed = 0.02;
             _position = GetNextRandomPosition();
             _x = _position.X;
@@ -43,7 +44,7 @@ namespace ProjectStellar.Library
 
             return new Vector((int)x, (int)y);
         }
-        internal void Update()
+        public void Update()
         {
             Position = MathHelpers.MoveTo(Position, _direction, _speed);
             Position = MathHelpers.Limit(Position, -1, 1);

@@ -15,7 +15,9 @@ namespace ProjectStellar
 {
     public class MapUI
     {
-        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+        Sprite _bgSprite;
+        Sprite _spaceShip1;
+        Sprite _spaceShip2;
         uint _width;
         uint _height;
         Map _ctx;
@@ -31,7 +33,6 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
-        //Building _building;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -46,6 +47,8 @@ namespace ProjectStellar
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
+            _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+            _spaceShip1 = new Sprite(new Texture("./resources/img/startup.png"));
         }
 
         public Map MapContext
@@ -152,10 +155,12 @@ namespace ProjectStellar
 
             for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
-                //Draw SpaceShips
+                _spaceShip1.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
+                _spaceShip1.Draw(window, RenderStates.Default);
+                _ctx.SpaceShipsList[b].Update();
             }
         }
-     
+
         public bool Test
         {
             get { return test; }
