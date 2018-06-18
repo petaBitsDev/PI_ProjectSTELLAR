@@ -19,10 +19,5 @@ namespace ProjectStellar.Library
         {
             return Math.Min(Math.Max(n, min), max);
         }
-
-        internal static float Limit(float n, float min, float max)
-        {
-            return Math.Min(Math.Max(n, min), max);
-        }
     }
 }

@@ -17,7 +17,6 @@ namespace ProjectStellar.Library
         readonly List<BuildingType> _buildingTypes;
         SpaceShipsTypes _spaceShipType;
         int _nbSpaceShip;
-        List<SpaceShips> _spaceShipList;
 
         public Map (int width, int height)
         {
@@ -25,7 +24,6 @@ namespace ProjectStellar.Library
             _height = height;
             _boxes = new Building[height, width];
             _spaceShipType = new SpaceShipsTypes();
-            _spaceShipList = new List<SpaceShips>();
             _buildingTypes = new List<BuildingType>
             {
               /* 0 */ new CityHallType(),
@@ -118,13 +116,9 @@ namespace ProjectStellar.Library
         {
             _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
 
-            if (_nbSpaceShip >= 1)
-            {
-                for (int i = 0; i <= _nbSpaceShip; i++)
-                {
-                    _spaceShipType.CreateInstance(this);
-                    _spaceShipList.Add(_spaceShipType.LastAdded);
-                }
+            if (_nbSpaceShip > _spaceShipType.List.Count)
+            { 
+                _spaceShipType.CreateInstance(this);
             }
         }
 
@@ -142,6 +136,6 @@ namespace ProjectStellar.Library
 
         public int NbSpaceShips => _nbSpaceShip;
 
-        public List<SpaceShips> SpaceShipsList => _spaceShipList;
+        public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
     }
 }
