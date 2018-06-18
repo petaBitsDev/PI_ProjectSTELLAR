@@ -7,7 +7,9 @@ namespace ProjectStellar.Library
     {
         internal static Vector MoveTo(Vector position, Vector direction, double speed)
         {
-            return position.Add(direction.Mul(speed));
+            Vector distance = direction.Sub(position);
+            position = new Vector(distance.X, distance.Y).Mul(speed);
+            return position;
         }
 
         internal static Vector Limit(Vector v, int min, int max)

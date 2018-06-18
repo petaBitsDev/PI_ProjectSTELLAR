@@ -19,7 +19,7 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 0.9;
+            _speed = 1.0;
             _position = GetNextRandomPosition();
             _x = _position.X;
             _y = _position.Y;
@@ -39,9 +39,9 @@ namespace ProjectStellar.Library
 
         public void Update()
         {
+            _direction = GetDirection();
             Position = MathHelpers.MoveTo(Position, _direction, _speed);
             Position = MathHelpers.Limit(Position, 0, 99 * 32);
-            _direction = GetDirection();
         }
 
         public Vector GetDirection()
