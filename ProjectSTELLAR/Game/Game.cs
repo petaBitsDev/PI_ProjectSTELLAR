@@ -132,21 +132,23 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
-                this._map.GenerateSpaceShips(this._resourcesManager);
-                for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
+                if(gameTime.InGameTime.Second % 2 == 0)
                 {
-                    Console.WriteLine("SpaceShip Number : " + i);
-                    Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                    Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+                    this._map.GenerateSpaceShips(this._resourcesManager);
+                    for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
+                    {
+                        Console.WriteLine("SpaceShip Number : " + i);
+                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
+                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
 
-                    this._map.SpaceShipsList[i].Update();
+                        this._map.SpaceShipsList[i].Update();
 
-                    Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                    Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
+                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
+                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
 
-                    Console.WriteLine("=========================");
+                        Console.WriteLine("=========================");
+                    }
                 }
-
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();

@@ -7,19 +7,24 @@ namespace ProjectStellar.Library
     {
         internal static Vector MoveTo(Vector position, Vector direction, float speed)
         {
-            Vector v = ConvertVectorToMap(direction, 99 * 32);
+            int max = 99 * 32;
+            Vector v = ConvertVectorToMap(direction, max);
             double diviseur = v.Magnitude;
-            if (v.Magnitude == 0) diviseur = 1;
+
+            if (v.Magnitude == 0)
+                diviseur = 1;
+
             Vector unit = v.Mul(1.0f / (float)diviseur);
             Vector move = unit.Mul(speed);
-            move = ConvertVectorToMap(move, 99*32);
+            move = ConvertVectorToMap(move, max);
+
             if (direction.X > position.X && direction.Y > position.Y)
-                position = position.Add(move);
+                position = new Vector(position.X + move.X, position.Y + move.Y);
             else if (direction.X < position.X && direction.Y < position.Y)
-                position = position.Sub(move);
+                position = new Vector(position.X - move.X, position.Y - move.Y);
             else if (direction.X < position.X && direction.Y > position.Y)
                 position = new Vector(position.X - move.X, position.Y + move.Y);
-            else if(direction.X > position.X && direction.Y < position.Y)
+            else if (direction.X > position.X && direction.Y < position.Y)
                 position = new Vector(position.X + move.X, position.Y - move.Y);
             return position;
         }

@@ -5,9 +5,9 @@ namespace ProjectStellar.Library
     [Serializable]
     public class SpaceShips : SpaceShipsTypes
     {
-        int _x;
-        int _y;
-        double _speed;
+        float _x;
+        float _y;
+        float _speed;
         Vector _direction;
         Vector _position;
         readonly Random _random;
@@ -15,7 +15,7 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 1.0;
+            _speed = 0.005f;
             _position = GetNextRandomPosition();
             this._direction = new Vector();
             _x = _position.X;
@@ -55,8 +55,3 @@ namespace ProjectStellar.Library
         }
     }
 }
-
-        float _x;
-        float _y;
-        float _speed;
-            _speed = 0.0003f;
