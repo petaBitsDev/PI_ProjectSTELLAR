@@ -26,7 +26,7 @@ namespace ProjectStellar.Library
 
         internal static Vector Limit(Vector v, float min, float max)
         {
-            return new Vector(Limit(v.X, min, max), Limit(v.Y, min, max));
+            return new Vector(Limit((int)v.X, min, max), Limit((int)v.Y, min, max));
         }
 
         internal static float Limit(float n, float min, float max)

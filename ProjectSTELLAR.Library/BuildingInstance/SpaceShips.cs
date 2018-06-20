@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
     [Serializable]
     public class SpaceShips : SpaceShipsTypes
     {
-        float _x;
-        float _y;
-        float _speed;
+        int _x;
+        int _y;
+        double _speed;
         Vector _direction;
         Vector _position;
         readonly Random _random;
@@ -19,7 +15,7 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 0.0003f;
+            _speed = 1.0;
             _position = GetNextRandomPosition();
             this._direction = new Vector();
             _x = _position.X;
@@ -59,3 +55,8 @@ namespace ProjectStellar.Library
         }
     }
 }
+
+        float _x;
+        float _y;
+        float _speed;
+            _speed = 0.0003f;

@@ -15,6 +15,8 @@ namespace ProjectStellar
 {
     public class MapUI
     {
+        Dictionary<SpaceShips, Sprite> _spaceshipSprites;
+        List<Sprite> _spriteList;
         Sprite _bgSprite;
         Sprite _spaceShip;
         Sprite _spaceShip1;
@@ -52,6 +54,9 @@ namespace ProjectStellar
             _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
             _spaceShip1 = new Sprite(new Texture("./resources/img/startup1.png"));
             _spaceShip2 = new Sprite(new Texture("./resources/img/rocket.png"));
+            _spaceShip = new Sprite(new Texture("./resources/img/ufo.png"));
+            _spaceShip1 = new Sprite(new Texture("./resources/img/ufo1.png"));
+            _spaceShip2 = new Sprite(new Texture("./resources/img/ufo2.png"));
         }
 
         public Map MapContext
