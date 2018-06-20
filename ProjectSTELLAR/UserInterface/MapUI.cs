@@ -16,6 +16,7 @@ namespace ProjectStellar
     public class MapUI
     {
         Sprite _bgSprite;
+        Sprite _spaceShip;
         Sprite _spaceShip1;
         Sprite _spaceShip2;
         uint _width;
@@ -48,7 +49,9 @@ namespace ProjectStellar
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
             _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
-            _spaceShip1 = new Sprite(new Texture("./resources/img/startup.png"));
+            _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
+            _spaceShip1 = new Sprite(new Texture("./resources/img/startup1.png"));
+            _spaceShip2 = new Sprite(new Texture("./resources/img/rocket.png"));
         }
 
         public Map MapContext
@@ -155,9 +158,16 @@ namespace ProjectStellar
 
             for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
-                _spaceShip1.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
-                _spaceShip1.Scale = new Vector2f(1.5f, 1.5f);
-                _spaceShip1.Draw(window, RenderStates.Default);
+                Sprite spaceShip;
+
+                //if (_ctx.SpaceShipsList[b].Position.X < _ctx.SpaceShipsList[b].Direction.X)
+                //    spaceShip = _spaceShip1;
+                //else
+                    spaceShip = _spaceShip2;
+
+                spaceShip.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
+                spaceShip.Scale = new Vector2f(1.37f, 1.37f);
+                spaceShip.Draw(window, RenderStates.Default);
             }
         }
 

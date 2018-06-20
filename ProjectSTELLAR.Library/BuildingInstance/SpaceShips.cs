@@ -9,9 +9,9 @@ namespace ProjectStellar.Library
     [Serializable]
     public class SpaceShips : SpaceShipsTypes
     {
-        int _x;
-        int _y;
-        double _speed;
+        float _x;
+        float _y;
+        float _speed;
         Vector _direction;
         Vector _position;
         readonly Random _random;
@@ -19,8 +19,9 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 1.0;
+            _speed = 0.0003f;
             _position = GetNextRandomPosition();
+            this._direction = new Vector();
             _x = _position.X;
             _y = _position.Y;
         }
@@ -32,30 +33,29 @@ namespace ProjectStellar.Library
 
         internal Vector GetNextRandomPosition()
         {
-            int x = GetNextRandomInt(0, 99 * 32);
-            int y = GetNextRandomInt(0, 99 * 32);
+            float x = GetNextRandomInt(0, 99 * 32);
+            float y = GetNextRandomInt(0, 99 * 32);
             return new Vector(x, y);
         }
 
         public void Update()
         {
-            _direction = GetDirection();
-            Position = MathHelpers.MoveTo(Position, _direction, _speed);
+            this._direction = GetNextRandomPosition();
+            Position = MathHelpers.MoveTo(Position, this._direction, _speed);
             Position = MathHelpers.Limit(Position, 0, 99 * 32);
-        }
-
-        public Vector GetDirection()
-        {
-            int x = GetNextRandomInt(0, 99 * 32);
-            int y = GetNextRandomInt(0, 99 * 32);
-
-            return new Vector(x, y);
+            //this._direction = GetNextRandomPosition();
         }
 
         public Vector Position
         {
             get { return _position; }
             set { _position = value; }
+        }
+
+        public Vector Direction
+        {
+            get { return _direction; }
+            set { _direction = value; }
         }
     }
 }
