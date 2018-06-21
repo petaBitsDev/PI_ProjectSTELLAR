@@ -52,11 +52,10 @@ namespace ProjectStellar
             //_ui.DrawResourcesBar(window, font, resources.NbResources);
             //_ui.DrawTimeBar(window, gameTime, font);
             _ui.DrawBuildButton(window, font);
-            //_ui.DrawDestroyButton(window);
-            //_ui.DrawExperience(window);
-            //_ui.DrawInGameMenu(window, font, gameTime);
-            //_ui.DrawMouseCursor(window);
-            _ui.DrawCircle(window);
+            _ui.DrawDestroyButton(window);
+            _ui.DrawExperience(window, font);
+            _ui.DrawInGameMenu(window, font, gameTime);
+            _ui.DrawMouseCursor(window);
         }
 
         public MapUI MapUI => _mapUI;

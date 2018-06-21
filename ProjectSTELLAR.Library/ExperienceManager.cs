@@ -45,5 +45,7 @@ namespace ProjectStellar.Library
                 return (int)((diffPop * 100) / (goal - actualLevelPop));
             }
         }
+
+        public int Level => _level;
     }
 }

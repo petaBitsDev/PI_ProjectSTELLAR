@@ -15,10 +15,11 @@ namespace ProjectStellar.Library
             //resources.UpdateWhenCreate(this);
         }
 
-        public virtual void DeleteInstance(int x, int y, Map map, Building building)
+        public virtual void DeleteInstance(int x, int y, Map map, Building building, ResourcesManager resources)
         {
             map.RemoveBuilding(x, y);
             this.List.Remove(building);
+            resources.UpdateWhenDestroy(building.Type);
         }
 
         public abstract int Cost { get; }
@@ -33,7 +34,7 @@ namespace ProjectStellar.Library
         public abstract string Type { get; }
         public abstract int Size { get; }
         public abstract List<Building> List { get; }
-       
+        public abstract int UnlockingLevel { get; }
         public abstract int NbBuilding { get;}
     }
 

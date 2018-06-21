@@ -15,7 +15,12 @@ namespace ProjectStellar
 {
     public class MapUI
     {
-        Sprite _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+        Dictionary<SpaceShips, Sprite> _spaceshipSprites;
+        List<Sprite> _spriteList;
+        Sprite _bgSprite;
+        Sprite _spaceShip;
+        Sprite _spaceShip1;
+        Sprite _spaceShip2;
         uint _width;
         uint _height;
         Map _ctx;
@@ -31,7 +36,6 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
-        //Building _building;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -46,6 +50,13 @@ namespace ProjectStellar
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
+            _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
+            _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
+            _spaceShip1 = new Sprite(new Texture("./resources/img/startup1.png"));
+            _spaceShip2 = new Sprite(new Texture("./resources/img/rocket.png"));
+            _spaceShip = new Sprite(new Texture("./resources/img/ufo.png"));
+            _spaceShip1 = new Sprite(new Texture("./resources/img/ufo1.png"));
+            _spaceShip2 = new Sprite(new Texture("./resources/img/ufo2.png"));
         }
 
         public Map MapContext
@@ -95,13 +106,6 @@ namespace ProjectStellar
         
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
-            //RectangleShape rec = new RectangleShape();
-            //rec.OutlineColor = new Color(Color.Transparent);
-            //rec.OutlineThickness = 3.0f;
-            //rec.FillColor = new Color(253, 254, 254);
-            //rec.Size = new Vector2f(32 * 8, 32 * 4);
-
-            //_mapSprites = new Sprite[Height, Width];
             Vector2i pixelPos = Mouse.GetPosition(window);
             Vector2f worldPos = window.MapPixelToCoords(pixelPos, _gameCtx._windowEvents.View);
             int k = 0;
@@ -112,7 +116,6 @@ namespace ProjectStellar
                 {
                     _bgSprite.Position = new Vector2f(y, x);
                     _drawUIctx.RenderSprite(_bgSprite, window, (x * 32), (y * 32), 0, 0, 32, 32);
-                    //_mapSprites[y, x] = _bgSprite;
                     _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
                 }
             }
@@ -157,8 +160,22 @@ namespace ProjectStellar
                     }
                 }    
             }
+
+            for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
+            {
+                Sprite spaceShip;
+
+                //if (_ctx.SpaceShipsList[b].Position.X < _ctx.SpaceShipsList[b].Direction.X)
+                //    spaceShip = _spaceShip1;
+                //else
+                    spaceShip = _spaceShip2;
+
+                spaceShip.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
+                spaceShip.Scale = new Vector2f(1.37f, 1.37f);
+                spaceShip.Draw(window, RenderStates.Default);
+            }
         }
-     
+
         public bool Test
         {
             get { return test; }
@@ -228,7 +245,7 @@ namespace ProjectStellar
                     }
                     else if (_ui.DestroySelected && building != null)
                     {
-                        building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building);
+                        building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building, _resourcesManager);
                         _ui.DestroySelected = false;
                     }
                     else return false;
@@ -236,6 +253,11 @@ namespace ProjectStellar
                 }
             }
             return false;
+        }
+
+        public void DrawSpaceShips(RenderWindow window, Building[,] boxes)
+        {
+
         }
 
         public bool BuildingExist

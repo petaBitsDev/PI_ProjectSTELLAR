@@ -19,8 +19,6 @@ namespace ProjectStellar.Library
 
         }
 
-
-
         public override bool OnFire
         {
             get { return _onFire; }

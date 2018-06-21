@@ -61,11 +61,14 @@ namespace ProjectStellar
 
             if (_ctx.MenuState == 1)
             {
-                _xMax = _mapUI._x2y2.X;
-                _yMax = _mapUI._x2y2.Y;
-                if (!Equals(_ui.mouseSprite, null))
+                if (!Equals(_mapUI, null))
                 {
-                    _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                    _xMax = _mapUI._x2y2.X;
+                    _yMax = _mapUI._x2y2.Y;
+                    if (!Equals(_ui.mouseSprite, null))
+                    {
+                        _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                    }
                 }
             }
 
@@ -142,11 +145,30 @@ namespace ProjectStellar
 
         public void MouseClicked(object sender, EventArgs e)
         {
+            // Jeu
             if (_ctx.MenuState == 1)
             {
-                
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
+                    if (_ui.SettingsSelected)
+                    {
+                        if (_ui.SelectedItem == 0)
+                        {
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                            Save.SaveGame(save, _ctx._name);
+                            Console.WriteLine("Saved");
+
+                            _ctx.GameTime.TimeScale = 60f;
+                            _ui.SettingsSelected = false;
+                        }
+                        else if (_ui.SelectedItem == 1)
+                        {
+                            _ui.SettingsSelected = false;
+                            _ctx.MenuState = 0;
+                        }
+                        else if (_ui.SelectedItem == 2) _window.Close();
+                    }
+
                     Vector2i pixelPos = Mouse.GetPosition(_window);
                     Vector2f worldPos = _window.MapPixelToCoords(pixelPos, _view);
 
@@ -160,6 +182,24 @@ namespace ProjectStellar
                     _ui.mouseSprite = null;
                     _ui.Map.ChosenBuilding = null;
                 }
+            }
+            // Menu principal
+            else if (_ctx.MenuState == 0 && Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                _ctx._menu.CheckMouse(_window);
+                Console.WriteLine("Principal");
+            }
+            // Menu chargement de sauvegarde
+            else if (_ctx.MenuState == 2 && Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                Console.WriteLine("Load");
+            }
+            // Menu création nouvelle partie
+            else if (_ctx.MenuState == 3 && Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                 _ctx.NewGame.CheckButtons(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                Console.WriteLine("New");
             }
         }
 
@@ -185,35 +225,62 @@ namespace ProjectStellar
         public View CurrentView => _view;
         public void KeyPressed(object sender, EventArgs e)
         {
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+            if (_ctx.MenuState == 1)
             {
-                SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
-                Save.SaveGame(save, _ctx._name);
-                Console.WriteLine("Saved");
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.L))
-            {
-                SaveGame save = Save.LoadGame(_ctx._name);
-                _ctx.LoadGame(save);
-                Console.WriteLine("Loaded");
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.T))
-            {
-                List<SaveGameMetadata> list = Save.List();
-
-                foreach (SaveGameMetadata metadata in list)
+                if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
-                    Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
+                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                    Save.SaveGame(save, _ctx._name);
+                    Console.WriteLine("Saved");
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.L))
+                {
+                    SaveGame save = Save.LoadGame(_ctx._name);
+                    _ctx.LoadGame(save);
+                    Console.WriteLine("Loaded");
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.T))
+                {
+                    List<SaveGameMetadata> list = Save.List();
+
+                    foreach (SaveGameMetadata metadata in list)
+                    {
+                        Console.WriteLine("Nom : {0} - Population : {1} - Date : {2}", metadata.Name, metadata.Population, metadata.Date);
+                    }
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
+                {
+                    _view.Zoom(0.94f);
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
+                {
+                    _view.Zoom(1.06f);
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                {
+                    _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
                 }
             }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Add))
+            else if (_ctx.MenuState == 3)
             {
-                _view.Zoom(0.94f);
+                if (Keyboard.IsKeyPressed(Keyboard.Key.BackSpace))
+                {
+                    if (_ctx.NewGame.Name.Length > 0)
+                        _ctx.NewGame.Name = _ctx.NewGame.Name.Remove(_ctx.NewGame.Name.Length - 1);
+                }
             }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Subtract))
+        }
+
+        internal View View => _view;
+
+        public void TextEntered(object sender, TextEventArgs e)
+        {
+            if (_ctx.MenuState == 3)
             {
-                _view.Zoom(1.06f);
+                if ((e.Unicode[0] > 30 && (e.Unicode[0] < 128 || e.Unicode[0] > 159)))
+                {
+                    _ctx.NewGame.Name += e.Unicode;
+                }
             }
             else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
             {
@@ -226,7 +293,5 @@ namespace ProjectStellar
                 }
             }
         }
-
-        internal View View => _view;
     }
 }

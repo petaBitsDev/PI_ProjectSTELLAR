@@ -24,7 +24,7 @@ namespace ProjectStellar.Library
         int _size;
         int _woodCapacity;
         int _maxWoodCapacity = 0;
-
+        int _unlockingLevel;
 
         public SawmillType()
         {
@@ -42,6 +42,7 @@ namespace ProjectStellar.Library
             _size = 4;
             _list = new List<Building>();
             _woodCapacity = 1000;
+            _unlockingLevel = 0;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -65,7 +66,7 @@ namespace ProjectStellar.Library
         public override int Pollution => _pollution;
         public override int NbPeople => _nbPeople;
         public override string Type => _type;
-
+        public override int UnlockingLevel => _unlockingLevel;
         public int WoodProduction => _woodProduction;
         public override List<Building> List => _list;
         public override int Size => _size;
