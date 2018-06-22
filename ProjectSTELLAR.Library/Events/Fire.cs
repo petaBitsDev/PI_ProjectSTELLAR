@@ -23,18 +23,21 @@ namespace ProjectStellar.Library
         int _nbFireReal;
 
         List<Building> _building;
+        FireStationType fireStationType;
+
 
 
 
         public Fire(Map ctx)
 
         {
-
             _ctx = ctx;
 
             _previousFire = false;
 
             _fireProbability = 0.14f;
+
+            fireStationType = (FireStationType)_ctx.BuildingTypes[1];
 
         }
 
@@ -246,7 +249,6 @@ namespace ProjectStellar.Library
             bool _isFireStation = false;
 
             CalculEventProbability();
-            FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
             if (fireStationType.List.Count != 0) _isFireStation = true;
 
 
@@ -266,10 +268,11 @@ namespace ProjectStellar.Library
                         if (IsEventHappening == true)
 
                         {
-                       //     if (gameTime.InGameTime.Equals(endOfEvent)) EventHandle = false;
+                        BuildingEvent();
+                        fireStationType.ServiceBuildingWorking();
+                
 
-                            BuildingEvent();
-                            PreviousEvent = true;
+                        PreviousEvent = true;
                         }
 
                         else

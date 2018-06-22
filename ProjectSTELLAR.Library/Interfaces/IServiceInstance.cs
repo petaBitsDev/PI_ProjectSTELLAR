@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    public interface IServiceBuildings
+    interface IServiceInstance
     {
     }
 }

@@ -15,6 +15,8 @@ namespace ProjectStellar.Library
         BuildingType _chosenBuilding;
         public Building[,] _boxes;
         readonly List<BuildingType> _buildingTypes;
+        List<IEvent> _listEvent;
+        List<IServiceBuildingsType> _listServiceBuilding;
 
         public Map (int width, int height)
         {
@@ -38,8 +40,22 @@ namespace ProjectStellar.Library
               /* 12*/ new SpaceStationType(),
               /* 13*/ new WarehouseType()
             };
+            _listEvent = new List<IEvent>();
+            _listEvent.Add(new Fire(this));
+            _listEvent.Add(new Disease(this));
+            _listEvent.Add(new Crime(this));
+
+            _listServiceBuilding = new List<IServiceBuildingsType>();
+            _listServiceBuilding.Add(new FireStationType());
+            _listServiceBuilding.Add(new PoliceStationType());
+            _listServiceBuilding.Add(new HospitalType());
+               
+
+
         }
 
+        public List<IServiceBuildingsType> ListServicesBuildingType => _listServiceBuilding;
+        public List<IEvent> ListEvent => _listEvent;
         public List<BuildingType> BuildingTypes => _buildingTypes;
 
         public int Width => _width;

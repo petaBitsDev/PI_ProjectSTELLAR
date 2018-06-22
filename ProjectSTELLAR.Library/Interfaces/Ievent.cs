@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    public interface IEvent
+    public interface IEvent 
     {
         bool PreviousEvent { get; set; }
 
@@ -31,7 +31,7 @@ namespace ProjectStellar.Library
 
         void IsBuildingGettingEvent();
 
-        void NewEvent(GameTime);
+        void  NewEvent(GameTime gt);
 
     }
 }

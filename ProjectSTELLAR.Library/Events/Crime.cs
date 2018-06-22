@@ -23,9 +23,7 @@ namespace ProjectStellar.Library
 
         int _nbCrimeReal;
 
-        Building _building;
-
-        Timer timer = new Timer();
+        List<Building> _building;
 
         bool _eventHandle;
 
@@ -33,9 +31,7 @@ namespace ProjectStellar.Library
         public Crime(Map ctx)
 
         {
-
             _ctx = ctx;
-
             _previousCrime = false;
 
             _crimeProbability = 0.17f;
@@ -77,7 +73,7 @@ namespace ProjectStellar.Library
             get { return _crimeProbability; }
             set { _crimeProbability = value; }
         }
-        public Building BuildingHasEvent
+        public List<Building> BuildingHasEvent
         {
             get { return _building; }
             set { _building = value; }
@@ -93,7 +89,7 @@ namespace ProjectStellar.Library
 
             _idxBuilding = random.Next(buildingSelected.List.Count);
 
-            if(buildingSelected is IServiceBuildings)
+            if(buildingSelected is IServiceInstance)
             {
                 BuildingEvent();
             }
@@ -104,7 +100,7 @@ namespace ProjectStellar.Library
             else
             {
                 buildingSelected.List[_idxBuilding].IsVictimCrime = true;
-                BuildingHasEvent = buildingSelected.List[_idxBuilding];
+                BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
             }
         }
 

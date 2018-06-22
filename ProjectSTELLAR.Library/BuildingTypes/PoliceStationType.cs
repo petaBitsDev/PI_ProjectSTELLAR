@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 {
     [Serializable]
-    public class PoliceStationType : BuildingType
+    public class PoliceStationType : BuildingType, IServiceBuildingsType
     {
         int _cost;
         int _coin;
@@ -21,6 +21,16 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        Crime _crime;
+        Building _origin;
+        Building _target;
+        DateTime _timeNow;
+        GameTime gameTime = new GameTime();
+        double _timeToGo;
+        double _distance;
+        double _timeMax;
+        Truck _truck;
+
 
         public PoliceStationType()
         {
@@ -44,8 +54,74 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             Building building = new PoliceStation(this, x, y);
+            CreateTruck();
             map.AddBuilding(x, y, building);
             _list.Add(building);
+        }
+
+        public void ServiceBuildingWorking()
+        {
+            _timeNow = gameTime.InGameTime;
+            BuildingDistance();
+            CheckTruckStatement();
+            _timeToGo = (Distance / TruckSelected.Speed);
+
+             _timeMax = 180;
+            if (_timeToGo <= _timeMax)
+                _crime.EventHandle = true;
+            else
+                _crime.EventHandle = false;
+  
+        }
+
+        public void BuildingDistance()
+        {
+            double max = double.MaxValue;
+
+            for(int i = 0; i < this.NbBuilding; i++)
+            {
+                for(int j = 0; j < _crime.BuildingHasEvent.Count; j++)
+                {
+                    Distance = Math.Sqrt(Math.Pow((_crime.BuildingHasEvent[j].X - List[i].X), 2.00) + Math.Pow((_crime.BuildingHasEvent[j].Y - List[i].Y), 2.00));
+                    if(Distance < max)
+                    {
+                        max = Distance;
+                        _target = _crime.BuildingHasEvent[j];
+                        _origin = (PoliceStation)List[i];
+                    }
+                }
+            }
+        }
+
+        public void CreateTruck()
+        {
+            foreach(PoliceStation policestation in this.List)
+            {
+                for(int i = 0; i <policestation.NbVehicule; i++)
+                {
+                    Truck t = new Truck();
+                    policestation.Vehicule.Add(t);
+                   
+                }
+            }
+        }
+
+        public void CheckTruckStatement()
+        {
+            PoliceStation policeStation = (PoliceStation)Origin;
+            for(int i = 0; i < policeStation.NbVehicule; i++)
+            {
+                if(policeStation.Vehicule[i].IsFree == true)
+                {
+                    TruckSelected = policeStation.Vehicule[i];
+                    policeStation.Vehicule[i].IsFree = false;
+                    break;
+                }
+                else
+                {
+                    TruckSelected = null;
+                }
+            }
         }
 
         public override int Rock => _rock;
@@ -61,5 +137,39 @@ namespace ProjectStellar.Library
         public override List<Building> List => _list;
         public override int Size => _size;
         public override int NbBuilding => _list.Count;
+
+        public Building Target
+        {
+            get { return _target; }
+            set { _target = value; }
+        }
+        public Building Origin
+        {
+            get { return _origin; }
+            set { _origin = value; }
+        }
+        public double Distance
+        {
+            get { return _distance; }
+            set { _distance = value; }
+        }
+        public double TimeToGo
+        {
+            get { return _timeToGo; }
+            set { _timeToGo = value; }
+        }
+
+        public double TimeMax => _timeMax;
+
+        public DateTime StartTime
+        {
+            get { return _timeNow; }
+            set { _timeNow = value; }
+        }
+        public Truck TruckSelected
+        {
+            get { return _truck; }
+            set { _truck = value; }
+        }
     }
 }

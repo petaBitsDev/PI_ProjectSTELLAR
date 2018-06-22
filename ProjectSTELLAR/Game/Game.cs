@@ -30,6 +30,7 @@ namespace ProjectStellar
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
+        internal ProjectStellar.Library.Timer _timer;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
@@ -113,6 +114,7 @@ namespace ProjectStellar
             _map = new Map(100, 100);
             _resourcesManager = new ResourcesManager(_map);
             _experienceManager = new ExperienceManager(_resourcesManager);
+            _timer = new Timer(_map, gameTime);
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
@@ -135,16 +137,21 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
+                _timer.TimeToUpdate();
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
                     //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
-                    //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-
+                    //Console.WriteLine("{0}%", _experienceManager.GetPercentage());  
+                    
                     _resourcesManager.UpdateResources();
                     _areResourcesUpdated = true;
+                    foreach(IEvent ev in _map.ListEvent)
+                    {
+                        ev.NewEvent(gameTime);
+                    }
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
             }

@@ -8,7 +8,6 @@ namespace ProjectStellar.Library
 {
     class Disease : IEvent
     {
-        Map _ctx;
 
         float _diseaseProbability;
 
@@ -20,11 +19,13 @@ namespace ProjectStellar.Library
 
         int _nbDiseaseReal;
 
-        Building _building;
+        List<Building> _building;
 
         bool _isTakingABed;
 
         bool _eventHandle;
+        Map _ctx;
+
 
         public Disease(Map ctx)
         {
@@ -72,7 +73,7 @@ namespace ProjectStellar.Library
             get { return _diseaseProbability; }
             set { _diseaseProbability = value; }
         }
-        public Building BuildingHasEvent
+        public List<Building> BuildingHasEvent
         {
             get { return _building; }
             set { _building = value; }
@@ -107,7 +108,7 @@ namespace ProjectStellar.Library
             else
             {
                 BuildingSelected.List[_idxBuilding].IsSick = true;
-                BuildingHasEvent = BuildingSelected.List[_idxBuilding];
+                BuildingHasEvent.Add(BuildingSelected.List[_idxBuilding]);
             }
         }
 

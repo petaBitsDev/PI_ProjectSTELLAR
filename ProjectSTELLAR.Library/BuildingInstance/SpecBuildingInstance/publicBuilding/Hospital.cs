@@ -7,17 +7,25 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 {
     [Serializable]
-    class Hospital : Building, IServiceBuildings
+    class Hospital : Building, IServiceInstance
     {
         bool _onFire;
         int _nbTruck;
         int _nbBed;
         bool _isSick;
         bool _isCrimeVictim;
+        public List<Truck> _vehicule;
         public Hospital(BuildingType type, int x, int y): base(type, x, y)
         {
             _nbTruck = 2;
             _nbBed = 10;
+            _vehicule = new List<Truck>();
+        }
+
+        public List<Truck> Vehicule
+        {
+            get { return _vehicule; }
+            set { _vehicule = value; }
         }
 
         public override bool OnFire
