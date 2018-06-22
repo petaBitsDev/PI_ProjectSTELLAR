@@ -27,7 +27,7 @@ namespace ProjectStellar.Library
         int _maxMetalCapacity = 0;
         int _maxWoodCapacity = 0;
         int _maxRockCapacity = 0;
-
+        int _unlockingLevel;
         public WarehouseType()
         {
             _rock = 15;
@@ -45,7 +45,7 @@ namespace ProjectStellar.Library
             _woodCapacity = 3000;
             _metalCapacity = 1000;
             _rockCapacity = 2000;
-            
+            _unlockingLevel = 1;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -61,6 +61,7 @@ namespace ProjectStellar.Library
             _maxRockCapacity += RockCapacity;
         }
 
+        public override int UnlockingLevel => _unlockingLevel;
         public override int Rock => _rock;
         public override int Wood => _wood;
         public override int Coin => _coin;

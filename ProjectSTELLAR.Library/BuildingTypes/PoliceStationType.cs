@@ -21,6 +21,7 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _unlockingLevel;
         Crime _crime;
         Building _origin;
         Building _target;
@@ -46,6 +47,7 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 4;
             _list = new List<Building>();
+            _unlockingLevel = 6;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -58,6 +60,7 @@ namespace ProjectStellar.Library
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
+        public override int UnlockingLevel => _unlockingLevel;
 
         public void ServiceBuildingWorking()
         {

@@ -22,6 +22,7 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _unlockingLevel;
 
         public PowerPlantType()
         {
@@ -38,6 +39,7 @@ namespace ProjectStellar.Library
             _size = 4;
             _list = new List<Building>();
             _electricityProduction = 80;
+            _unlockingLevel = 0;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -64,6 +66,7 @@ namespace ProjectStellar.Library
         public override string Type => _type;
         public int ElectricityProduction => _electricityProduction;
         public override int NbBuilding => _list.Count;
+        public override int UnlockingLevel => _unlockingLevel;
     }
 }
      

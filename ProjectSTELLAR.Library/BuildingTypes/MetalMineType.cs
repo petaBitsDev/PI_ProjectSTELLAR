@@ -24,7 +24,7 @@ namespace ProjectStellar.Library
         int _size;
         int _maxMetalCapacity = 0;
         int _metalCapacity;
-
+        int _unlockingLevel;
 
         public MetalMineType()
         {
@@ -42,6 +42,7 @@ namespace ProjectStellar.Library
             _size = 4;
             _list = new List<Building>();
             _metalCapacity = 500;
+            _unlockingLevel = 1;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -70,7 +71,7 @@ namespace ProjectStellar.Library
         public override List<Building> List => _list;
         public override int Size => _size;
         public override int NbBuilding => _list.Count;
-
+        public override int UnlockingLevel => _unlockingLevel;
         public int MaxMetalCapacity
         {
             get { return _maxMetalCapacity; }

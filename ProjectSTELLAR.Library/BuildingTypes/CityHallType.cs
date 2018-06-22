@@ -21,6 +21,7 @@ namespace ProjectStellar.Library
         string _type;
         List<Building> _list;
         int _size;
+        int _unlockingLevel;
 
         public CityHallType()
         {
@@ -36,6 +37,7 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 6;
             _list = new List<Building>();
+            _unlockingLevel = 5;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -60,7 +62,7 @@ namespace ProjectStellar.Library
         public override string Type => _type;
         public override List<Building> List => _list;
         public override int Size => _size;
-
+        public override int UnlockingLevel => _unlockingLevel;
         public override int NbBuilding => _list.Count;
 
 

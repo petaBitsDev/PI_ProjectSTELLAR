@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[16];
+        public Texture[] _buildingsTextures = new Texture[17];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
         internal Menu _menu;
@@ -38,7 +38,6 @@ namespace ProjectStellar
         internal string _gameName;
         internal View _view;
         Vector2f _center;
-        bool _isNewGame;
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -79,6 +78,7 @@ namespace ProjectStellar
             _buildingsTextures[13] = new Texture("./resources/img/cave.png");
             _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
             _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
+            _buildingsTextures[16] = new Texture("./resources/img/padlock.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -111,9 +111,6 @@ namespace ProjectStellar
         public override void Initialize(GameTime gameTime)
         {
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _map = new Map(100, 100);
-            _resourcesManager = new ResourcesManager(_map);
-            _experienceManager = new ExperienceManager(_resourcesManager);
             _timer = new Timer(_map, gameTime);
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
@@ -163,11 +160,6 @@ namespace ProjectStellar
             if (MenuState == 0) _menu.Draw();
             else if (MenuState == 1)
             {
-                if (_drawUI == null)
-                {
-                    _isNewGame = true;
-                    _drawUI = new DrawUI(this, _map, 100, 100, _resolution, gameTime, _resourcesManager, _experienceManager);
-                }
                 Window.Clear(Color.Black);
                 _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
                 _windowEvents.MapUI = _drawUI.MapUI;
@@ -187,8 +179,10 @@ namespace ProjectStellar
             GameTime = save.GameTime;
             _map = save.Map;
             _resourcesManager = save.ResourcesManager;
+            _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
+            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
         }
 
         internal void StartNewGame()
@@ -198,6 +192,10 @@ namespace ProjectStellar
                 _name = _newGame.Name;
                 _newGame.Name = "";
                 MenuState = 1;
+                _map = new Map(100, 100);
+                _resourcesManager = new ResourcesManager(_map);
+                _experienceManager = new ExperienceManager(_resourcesManager);
+                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
             }
         }
 
@@ -208,12 +206,6 @@ namespace ProjectStellar
         }
 
         public NewGame NewGame => _newGame;
-
-        public bool IsNewGame
-        {
-            get { return _isNewGame; }
-            set { _isNewGame = value; }
-        }
 
         public string GameName
         {

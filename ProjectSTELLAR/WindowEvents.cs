@@ -61,11 +61,14 @@ namespace ProjectStellar
 
             if (_ctx.MenuState == 1)
             {
-                _xMax = _mapUI._x2y2.X;
-                _yMax = _mapUI._x2y2.Y;
-                if (!Equals(_ui.mouseSprite, null))
+                if (!Equals(_mapUI, null))
                 {
-                    _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                    _xMax = _mapUI._x2y2.X;
+                    _yMax = _mapUI._x2y2.Y;
+                    if (!Equals(_ui.mouseSprite, null))
+                    {
+                        _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                    }
                 }
             }
 
