@@ -74,6 +74,8 @@ namespace ProjectStellar
         Sprite _returnButton;
         Sprite _returnButtonActive;
         Sprite _mouseSprite;
+        Sprite _sendButton;
+        Sprite _sendActifButton;
 
         uint _width;
         uint _height;
@@ -89,6 +91,12 @@ namespace ProjectStellar
         int _selectedIndex;
         bool _hovering;
         private bool _menuON;
+        bool _tab1;
+        bool _tab2;
+        bool _tab3;
+        bool _tab4;
+        List<bool> _tab;
+        int _tabActif;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
@@ -97,7 +105,6 @@ namespace ProjectStellar
             _tab1Sprite = new Dictionary<Sprite, BuildingType>();
             _tab2Sprite = new Dictionary<Sprite, BuildingType>();
             _tab3Sprite = new Dictionary<Sprite, BuildingType>();
-
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fr-FR");
             _ctx = ctx;
             _drawUIctx = drawUI;
@@ -114,6 +121,12 @@ namespace ProjectStellar
             _tab2Selected = false;
             _tab3Selected = false;
             _experienceManager = experienceManager;
+            _tab = new List<bool>();
+            _tab.Add(false);
+            _tab.Add(false);
+            _tab.Add(false);
+            _tab.Add(false);
+            _tabActif = 0;
 
             //TIME BAR
             _play = new Sprite(_ctx._uiTextures[18])
@@ -199,6 +212,9 @@ namespace ProjectStellar
                 Scale = new Vector2f(0.5f, 0.5f)
             };
             _menuActif[2] = _quitButtonActive;
+
+            _sendButton = new Sprite(_ctx._uiTextures[24]);
+            _sendActifButton = new Sprite(_ctx._uiTextures[25]);
 
             //XP BAR
             _expBar = new RectangleShape()
@@ -817,11 +833,11 @@ namespace ProjectStellar
 
             if ((building.X * 32 - 32 * 6) >= 0)
             {
-                rec.Position = new Vector2f((building.Y * 32), (building.X * 32 - 32 * 5));
+                rec.Position = new Vector2f((building.Y * 32), (building.X * 32 - 32 * 7));
             }
             else
             {
-                rec.Position = new Vector2f(building.Y * 32, building.X * 32 + 32 * 5);
+                rec.Position = new Vector2f(building.Y * 32, building.X * 32 + 32 * 7);
             }
             rec.Draw(window, RenderStates.Default);
             foreach (KeyValuePair<Sprite, BuildingType> buildingType in BuildingTypeSprites)
@@ -1113,80 +1129,171 @@ namespace ProjectStellar
 
         public void DrawSpaceStationUI(RenderWindow window, Font font, int posX, int posY, Building building)
         {
-            _menuON = true;
-
             RectangleShape rec = new RectangleShape();
             rec.Size = new Vector2f(_boxSize * 12, _boxSize * 6);
-            rec.Position = new Vector2f(posY * 32 - _boxSize * 6, posX * 32 - _boxSize * 2);
+            rec.Position = new Vector2f(building.SpritePosition.Y * 32 - _boxSize * 6, building.SpritePosition.X * 32 - _boxSize * 2);
             rec.FillColor = new Color(30, 30, 40);
-            
+
+            RectangleShape[] tabs = new RectangleShape[4];
+            RectangleShape tab = new RectangleShape();
+            tab.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+            tab.Position = new Vector2f(rec.Position.X, rec.Position.Y);
+            tabs[0] = tab;
+
             RectangleShape tab1 = new RectangleShape();
             tab1.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab1.Position = new Vector2f(rec.Position.X, rec.Position.Y);
-            tab1.FillColor = Color.Yellow;
-            tab1.OutlineThickness = 2.0f;
-            tab1.OutlineColor = Color.Yellow;
+            tab1.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y);
+            tabs[1] = tab1;
 
             RectangleShape tab2 = new RectangleShape();
             tab2.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab2.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y);
-            tab2.FillColor = Color.Yellow;
-            tab2.OutlineThickness = 2.0f;
-            tab2.OutlineColor = Color.Yellow;
+            tab2.Position = new Vector2f(rec.Position.X + _boxSize * 6, rec.Position.Y);
+            tabs[2] = tab2;
 
             RectangleShape tab3 = new RectangleShape();
             tab3.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab3.Position = new Vector2f(rec.Position.X + _boxSize * 6, rec.Position.Y);
-            tab3.FillColor = Color.Yellow;
-            tab3.OutlineThickness = 2.0f;
-            tab3.OutlineColor = Color.Yellow;
+            tab3.Position = new Vector2f(rec.Position.X + _boxSize * 9, rec.Position.Y);
+            tabs[3] = tab3;
 
-            RectangleShape tab4 = new RectangleShape();
-            tab4.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab4.Position = new Vector2f(rec.Position.X + _boxSize * 9, rec.Position.Y);
-            tab4.FillColor = Color.Yellow;
-            tab4.OutlineThickness = 2.0f;
-            tab4.OutlineColor = Color.Yellow;
+            Text[] texts = new Text[4];
+            Text s = new Text("Ship 1", font);
+            s.CharacterSize = 20;
+            s.Position = new Vector2f(rec.Position.X + 5, rec.Position.Y + 3);
+            s.Color = new Color(30, 30, 40);
+            texts[0] = s;
 
-            Text s1 = new Text("Ship 1", font);
+            Text s1 = new Text("Ship 2", font);
             s1.CharacterSize = 20;
-            s1.Position = new Vector2f(rec.Position.X + 5, rec.Position.Y + 3);
+            s1.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 3, rec.Position.Y + 3);
+            s1.Color = new Color(30, 30, 40);
+            texts[1] = s1;
 
-            Text s2 = new Text("Ship 2", font);
+            Text s2 = new Text("Ship 3", font);
             s2.CharacterSize = 20;
-            s2.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 3, rec.Position.Y + 3);
+            s2.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 6, rec.Position.Y + 3);
+            s2.Color = new Color(30, 30, 40);
+            texts[2] = s2;
 
-            Text s3 = new Text("Ship 3", font);
+            Text s3 = new Text("Ship 4", font);
             s3.CharacterSize = 20;
-            s3.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 6, rec.Position.Y + 3);
+            s3.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 9, rec.Position.Y + 3);
+            s3.Color = new Color(30, 30, 40);
+            texts[3] = s3;
 
-            Text s4 = new Text("Ship 4", font);
-            s4.CharacterSize = 20;
-            s4.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 9, rec.Position.Y + 3);
-
+            RectangleShape[] availabilities = new RectangleShape[4];
             RectangleShape availability = new RectangleShape();
-            availability.Size = new Vector2f(12, 12);
+            availability.Size = new Vector2f(64, 12);
             availability.Position = new Vector2f(rec.Position.X + 16, rec.Position.Y + _boxSize + 5);
-            availability.FillColor = Color.Green;
+            availabilities[0] = availability;
+
+            RectangleShape availability1 = new RectangleShape();
+            availability1.Size = new Vector2f(64, 12);
+            availability1.Position = new Vector2f(rec.Position.X + _boxSize * 3 + 16, rec.Position.Y + _boxSize + 5);
+            availabilities[1] = availability1;
+
+            RectangleShape availability2 = new RectangleShape();
+            availability2.Size = new Vector2f(64, 12);
+            availability2.Position = new Vector2f(rec.Position.X + 16 + _boxSize * 6, rec.Position.Y + _boxSize + 5);
+            availabilities[2] = availability2;
+
+            RectangleShape availability3 = new RectangleShape();
+            availability3.Size = new Vector2f(64, 12);
+            availability3.Position = new Vector2f(rec.Position.X + 16 + _boxSize * 9, rec.Position.Y + _boxSize + 5);
+            availabilities[3] = availability3;
+
+            _sendButton.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y + _boxSize * 5 - 5);
+            _sendActifButton.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y + _boxSize * 5 - 5);
+
+            if (building.Type.Equals(_mapCtx.BuildingTypes[12]))
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    _menuON = true;
+                }
+                if (!rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _menuON = false;
+                }
+            }
 
             if (_menuON)
             {
                 rec.Draw(window, RenderStates.Default);
-                tab1.Draw(window, RenderStates.Default);
-                tab2.Draw(window, RenderStates.Default);
-                tab3.Draw(window, RenderStates.Default);
-                tab4.Draw(window, RenderStates.Default);
-                s1.Draw(window, RenderStates.Default);
-                s2.Draw(window, RenderStates.Default);
-                s3.Draw(window, RenderStates.Default);
-                s4.Draw(window, RenderStates.Default);
 
-                availability.Draw(window, RenderStates.Default);
-
-                if(tab1.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                for(int i = 0; i < 4; i++)
                 {
-                    
+                    tabs[i].Draw(window, RenderStates.Default);
+                    texts[i].Draw(window, RenderStates.Default);
                 }
+
+                for (int i = 0; i < _tab.Count; i++)
+                {
+                    if (tab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _tab[0] = true;
+                        _tab[1] = false;
+                        _tab[2] = false;
+                        _tab[3] = false;
+                        TabActive = 0;
+                    }
+                    if (tab1.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _tab[0] = false;
+                        _tab[1] = true;
+                        _tab[2] = false;
+                        _tab[3] = false;
+                        TabActive = 1;
+                    }
+                    if (tab2.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _tab[0] = false;
+                        _tab[1] = false;
+                        _tab[2] = true;
+                        _tab[3] = false;
+                        TabActive = 2;
+                    }
+                    if (tab3.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        _tab[0] = false;
+                        _tab[1] = false;
+                        _tab[2] = false;
+                        _tab[3] = true;
+                        TabActive = 3;
+                    }
+                }
+                
+                tabs[TabActive].FillColor = Color.Yellow;
+                tabs[TabActive].Draw(window, RenderStates.Default);
+                texts[TabActive].Draw(window, RenderStates.Default);
+
+                Sprite send = _sendButton;
+
+                for (int i = 0; i < building.Type.List.Count; i++)
+                {
+                    if (Equals(building, building.Type.List[i]))
+                    {
+                        if (building.Type.List[i].ShipList[TabActive].IsAvailable)
+                            availabilities[TabActive].FillColor = Color.Green;
+                        else
+                        {
+                            availabilities[TabActive].FillColor = Color.Red;
+                        }
+
+                        availabilities[TabActive].Draw(window, RenderStates.Default);
+
+                        if (_sendButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                        {
+                            send = _sendActifButton;
+                            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                            {
+                                building.Type.List[i].SendShip(building.Type.List[i].ShipList[TabActive], _ctx.GameTime.InGameTime);
+                                _menuON = false;
+                            }
+                        }
+                        else send = _sendButton;
+                    }
+                }
+                send.Draw(window, RenderStates.Default);
             }
         }
 
@@ -1200,6 +1307,12 @@ namespace ProjectStellar
         {
             get { return _mouseSprite; }
             set { _mouseSprite = value; }
+        }
+
+        public int TabActive
+        {
+            get { return _tabActif; }
+            set { _tabActif = value; }
         }
     }
 }

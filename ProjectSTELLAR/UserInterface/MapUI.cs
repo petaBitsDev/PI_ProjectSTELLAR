@@ -160,15 +160,12 @@ namespace ProjectStellar
                     if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
                     {
                         _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
-                        if(CheckSpaceStation(worldPos.X, worldPos.Y, window, boxes[_cases[a].X, _cases[a].Y]))
-                        {
-                            _ui.DrawSpaceStationUI(window, font, _cases[a].X, _cases[a].Y, boxes[_cases[a].X, _cases[a].Y]);
-                        }
                     }
-                }    
+                }
+                if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                    _ui.DrawSpaceStationUI(window, font, _cases[a].X, _cases[a].Y, boxes[_cases[a].X, _cases[a].Y]);
             }
-
-            for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
+            for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
                 Sprite spaceShip;
 
@@ -181,26 +178,6 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(1.37f, 1.37f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
-        }
-
-        public bool CheckSpaceStation(float mouseX, float mouseY, RenderWindow window, Building building)
-        {
-            for(int i = 0; i < _cases.Length; i++)
-            {
-                if(_cases[i].Rec.Contains(mouseX, mouseY))
-                {
-                    if(Mouse.IsButtonPressed(Mouse.Button.Left))
-                    {
-                        if(building.Type.Equals(_ctx.BuildingTypes[12]))
-                        {
-                            return true;
-                        }
-                        else
-                            return false;
-                    }
-                }
-            }
-            return false;
         }
 
         public bool Test

@@ -14,7 +14,7 @@ namespace ProjectStellar.Library
             if (v.Magnitude == 0)
                 diviseur = 1;
 
-            Vector unit = v.Mul(1.0f / (float)diviseur);
+            Vector unit = v.Mul(1.0f / ((float)diviseur/5));
             Vector move = unit.Mul(speed);
             move = ConvertVectorToMap(move, max);
 

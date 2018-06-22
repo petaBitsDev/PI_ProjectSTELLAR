@@ -65,6 +65,7 @@ namespace ProjectStellar.Library
         {
             if(CheckBuilding(x,y) == false)
             {
+                building.SpritePosition = new Vector(x, y);
                 if(building.Size == 1) _boxes[x, y] = building;
                 else if (building.Size == 4)
                 {

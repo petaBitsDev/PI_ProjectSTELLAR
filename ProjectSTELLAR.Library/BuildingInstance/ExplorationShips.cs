@@ -11,12 +11,14 @@ namespace ProjectStellar.Library
         bool _available;
         string _resource;
         int _nbResources;
+        DateTime _undisposedTime;
 
         public ExplorationShips()
         {
             _available = true;
             _resource = "";
             _nbResources = 0;
+            _undisposedTime = DateTime.Now;
         }
 
         public string Resource
@@ -35,6 +37,12 @@ namespace ProjectStellar.Library
         {
             get { return _available; }
             set { _available = value; }
+        }
+
+        public DateTime UndisposedTime
+        {
+            get { return _undisposedTime; }
+            set { _undisposedTime = value; }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[17];
-        public Texture[] _uiTextures = new Texture[24];
+        public Texture[] _uiTextures = new Texture[26];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -103,6 +103,8 @@ namespace ProjectStellar
             _uiTextures[21] = new Texture("./resources/img/setting.png");
             _uiTextures[22] = new Texture("./resources/img/delete.png");
             _uiTextures[23] = new Texture("./resources/img/users.png");
+            _uiTextures[24] = new Texture("./resources/img/send.png");
+            _uiTextures[25] = new Texture("./resources/img/sendActif.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
@@ -137,16 +139,16 @@ namespace ProjectStellar
                     this._map.GenerateSpaceShips(this._resourcesManager);
                     for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
                     {
-                        Console.WriteLine("SpaceShip Number : " + i);
-                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+                        //Console.WriteLine("SpaceShip Number : " + i);
+                        //Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
+                        //Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
 
                         this._map.SpaceShipsList[i].Update();
 
-                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
+                        //Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
+                        //Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
 
-                        Console.WriteLine("=========================");
+                        //Console.WriteLine("=========================");
                     }
                 }
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)

@@ -8,6 +8,9 @@
     <Reference Include="sfmlnet-graphics-2">
       <HintPath>..\SFML\sfmlnet-graphics-2.dll</HintPath>
     </Reference>
+    <Reference Include="sfmlnet-system-2">
+      <HintPath>..\SFML\sfmlnet-system-2.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
 </Project>
