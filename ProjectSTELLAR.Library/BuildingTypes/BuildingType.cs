@@ -37,5 +37,4 @@ namespace ProjectStellar.Library
         public abstract int UnlockingLevel { get; }
         public abstract int NbBuilding { get;}
     }
-
 }

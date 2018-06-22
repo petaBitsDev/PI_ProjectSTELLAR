@@ -156,7 +156,7 @@ namespace ProjectStellar
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-                    _resourcesManager.NbResources["nbPeople"] += 40;
+                    //_resourcesManager.NbResources["nbPeople"] += 40;
                     _resourcesManager.UpdateResources();
                     _areResourcesUpdated = true;
                 }

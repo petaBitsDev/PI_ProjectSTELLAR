@@ -32,6 +32,7 @@ namespace ProjectStellar
         bool _buildingExist;
         RectangleShape rec = new RectangleShape();
         bool test;
+        bool _menuON;
         Resolution _resolution;
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
@@ -50,6 +51,8 @@ namespace ProjectStellar
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
+            _menuON = false;
+
             _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
             _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
             _spaceShip1 = new Sprite(new Texture("./resources/img/startup1.png"));
@@ -157,6 +160,10 @@ namespace ProjectStellar
                     if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
                     {
                         _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
+                        if(CheckSpaceStation(worldPos.X, worldPos.Y, window, boxes[_cases[a].X, _cases[a].Y]))
+                        {
+                            _ui.DrawSpaceStationUI(window, font, _cases[a].X, _cases[a].Y, boxes[_cases[a].X, _cases[a].Y]);
+                        }
                     }
                 }    
             }
@@ -174,6 +181,26 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(1.37f, 1.37f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
+        }
+
+        public bool CheckSpaceStation(float mouseX, float mouseY, RenderWindow window, Building building)
+        {
+            for(int i = 0; i < _cases.Length; i++)
+            {
+                if(_cases[i].Rec.Contains(mouseX, mouseY))
+                {
+                    if(Mouse.IsButtonPressed(Mouse.Button.Left))
+                    {
+                        if(building.Type.Equals(_ctx.BuildingTypes[12]))
+                        {
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
+                }
+            }
+            return false;
         }
 
         public bool Test
@@ -241,7 +268,7 @@ namespace ProjectStellar
                             _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         _ctx.ChosenBuilding = null;
                         window.SetMouseCursorVisible(true);
-                        _ui.mouseSprite = null;
+                        _ui.MouseSprite = null;
                     }
                     else if (_ui.DestroySelected && building != null)
                     {
@@ -253,11 +280,6 @@ namespace ProjectStellar
                 }
             }
             return false;
-        }
-
-        public void DrawSpaceShips(RenderWindow window, Building[,] boxes)
-        {
-
         }
 
         public bool BuildingExist

@@ -88,6 +88,7 @@ namespace ProjectStellar
         bool _exitSelected;
         int _selectedIndex;
         bool _hovering;
+        private bool _menuON;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
@@ -1110,7 +1111,92 @@ namespace ProjectStellar
             }
         }
 
-        public Sprite mouseSprite
+        public void DrawSpaceStationUI(RenderWindow window, Font font, int posX, int posY, Building building)
+        {
+            _menuON = true;
+
+            RectangleShape rec = new RectangleShape();
+            rec.Size = new Vector2f(_boxSize * 12, _boxSize * 6);
+            rec.Position = new Vector2f(posY * 32 - _boxSize * 6, posX * 32 - _boxSize * 2);
+            rec.FillColor = new Color(30, 30, 40);
+            
+            RectangleShape tab1 = new RectangleShape();
+            tab1.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+            tab1.Position = new Vector2f(rec.Position.X, rec.Position.Y);
+            tab1.FillColor = Color.Yellow;
+            tab1.OutlineThickness = 2.0f;
+            tab1.OutlineColor = Color.Yellow;
+
+            RectangleShape tab2 = new RectangleShape();
+            tab2.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+            tab2.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y);
+            tab2.FillColor = Color.Yellow;
+            tab2.OutlineThickness = 2.0f;
+            tab2.OutlineColor = Color.Yellow;
+
+            RectangleShape tab3 = new RectangleShape();
+            tab3.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+            tab3.Position = new Vector2f(rec.Position.X + _boxSize * 6, rec.Position.Y);
+            tab3.FillColor = Color.Yellow;
+            tab3.OutlineThickness = 2.0f;
+            tab3.OutlineColor = Color.Yellow;
+
+            RectangleShape tab4 = new RectangleShape();
+            tab4.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+            tab4.Position = new Vector2f(rec.Position.X + _boxSize * 9, rec.Position.Y);
+            tab4.FillColor = Color.Yellow;
+            tab4.OutlineThickness = 2.0f;
+            tab4.OutlineColor = Color.Yellow;
+
+            Text s1 = new Text("Ship 1", font);
+            s1.CharacterSize = 20;
+            s1.Position = new Vector2f(rec.Position.X + 5, rec.Position.Y + 3);
+
+            Text s2 = new Text("Ship 2", font);
+            s2.CharacterSize = 20;
+            s2.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 3, rec.Position.Y + 3);
+
+            Text s3 = new Text("Ship 3", font);
+            s3.CharacterSize = 20;
+            s3.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 6, rec.Position.Y + 3);
+
+            Text s4 = new Text("Ship 4", font);
+            s4.CharacterSize = 20;
+            s4.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 9, rec.Position.Y + 3);
+
+            RectangleShape availability = new RectangleShape();
+            availability.Size = new Vector2f(12, 12);
+            availability.Position = new Vector2f(rec.Position.X + 16, rec.Position.Y + _boxSize + 5);
+            availability.FillColor = Color.Green;
+
+            if (_menuON)
+            {
+                rec.Draw(window, RenderStates.Default);
+                tab1.Draw(window, RenderStates.Default);
+                tab2.Draw(window, RenderStates.Default);
+                tab3.Draw(window, RenderStates.Default);
+                tab4.Draw(window, RenderStates.Default);
+                s1.Draw(window, RenderStates.Default);
+                s2.Draw(window, RenderStates.Default);
+                s3.Draw(window, RenderStates.Default);
+                s4.Draw(window, RenderStates.Default);
+
+                availability.Draw(window, RenderStates.Default);
+
+                if(tab1.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    
+                }
+            }
+        }
+
+        public bool MenuON
+        {
+            get { return _menuON; }
+            set { _menuON = value; }
+        }
+
+        public Sprite MouseSprite
         {
             get { return _mouseSprite; }
             set { _mouseSprite = value; }

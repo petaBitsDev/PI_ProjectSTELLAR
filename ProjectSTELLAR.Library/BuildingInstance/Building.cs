@@ -37,7 +37,5 @@ namespace ProjectStellar.Library
         public int Y => _y;
         public BuildingType Type => _buildingType;
         public int Size => _size;
-
-
     }
 }
