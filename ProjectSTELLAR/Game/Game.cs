@@ -182,6 +182,7 @@ namespace ProjectStellar
             _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
+            _satisfactionManager = save.SatisfactionManager;
             _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
         }
 
@@ -195,6 +196,7 @@ namespace ProjectStellar
                 _map = new Map(100, 100);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
+                _satisfactionManager = new SatisfactionManager();
                 _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
             }
         }
