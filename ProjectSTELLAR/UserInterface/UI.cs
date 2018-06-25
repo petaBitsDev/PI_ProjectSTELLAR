@@ -65,6 +65,7 @@ namespace ProjectStellar
         Sprite _shop;
         Sprite _factory;
         Sprite _park;
+        Sprite _satisfaction;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
@@ -262,6 +263,11 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 10)
             };
 
+            _satisfaction = new Sprite(_ctx._uiTextures[12])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 19 - 15)
+            };
+
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
@@ -414,7 +420,7 @@ namespace ProjectStellar
         /// Draws the resources bar.
         /// </summary>
         /// <param name="window">The window.</param>
-        public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
+        public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources, float satisfaction)
         {
             RectangleShape rec = new RectangleShape();
             rec.FillColor = new Color(30, 40, 40);
@@ -482,6 +488,7 @@ namespace ProjectStellar
             nbPollution.Style = Text.Styles.Bold;
             nbPollution.Draw(window, RenderStates.Default);
 
+            //Displays Population and check if hovering
             _people.Draw(window, RenderStates.Default);
             if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
@@ -491,6 +498,28 @@ namespace ProjectStellar
                 nbPeople.CharacterSize = 16;
                 nbPeople.Style = Text.Styles.Bold;
                 nbPeople.Draw(window, RenderStates.Default);
+            }
+
+            //Displays Satisfaction and check if hovering
+            if (satisfaction < 0.3f) _satisfaction.Texture = _ctx._uiTextures[12]; //Angry
+            else if (satisfaction > 0.7f)
+            {
+                _satisfaction.Texture = _ctx._uiTextures[14]; //Smile
+                //Console.WriteLine("HAPPY");
+            }
+            else _satisfaction.Texture = _ctx._uiTextures[13]; //Confused
+
+            _satisfaction.Draw(window, RenderStates.Default);
+
+            if (_satisfaction.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                Text textSatisfaction = new Text(satisfaction * 100 + "%", font);
+                //textSatisfaction.Position = new Vector2f(_resolution.X - _boxSize * 2 - 8, _boxSize * 12 + 2);
+                textSatisfaction.Position = new Vector2f(_satisfaction.Position.X + 15, _satisfaction.Position.Y + 64);
+                textSatisfaction.Color = Color.White;
+                textSatisfaction.CharacterSize = 16;
+                textSatisfaction.Style = Text.Styles.Bold;
+                textSatisfaction.Draw(window, RenderStates.Default);
             }
             //window.Draw(rec);
         }
