@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[17];
+        public Texture[] _buildingsTextures = new Texture[20];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
         internal Menu _menu;
@@ -30,6 +30,7 @@ namespace ProjectStellar
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
         internal ResourcesManager _resourcesManager;
+        internal SatisfactionManager _satisfactionManager;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
@@ -78,6 +79,9 @@ namespace ProjectStellar
             _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
             _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
             _buildingsTextures[16] = new Texture("./resources/img/padlock.png");
+            _buildingsTextures[17] = new Texture("./resources/img/shop.png");
+            _buildingsTextures[18] = new Texture("./resources/img/factory.png");
+            _buildingsTextures[19] = new Texture("./resources/img/park.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -125,6 +129,7 @@ namespace ProjectStellar
             Window.SetKeyRepeatEnabled(false);
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view, Window);
             _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this, _view);
+            _satisfactionManager = new SatisfactionManager();
         }
 
         public override void Update(GameTime gameTime)
@@ -140,8 +145,10 @@ namespace ProjectStellar
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
 
-                    _resourcesManager.UpdateResources();
+                    _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
+                    _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
+                    Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
             }
@@ -175,7 +182,8 @@ namespace ProjectStellar
             _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
-            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
+            _satisfactionManager = save.SatisfactionManager;
+            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
         }
 
         internal void StartNewGame()
@@ -188,7 +196,8 @@ namespace ProjectStellar
                 _map = new Map(100, 100);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
-                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
+                _satisfactionManager = new SatisfactionManager();
+                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
             }
         }
 

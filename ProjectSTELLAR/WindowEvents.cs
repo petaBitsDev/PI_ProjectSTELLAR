@@ -152,9 +152,12 @@ namespace ProjectStellar
                 {
                     if (_ui.SettingsSelected)
                     {
+                        _ctx._map.ChosenBuilding = null;
+                        _window.SetMouseCursorVisible(true);
+                        _ui.mouseSprite = null;
                         if (_ui.SelectedItem == 0)
                         {
-                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
                             Save.SaveGame(save, _ctx._name);
                             Console.WriteLine("Saved");
 
@@ -229,7 +232,7 @@ namespace ProjectStellar
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
-                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager);
+                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
                     Save.SaveGame(save, _ctx._name);
                     Console.WriteLine("Saved");
                 }
@@ -259,6 +262,10 @@ namespace ProjectStellar
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
                 {
                     _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+                {
+                    _ctx._resourcesManager.NbResources["nbPeople"] += 500;
                 }
             }
             else if (_ctx.MenuState == 3)

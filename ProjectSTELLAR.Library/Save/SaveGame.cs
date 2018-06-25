@@ -16,14 +16,16 @@ namespace ProjectStellar.Library
         GameTime _gameTime;
         ResourcesManager _resourcesManager;
         ExperienceManager _experienceManager;
+        SatisfactionManager _satisfactionManager;
 
-        public SaveGame(string name, Map map, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
+        public SaveGame(string name, Map map, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfactionManager)
         {
             _name = name;
             _map = map;
             _gameTime = gameTime;
             _resourcesManager = resourcesManager;
             _experienceManager = experienceManager;
+            _satisfactionManager = satisfactionManager;
         }
 
         public string Name => _name;
@@ -39,5 +41,7 @@ namespace ProjectStellar.Library
         public ResourcesManager ResourcesManager => _resourcesManager;
 
         public ExperienceManager ExperienceManager => _experienceManager;
+
+        public SatisfactionManager SatisfactionManager => _satisfactionManager;
     }
 }

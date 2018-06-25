@@ -62,6 +62,10 @@ namespace ProjectStellar
         Sprite _warehouse;
         Sprite _people;
         Sprite _lockSprite;
+        Sprite _shop;
+        Sprite _factory;
+        Sprite _park;
+        Sprite _satisfaction;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
@@ -259,6 +263,11 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 10)
             };
 
+            _satisfaction = new Sprite(_ctx._uiTextures[12])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 19 - 15)
+            };
+
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
@@ -314,6 +323,11 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
             };
 
+            _park = new Sprite(_ctx._buildingsTextures[19])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2 + 64)
+            };
+
             //RESOURCES BUILDINGS
             _powerPlant = new Sprite(_ctx._buildingsTextures[4])
             {
@@ -340,27 +354,43 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
             };
 
+            _shop = new Sprite(_ctx._buildingsTextures[17])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2 + 64)
+            };
+
+            _factory = new Sprite(_ctx._buildingsTextures[18])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2 + 64)
+            };
+
             _lockSprite = new Sprite(_ctx._buildingsTextures[16])
             {
                 Scale = new Vector2f(0.5f, 0.5f)
             };
 
+            // habitations
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
             _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
 
+            // publique
             _tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
             _tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
             _tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
             _tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
             _tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
             _tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+            _tab2Sprite.Add(_park, _mapCtx.BuildingTypes[16]);
 
+            // ressources
             _tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
             _tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
             _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+            _tab3Sprite.Add(_shop, _mapCtx.BuildingTypes[15]);
+            _tab3Sprite.Add(_factory, _mapCtx.BuildingTypes[14]);
 
             _mouseSprite = new Sprite();
         }
@@ -390,7 +420,7 @@ namespace ProjectStellar
         /// Draws the resources bar.
         /// </summary>
         /// <param name="window">The window.</param>
-        public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources)
+        public void DrawResourcesBar(RenderWindow window, Font font, Dictionary<string, int> resources, float satisfaction)
         {
             RectangleShape rec = new RectangleShape();
             rec.FillColor = new Color(30, 40, 40);
@@ -458,6 +488,7 @@ namespace ProjectStellar
             nbPollution.Style = Text.Styles.Bold;
             nbPollution.Draw(window, RenderStates.Default);
 
+            //Displays Population and check if hovering
             _people.Draw(window, RenderStates.Default);
             if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
@@ -467,6 +498,28 @@ namespace ProjectStellar
                 nbPeople.CharacterSize = 16;
                 nbPeople.Style = Text.Styles.Bold;
                 nbPeople.Draw(window, RenderStates.Default);
+            }
+
+            //Displays Satisfaction and check if hovering
+            if (satisfaction < 0.3f) _satisfaction.Texture = _ctx._uiTextures[12]; //Angry
+            else if (satisfaction > 0.7f)
+            {
+                _satisfaction.Texture = _ctx._uiTextures[14]; //Smile
+                //Console.WriteLine("HAPPY");
+            }
+            else _satisfaction.Texture = _ctx._uiTextures[13]; //Confused
+
+            _satisfaction.Draw(window, RenderStates.Default);
+
+            if (_satisfaction.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                Text textSatisfaction = new Text(satisfaction * 100 + "%", font);
+                //textSatisfaction.Position = new Vector2f(_resolution.X - _boxSize * 2 - 8, _boxSize * 12 + 2);
+                textSatisfaction.Position = new Vector2f(_satisfaction.Position.X + 15, _satisfaction.Position.Y + 64);
+                textSatisfaction.Color = Color.White;
+                textSatisfaction.CharacterSize = 16;
+                textSatisfaction.Style = Text.Styles.Bold;
+                textSatisfaction.Draw(window, RenderStates.Default);
             }
             //window.Draw(rec);
         }
@@ -707,6 +760,9 @@ namespace ProjectStellar
             _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+            _buildingTypeSprites.Add(_shop, _mapCtx.BuildingTypes[15]);
+            _buildingTypeSprites.Add(_factory, _mapCtx.BuildingTypes[14]);
+            _buildingTypeSprites.Add(_park, _mapCtx.BuildingTypes[16]);
 
             if (IsTab1Active == true)
             {
@@ -747,12 +803,15 @@ namespace ProjectStellar
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[13].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 64, 64);
 
+                _drawUIctx.RenderSprite(_park, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+
                 _sprites.Add(_cityHall, "CITY HALL");
                 _sprites.Add(_fireStation, "FIRE STATION");
                 _sprites.Add(_hospital, "HOSPITAL");
                 _sprites.Add(_police, "POLICE DEPARTMENT");
                 _sprites.Add(_spaceStation, "SPACE STATION");
                 _sprites.Add(_warehouse, "WAREHOUSE");
+                _sprites.Add(_park, "PARK");
             }
             else if (IsTab3Active)
             {
@@ -776,11 +835,17 @@ namespace ProjectStellar
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[10].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 64, 64);
 
+                _drawUIctx.RenderSprite(_shop, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+
+                _drawUIctx.RenderSprite(_factory, window, _resolution.X - _boxSize * 8, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+
                 _sprites.Add(_sawMill, "SAWMILL");
                 _sprites.Add(_oreMine, "ORE MINE");
                 _sprites.Add(_metalMine, "METAL MINE");
                 _sprites.Add(_powerPlant, "POWER PLANT");
                 _sprites.Add(_pumpingStation, "PUMPING STATION");
+                _sprites.Add(_shop, "SHOP");
+                _sprites.Add(_factory, "FACTORY");
             }
 
             foreach (Sprite sprite in _sprites.Keys)
