@@ -220,13 +220,22 @@ namespace ProjectStellar
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
-                        if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
-                            _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
                         if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
                         {
                             _ctx.ChosenBuilding = null;
                             window.SetMouseCursorVisible(true);
                             _ui.mouseSprite = null;
+                        }
+                        else if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
+                        {
+                            _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
+
+                            if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
+                            {
+                                _ctx.ChosenBuilding = null;
+                                window.SetMouseCursorVisible(true);
+                                _ui.mouseSprite = null;
+                            }
                         }
                     }
                     else if (_ui.DestroySelected && building != null)
