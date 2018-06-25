@@ -19,7 +19,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[17];
-        public Texture[] _uiTextures = new Texture[26];
+        public Texture[] _uiTextures = new Texture[33];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -105,6 +105,13 @@ namespace ProjectStellar
             _uiTextures[23] = new Texture("./resources/img/users.png");
             _uiTextures[24] = new Texture("./resources/img/send.png");
             _uiTextures[25] = new Texture("./resources/img/sendActif.png");
+            _uiTextures[26] = new Texture("./resources/img/metalchoice.png");
+            _uiTextures[27] = new Texture("./resources/img/metalchosen.png");
+            _uiTextures[28] = new Texture("./resources/img/woodchoice.png");
+            _uiTextures[29] = new Texture("./resources/img/woodchosen.png");
+            _uiTextures[30] = new Texture("./resources/img/rockchoice.png");
+            _uiTextures[31] = new Texture("./resources/img/rockchosen.png");
+            _uiTextures[32] = new Texture("./resources/img/check.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }

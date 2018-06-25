@@ -22,6 +22,8 @@ namespace ProjectStellar
         ExperienceManager _experienceManager;
 
         List<BuildingType> _buildingList;
+        List<Sprite> _spriteMenu = new List<Sprite>();
+        List<Sprite> _spriteMenuActif = new List<Sprite>();
         Dictionary<Sprite, String> _sprites;
         Dictionary<Sprite, BuildingType> _buildingTypeSprites;
         Dictionary<Sprite, BuildingType> _tab1Sprite;
@@ -62,6 +64,7 @@ namespace ProjectStellar
         Sprite _warehouse;
         Sprite _people;
         Sprite _lockSprite;
+        Sprite _chosenResource;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
@@ -91,12 +94,9 @@ namespace ProjectStellar
         int _selectedIndex;
         bool _hovering;
         private bool _menuON;
-        bool _tab1;
-        bool _tab2;
-        bool _tab3;
-        bool _tab4;
         List<bool> _tab;
         int _tabActif;
+        int choiceMade;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
@@ -1266,7 +1266,39 @@ namespace ProjectStellar
                 tabs[TabActive].Draw(window, RenderStates.Default);
                 texts[TabActive].Draw(window, RenderStates.Default);
 
+                Sprite validation = new Sprite(_ctx._uiTextures[32]);
                 Sprite send = _sendButton;
+                Sprite wood = new Sprite(_ctx._uiTextures[28]);
+                wood.Position = new Vector2f(rec.Position.X + _boxSize, rec.Position.Y + _boxSize * 2);
+                _spriteMenu.Add(wood);
+                Sprite woodChosen = new Sprite(_ctx._uiTextures[29]);
+                woodChosen.Position = new Vector2f(rec.Position.X + _boxSize, rec.Position.Y + _boxSize * 2);
+                _spriteMenuActif.Add(woodChosen);
+                Sprite metal = new Sprite(_ctx._uiTextures[26]);
+                metal.Position = new Vector2f(rec.Position.X + _boxSize * 4, rec.Position.Y + _boxSize * 2);
+                _spriteMenu.Add(metal);
+                Sprite metalChosen = new Sprite(_ctx._uiTextures[27]);
+                metalChosen.Position = new Vector2f(rec.Position.X + _boxSize * 4, rec.Position.Y + _boxSize * 2);
+                _spriteMenuActif.Add(metalChosen);
+                Sprite rock = new Sprite(_ctx._uiTextures[30]);
+                rock.Position = new Vector2f(rec.Position.X + _boxSize * 7, rec.Position.Y + _boxSize * 2);
+                _spriteMenu.Add(rock);
+                Sprite rockChosen = new Sprite(_ctx._uiTextures[31]);
+                rockChosen.Position = new Vector2f(rec.Position.X + _boxSize * 7, rec.Position.Y + _boxSize * 2);
+                _spriteMenuActif.Add(rockChosen);
+
+                for(int i = 0; i < _spriteMenu.Count; i++)
+                {
+                    _spriteMenu[i].Draw(window, RenderStates.Default);
+                    if(_spriteMenu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    {
+                        if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        {
+                            choiceMade = i;
+                        }
+                    }
+                }
+                _spriteMenuActif[choiceMade].Draw(window, RenderStates.Default);
 
                 for (int i = 0; i < building.Type.List.Count; i++)
                 {
