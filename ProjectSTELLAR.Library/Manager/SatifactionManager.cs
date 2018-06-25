@@ -25,6 +25,8 @@ namespace ProjectStellar.Library
             else _satisfaction += 0.001f;
             if (resources["pollution"] > 200) _satisfaction = _satisfaction - (resources["pollution"] - 200 * 0.001f);
             else _satisfaction += 0.001f;
+            if (resources["products"] < 0) _satisfaction = _satisfaction - (resources["products"] * -0.001f);
+            else _satisfaction += 0.001f;
 
             if (level >= 5)
             {
