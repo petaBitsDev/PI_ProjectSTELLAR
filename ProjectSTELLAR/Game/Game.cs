@@ -18,7 +18,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[17];
+        public Texture[] _buildingsTextures = new Texture[20];
         public Texture[] _uiTextures = new Texture[24];
         int _state;
         internal Menu _menu;
@@ -79,6 +79,9 @@ namespace ProjectStellar
             _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
             _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
             _buildingsTextures[16] = new Texture("./resources/img/padlock.png");
+            _buildingsTextures[17] = new Texture("./resources/img/shop.png");
+            _buildingsTextures[18] = new Texture("./resources/img/factory.png");
+            _buildingsTextures[19] = new Texture("./resources/img/park.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -145,6 +148,7 @@ namespace ProjectStellar
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
+                    Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
             }

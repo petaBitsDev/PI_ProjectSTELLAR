@@ -26,6 +26,7 @@ namespace ProjectStellar.Library
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
+            _nbResources.Add("products", 0);
             _maxPopulation = 0;
         }
 
@@ -37,8 +38,9 @@ namespace ProjectStellar.Library
             _nbResources["rock"] -= building.Rock;
             _nbResources["metal"] -= building.Metal;
             _nbResources["coins"] -= building.Coin;
-            _nbResources["pollution"] -= building.Pollution;
-            if(Equals(building, _ctx.BuildingTypes[10]))
+            _nbResources["pollution"] += building.Pollution;
+            if (_nbResources["pollution"] < 0) _nbResources["pollution"] = 0;
+            if (Equals(building, _ctx.BuildingTypes[10]))
             {
                 PumpingStationType pumpingStation = (PumpingStationType)building;
                 _nbResources["water"] += pumpingStation.WaterProduction;
@@ -57,6 +59,16 @@ namespace ProjectStellar.Library
             {
                 _nbResources["electricity"] -= building.Electricity;
             }
+
+            if(Equals(building, _ctx.BuildingTypes[14]))
+            {
+                _nbResources["products"] += building.ProductsProduction;
+            }
+            else if (Equals(building, _ctx.BuildingTypes[15]))
+            {
+                _nbResources["products"] -= building.ProductsConsumption;
+            }
+
             _nbResources["cost"] += building.Cost;
 
             if (building.Type == "habitation") _maxPopulation += building.NbPeople;

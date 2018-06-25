@@ -36,7 +36,10 @@ namespace ProjectStellar.Library
               /* 10*/ new PumpingStationType(),
               /* 11*/ new SawmillType(),
               /* 12*/ new SpaceStationType(),
-              /* 13*/ new WarehouseType()
+              /* 13*/ new WarehouseType(),
+              /* 14*/ new FactoryType(),
+              /* 15*/ new ShopType(),
+              /* 16*/ new ParkType()
             };
         }
 

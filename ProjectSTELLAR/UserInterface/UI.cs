@@ -62,6 +62,9 @@ namespace ProjectStellar
         Sprite _warehouse;
         Sprite _people;
         Sprite _lockSprite;
+        Sprite _shop;
+        Sprite _factory;
+        Sprite _park;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
@@ -314,6 +317,11 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2)
             };
 
+            _park = new Sprite(_ctx._buildingsTextures[19])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2 + 64)
+            };
+
             //RESOURCES BUILDINGS
             _powerPlant = new Sprite(_ctx._buildingsTextures[4])
             {
@@ -340,27 +348,43 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 2, _resolution.Y / 2)
             };
 
+            _shop = new Sprite(_ctx._buildingsTextures[17])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 10, _resolution.Y / 2 + 64)
+            };
+
+            _factory = new Sprite(_ctx._buildingsTextures[18])
+            {
+                Position = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y / 2 + 64)
+            };
+
             _lockSprite = new Sprite(_ctx._buildingsTextures[16])
             {
                 Scale = new Vector2f(0.5f, 0.5f)
             };
 
+            // habitations
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
             _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
 
+            // publique
             _tab2Sprite.Add(_cityHall, _mapCtx.BuildingTypes[0]);
             _tab2Sprite.Add(_fireStation, _mapCtx.BuildingTypes[1]);
             _tab2Sprite.Add(_hospital, _mapCtx.BuildingTypes[3]);
             _tab2Sprite.Add(_police, _mapCtx.BuildingTypes[8]);
             _tab2Sprite.Add(_spaceStation, _mapCtx.BuildingTypes[12]);
             _tab2Sprite.Add(_warehouse, _mapCtx.BuildingTypes[13]);
+            _tab2Sprite.Add(_park, _mapCtx.BuildingTypes[16]);
 
+            // ressources
             _tab3Sprite.Add(_sawMill, _mapCtx.BuildingTypes[11]);
             _tab3Sprite.Add(_oreMine, _mapCtx.BuildingTypes[7]);
             _tab3Sprite.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _tab3Sprite.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _tab3Sprite.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+            _tab3Sprite.Add(_shop, _mapCtx.BuildingTypes[15]);
+            _tab3Sprite.Add(_factory, _mapCtx.BuildingTypes[14]);
 
             _mouseSprite = new Sprite();
         }
@@ -707,6 +731,9 @@ namespace ProjectStellar
             _buildingTypeSprites.Add(_powerPlant, _mapCtx.BuildingTypes[9]);
             _buildingTypeSprites.Add(_metalMine, _mapCtx.BuildingTypes[6]);
             _buildingTypeSprites.Add(_pumpingStation, _mapCtx.BuildingTypes[10]);
+            _buildingTypeSprites.Add(_shop, _mapCtx.BuildingTypes[15]);
+            _buildingTypeSprites.Add(_factory, _mapCtx.BuildingTypes[14]);
+            _buildingTypeSprites.Add(_park, _mapCtx.BuildingTypes[16]);
 
             if (IsTab1Active == true)
             {
@@ -747,12 +774,15 @@ namespace ProjectStellar
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[13].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 64, 64);
 
+                _drawUIctx.RenderSprite(_park, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+
                 _sprites.Add(_cityHall, "CITY HALL");
                 _sprites.Add(_fireStation, "FIRE STATION");
                 _sprites.Add(_hospital, "HOSPITAL");
                 _sprites.Add(_police, "POLICE DEPARTMENT");
                 _sprites.Add(_spaceStation, "SPACE STATION");
                 _sprites.Add(_warehouse, "WAREHOUSE");
+                _sprites.Add(_park, "PARK");
             }
             else if (IsTab3Active)
             {
@@ -776,11 +806,17 @@ namespace ProjectStellar
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[10].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 64, 64);
 
+                _drawUIctx.RenderSprite(_shop, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+
+                _drawUIctx.RenderSprite(_factory, window, _resolution.X - _boxSize * 8, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+
                 _sprites.Add(_sawMill, "SAWMILL");
                 _sprites.Add(_oreMine, "ORE MINE");
                 _sprites.Add(_metalMine, "METAL MINE");
                 _sprites.Add(_powerPlant, "POWER PLANT");
                 _sprites.Add(_pumpingStation, "PUMPING STATION");
+                _sprites.Add(_shop, "SHOP");
+                _sprites.Add(_factory, "FACTORY");
             }
 
             foreach (Sprite sprite in _sprites.Keys)

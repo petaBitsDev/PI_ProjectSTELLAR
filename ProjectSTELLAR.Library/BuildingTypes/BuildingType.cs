@@ -36,6 +36,7 @@ namespace ProjectStellar.Library
         public abstract List<Building> List { get; }
         public abstract int UnlockingLevel { get; }
         public abstract int NbBuilding { get;}
+        public virtual int ProductsProduction => 0;
+        public virtual int ProductsConsumption => 0;
     }
-
 }
