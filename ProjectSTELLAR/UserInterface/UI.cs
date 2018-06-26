@@ -38,6 +38,9 @@ namespace ProjectStellar
         Sprite _woodSprite;
         Sprite _pollutionSprite;
         Sprite _buildButton;
+        RectangleShape _habitationTab;
+        RectangleShape _publicTab;
+        RectangleShape _ressourcesTab;
         Sprite _destroyButton;
         Sprite _flatSprite;
         Sprite _hutSprite;
@@ -79,6 +82,9 @@ namespace ProjectStellar
         uint _height;
         uint _boxSize = 32;
         private bool _buildSelected;
+        private bool _habitationTabSelected;
+        private bool _publicTabSelected;
+        private bool _ressourcesTabSelected;
         private bool _destroySelected;
         private bool _tab1Selected;
         private bool _tab2Selected;
@@ -141,10 +147,10 @@ namespace ProjectStellar
             };
 
             //UI BUTTONS
-            _buildButton = new Sprite(_ctx._uiTextures[3])
-            {
-                Position = new Vector2f(_resolution.X - _boxSize * 3, _resolution.Y / 2 + _boxSize * 2)
-            };
+            //_buildButton = new Sprite(_ctx._uiTextures[3])
+            //{
+            //    Position = new Vector2f(_resolution.X - _boxSize * 3, _resolution.Y / 2 + _boxSize * 2)
+            //};
 
             _destroyButton = new Sprite(_ctx._uiTextures[20])
             {
@@ -595,12 +601,37 @@ namespace ProjectStellar
 
         public bool CheckBuildSelected(RenderWindow window)
         {
-            if (_buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            if (_buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y) && _buildSelected == false)
             {
                 _buildSelected = true;
                 _destroySelected = false;
-                //window.SetMouseCursorVisible(false);
                 return true;
+            } else if (_buildButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y) && _buildSelected == true)
+            {
+                _buildSelected = false;
+            }
+            return false;
+        }
+
+        public bool CheckTabSelected(RenderWindow window)
+        {
+            if (_habitationTab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                _habitationTabSelected = true;
+                _publicTabSelected = false;
+                _ressourcesTabSelected = false;
+            }
+            else if (_publicTab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                _publicTabSelected = true;
+                _habitationTabSelected = false;
+                _ressourcesTabSelected = false;
+            }
+            else if (_ressourcesTab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                _publicTabSelected = false;
+                _habitationTabSelected = false;
+                _ressourcesTabSelected = true;
             }
             return false;
         }
@@ -1116,53 +1147,305 @@ namespace ProjectStellar
             set { _mouseSprite = value; }
         }
 
-        public void DrawCircle(RenderWindow window)
-        {   // BACKGROUND //
-            CircleShape backgroundRemoveCircle = new CircleShape(40);
-            backgroundRemoveCircle.FillColor = new Color(Color.White);
-            backgroundRemoveCircle.Position = new Vector2f(-10, _resolution.Y - (5 * 25) - 75 -15);
+        public void DrawBuildingList(RenderWindow window, Font font)
+        {
+            RectangleShape backgroundListMenu = new RectangleShape
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                Size = new Vector2f(_resolution.X, 70 * 2),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0, _resolution.Y - 2 * 50 - 50 - 20)
+            };
 
+            _habitationTab = new RectangleShape
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                Size = new Vector2f(300,120/3),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20)
+            };
+
+            Text text = new Text("Habitation", font)
+            {
+                Color = new Color(Color.Black),
+                CharacterSize = 20,
+                Position = new Vector2f(150, _resolution.Y - 2 * 50 - 50 - 20 + 5),
+                Style = Text.Styles.Bold
+            };
+
+            _publicTab = new RectangleShape
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                Size = new Vector2f(300, 120 / 3),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20 + 120 /3 )
+            };
+
+              Text text2 = new Text("Public", font)
+            {
+                Color = new Color(Color.Black),
+                CharacterSize = 20,
+                Position = new Vector2f(150, _resolution.Y - 2 * 50 - 50 - 20 + 120 / 3 + 5),
+                Style = Text.Styles.Bold
+            };
+
+            _ressourcesTab = new RectangleShape
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                Size = new Vector2f(300, 120 / 3),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20 +( 120 / 3)*2)
+            };
+
+            Text text3 = new Text("Ressources", font)
+            {
+                Color = new Color(Color.Black),
+                CharacterSize = 20,
+                Position = new Vector2f(150, _resolution.Y - 2 * 50 - 50 - 20 + (120 / 3) * 2 + 5),
+                Style = Text.Styles.Bold
+            };
+
+            if (_buildSelected == true)
+            {
+                if (_habitationTab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _habitationTab.FillColor = new Color(Color.Yellow);
+                } else if (_publicTab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                   _publicTab.FillColor = new Color(Color.Yellow);
+                } else if (_ressourcesTab.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    _ressourcesTab.FillColor = new Color(Color.Yellow);
+                }
+
+                if (_habitationTabSelected == true)
+                {
+                    backgroundListMenu.FillColor = new Color(Color.Cyan);
+                }
+                else if (_publicTabSelected == true)
+                {
+                    backgroundListMenu.FillColor = new Color(Color.Red);
+                }
+                else if (_ressourcesTabSelected == true)
+                {
+                    backgroundListMenu.FillColor = new Color(Color.Green);
+                }
+
+                window.Draw(backgroundListMenu);
+                window.Draw(_habitationTab);
+                window.Draw(_publicTab);
+                window.Draw(_ressourcesTab);
+
+                window.Draw(text);
+                window.Draw(text2);
+                window.Draw(text3);
+            }
+        }
+
+        public void BuildingTabList(RenderWindow window, Font font)
+        {
+            //HABITATION
+            _flatSprite = new Sprite(_ctx._buildingsTextures[2])
+            {
+                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45)
+            };
+
+            _hutSprite = new Sprite(_ctx._buildingsTextures[1])
+            {
+                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _houseSprite = new Sprite(_ctx._buildingsTextures[3])
+            {
+                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+
+            };
+
+            //PUBLIC
+            _cityHall = new Sprite(_ctx._buildingsTextures[6])
+            {
+                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _fireStation = new Sprite(_ctx._buildingsTextures[8])
+            {
+                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _hospital = new Sprite(_ctx._buildingsTextures[9])
+            {
+                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _police = new Sprite(_ctx._buildingsTextures[10])
+            {
+                Position = new Vector2f(600, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _warehouse = new Sprite(_ctx._buildingsTextures[15])
+            {
+                Position = new Vector2f(700, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _spaceStation = new Sprite(_ctx._buildingsTextures[11])
+            {
+                Position = new Vector2f(800, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            //RESSOURCES
+
+            _powerPlant = new Sprite(_ctx._buildingsTextures[4])
+            {
+                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
+            {
+                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _sawMill = new Sprite(_ctx._buildingsTextures[12])
+            {
+                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _oreMine = new Sprite(_ctx._buildingsTextures[13])
+            {
+                Position = new Vector2f(600, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            _metalMine = new Sprite(_ctx._buildingsTextures[14])
+            {
+                Position = new Vector2f(700, _resolution.Y - 2 * 50 - 45),
+                Scale = new Vector2f(2f, 2f)
+            };
+
+            if (_buildSelected == true)
+            {
+                if (_habitationTabSelected == true)
+                {
+                    _flatSprite.Draw(window, RenderStates.Default);
+                    _hutSprite.Draw(window, RenderStates.Default);
+                    _houseSprite.Draw(window, RenderStates.Default);
+                }
+                else if (_publicTabSelected == true)
+                {
+                    _cityHall.Draw(window, RenderStates.Default);
+                    _fireStation.Draw(window, RenderStates.Default);
+                    _hospital.Draw(window, RenderStates.Default);
+                    _police.Draw(window, RenderStates.Default);
+                    _warehouse.Draw(window, RenderStates.Default);
+                    _spaceStation.Draw(window, RenderStates.Default);
+                }
+                else if (_ressourcesTabSelected == true)
+                {
+                    _powerPlant.Draw(window, RenderStates.Default);
+                    _pumpingStation.Draw(window, RenderStates.Default);
+                    _sawMill.Draw(window, RenderStates.Default);
+                    _oreMine.Draw(window, RenderStates.Default);
+                    _metalMine.Draw(window, RenderStates.Default);
+                }
+            }
+        }
+
+        public void BackgroundMenuBar(RenderWindow window)
+        {
+            CircleShape backgroundRemoveCircle = new CircleShape(40)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(-10, _resolution.Y - (5 * 25) - 75 - 15)
+            };
+
+            RectangleShape bottomBackgroundRectangle = new RectangleShape
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                Size = new Vector2f(_resolution.X - 25, 90),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0, _resolution.Y - 2 * 15 - 20)
+            };
+
+            CircleShape backgroundBuildCircle = new CircleShape(70)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20)
+            };
+
+            RectangleShape leftBackgroundRectangle = new RectangleShape
+            {
+                Size = new Vector2f(30, 200),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0, _resolution.Y - (5 * 25) - 75 - 15)
+            };
+
+            RectangleShape leftBackgroundRectangle2 = new RectangleShape
+            {
+                Size = new Vector2f(70, 200),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0, _resolution.Y - 2 * 50 - 50 - 21)
+            };
+
+            CircleShape rightBackgroundCircle = new CircleShape(25)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(_resolution.X - 50, _resolution.Y - 50)
+            };
+
+            RectangleShape rightBackgroundRectangle = new RectangleShape
+            {
+                Size = new Vector2f(_resolution.X, 50),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0, _resolution.Y - 2 * 15)
+            };
+
+            RectangleShape rightBackgroundRectangle2 = new RectangleShape
+            {
+                Size = new Vector2f(_resolution.X - 25, 90),
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0, _resolution.Y - 2 * 15 - 20)
+            };
+            
             backgroundRemoveCircle.Draw(window, RenderStates.Default);
-
-            CircleShape backgroundBuildCircle = new CircleShape(70);
-            backgroundBuildCircle.FillColor = new Color(Color.White);
-            backgroundBuildCircle.Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20);
-
-            backgroundBuildCircle.Draw(window, RenderStates.Default);
-
-            RectangleShape leftBackgroundRectangle = new RectangleShape();
-            leftBackgroundRectangle.Size = new Vector2f(30, 200);
-            leftBackgroundRectangle.FillColor = new Color(Color.White);
-            leftBackgroundRectangle.Position = new Vector2f(0, _resolution.Y - (5 * 25) - 75 - 15);
-
-            leftBackgroundRectangle.Draw(window, RenderStates.Default);
-
-            RectangleShape bottomBackgroundRectangle = new RectangleShape();
-            bottomBackgroundRectangle.Size = new Vector2f(_resolution.X - 25, 90);
-            bottomBackgroundRectangle.FillColor = new Color(Color.White);
-            bottomBackgroundRectangle.Position = new Vector2f(0, _resolution.Y - 2 * 15 - 20);
-
             bottomBackgroundRectangle.Draw(window, RenderStates.Default);
-
-            CircleShape rightBackgroundCircle = new CircleShape(25);
-            rightBackgroundCircle.FillColor = new Color(Color.White);
-            rightBackgroundCircle.Position = new Vector2f(_resolution.X-50, _resolution.Y-50);
-
+            backgroundBuildCircle.Draw(window, RenderStates.Default);
+            leftBackgroundRectangle.Draw(window, RenderStates.Default);
+            leftBackgroundRectangle2.Draw(window, RenderStates.Default);
             rightBackgroundCircle.Draw(window, RenderStates.Default);
-
-            RectangleShape rightBackgroundRectangle = new RectangleShape();
-            rightBackgroundRectangle.Size = new Vector2f(_resolution.X, 50);
-            rightBackgroundRectangle.FillColor = new Color(Color.White);
-            rightBackgroundRectangle.Position = new Vector2f(0, _resolution.Y - 2 * 15);
-
             rightBackgroundRectangle.Draw(window, RenderStates.Default);
-            // END BACKGROUND //
+            rightBackgroundRectangle2.Draw(window, RenderStates.Default);
+        }
 
-            CircleShape buildCircle = new CircleShape(50);
-            buildCircle.OutlineColor = new Color(Color.Black);
-            buildCircle.OutlineThickness = 1.0f;
-            buildCircle.FillColor = new Color(Color.Blue);
-            buildCircle.Position = new Vector2f(15, _resolution.Y - 2*50 - 50);
+        public void MenuBar(RenderWindow window, GameTime gameTime, Font font)
+        {
+            CircleShape buildCircle = new CircleShape(50)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.Blue),
+                Position = new Vector2f(15, _resolution.Y - 2 * 50 - 50)
+            };
 
             buildCircle.Draw(window, RenderStates.Default);
 
@@ -1173,94 +1456,124 @@ namespace ProjectStellar
 
             _buildButton.Draw(window, RenderStates.Default);
 
-            CircleShape removeCircle = new CircleShape(25);
-            removeCircle.OutlineColor = new Color(Color.Black);
-            removeCircle.OutlineThickness = 1.0f;
-            removeCircle.FillColor = new Color(Color.Green);
-            removeCircle.Position = new Vector2f(5, _resolution.Y - (5*25) - 75);
-            
+            CircleShape removeCircle = new CircleShape(25)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.Green),
+                Position = new Vector2f(5, _resolution.Y - (5 * 25) - 75)
+            };
+
             removeCircle.Draw(window, RenderStates.Default);
 
             _destroyButton = new Sprite(_ctx._uiTextures[20])
             {
                 Position = new Vector2f(25-32/4, _resolution.Y - (5 * 25) - 32*2),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Scale = new Vector2f(0.43f, 0.43f)
             };
 
             _destroyButton.Draw(window, RenderStates.Default);
 
-            CircleShape timeCircleLeft = new CircleShape(15);
-            timeCircleLeft.OutlineColor = new Color(Color.Black);
-            timeCircleLeft.OutlineThickness = 1.0f;
-            timeCircleLeft.FillColor = new Color(Color.White);
-            timeCircleLeft.Position = new Vector2f(0 + 5, _resolution.Y - 2*15 -10);
+            CircleShape timeCircleLeft = new CircleShape(15)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(0 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             timeCircleLeft.Draw(window, RenderStates.Default);
 
-            CircleShape timeCircleRight = new CircleShape(15);
-            timeCircleRight.OutlineColor = new Color(Color.Black);
-            timeCircleRight.OutlineThickness = 1.0f;
-            timeCircleRight.FillColor = new Color(Color.White);
-            timeCircleRight.Position = new Vector2f(105 + 5, _resolution.Y - 2 * 15 - 10);
+            CircleShape timeCircleRight = new CircleShape(15)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(105 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             timeCircleRight.Draw(window, RenderStates.Default);
 
-            RectangleShape timeRectangle = new RectangleShape();
-            timeRectangle.Size = new Vector2f(105, 30);
-            timeRectangle.OutlineColor = new Color(Color.Black);
-            timeRectangle.OutlineThickness = 1.0f;
-            timeRectangle.FillColor = new Color(Color.White);
-            timeRectangle.Position = new Vector2f(15 + 5, _resolution.Y - 2 * 15 - 10);
+            RectangleShape timeRectangle = new RectangleShape
+            {
+                Size = new Vector2f(105, 30),
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(15 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             timeRectangle.Draw(window, RenderStates.Default);
 
-            CircleShape moneyCircleLeft = new CircleShape(15);
-            moneyCircleLeft.OutlineColor = new Color(Color.Black);
-            moneyCircleLeft.OutlineThickness = 1.0f;
-            moneyCircleLeft.FillColor = new Color(Color.White);
-            moneyCircleLeft.Position = new Vector2f(150 + 5, _resolution.Y - 2 * 15 - 10);
+            Text Time = new Text(gameTime.InGameTime.ToString("HH:mm"), font)
+            {
+                Position = new Vector2f(15 + 30, _resolution.Y - 2 * 15 - 10),
+                Color = Color.Black,
+                CharacterSize = 23,
+                Style = Text.Styles.Bold
+            };
+
+            Time.Draw(window, RenderStates.Default);
+
+            CircleShape moneyCircleLeft = new CircleShape(15)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(150 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             moneyCircleLeft.Draw(window, RenderStates.Default);
 
-            CircleShape moneyCircleRight = new CircleShape(15);
-            moneyCircleRight.OutlineColor = new Color(Color.Black);
-            moneyCircleRight.OutlineThickness = 1.0f;
-            moneyCircleRight.FillColor = new Color(Color.White);
-            moneyCircleRight.Position = new Vector2f(350 + 5, _resolution.Y - 2 * 15 - 10);
+            CircleShape moneyCircleRight = new CircleShape(15)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(350 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             moneyCircleRight.Draw(window, RenderStates.Default);
 
-            RectangleShape moneyRectangle = new RectangleShape();
-            moneyRectangle.Size = new Vector2f(200, 30);
-            moneyRectangle.OutlineColor = new Color(Color.Black);
-            moneyRectangle.OutlineThickness = 1.0f;
-            moneyRectangle.FillColor = new Color(Color.White);
-            moneyRectangle.Position = new Vector2f(150+ 15 + 5, _resolution.Y - 2 * 15 - 10);
+            RectangleShape moneyRectangle = new RectangleShape
+            {
+                Size = new Vector2f(200, 30),
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(150 + 15 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             moneyRectangle.Draw(window, RenderStates.Default);
 
-            CircleShape resourceCircleLeft = new CircleShape(15);
-            resourceCircleLeft.OutlineColor = new Color(Color.Black);
-            resourceCircleLeft.OutlineThickness = 1.0f;
-            resourceCircleLeft.FillColor = new Color(Color.White);
-            resourceCircleLeft.Position = new Vector2f(350+ 45 + 5, _resolution.Y - 2 * 15 - 10);
+            CircleShape resourceCircleLeft = new CircleShape(15)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(350 + 45 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             resourceCircleLeft.Draw(window, RenderStates.Default);
 
-            CircleShape resourceCircleRight = new CircleShape(15);
-            resourceCircleRight.OutlineColor = new Color(Color.Black);
-            resourceCircleRight.OutlineThickness = 1.0f;
-            resourceCircleRight.FillColor = new Color(Color.White);
-            resourceCircleRight.Position = new Vector2f(350 + 45+ 400 + 5, _resolution.Y - 2 * 15 - 10);
+            CircleShape resourceCircleRight = new CircleShape(15)
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(350 + 45 + 400 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             resourceCircleRight.Draw(window, RenderStates.Default);
 
-            RectangleShape resourceRectangle = new RectangleShape();
-            resourceRectangle.Size = new Vector2f(400, 30);
-            resourceRectangle.OutlineColor = new Color(Color.Black);
-            resourceRectangle.OutlineThickness = 1.0f;
-            resourceRectangle.FillColor = new Color(Color.White);
-            resourceRectangle.Position = new Vector2f(350 + 45 + 15 + 5, _resolution.Y - 2 * 15 - 10);
+            RectangleShape resourceRectangle = new RectangleShape
+            {
+                Size = new Vector2f(400, 30),
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Position = new Vector2f(350 + 45 + 15 + 5, _resolution.Y - 2 * 15 - 10)
+            };
 
             resourceRectangle.Draw(window, RenderStates.Default);
         }

@@ -56,8 +56,10 @@
             "1366 * 768",
             "1920 * 1080",
             "2048 * 1280",
+            "2160 * 1440",
             "2560 * 1440",
-            "3840 * 2160"});
+            "3840 * 2160",
+            "3840 * 2400"});
             this.resolution.Location = new System.Drawing.Point(170, 49);
             this.resolution.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.resolution.Name = "resolution";
