@@ -128,7 +128,7 @@ namespace ProjectStellar
             Window.TextEntered += _windowEvents.TextEntered;
             Window.SetKeyRepeatEnabled(false);
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view, Window);
-            _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this, _view);
+            _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this);
             _satisfactionManager = new SatisfactionManager();
         }
 

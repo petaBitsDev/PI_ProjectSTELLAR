@@ -133,13 +133,27 @@ namespace ProjectStellar
         {
             float delta;
             delta = e.Delta;
-            if (delta < 0)
+            //In Game
+            if (_ctx.MenuState == 1)
             {
-                _view.Zoom(1.06f);
+                if (delta < 0)
+                {
+                    _view.Zoom(1.06f);
+                }
+                else
+                {
+                    _view.Zoom(0.94f);
+                }
             }
-            else
+            //Load Menu
+            else if (_ctx.MenuState == 2)
             {
-                _view.Zoom(0.94f);
+                //Upper
+                if (delta < 0)
+                    _ctx._menuLoadGame.View.Move(new Vector2f(0, 50));
+                //Lower
+                else
+                    _ctx._menuLoadGame.View.Move(new Vector2f(0, -50));
             }
         }
 
@@ -195,7 +209,7 @@ namespace ProjectStellar
             // Menu chargement de sauvegarde
             else if (_ctx.MenuState == 2 && Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-                _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _window);
                 Console.WriteLine("Load");
             }
             // Menu création nouvelle partie
