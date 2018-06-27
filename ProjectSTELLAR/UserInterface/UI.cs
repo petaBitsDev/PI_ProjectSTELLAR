@@ -1017,7 +1017,7 @@ namespace ProjectStellar
                             _mapCtx.ChosenBuilding = building;
                             window.SetMouseCursorVisible(false);
                             _mouseSprite = new Sprite(sprite);
-                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X - 10, Mouse.GetPosition(window).Y - 10);
                             return true;
                         }
                     }

@@ -67,7 +67,7 @@ namespace ProjectStellar
                     _yMax = _mapUI._x2y2.Y;
                     if (!Equals(_ui.MouseSprite, null))
                     {
-                        _ui.MouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                        _ui.MouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X - 10, Mouse.GetPosition(_window).Y - 10);
                     }
                 }
             }
