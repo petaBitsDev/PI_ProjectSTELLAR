@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SFML.Audio;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 using ProjectStellar.Library;
+using System;
 
 namespace ProjectStellar
 {
@@ -170,6 +165,26 @@ namespace ProjectStellar
                     _areResourcesUpdated = true;
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
+
+                for(int i = 0; i < _map.BuildingTypes[12].List.Count; i++)
+                {
+                    for(int j = 0; j < _map.BuildingTypes[12].List[i].ShipList.Count; j++)
+                    {
+                        if(!_map.BuildingTypes[12].List[i].ShipList[j].IsAvailable)
+                        {
+                            if (gameTime.InGameTime <= _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
+                            {
+                                Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
+                                Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
+                                Console.WriteLine("====================================");
+
+                                _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
+                            }
+                            else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
+                                _drawUI.UI.ReturnShip(_map.BuildingTypes[12].List[i].ShipList[j], i, _map.BuildingTypes[12].List[i].ShipList[j].Resource, _map.BuildingTypes[12].List[i].ShipList[j].NbResources, Window);
+                        }
+                    }
+                }                
             }
         }
 

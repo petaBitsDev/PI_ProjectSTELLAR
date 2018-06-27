@@ -32,12 +32,13 @@ namespace ProjectStellar.Library
             _spritePosition = new Vector(_x, _y);
         }
 
-        public virtual void SendShip(ExplorationShips ship, DateTime inGameTime)
+        public virtual void SendShip(ExplorationShips ship, DateTime inGameTime, string resource)
         {
-            DateTime end = inGameTime.AddHours(1.0);
+            DateTime end = inGameTime.AddHours(3.0);
 
-            ship.UndisposedTime = end;
+            ship.Resource = resource;
             ship.IsAvailable = false;
+            ship.UndisposedTime = end;
         }
         
         public abstract Vector SpritePosition { get; set; }

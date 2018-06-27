@@ -21,6 +21,12 @@ namespace ProjectStellar.Library
             _undisposedTime = DateTime.Now;
         }
 
+        public void FetchResource ()
+        {
+            Random n = new Random();
+            this.NbResources += n.Next(1, 3);
+        }
+
         public string Resource
         {
             get { return _resource; }

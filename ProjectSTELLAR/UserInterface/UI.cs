@@ -21,14 +21,17 @@ namespace ProjectStellar
         ResourcesManager _resourcesManager;
         ExperienceManager _experienceManager;
 
-        List<BuildingType> _buildingList;
+        ExplorationShips _ship;
+        DateTime _undisposedTime;
         List<Sprite> _spriteMenu = new List<Sprite>();
         List<Sprite> _spriteMenuActif = new List<Sprite>();
+        RectangleShape[] _availabilities = new RectangleShape[4];
         Dictionary<Sprite, String> _sprites;
         Dictionary<Sprite, BuildingType> _buildingTypeSprites;
         Dictionary<Sprite, BuildingType> _tab1Sprite;
         Dictionary<Sprite, BuildingType> _tab2Sprite;
         Dictionary<Sprite, BuildingType> _tab3Sprite;
+        Building _activeSpaceStation;
         Sprite _spriteSelected;
         Sprite _play;
         Sprite _pause;
@@ -64,7 +67,13 @@ namespace ProjectStellar
         Sprite _warehouse;
         Sprite _people;
         Sprite _lockSprite;
-        Sprite _chosenResource;
+        Sprite validation;
+        Sprite woodChosen;
+        Sprite wood;
+        Sprite metal;
+        Sprite metalChosen;
+        Sprite rock;
+        Sprite rockChosen;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
@@ -96,7 +105,9 @@ namespace ProjectStellar
         private bool _menuON;
         List<bool> _tab;
         int _tabActif;
-        int choiceMade;
+        int _choiceMade;
+        string _resource;
+        bool _sent;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
@@ -280,6 +291,19 @@ namespace ProjectStellar
             _smileSprite = new Sprite(_ctx._uiTextures[14]);
             _confusedSprite = new Sprite(_ctx._uiTextures[13]);
             _navbarSprite = new Sprite(_ctx._uiTextures[15]);
+            validation = new Sprite(_ctx._uiTextures[32]);
+            woodChosen = new Sprite(_ctx._uiTextures[29]);
+            wood = new Sprite(_ctx._uiTextures[28]);
+            metal = new Sprite(_ctx._uiTextures[26]);
+            metalChosen = new Sprite(_ctx._uiTextures[27]);
+            rock = new Sprite(_ctx._uiTextures[30]);
+            rockChosen = new Sprite(_ctx._uiTextures[31]);
+            _spriteMenu.Add(wood);
+            _spriteMenu.Add(metal);
+            _spriteMenu.Add(rock);
+            _spriteMenuActif.Add(woodChosen);
+            _spriteMenuActif.Add(metalChosen);
+            _spriteMenuActif.Add(rockChosen);
 
             //HABITATIONS
             _flatSprite = new Sprite(_ctx._buildingsTextures[2])
@@ -1127,100 +1151,91 @@ namespace ProjectStellar
             }
         }
 
-        public void DrawSpaceStationUI(RenderWindow window, Font font, int posX, int posY, Building building)
+        public void DrawSpaceStationUI(RectangleShape invisibleRec, RenderWindow window, Font font, int posX, int posY, Building building)
         {
-            RectangleShape rec = new RectangleShape();
-            rec.Size = new Vector2f(_boxSize * 12, _boxSize * 6);
-            rec.Position = new Vector2f(building.SpritePosition.Y * 32 - _boxSize * 6, building.SpritePosition.X * 32 - _boxSize * 2);
-            rec.FillColor = new Color(30, 30, 40);
-
-            RectangleShape[] tabs = new RectangleShape[4];
-            RectangleShape tab = new RectangleShape();
-            tab.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab.Position = new Vector2f(rec.Position.X, rec.Position.Y);
-            tabs[0] = tab;
-
-            RectangleShape tab1 = new RectangleShape();
-            tab1.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab1.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y);
-            tabs[1] = tab1;
-
-            RectangleShape tab2 = new RectangleShape();
-            tab2.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab2.Position = new Vector2f(rec.Position.X + _boxSize * 6, rec.Position.Y);
-            tabs[2] = tab2;
-
-            RectangleShape tab3 = new RectangleShape();
-            tab3.Size = new Vector2f(rec.Size.X / 4, _boxSize);
-            tab3.Position = new Vector2f(rec.Position.X + _boxSize * 9, rec.Position.Y);
-            tabs[3] = tab3;
-
-            Text[] texts = new Text[4];
-            Text s = new Text("Ship 1", font);
-            s.CharacterSize = 20;
-            s.Position = new Vector2f(rec.Position.X + 5, rec.Position.Y + 3);
-            s.Color = new Color(30, 30, 40);
-            texts[0] = s;
-
-            Text s1 = new Text("Ship 2", font);
-            s1.CharacterSize = 20;
-            s1.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 3, rec.Position.Y + 3);
-            s1.Color = new Color(30, 30, 40);
-            texts[1] = s1;
-
-            Text s2 = new Text("Ship 3", font);
-            s2.CharacterSize = 20;
-            s2.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 6, rec.Position.Y + 3);
-            s2.Color = new Color(30, 30, 40);
-            texts[2] = s2;
-
-            Text s3 = new Text("Ship 4", font);
-            s3.CharacterSize = 20;
-            s3.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 9, rec.Position.Y + 3);
-            s3.Color = new Color(30, 30, 40);
-            texts[3] = s3;
-
-            RectangleShape[] availabilities = new RectangleShape[4];
-            RectangleShape availability = new RectangleShape();
-            availability.Size = new Vector2f(64, 12);
-            availability.Position = new Vector2f(rec.Position.X + 16, rec.Position.Y + _boxSize + 5);
-            availabilities[0] = availability;
-
-            RectangleShape availability1 = new RectangleShape();
-            availability1.Size = new Vector2f(64, 12);
-            availability1.Position = new Vector2f(rec.Position.X + _boxSize * 3 + 16, rec.Position.Y + _boxSize + 5);
-            availabilities[1] = availability1;
-
-            RectangleShape availability2 = new RectangleShape();
-            availability2.Size = new Vector2f(64, 12);
-            availability2.Position = new Vector2f(rec.Position.X + 16 + _boxSize * 6, rec.Position.Y + _boxSize + 5);
-            availabilities[2] = availability2;
-
-            RectangleShape availability3 = new RectangleShape();
-            availability3.Size = new Vector2f(64, 12);
-            availability3.Position = new Vector2f(rec.Position.X + 16 + _boxSize * 9, rec.Position.Y + _boxSize + 5);
-            availabilities[3] = availability3;
-
-            _sendButton.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y + _boxSize * 5 - 5);
-            _sendActifButton.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y + _boxSize * 5 - 5);
-
-            if (building.Type.Equals(_mapCtx.BuildingTypes[12]))
+            if (_menuON)
             {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    _menuON = true;
-                }
-                if (!rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                RectangleShape rec = new RectangleShape();
+                rec.Size = new Vector2f(_boxSize * 12, _boxSize * 6);
+                rec.Position = new Vector2f(building.SpritePosition.Y * 32 - _boxSize * 6, building.SpritePosition.X * 32 - _boxSize * 2);
+                rec.FillColor = new Color(30, 30, 40);
+                rec.Draw(window, RenderStates.Default);
+
+                if (!invisibleRec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     _menuON = false;
                 }
-            }
 
-            if (_menuON)
-            {
-                rec.Draw(window, RenderStates.Default);
+                RectangleShape[] tabs = new RectangleShape[4];
+                RectangleShape tab = new RectangleShape();
+                tab.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+                tab.Position = new Vector2f(rec.Position.X, rec.Position.Y);
+                tabs[0] = tab;
 
-                for(int i = 0; i < 4; i++)
+                RectangleShape tab1 = new RectangleShape();
+                tab1.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+                tab1.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y);
+                tabs[1] = tab1;
+
+                RectangleShape tab2 = new RectangleShape();
+                tab2.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+                tab2.Position = new Vector2f(rec.Position.X + _boxSize * 6, rec.Position.Y);
+                tabs[2] = tab2;
+
+                RectangleShape tab3 = new RectangleShape();
+                tab3.Size = new Vector2f(rec.Size.X / 4, _boxSize);
+                tab3.Position = new Vector2f(rec.Position.X + _boxSize * 9, rec.Position.Y);
+                tabs[3] = tab3;
+
+                Text[] texts = new Text[4];
+                Text s = new Text("Ship 1", font);
+                s.CharacterSize = 20;
+                s.Position = new Vector2f(rec.Position.X + 5, rec.Position.Y + 3);
+                s.Color = new Color(30, 30, 40);
+                texts[0] = s;
+
+                Text s1 = new Text("Ship 2", font);
+                s1.CharacterSize = 20;
+                s1.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 3, rec.Position.Y + 3);
+                s1.Color = new Color(30, 30, 40);
+                texts[1] = s1;
+
+                Text s2 = new Text("Ship 3", font);
+                s2.CharacterSize = 20;
+                s2.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 6, rec.Position.Y + 3);
+                s2.Color = new Color(30, 30, 40);
+                texts[2] = s2;
+
+                Text s3 = new Text("Ship 4", font);
+                s3.CharacterSize = 20;
+                s3.Position = new Vector2f(rec.Position.X + 5 + _boxSize * 9, rec.Position.Y + 3);
+                s3.Color = new Color(30, 30, 40);
+                texts[3] = s3;
+
+                RectangleShape availability = new RectangleShape();
+                availability.Size = new Vector2f(64, 12);
+                availability.Position = new Vector2f(rec.Position.X + 16, rec.Position.Y + _boxSize + 5);
+                _availabilities[0] = availability;
+
+                RectangleShape availability1 = new RectangleShape();
+                availability1.Size = new Vector2f(64, 12);
+                availability1.Position = new Vector2f(rec.Position.X + _boxSize * 3 + 16, rec.Position.Y + _boxSize + 5);
+                _availabilities[1] = availability1;
+
+                RectangleShape availability2 = new RectangleShape();
+                availability2.Size = new Vector2f(64, 12);
+                availability2.Position = new Vector2f(rec.Position.X + 16 + _boxSize * 6, rec.Position.Y + _boxSize + 5);
+                _availabilities[2] = availability2;
+
+                RectangleShape availability3 = new RectangleShape();
+                availability3.Size = new Vector2f(64, 12);
+                availability3.Position = new Vector2f(rec.Position.X + 16 + _boxSize * 9, rec.Position.Y + _boxSize + 5);
+                _availabilities[3] = availability3;
+
+                _sendButton.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y + _boxSize * 5 - 5);
+                _sendActifButton.Position = new Vector2f(rec.Position.X + _boxSize * 3, rec.Position.Y + _boxSize * 5 - 5);
+
+                for (int i = 0; i < 4; i++)
                 {
                     tabs[i].Draw(window, RenderStates.Default);
                     texts[i].Draw(window, RenderStates.Default);
@@ -1266,66 +1281,67 @@ namespace ProjectStellar
                 tabs[TabActive].Draw(window, RenderStates.Default);
                 texts[TabActive].Draw(window, RenderStates.Default);
 
-                Sprite validation = new Sprite(_ctx._uiTextures[32]);
                 Sprite send = _sendButton;
-                Sprite wood = new Sprite(_ctx._uiTextures[28]);
-                wood.Position = new Vector2f(rec.Position.X + _boxSize, rec.Position.Y + _boxSize * 2);
-                _spriteMenu.Add(wood);
-                Sprite woodChosen = new Sprite(_ctx._uiTextures[29]);
-                woodChosen.Position = new Vector2f(rec.Position.X + _boxSize, rec.Position.Y + _boxSize * 2);
-                _spriteMenuActif.Add(woodChosen);
-                Sprite metal = new Sprite(_ctx._uiTextures[26]);
-                metal.Position = new Vector2f(rec.Position.X + _boxSize * 4, rec.Position.Y + _boxSize * 2);
-                _spriteMenu.Add(metal);
-                Sprite metalChosen = new Sprite(_ctx._uiTextures[27]);
-                metalChosen.Position = new Vector2f(rec.Position.X + _boxSize * 4, rec.Position.Y + _boxSize * 2);
-                _spriteMenuActif.Add(metalChosen);
-                Sprite rock = new Sprite(_ctx._uiTextures[30]);
-                rock.Position = new Vector2f(rec.Position.X + _boxSize * 7, rec.Position.Y + _boxSize * 2);
-                _spriteMenu.Add(rock);
-                Sprite rockChosen = new Sprite(_ctx._uiTextures[31]);
-                rockChosen.Position = new Vector2f(rec.Position.X + _boxSize * 7, rec.Position.Y + _boxSize * 2);
-                _spriteMenuActif.Add(rockChosen);
 
-                for(int i = 0; i < _spriteMenu.Count; i++)
+                wood.Position = new Vector2f(rec.Position.X + _boxSize, rec.Position.Y + _boxSize * 2);
+                woodChosen.Position = new Vector2f(rec.Position.X + _boxSize, rec.Position.Y + _boxSize * 2);
+                metal.Position = new Vector2f(rec.Position.X + _boxSize * 4, rec.Position.Y + _boxSize * 2);
+                metalChosen.Position = new Vector2f(rec.Position.X + _boxSize * 4, rec.Position.Y + _boxSize * 2);
+                rock.Position = new Vector2f(rec.Position.X + _boxSize * 7, rec.Position.Y + _boxSize * 2);
+                rockChosen.Position = new Vector2f(rec.Position.X + _boxSize * 7, rec.Position.Y + _boxSize * 2);
+
+                for (int i = 0; i < _spriteMenu.Count; i++)
                 {
                     _spriteMenu[i].Draw(window, RenderStates.Default);
-                    if(_spriteMenu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                    if(building.ShipList[TabActive].Resource == "")
                     {
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        if(_spriteMenu[i].GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                         {
-                            choiceMade = i;
+                            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                            {
+                                _choiceMade = i;
+                                if (_choiceMade == 0) _resource = "wood";
+                                else if (_choiceMade == 1) _resource = "metal";
+                                else if (_choiceMade == 2) _resource = "rock";
+                            }
                         }
                     }
                 }
-                _spriteMenuActif[choiceMade].Draw(window, RenderStates.Default);
+                _spriteMenuActif[_choiceMade].Draw(window, RenderStates.Default);
 
                 for (int i = 0; i < building.Type.List.Count; i++)
                 {
                     if (Equals(building, building.Type.List[i]))
                     {
                         if (building.Type.List[i].ShipList[TabActive].IsAvailable)
-                            availabilities[TabActive].FillColor = Color.Green;
+                            _availabilities[TabActive].FillColor = Color.Green;
                         else
                         {
-                            availabilities[TabActive].FillColor = Color.Red;
+                            _availabilities[TabActive].FillColor = Color.Red;
                         }
-
-                        availabilities[TabActive].Draw(window, RenderStates.Default);
+                        _availabilities[TabActive].Draw(window, RenderStates.Default);
 
                         if (_sendButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                         {
                             send = _sendActifButton;
                             if (Mouse.IsButtonPressed(Mouse.Button.Left))
                             {
-                                building.Type.List[i].SendShip(building.Type.List[i].ShipList[TabActive], _ctx.GameTime.InGameTime);
-                                _menuON = false;
+                                _sent = true;
+                                _activeSpaceStation = building.Type.List[i];
+                                _undisposedTime = _ctx.GameTime.InGameTime;
+                                _ship = _activeSpaceStation.ShipList[TabActive];
                             }
                         }
                         else send = _sendButton;
                     }
                 }
                 send.Draw(window, RenderStates.Default);
+            }
+            if (_sent)
+            {
+                _activeSpaceStation.SendShip(_ship, _undisposedTime, _resource);
+                _sent = false;
+                _menuON = false;
             }
         }
 
@@ -1345,6 +1361,15 @@ namespace ProjectStellar
         {
             get { return _tabActif; }
             set { _tabActif = value; }
+        }
+
+        public void ReturnShip (ExplorationShips ship, int i, string resource, int nbresource, RenderWindow window)
+        {
+            ship.IsAvailable = true;
+            _resourcesManager.NbResources[resource] += nbresource;
+            ship.Resource = "";
+            _availabilities[i].FillColor = Color.Green;
+            _availabilities[i].Draw(window, RenderStates.Default);
         }
     }
 }

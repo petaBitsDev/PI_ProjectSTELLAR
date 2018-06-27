@@ -57,6 +57,7 @@ namespace ProjectStellar.Library
                 this.ShipList = _shipList;
             }
         }
+        
         public override Vector SpritePosition
         {
             get { return _spritePosition; }

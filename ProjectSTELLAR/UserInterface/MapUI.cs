@@ -37,6 +37,7 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
+        RectangleShape _invisibleRec;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -52,6 +53,7 @@ namespace ProjectStellar
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
             _menuON = false;
+            _invisibleRec = new RectangleShape();
 
             _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
             _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
@@ -163,7 +165,21 @@ namespace ProjectStellar
                     }
                 }
                 if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
-                    _ui.DrawSpaceStationUI(window, font, _cases[a].X, _cases[a].Y, boxes[_cases[a].X, _cases[a].Y]);
+                {
+                    if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
+                    {
+                        CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y);
+                        if (_ui.MenuON)
+                        {
+                            _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
+                            _invisibleRec.FillColor = Color.Green;
+                            _invisibleRec.Position = new Vector2f(boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
+                            _invisibleRec.Draw(window, RenderStates.Default);
+
+                            _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
+                        }
+                    }
+                }
             }
             for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
@@ -178,6 +194,20 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(1.37f, 1.37f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
+        }
+
+        public bool CheckSpaceMenu (Building b, RenderWindow window, int posX, int posY)
+        {
+            if (b.SpritePosition.X == posY / 32 && b.SpritePosition.Y == posX / 32)
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    _ui.MenuON = true;
+                    return true;
+                }
+                return true;
+            }
+            else return false;
         }
 
         public bool Test
