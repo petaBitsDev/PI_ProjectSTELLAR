@@ -19,6 +19,8 @@ namespace ProjectStellar
         Sprite _backButton;
         bool _saveSelected;
         List<FloatRect> _deletes;
+        float _y1;
+        float _y2;
 
         public MenuLoadGame(float width, float height, Game ctx)
         {
@@ -43,7 +45,7 @@ namespace ProjectStellar
 
             window.SetView(_view);
 
-            foreach(SaveGameMetadata metadata in list)
+            foreach (SaveGameMetadata metadata in list)
             {
 
                 RectangleShape rec = new RectangleShape();
@@ -135,7 +137,7 @@ namespace ProjectStellar
                     else if (_deletes[j].Contains(worldPos.X, worldPos.Y))
                     {
                         Save.DeleteSave(metadata.Name);
-                        Console.WriteLine("deleted : " + metadata.Name);
+                        //Console.WriteLine("deleted : " + metadata.Name);
                     }
 
                     i += 4;
@@ -154,19 +156,31 @@ namespace ProjectStellar
         public void SetLoadMenu()
         {
             int nbSaves = Save.List().Count;
-
-            if (1 + 4 * nbSaves < _height)
-                _view = new View(new Vector2f(_width / 2, _height / 2), new Vector2f(_width, _height));
-            else
-                _view = new View(new Vector2f(_width / 2, _height / 2), new Vector2f(_width, 1 + 4 * nbSaves));
+            _y1 = 0;
+            _y2 = 1 * 32 + (4 * 32) * nbSaves;
+            
+            _view = new View(new Vector2f(_width / 2, _height / 2), new Vector2f(_width, _height));
 
             _ctx.MenuState = 2;
         }
 
-        public View View
+        public void Scroll(float delta)
         {
-            get { return _view; }
-            set { _view = value; }
+            //Console.WriteLine("Y1 = {0}\n Y2 = {1}", _y1, _y2);
+            //Up
+            if (delta < 0 && _y2 > _height)
+            {
+                _view.Move(new Vector2f(0, 50));
+                _y1 += -50;
+                _y2 += -50;
+            }
+            //Down
+            else if (delta > 0 && _y1 < 0)
+            {
+                _view.Move(new Vector2f(0, -50));
+                _y1 += 50;
+                _y2 += 50;
+            }
         }
     }
 }

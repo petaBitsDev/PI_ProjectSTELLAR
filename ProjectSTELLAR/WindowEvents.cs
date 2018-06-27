@@ -105,8 +105,6 @@ namespace ProjectStellar
             // Bottom side
             else if (posY == (_resolution.Y - 1))
             {
-                Console.WriteLine("X = {0}, Y = {1}", _view.Viewport.Height, _view.Viewport.Width);
-
                 if (CheckCamera(new Vector2f(0, 50)))
                 {
                     _y1 += 50;
@@ -148,12 +146,7 @@ namespace ProjectStellar
             //Load Menu
             else if (_ctx.MenuState == 2)
             {
-                //Upper
-                if (delta < 0)
-                    _ctx._menuLoadGame.View.Move(new Vector2f(0, 50));
-                //Lower
-                else
-                    _ctx._menuLoadGame.View.Move(new Vector2f(0, -50));
+                _ctx._menuLoadGame.Scroll(delta);
             }
         }
 
@@ -173,7 +166,7 @@ namespace ProjectStellar
                         {
                             SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
                             Save.SaveGame(save, _ctx._name);
-                            Console.WriteLine("Saved");
+                            //Console.WriteLine("Saved");
 
                             _ctx.GameTime.TimeScale = 60f;
                             _ui.SettingsSelected = false;
@@ -248,13 +241,13 @@ namespace ProjectStellar
                 {
                     SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
                     Save.SaveGame(save, _ctx._name);
-                    Console.WriteLine("Saved");
+                    //Console.WriteLine("Saved");
                 }
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.L))
                 {
                     SaveGame save = Save.LoadGame(_ctx._name);
                     _ctx.LoadGame(save);
-                    Console.WriteLine("Loaded");
+                    //Console.WriteLine("Loaded");
                 }
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.T))
                 {
