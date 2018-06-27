@@ -90,7 +90,23 @@ namespace ProjectStellar
             get { return _name; }
             set
             {
-                if (value.Length <= 12) _name = value;
+                bool valid = true;
+                if (value.Length > 12)
+                    return;
+
+                for (int i = 0; i < value.Length; i++)
+                {
+                    if (value[i] < 'a' || value[i] > 'z')
+                    {
+                        if (value[i] < 'A' || value[i] > 'Z')
+                        {
+                            valid = false;
+                        }
+                    }
+                }
+
+                if (valid == true)
+                    _name = value;
             }
         }
 
