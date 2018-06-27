@@ -9,6 +9,7 @@ namespace ProjectStellar.Library
     [Serializable]
     public class SpaceStationType : BuildingType
     {
+        List<Building> _list;
         int _cost;
         int _coin;
         int _wood;
@@ -19,7 +20,6 @@ namespace ProjectStellar.Library
         int _pollution;
         int _nbPeople;
         string _type;
-        List<Building> _list;
         int _size;
         int _unlockingLevel;
 
@@ -37,7 +37,7 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 6;
             _list = new List<Building>();
-            _unlockingLevel = 10;
+            _unlockingLevel = 0;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)

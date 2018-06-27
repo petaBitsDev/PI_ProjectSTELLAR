@@ -13,6 +13,8 @@ namespace ProjectStellar.Library
         int _nbTruck;
         bool _isSick;
         bool _isCrimeVictim;
+        Vector _spritePosition;
+
         public PoliceStation(BuildingType type, int x, int y) : base(type, x, y)
         {
             _nbTruck = 2; 
@@ -40,5 +42,7 @@ namespace ProjectStellar.Library
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
         }
+
+        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

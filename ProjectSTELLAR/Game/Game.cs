@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SFML.Audio;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 using ProjectStellar.Library;
+using System;
 
 namespace ProjectStellar
 {
@@ -18,8 +13,8 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[20];
-        public Texture[] _uiTextures = new Texture[24];
+        public Texture[] _buildingsTextures = new Texture[17];
+        public Texture[] _uiTextures = new Texture[33];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -107,6 +102,15 @@ namespace ProjectStellar
             _uiTextures[21] = new Texture("./resources/img/setting.png");
             _uiTextures[22] = new Texture("./resources/img/delete.png");
             _uiTextures[23] = new Texture("./resources/img/users.png");
+            _uiTextures[24] = new Texture("./resources/img/send.png");
+            _uiTextures[25] = new Texture("./resources/img/sendActif.png");
+            _uiTextures[26] = new Texture("./resources/img/metalchoice.png");
+            _uiTextures[27] = new Texture("./resources/img/metalchosen.png");
+            _uiTextures[28] = new Texture("./resources/img/woodchoice.png");
+            _uiTextures[29] = new Texture("./resources/img/woodchosen.png");
+            _uiTextures[30] = new Texture("./resources/img/rockchoice.png");
+            _uiTextures[31] = new Texture("./resources/img/rockchosen.png");
+            _uiTextures[32] = new Texture("./resources/img/check.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
@@ -137,6 +141,23 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
+                if(gameTime.InGameTime.Second % 2 == 0)
+                {
+                    this._map.GenerateSpaceShips(this._resourcesManager);
+                    for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
+                    {
+                        //Console.WriteLine("SpaceShip Number : " + i);
+                        //Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
+                        //Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+
+                        this._map.SpaceShipsList[i].Update();
+
+                        //Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
+                        //Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
+
+                        //Console.WriteLine("=========================");
+                    }
+                }
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
@@ -151,6 +172,26 @@ namespace ProjectStellar
                     Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
+
+                for(int i = 0; i < _map.BuildingTypes[12].List.Count; i++)
+                {
+                    for(int j = 0; j < _map.BuildingTypes[12].List[i].ShipList.Count; j++)
+                    {
+                        if(!_map.BuildingTypes[12].List[i].ShipList[j].IsAvailable)
+                        {
+                            if (gameTime.InGameTime <= _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
+                            {
+                                Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
+                                Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
+                                Console.WriteLine("====================================");
+
+                                _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
+                            }
+                            else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
+                                _drawUI.UI.ReturnShip(_map.BuildingTypes[12].List[i].ShipList[j], i, _map.BuildingTypes[12].List[i].ShipList[j].Resource, _map.BuildingTypes[12].List[i].ShipList[j].NbResources, Window);
+                        }
+                    }
+                }                
             }
         }
 

@@ -22,7 +22,7 @@ namespace ProjectStellar.Library
             _nbResources.Add("metal", 15000);
             _nbResources.Add("coins", 50000);
             _nbResources.Add("pollution", 0);
-            _nbResources.Add("nbPeople", 0);
+            _nbResources.Add("nbPeople", 100);
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
@@ -108,6 +108,7 @@ namespace ProjectStellar.Library
             int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
             if (satisfaction <= 0.2) maxAdd = 0;
             Random random = new Random();
+          
             // Prochaine intégration de la satifaction
             if (0 < maxAdd)
                 _nbResources["nbPeople"] += random.Next(0, maxAdd + 1);

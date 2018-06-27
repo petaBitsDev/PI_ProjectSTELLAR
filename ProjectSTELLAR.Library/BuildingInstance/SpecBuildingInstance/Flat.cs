@@ -12,6 +12,8 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isCrimeVictim;
+        Vector _spritePosition;
+
         public Flat(BuildingType type, int x, int y) : base(type, x, y)
         {
             _onFire = false;
@@ -34,5 +36,6 @@ namespace ProjectStellar.Library
             set { _isCrimeVictim = value; }
         }
 
+        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }    

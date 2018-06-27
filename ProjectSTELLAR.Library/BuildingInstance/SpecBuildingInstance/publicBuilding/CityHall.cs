@@ -14,12 +14,12 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isCrimeVictim;
+        Vector _spritePosition;
+
         public CityHall(BuildingType type, int x, int y) : base(type, x, y)
         {
 
         }
-
-
 
         public override bool OnFire
         {
@@ -37,5 +37,7 @@ namespace ProjectStellar.Library
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
         }
+
+        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

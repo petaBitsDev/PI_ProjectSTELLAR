@@ -65,9 +65,9 @@ namespace ProjectStellar
                 {
                     _xMax = _mapUI._x2y2.X;
                     _yMax = _mapUI._x2y2.Y;
-                    if (!Equals(_ui.mouseSprite, null))
+                    if (!Equals(_ui.MouseSprite, null))
                     {
-                        _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                        _ui.MouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
                     }
                 }
             }
@@ -189,7 +189,7 @@ namespace ProjectStellar
                 if (Mouse.IsButtonPressed(Mouse.Button.Right))
                 {
                     _window.SetMouseCursorVisible(true);
-                    _ui.mouseSprite = null;
+                    _ui.MouseSprite = null;
                     _ui.Map.ChosenBuilding = null;
                 }
             }
@@ -233,6 +233,7 @@ namespace ProjectStellar
         }
 
         public View CurrentView => _view;
+
         public void KeyPressed(object sender, EventArgs e)
         {
             if (_ctx.MenuState == 1)
