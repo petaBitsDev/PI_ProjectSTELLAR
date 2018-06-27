@@ -47,7 +47,7 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
-            //   _mapUI.DrawGrid(window);
+            _mapUI.DrawGrid(window);
             window.SetView(_gameCtx._windowEvents.View);
             _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
             window.SetView(window.DefaultView);

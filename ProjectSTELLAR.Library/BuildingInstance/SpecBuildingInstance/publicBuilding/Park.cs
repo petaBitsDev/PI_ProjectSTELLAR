@@ -36,5 +36,11 @@ namespace ProjectStellar.Library
             get { return _isVictimCrime; }
             set { _isVictimCrime = value; }
         }
+
+        public override Vector SpritePosition
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
     }
 }

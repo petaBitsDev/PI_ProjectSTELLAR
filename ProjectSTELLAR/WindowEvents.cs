@@ -161,7 +161,7 @@ namespace ProjectStellar
                     {
                         _ctx._map.ChosenBuilding = null;
                         _window.SetMouseCursorVisible(true);
-                        _ui.mouseSprite = null;
+                        _ui.MouseSprite = null;
                         if (_ui.SelectedItem == 0)
                         {
                             SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);

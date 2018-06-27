@@ -35,5 +35,7 @@ namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.resources
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
         }
+
+        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
