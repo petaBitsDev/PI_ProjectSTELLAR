@@ -12,6 +12,7 @@ namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.resources
         bool _isSick;
         bool _isCrimeVictim;
         readonly BuildingType _type;
+        Vector _spritePosition;
 
         public Factory(BuildingType type, int x, int y) : base(type, x, y)
         {
@@ -36,6 +37,10 @@ namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.resources
             set { _isCrimeVictim = value; }
         }
 
-        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
+        }
     }
 }

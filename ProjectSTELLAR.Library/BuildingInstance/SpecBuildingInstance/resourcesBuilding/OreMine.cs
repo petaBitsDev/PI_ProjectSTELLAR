@@ -24,8 +24,6 @@ namespace ProjectStellar.Library
         {
             get { return _onFire; }
             set { _onFire = value; }
-
-
         }
 
         public override bool IsSick
@@ -40,6 +38,10 @@ namespace ProjectStellar.Library
             set { _isCrimeVictim = value; }
         }
 
-        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
+        }
     }
 }

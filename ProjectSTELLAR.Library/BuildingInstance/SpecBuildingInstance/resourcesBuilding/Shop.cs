@@ -12,6 +12,7 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isVictimCrime;
+        Vector _spritePosition;
 
         public Shop(BuildingType type, int x, int y) : base(type, x, y)
         {
@@ -35,6 +36,10 @@ namespace ProjectStellar.Library
             set { _isVictimCrime = value; }
         }
 
-        public override Vector SpritePosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
+        }
     }
 }
