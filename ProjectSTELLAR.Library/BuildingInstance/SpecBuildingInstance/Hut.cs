@@ -13,8 +13,16 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isCrimeVictim;
+        Vector _spritePosition;
+
         public Hut(BuildingType type, int x, int y) : base(type, x, y)
         {
+        }
+
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
         }
 
         public override bool OnFire
@@ -34,6 +42,5 @@ namespace ProjectStellar.Library
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
         }
-
     }
 }

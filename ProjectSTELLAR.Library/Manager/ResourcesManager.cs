@@ -22,10 +22,11 @@ namespace ProjectStellar.Library
             _nbResources.Add("metal", 15000);
             _nbResources.Add("coins", 50000);
             _nbResources.Add("pollution", 0);
-            _nbResources.Add("nbPeople", 0);
+            _nbResources.Add("nbPeople", 100);
             _nbResources.Add("electricity", 0);
             _nbResources.Add("water", 0);
             _nbResources.Add("cost", 0);
+            _nbResources.Add("products", 0);
             _maxPopulation = 0;
         }
 
@@ -37,8 +38,9 @@ namespace ProjectStellar.Library
             _nbResources["rock"] -= building.Rock;
             _nbResources["metal"] -= building.Metal;
             _nbResources["coins"] -= building.Coin;
-            _nbResources["pollution"] -= building.Pollution;
-            if(Equals(building, _ctx.BuildingTypes[10]))
+            _nbResources["pollution"] += building.Pollution;
+            if (_nbResources["pollution"] < 0) _nbResources["pollution"] = 0;
+            if (Equals(building, _ctx.BuildingTypes[10]))
             {
                 PumpingStationType pumpingStation = (PumpingStationType)building;
                 _nbResources["water"] += pumpingStation.WaterProduction;
@@ -57,6 +59,16 @@ namespace ProjectStellar.Library
             {
                 _nbResources["electricity"] -= building.Electricity;
             }
+
+            if(Equals(building, _ctx.BuildingTypes[14]))
+            {
+                _nbResources["products"] += building.ProductsProduction;
+            }
+            else if (Equals(building, _ctx.BuildingTypes[15]))
+            {
+                _nbResources["products"] -= building.ProductsConsumption;
+            }
+
             _nbResources["cost"] += building.Cost;
 
             if (building.Type == "habitation") _maxPopulation += building.NbPeople;
@@ -91,10 +103,12 @@ namespace ProjectStellar.Library
             return true;
         }
 
-        public void UpdateResources()
+        public void UpdateResources(float satisfaction)
         {
             int maxAdd = 20 + _nbResources["nbPeople"] > _maxPopulation ? _maxPopulation - _nbResources["nbPeople"] : 20;
+            if (satisfaction <= 0.2) maxAdd = 0;
             Random random = new Random();
+          
             // Prochaine intégration de la satifaction
             if (0 < maxAdd)
                 _nbResources["nbPeople"] += random.Next(0, maxAdd + 1);

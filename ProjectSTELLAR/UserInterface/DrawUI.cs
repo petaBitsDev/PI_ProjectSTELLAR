@@ -16,16 +16,18 @@ namespace ProjectStellar
         Map _mapCtx;
         MapUI _mapUI;
         ResourcesManager _resourcesCtx;
+        SatisfactionManager _satisfaction;
         UI _ui;
         uint _width;
         uint _height;
         GameTime _gameTime;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, FireType fireType)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfaction)
         {
             _gameCtx = context;
             _mapCtx = ctx;
             _resourcesCtx = resourcesManager;
+            _satisfaction = satisfaction;
             _width = width;
             _height = height;
             _gameTime = gameTime;
@@ -45,11 +47,11 @@ namespace ProjectStellar
 
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
-            //   _mapUI.DrawGrid(window);
+            //_mapUI.DrawGrid(window);
             window.SetView(_gameCtx._windowEvents.View);
             _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
             window.SetView(window.DefaultView);
-            _ui.DrawResourcesBar(window, font, resources.NbResources);
+            _ui.DrawResourcesBar(window, font, resources.NbResources, _satisfaction.Satifaction);
             _ui.DrawTimeBar(window, gameTime, font);
             _ui.DrawBuildButton(window, font);
             _ui.DrawDestroyButton(window);
@@ -69,7 +71,7 @@ namespace ProjectStellar
 
         public UI UI => _ui;
 
-        public void UpdateData(Map map, ResourcesManager resources, ExperienceManager experience)
+        public void UpdateData(Map map, ResourcesManager resources, ExperienceManager experience, SatisfactionManager satisfaction)
         {
             Map = map;
             MapUI.MapContext = map;
@@ -80,6 +82,7 @@ namespace ProjectStellar
             UI.ExperienceManager = experience;
             UI.UpdateBuildingTabs();
             MapUI.ResourcesManager = resources;
+            _satisfaction = satisfaction;
         }
     }
 }

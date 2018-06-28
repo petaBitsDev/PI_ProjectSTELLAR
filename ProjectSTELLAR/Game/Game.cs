@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SFML.Audio;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 using ProjectStellar.Library;
+using System;
 
 namespace ProjectStellar
 {
@@ -18,8 +13,8 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[17];
-        public Texture[] _uiTextures = new Texture[24];
+        public Texture[] _buildingsTextures = new Texture[20];
+        public Texture[] _uiTextures = new Texture[34];
         public Texture[] _spriteSheet = new Texture[3];
         int _state;
         internal Menu _menu;
@@ -33,6 +28,7 @@ namespace ProjectStellar
         internal FireType _fireType;
         internal ResourcesManager _resourcesManager;
         internal ProjectStellar.Library.Timer _timer;
+        internal SatisfactionManager _satisfactionManager;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
         bool _areResourcesUpdated;
@@ -83,6 +79,9 @@ namespace ProjectStellar
             _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
             _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
             _buildingsTextures[16] = new Texture("./resources/img/padlock.png");
+            _buildingsTextures[17] = new Texture("./resources/img/shop.png");
+            _buildingsTextures[18] = new Texture("./resources/img/factory.png");
+            _buildingsTextures[19] = new Texture("./resources/img/park.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -108,6 +107,16 @@ namespace ProjectStellar
             _uiTextures[21] = new Texture("./resources/img/setting.png");
             _uiTextures[22] = new Texture("./resources/img/delete.png");
             _uiTextures[23] = new Texture("./resources/img/users.png");
+            _uiTextures[24] = new Texture("./resources/img/send.png");
+            _uiTextures[25] = new Texture("./resources/img/sendActif.png");
+            _uiTextures[26] = new Texture("./resources/img/metalchoice.png");
+            _uiTextures[27] = new Texture("./resources/img/metalchosen.png");
+            _uiTextures[28] = new Texture("./resources/img/woodchoice.png");
+            _uiTextures[29] = new Texture("./resources/img/woodchosen.png");
+            _uiTextures[30] = new Texture("./resources/img/rockchoice.png");
+            _uiTextures[31] = new Texture("./resources/img/rockchosen.png");
+            _uiTextures[32] = new Texture("./resources/img/check.png");
+            _uiTextures[33] = new Texture("./resources/img/bulldozer.png");
 
             _spriteSheet[0] = new Texture("./resources/img/firesheet.png");
             _spriteSheet[1] = new Texture("./resources/img/flame.png");
@@ -134,7 +143,8 @@ namespace ProjectStellar
             Window.TextEntered += _windowEvents.TextEntered;
             Window.SetKeyRepeatEnabled(false);
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view, Window);
-            _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this, _view);
+            _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this);
+            _satisfactionManager = new SatisfactionManager();
         }
 
         public override void Update(GameTime gameTime)
@@ -143,22 +153,61 @@ namespace ProjectStellar
             else if (_state == 1)
             {
                 _timer.TimeToUpdate();
+                if(gameTime.InGameTime.Second % 2 == 0)
+                {
+                    this._map.GenerateSpaceShips(this._resourcesManager);
+                    for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
+                    {
+                        Console.WriteLine("SpaceShip Number : " + i);
+                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
+                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+
+                        this._map.SpaceShipsList[i].Update();
+
+                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
+                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
+
+                        Console.WriteLine("=========================");
+                    }
+                }
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
                     //Console.WriteLine("--------------------------------------");
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
-                    //Console.WriteLine("{0}%", _experienceManager.GetPercentage());  
-                    
-                    _resourcesManager.UpdateResources();
+                    //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
+                    _resourcesManager.NbResources["nbPeople"] += 50;
+                    _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
+                    _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
+                    //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
                     foreach(IEvent ev in _map.ListEvent)
                     {
                         ev.NewEvent(gameTime);
                     }
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
+
+                for(int i = 0; i < _map.BuildingTypes[12].List.Count; i++)
+                {
+                    for(int j = 0; j < _map.BuildingTypes[12].List[i].ShipList.Count; j++)
+                    {
+                        if(!_map.BuildingTypes[12].List[i].ShipList[j].IsAvailable)
+                        {
+                            if (gameTime.InGameTime <= _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
+                            {
+                                //Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
+                                //Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
+                                //Console.WriteLine("====================================");
+
+                                _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
+                            }
+                            else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
+                                _drawUI.UI.ReturnShip(_map.BuildingTypes[12].List[i].ShipList[j], i, _map.BuildingTypes[12].List[i].ShipList[j].Resource, _map.BuildingTypes[12].List[i].ShipList[j].NbResources, Window);
+                        }
+                    }
+                }                
             }
         }
 
@@ -191,8 +240,9 @@ namespace ProjectStellar
             _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
+            _satisfactionManager = save.SatisfactionManager;
+            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
             _fireType = save.FireType;
-            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _fireType);
         }
 
         internal void StartNewGame()
@@ -205,10 +255,10 @@ namespace ProjectStellar
                 _map = new Map(100, 100);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
+                _satisfactionManager = new SatisfactionManager();
+                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
                 _fireType = new FireType(_map);
-                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _fireType);
                 _timer = new Timer(Map, GameTime);
-
             }
         }
 

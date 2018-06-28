@@ -15,6 +15,8 @@ namespace ProjectStellar.Library
         BuildingType _chosenBuilding;
         public Building[,] _boxes;
         readonly List<BuildingType> _buildingTypes;
+        SpaceShipsTypes _spaceShipType;
+        int _nbSpaceShip;
         List<IEvent> _listEvent;
         FireType fireType;
         List<IServiceBuildingsType> _listServiceBuilding;
@@ -26,22 +28,26 @@ namespace ProjectStellar.Library
             _width = width;
             _height = height;
             _boxes = new Building[height, width];
+            _spaceShipType = new SpaceShipsTypes();
             _buildingTypes = new List<BuildingType>
             {
-              /* 0 */new CityHallType(),
-              /* 1 */new FireStationType(),
-              /* 2 */new FlatType(),
-              /* 3 */new HospitalType(),
-              /* 4 */new HouseType(),
-              /* 5 */new HutType(),
-              /* 6 */new MetalMineType(),
-              /* 7 */new OreMineType(),
-              /* 8 */new PoliceStationType(),
-              /* 9 */new PowerPlantType(),
+              /* 0 */ new CityHallType(),
+              /* 1 */ new FireStationType(),
+              /* 2 */ new FlatType(),
+              /* 3 */ new HospitalType(),
+              /* 4 */ new HouseType(),
+              /* 5 */ new HutType(),
+              /* 6 */ new MetalMineType(),
+              /* 7 */ new OreMineType(),
+              /* 8 */ new PoliceStationType(),
+              /* 9 */ new PowerPlantType(),
               /* 10*/ new PumpingStationType(),
               /* 11*/ new SawmillType(),
               /* 12*/ new SpaceStationType(),
-              /* 13*/ new WarehouseType()
+              /* 13*/ new WarehouseType(),
+              /* 14*/ new FactoryType(),
+              /* 15*/ new ShopType(),
+              /* 16*/ new ParkType()
             };
             fireType = new FireType(this);
             diseaseType = new DiseaseType(this);
@@ -86,6 +92,7 @@ namespace ProjectStellar.Library
         {
             if(CheckBuilding(x,y) == false)
             {
+                building.SpritePosition = new Vector(x, y);
                 if(building.Size == 1) _boxes[x, y] = building;
                 else if (building.Size == 4)
                 {
@@ -104,7 +111,7 @@ namespace ProjectStellar.Library
                     _boxes[x + 1, y + 2] = building;
                 }
             }
-            _chosenBuilding = null;
+            //_chosenBuilding = null;
         }
 
         public void RemoveBuilding(int x, int y)
@@ -133,6 +140,16 @@ namespace ProjectStellar.Library
             }
         }
 
+        public void GenerateSpaceShips (ResourcesManager resourcesManager)
+        {
+            _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
+
+            if (_nbSpaceShip > _spaceShipType.List.Count)
+            { 
+                _spaceShipType.CreateInstance(this);
+            }
+        }
+
         public bool CheckBuilding(int x, int y)
         {
             if (_boxes[x, y] != null) return true;
@@ -144,6 +161,10 @@ namespace ProjectStellar.Library
             get { return _nbBuilding; }
             set { _nbBuilding = value; }
         }
+
+        public int NbSpaceShips => _nbSpaceShip;
+
+        public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
 
         public FireType NewFireType => fireType;
     }

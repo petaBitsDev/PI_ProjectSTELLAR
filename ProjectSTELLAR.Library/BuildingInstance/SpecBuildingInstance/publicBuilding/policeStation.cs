@@ -13,6 +13,7 @@ namespace ProjectStellar.Library
         int _nbTruck;
         bool _isSick;
         bool _isCrimeVictim;
+        Vector _spritePosition;
         public List<Truck> _vehicule;
         PoliceStationType _policeStationType;
         double _timeMax;
@@ -81,6 +82,12 @@ namespace ProjectStellar.Library
         {
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
+        }
+
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
         }
     }
 }

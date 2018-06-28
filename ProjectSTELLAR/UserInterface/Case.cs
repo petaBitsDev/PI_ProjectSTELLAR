@@ -7,7 +7,7 @@ using SFML.Graphics;
 
 namespace ProjectStellar
 {
-    class Case
+    public class Case
     {
         FloatRect _rec;
         uint _x;

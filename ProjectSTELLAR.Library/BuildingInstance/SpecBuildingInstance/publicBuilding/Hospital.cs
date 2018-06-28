@@ -20,7 +20,7 @@ namespace ProjectStellar.Library
         DiseaseType _diseaseType;
         Map _ctx;
         GameTime gameTime = new GameTime();
-
+        Vector _spritePosition;
         public Hospital(HospitalType type, int x, int y, Map ctx): base(type, x, y)
         {
             _nbTruck = 2;
@@ -89,6 +89,12 @@ namespace ProjectStellar.Library
         {
             get { return _isCrimeVictim; }
             set { _isCrimeVictim = value; }
+        }
+
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
         }
     }
 }

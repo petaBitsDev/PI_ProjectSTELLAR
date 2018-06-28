@@ -13,18 +13,14 @@ namespace ProjectStellar.Library
         int _nbTruck;
         bool _isSick;
         bool _isVictimCrime;
+        Vector _spritePosition;
+
         Map _ctx;
         FireType fire;
         public List<Truck> _Vehicule;
         FireStationType fireStationType;
         double _timeMax;
-
         GameTime gameTime = new GameTime();
- 
-
-
-
-
         public FireStation(FireStationType type, int x, int y, Map map) : base(type, x, y)
         {
             _nbTruck = 1;
@@ -94,9 +90,10 @@ namespace ProjectStellar.Library
             set { _isVictimCrime = value; }
         }
 
-
-
-
-
+        public override Vector SpritePosition
+        {
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
+        }
     }
 }

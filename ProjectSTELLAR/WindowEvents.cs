@@ -65,9 +65,9 @@ namespace ProjectStellar
                 {
                     _xMax = _mapUI._x2y2.X;
                     _yMax = _mapUI._x2y2.Y;
-                    if (!Equals(_ui.mouseSprite, null))
+                    if (!Equals(_ui.MouseSprite, null))
                     {
-                        _ui.mouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                        _ui.MouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X - 10, Mouse.GetPosition(_window).Y - 10);
                     }
                 }
             }
@@ -105,8 +105,6 @@ namespace ProjectStellar
             // Bottom side
             else if (posY == (_resolution.Y - 1))
             {
-                Console.WriteLine("X = {0}, Y = {1}", _view.Viewport.Height, _view.Viewport.Width);
-
                 if (CheckCamera(new Vector2f(0, 50)))
                 {
                     _y1 += 50;
@@ -133,13 +131,22 @@ namespace ProjectStellar
         {
             float delta;
             delta = e.Delta;
-            if (delta < 0)
+            //In Game
+            if (_ctx.MenuState == 1)
             {
-                _view.Zoom(1.06f);
+                if (delta < 0)
+                {
+                    _view.Zoom(1.06f);
+                }
+                else
+                {
+                    _view.Zoom(0.94f);
+                }
             }
-            else
+            //Load Menu
+            else if (_ctx.MenuState == 2)
             {
-                _view.Zoom(0.94f);
+                _ctx._menuLoadGame.Scroll(delta);
             }
         }
 
@@ -152,11 +159,14 @@ namespace ProjectStellar
                 {
                     if (_ui.SettingsSelected)
                     {
+                        _ctx._map.ChosenBuilding = null;
+                        _window.SetMouseCursorVisible(true);
+                        _ui.MouseSprite = null;
                         if (_ui.SelectedItem == 0)
                         {
-                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._fireType);
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
                             Save.SaveGame(save, _ctx._name);
-                            Console.WriteLine("Saved");
+                            //Console.WriteLine("Saved");
 
                             _ctx.GameTime.TimeScale = 60f;
                             _ui.SettingsSelected = false;
@@ -179,8 +189,9 @@ namespace ProjectStellar
                 if (Mouse.IsButtonPressed(Mouse.Button.Right))
                 {
                     _window.SetMouseCursorVisible(true);
-                    _ui.mouseSprite = null;
+                    _ui.MouseSprite = null;
                     _ui.Map.ChosenBuilding = null;
+                    _ui.DestroySelected = false;
                 }
             }
             // Menu principal
@@ -192,7 +203,7 @@ namespace ProjectStellar
             // Menu chargement de sauvegarde
             else if (_ctx.MenuState == 2 && Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-                _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                _ctx._menuLoadGame.CheckMouse(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y, _window);
                 Console.WriteLine("Load");
             }
             // Menu création nouvelle partie
@@ -223,21 +234,22 @@ namespace ProjectStellar
         }
 
         public View CurrentView => _view;
+
         public void KeyPressed(object sender, EventArgs e)
         {
             if (_ctx.MenuState == 1)
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
-                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._fireType);
+                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
                     Save.SaveGame(save, _ctx._name);
-                    Console.WriteLine("Saved");
+                    //Console.WriteLine("Saved");
                 }
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.L))
                 {
                     SaveGame save = Save.LoadGame(_ctx._name);
                     _ctx.LoadGame(save);
-                    Console.WriteLine("Loaded");
+                    //Console.WriteLine("Loaded");
                 }
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.T))
                 {
@@ -259,6 +271,10 @@ namespace ProjectStellar
                 else if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
                 {
                     _ui.DrawInGameMenu(_window, _font, _ctx.GameTime);
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+                {
+                    _ctx._resourcesManager.NbResources["nbPeople"] += 500;
                 }
             }
             else if (_ctx.MenuState == 3)

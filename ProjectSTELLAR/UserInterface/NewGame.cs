@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using ProjectStellar.Library;
 
 namespace ProjectStellar
 {
@@ -22,6 +23,7 @@ namespace ProjectStellar
         Text _cancel;
         FloatRect _cancelBox;
         Text _instructions;
+        Text _error;
 
         public NewGame(uint resX, uint resY, Game ctx, Font font)
         {
@@ -62,6 +64,11 @@ namespace ProjectStellar
                 Position = new Vector2f(resX / 5 * 1.8f, resY / 5 * 1)
             };
 
+            _error = new Text("", font, 40)
+            {
+                Position = new Vector2f(resX / 6 * 2, resY / 5 * 4),
+                Color = Color.Yellow
+            };
         }
 
         public void Draw(RenderWindow window)
@@ -83,6 +90,9 @@ namespace ProjectStellar
                 _cancel.Color = Color.Yellow;
             else _cancel.Color = Color.White;
             _cancel.Draw(window, RenderStates.Default);
+
+            if (_error.DisplayedString != "")
+                _error.Draw(window, RenderStates.Default);
         }
 
         public string Name
@@ -90,13 +100,45 @@ namespace ProjectStellar
             get { return _name; }
             set
             {
-                if (value.Length <= 12) _name = value;
+                bool valid = true;
+                if (value.Length > 12)
+                    return;
+
+                for (int i = 0; i < value.Length; i++)
+                {
+                    if (value[i] < 'a' || value[i] > 'z')
+                    {
+                        if (value[i] < 'A' || value[i] > 'Z')
+                        {
+                            valid = false;
+                        }
+                    }
+                }
+
+                if (valid == true)
+                    _name = value;
             }
         }
 
         public void CheckButtons(int x, int y)
         {
-            if (_confirmBox.Contains(x, y)) _ctx.StartNewGame();
+            if (_confirmBox.Contains(x, y) && Name != "")
+            {
+                List<SaveGameMetadata> saveList = Save.List();
+                bool valid = true;
+
+                foreach(SaveGameMetadata save in saveList)
+                {
+                    if (save.Name == Name)
+                    {
+                        valid = false;
+                        _error.DisplayedString = Name + " already exists !";
+                        return;
+                    }
+                }
+
+                _ctx.StartNewGame();
+            }
             else if (_cancelBox.Contains(x, y)) _ctx.MenuState = 0;
         }
     }
