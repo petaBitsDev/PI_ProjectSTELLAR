@@ -15,13 +15,48 @@ namespace ProjectStellar.Library
         bool _isSick;
         bool _isCrimeVictim;
         public List<Truck> _vehicule;
-        public Hospital(BuildingType type, int x, int y): base(type, x, y)
+        HospitalType _hospitalType;
+        double _timeMax;
+        DiseaseType _diseaseType;
+        Map _ctx;
+        GameTime gameTime = new GameTime();
+
+        public Hospital(HospitalType type, int x, int y, Map ctx): base(type, x, y)
         {
             _nbTruck = 2;
             _nbBed = 10;
             _vehicule = new List<Truck>();
+            _ctx = ctx;
+            _diseaseType = new DiseaseType(_ctx);
+            _hospitalType = type;
         }
 
+        public void ServiceBuildingWorking()
+        {
+            Disease newDisease = _diseaseType.CreateEvent();
+            _hospitalType.StartTime = gameTime.InGameTime;
+
+            if(_hospitalType.List.Count != 0)
+            {
+               _hospitalType.BuildingDistance();
+               _hospitalType.CheckTruckStatement();
+               _hospitalType.TimeToGo  = (_hospitalType.Distance /_hospitalType.TruckSelected.Speed);
+
+                _timeMax = 180;
+                if (_hospitalType.TimeToGo <= _timeMax)
+                    newDisease.EventHandle = true;
+                else
+                    newDisease.EventHandle = false;
+            }
+            else
+            {
+                newDisease.EventHandle = false;
+                _hospitalType.TimeToGo = _timeMax;
+            }
+           
+
+        
+        }
         public List<Truck> Vehicule
         {
             get { return _vehicule; }

@@ -16,7 +16,10 @@ namespace ProjectStellar.Library
         public Building[,] _boxes;
         readonly List<BuildingType> _buildingTypes;
         List<IEvent> _listEvent;
+        FireType fireType;
         List<IServiceBuildingsType> _listServiceBuilding;
+        DiseaseType diseaseType;
+        CrimeType crimeType;
 
         public Map (int width, int height)
         {
@@ -40,10 +43,14 @@ namespace ProjectStellar.Library
               /* 12*/ new SpaceStationType(),
               /* 13*/ new WarehouseType()
             };
+            fireType = new FireType(this);
+            diseaseType = new DiseaseType(this);
+            crimeType = new CrimeType(this);
+
             _listEvent = new List<IEvent>();
-            _listEvent.Add(new Fire(this));
-            _listEvent.Add(new Disease(this));
-            _listEvent.Add(new Crime(this));
+            _listEvent.Add(fireType.CreateEvent());
+            _listEvent.Add(diseaseType.CreateEvent());
+            _listEvent.Add(crimeType.CreateEvent());
 
             _listServiceBuilding = new List<IServiceBuildingsType>();
             _listServiceBuilding.Add(new FireStationType());
@@ -54,6 +61,7 @@ namespace ProjectStellar.Library
 
         }
 
+        
         public List<IServiceBuildingsType> ListServicesBuildingType => _listServiceBuilding;
         public List<IEvent> ListEvent => _listEvent;
         public List<BuildingType> BuildingTypes => _buildingTypes;
@@ -136,5 +144,7 @@ namespace ProjectStellar.Library
             get { return _nbBuilding; }
             set { _nbBuilding = value; }
         }
+
+        public FireType NewFireType => fireType;
     }
 }

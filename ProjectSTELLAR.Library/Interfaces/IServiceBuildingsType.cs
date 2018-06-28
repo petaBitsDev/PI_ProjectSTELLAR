@@ -8,7 +8,7 @@ namespace ProjectStellar.Library
 {
     public interface IServiceBuildingsType
     {
-        void ServiceBuildingWorking();
+     //   void ServiceBuildingWorking();
         void BuildingDistance();
         void CreateTruck();
         void CheckTruckStatement();
@@ -19,7 +19,7 @@ namespace ProjectStellar.Library
         Double Distance { get; set; }
 
         double TimeToGo { get; set; }
-        double TimeMax { get; }
+       // double TimeMax { get; }
         DateTime StartTime { get; set; }
 
         Truck TruckSelected { get; set; }

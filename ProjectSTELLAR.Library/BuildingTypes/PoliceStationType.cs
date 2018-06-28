@@ -22,7 +22,7 @@ namespace ProjectStellar.Library
         List<Building> _list;
         int _size;
         int _unlockingLevel;
-        Crime _crime;
+        CrimeType _crime;
         Building _origin;
         Building _target;
         DateTime _timeNow;
@@ -55,27 +55,13 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new PoliceStation(this, x, y);
+            PoliceStation building = new PoliceStation(this, x, y, map);
             CreateTruck();
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
         public override int UnlockingLevel => _unlockingLevel;
 
-        public void ServiceBuildingWorking()
-        {
-            _timeNow = gameTime.InGameTime;
-            BuildingDistance();
-            CheckTruckStatement();
-            _timeToGo = (Distance / TruckSelected.Speed);
-
-             _timeMax = 180;
-            if (_timeToGo <= _timeMax)
-                _crime.EventHandle = true;
-            else
-                _crime.EventHandle = false;
-  
-        }
 
         public void BuildingDistance()
         {

@@ -31,6 +31,12 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
+        IntRect _intRect;
+        Sprite _fireSheet;
+        Sprite _fire;
+        Sprite _flame;
+        GameTime gameTime = new GameTime();
+
         //Building _building;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
@@ -40,12 +46,24 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _width = width;
             _height = height;
-            _drawBuildings = new DrawBuildings(_gameCtx,ui, ctx);
+            _drawBuildings = new DrawBuildings(_gameCtx, ui, ctx);
             _ui = ui;
             _resolution = resolution;
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
+
+       
+
+            _fire = new Sprite(context._spriteSheet[1])
+            {
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _flame = new Sprite(context._spriteSheet[2])
+            {
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
         }
 
         public Map MapContext
@@ -82,17 +100,17 @@ namespace ProjectStellar
                 for (int y = 0; y < Height; y++)
                 {
                     rec = new RectangleShape();
-                    rec.OutlineColor = new Color(253, 235,208);
+                    rec.OutlineColor = new Color(253, 235, 208);
                     rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
                     rec.Size = new Vector2f(32, 32);
-                    rec.Position = new Vector2f(x * 32, y* 32);
+                    rec.Position = new Vector2f(x * 32, y * 32);
                     window.Draw(rec);
                     //_cases[i++] = new Cases(rec, y, x);
                 }
             }
         }
-        
+
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
             //RectangleShape rec = new RectangleShape();
@@ -146,19 +164,89 @@ namespace ProjectStellar
                     }
                 }
             }
+            //FIRE-------------------------------------------------------------------------------------
+            Clock clock = new Clock();
+            int yFire;
+            int xFire;
+            int xFlame;
+            int yFlame;
+            DateTime now = GameContext.GameTime.InGameTime;
 
-            for(int a = 0; a < _cases.Length; a++)
+            if (_ctx.NewFireType.BuildingHasEvent.Count != 0)
             {
-                if (_cases[a].Contains((int)worldPos.X, (int)worldPos.Y))
+                //Console.WriteLine("UI DRAW FIRE IM IN WHILE");
+                for (int i = 0; i < _ctx.NewFireType.BuildingHasEvent.Count; i++)
                 {
-                    if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                    xFire = _ctx.NewFireType.BuildingHasEvent[i].X;
+
+                    yFire = _ctx.NewFireType.BuildingHasEvent[i].Y;
+
+                    if (_ctx.NewFireType.BuildingHasEvent[i].Size == 1)
                     {
-                        _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
+                        _flame.Position = new Vector2f(yFire * 32+3, xFire * 32 +18);
+                        _fire.Position = new Vector2f(yFire * 32+3, xFire * 32 +18);
+
+
                     }
-                }    
+                    else if (_ctx.NewFireType.BuildingHasEvent[i].Size == 6)
+                    {
+                        _fire.Position = new Vector2f((yFire * 32) + 25, (xFire * 32) + 20);
+                        _flame.Position = new Vector2f((yFire * 32) + 25, (xFire * 32) + 20);
+
+
+                    }
+                    else if (_ctx.NewFireType.BuildingHasEvent[i].Size == 4)
+                    {
+                        _flame.Position = new Vector2f((yFire * 32) + 25, (xFire * 32) + 23);
+                        _fire.Position = new Vector2f((yFire * 32) + 25, (xFire * 32) + 23);
+
+
+                    }
+
+                    Console.WriteLine(GameContext.GameTime.InGameTime.Minute);
+                    if(GameContext.GameTime.InGameTime.Minute%2 == 0)
+                    {
+                        window.Draw(_fire); ;
+
+
+                    }
+                    else if(GameContext.GameTime.InGameTime.Minute%2 == 1) 
+                    {
+                        window.Draw(_flame);
+
+                    }
+
+                }
+
+
+
+
+                //if (clock.ElapsedTime.AsSeconds() > 1.0)
+                //{
+                //    if (_fireSheet.TextureRect.Left >= 512)
+                //    {
+                //        _intRect.Left = 0;
+                //    }
+                //    else
+                //    {
+                //        _intRect.Left += 64;
+                //    }
+
+
+
+                for (int a = 0; a < _cases.Length; a++)
+                {
+                    if (_cases[a].Contains((int)worldPos.X, (int)worldPos.Y))
+                    {
+                        if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                        {
+                            _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
+                        }
+                    }
+                }
             }
         }
-     
+
         public bool Test
         {
             get { return test; }
@@ -169,7 +257,7 @@ namespace ProjectStellar
         {
             int a = (int)X;
             int b = (int)Y;
-           
+
             if (!object.Equals(_ctx.Boxes[a, b], null))
             {
                 BuildingExist = true;

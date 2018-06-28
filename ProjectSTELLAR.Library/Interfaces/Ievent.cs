@@ -8,30 +8,16 @@ namespace ProjectStellar.Library
 {
     public interface IEvent 
     {
-        bool PreviousEvent { get; set; }
+      
 
-        bool IsEventHappening { get; set; }
+      bool EventHandle { get; set; }
 
-        bool EventHandle { get; set; }
+      
 
-        int NbEventMax { get; set; }
-
-        int NbEventReal { get; set; }
-
-        float EventProbability { get; set; }
+       void BuildingEvent();
 
 
-        List<Building> BuildingHasEvent { get; set; }
-
-        void CalculNbEventMax();
-        void CalculNbEventReal();
-        void CalculEventProbability();
-
-        void BuildingEvent();
-
-        void IsBuildingGettingEvent();
-
-        void  NewEvent(GameTime gt);
+       void  NewEvent(GameTime gt);
 
     }
 }

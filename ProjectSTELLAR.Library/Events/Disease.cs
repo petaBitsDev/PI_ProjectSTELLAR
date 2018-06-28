@@ -8,171 +8,76 @@ namespace ProjectStellar.Library
 {
     class Disease : IEvent
     {
-
-        float _diseaseProbability;
-
-        bool _isGettingSick;
-
-        bool _previousDisease;
-
-        int _nbDiseaseMax;
-
-        int _nbDiseaseReal;
-
-        List<Building> _building;
-
-        bool _isTakingABed;
-
-        bool _eventHandle;
         Map _ctx;
+        bool _eventHandle;
+        DiseaseType _diseaseType;
+        BuildingType buildingSelected;
+        HospitalType _hospitalType;
 
-
-        public Disease(Map ctx)
+        public Disease(Map ctx, DiseaseType diseaseType)
         {
             _ctx = ctx;
-            _diseaseProbability = 0.1f;
-            _previousDisease = false;
+            _diseaseType = diseaseType;
+            _hospitalType = (HospitalType)_ctx.BuildingTypes[3];
         }
 
         public bool EventHandle
         {
             get { return _eventHandle; }
-            set { _eventHandle = true; }
-        }
-        public bool IsTakingABed
-        {
-            get { return _isTakingABed; }
-            set { _isTakingABed = value; }
+            set { _eventHandle = value; }
         }
 
-
-        public bool PreviousEvent
-        {
-            get { return _previousDisease; }
-            set { _previousDisease = value; }
-        }
-        public bool IsEventHappening
-        {
-            get { return _isGettingSick; }
-            set { _isGettingSick = value; }
-        }
-      
-        public int NbEventMax
-        {
-            get { return _nbDiseaseMax; }
-            set { _nbDiseaseMax = value; }
-        }
-
-        public int NbEventReal
-        {
-            get { return _nbDiseaseReal; }
-            set { _nbDiseaseReal = value; }
-        }
-        public float EventProbability
-        {
-            get { return _diseaseProbability; }
-            set { _diseaseProbability = value; }
-        }
-        public List<Building> BuildingHasEvent
-        {
-            get { return _building; }
-            set { _building = value; }
-        }
-
-        public void SelectKindOfSick()
-        {
-            int choice;
-            Random random = new Random();
-            choice = random.Next(2);
-            if (choice == 0) _isTakingABed = true;
-            else _isTakingABed = false;
-
-        }
         public void BuildingEvent()
         {
             Random random = new Random();
             int _idxBuildingtype;
             _idxBuildingtype = random.Next(_ctx.BuildingTypes.Count);
-            BuildingType BuildingSelected = _ctx.BuildingTypes[_idxBuildingtype];
-            int _idxBuilding;
-            _idxBuilding = random.Next(BuildingSelected.List.Count);
+             buildingSelected = _ctx.BuildingTypes[_idxBuildingtype];
+            Console.WriteLine("DISEASE -- idx building type for disease" + _idxBuildingtype);
+            Console.WriteLine();
 
-            if(BuildingSelected.Type == "public")
+
+            if (buildingSelected.List.Count != 0)
             {
+
+                Console.WriteLine("DISEASE -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
+                Console.WriteLine();
+                int _idxBuilding;
+                _idxBuilding = random.Next(buildingSelected.List.Count);
+
+                Console.WriteLine("DISEASE -- idx Building Selected" + _idxBuilding);
+                Console.WriteLine();
+                if (buildingSelected.Type == "public")
+                {
+                    Console.WriteLine("DISEASE le building selectionné etait public");
+                    Console.WriteLine();
+                    BuildingEvent();
+                }
+                else if (buildingSelected.List[_idxBuilding].IsSick == true)
+                {
+                    Console.WriteLine("DISEASE -- le building est deja malade");
+                    Console.WriteLine();
+                    BuildingEvent();
+                }
+                else
+                {
+                    Console.WriteLine("buildingevent a rempli sa fonction");
+
+                    buildingSelected.List[_idxBuilding].IsSick = true;
+                   _diseaseType.BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
+                    Console.WriteLine("disease" +_diseaseType.BuildingHasEvent.ToString());
+                    Console.WriteLine(" DISEASE is the building selected sick : " + buildingSelected.List[_idxBuilding].IsSick);
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Il n'y a pas d'instance de l'objet sur la carte" );
+                Console.WriteLine();
                 BuildingEvent();
-            }
-            else if(BuildingSelected.List[_idxBuilding].IsSick == true)
-            {
-                BuildingEvent();
-            }
-            else
-            {
-                BuildingSelected.List[_idxBuilding].IsSick = true;
-                BuildingHasEvent.Add(BuildingSelected.List[_idxBuilding]);
-            }
-        }
 
-        public void CalculEventProbability()
-        {
-            if(PreviousEvent == false)
-            {
-                EventProbability += 0.1f;
-            }
-            else
-            {
-                EventProbability -= 0.1f;
-            }
-        }
-
-        public void CalculNbEventMax()
-        {
-            HospitalType hospitalType = (HospitalType)_ctx.BuildingTypes[3];
-            int totalNbVehicule = 0;
-            int totalNbBed = 0;
-            for(int i = 0; i < hospitalType.List.Count; i++)
-            {
-                Hospital h = (Hospital)hospitalType.List[i];
-                totalNbVehicule += h.NbVehicule;
-                totalNbBed += h.NbBed;
             }
 
-            if(totalNbVehicule < 3 && totalNbBed < 20)
-            {
-                NbEventMax = 3;
-            }
-            else if(totalNbVehicule < 6 && totalNbBed < 50)
-            {
-                NbEventMax = 8;
-            }
-            else 
-            {
-                NbEventMax = 20;
-            }
-        }
-
-        public void CalculNbEventReal()
-        {
-            Random random = new Random();
-
-            CalculNbEventMax();
-
-            NbEventReal = random.Next(NbEventMax + 1);
-        }
-
-        public void IsBuildingGettingEvent()
-        {
-            int probability;
-            Random random = new Random();
-            probability = random.Next(1, 101);
-
-            if(probability <= EventProbability * 100)
-            {
-                IsEventHappening = true;
-            }
-            else
-            {
-                IsEventHappening = false;
-            }
         }
 
         public void NewEvent(GameTime gameTime)
@@ -180,31 +85,33 @@ namespace ProjectStellar.Library
             DateTime now = gameTime.InGameTime;
             DateTime endOfEvent = now.AddMinutes(2);
 
-            bool _isHospital = false;
+            bool _isCityHall = false;
 
-            CalculEventProbability();
-            HospitalType hospitalType = (HospitalType)_ctx.BuildingTypes[3];
-            if (hospitalType.List.Count != 0) _isHospital = true;
+            _diseaseType.CalculEventProbability();
+            CityHallType cityHallType = (CityHallType)_ctx.BuildingTypes[0];
+            if (cityHallType.List.Count != 0) _isCityHall = true;
+            _diseaseType.CalculNbEventReal();
 
-            if(_isHospital == true)
+            if (_isCityHall == true)
             {
-                CalculNbEventReal();
-                for(int i = 0; i < NbEventReal; i++)
+                for (int i = 0; i < _diseaseType.NbEventReal; i++)
                 {
-                    SelectKindOfSick();
-                    IsBuildingGettingEvent();
-                    if (IsEventHappening == true)
+                    Console.WriteLine("DISEASE -- i = " + i);
+                    Console.WriteLine();
+                    _diseaseType.SelectKindOfSick();
+                    _diseaseType.IsBuildingGettingEvent();
+                    if (_diseaseType.IsEventHappening == true)
                     {
                         if (gameTime.InGameTime.Equals(endOfEvent)) EventHandle = false;
                         BuildingEvent();
-                        PreviousEvent = true;
+                        _diseaseType.PreviousEvent = true;
                     }
                     else
                     {
-                        PreviousEvent = false;
+                        _diseaseType.PreviousEvent = false;
                     }
                 }
-           
+
             }
         }
     }

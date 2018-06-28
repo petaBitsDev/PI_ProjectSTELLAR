@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-     public class Timer
+    [Serializable]
+
+    public class Timer
     {
         Map _ctx;
         GameTime _gt;

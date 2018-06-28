@@ -22,7 +22,7 @@ namespace ProjectStellar.Library
         public List<Building> _list = new List<Building>();
         int _size;
         int _unlockingLevel;
-        Disease _disease;
+        DiseaseType _disease;
         Building _target;
         Building _origin;
         DateTime _timeNow;
@@ -46,7 +46,7 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 6;
             _list = new List<Building>();
-            _unlockingLevel = 6;
+            _unlockingLevel = 1;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -54,25 +54,13 @@ namespace ProjectStellar.Library
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
 
             resources.UpdateWhenCreate(this);
-            Building building = new Hospital(this, x, y);
+            Hospital building = new Hospital(this, x, y, map);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
         public override int UnlockingLevel => _unlockingLevel;
 
-        public void ServiceBuildingWorking()
-        {
-            _timeNow = gameTime.InGameTime;
-            BuildingDistance();
-            CheckTruckStatement();
-            _timeToGo = (Distance / TruckSelected.Speed);
 
-            _timeMax = 180;
-            if (_timeToGo <= _timeMax)
-                _disease.EventHandle = true;
-            else
-                _disease.EventHandle = false;
-        }
 
         public void BuildingDistance()
         {

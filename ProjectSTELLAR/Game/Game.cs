@@ -20,6 +20,7 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[17];
         public Texture[] _uiTextures = new Texture[24];
+        public Texture[] _spriteSheet = new Texture[3];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -29,6 +30,7 @@ namespace ProjectStellar
         internal Map _map;
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
+        internal FireType _fireType;
         internal ResourcesManager _resourcesManager;
         internal ProjectStellar.Library.Timer _timer;
         MapUI _mapUI;
@@ -43,6 +45,8 @@ namespace ProjectStellar
         {
             MenuState = state;
             _resolution = resolution;
+
+
         }
 
         public override void LoadContent()
@@ -105,13 +109,17 @@ namespace ProjectStellar
             _uiTextures[22] = new Texture("./resources/img/delete.png");
             _uiTextures[23] = new Texture("./resources/img/users.png");
 
+            _spriteSheet[0] = new Texture("./resources/img/firesheet.png");
+            _spriteSheet[1] = new Texture("./resources/img/flame.png");
+            _spriteSheet[2] = new Texture("./resources/img/fires.png");
+
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
+
         }
 
         public override void Initialize(GameTime gameTime)
         {
             _backgroundSprite = new Sprite(_backgroundTexture);
-            _timer = new Timer(_map, gameTime);
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
@@ -175,6 +183,7 @@ namespace ProjectStellar
 
         internal void LoadGame(SaveGame save)
         {
+            _timer = Timer;
             MenuState = 1;
             GameTime = save.GameTime;
             _map = save.Map;
@@ -182,7 +191,8 @@ namespace ProjectStellar
             _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
-            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
+            _fireType = save.FireType;
+            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _fireType);
         }
 
         internal void StartNewGame()
@@ -195,7 +205,10 @@ namespace ProjectStellar
                 _map = new Map(100, 100);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
-                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager);
+                _fireType = new FireType(_map);
+                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _fireType);
+                _timer = new Timer(Map, GameTime);
+
             }
         }
 
@@ -216,6 +229,18 @@ namespace ProjectStellar
         public Resolution Resolution
         {
             get { return _resolution; }
+        }
+
+        public Map Map
+        {
+            get { return _map; }
+            set { _map = value; }
+        }
+
+        public Timer Timer
+        {
+            get { return _timer; }
+            set { _timer = value; }
         }
     }
 }

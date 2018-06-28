@@ -20,6 +20,7 @@ namespace ProjectStellar
         BuildingChoice[] _buildingChoices;
         ResourcesManager _resourcesManager;
         ExperienceManager _experienceManager;
+        FireType _fireType;
 
         List<BuildingType> _buildingList;
         Dictionary<Sprite, String> _sprites;
@@ -74,6 +75,7 @@ namespace ProjectStellar
         Sprite _returnButton;
         Sprite _returnButtonActive;
         Sprite _mouseSprite;
+        Map _map;
 
         uint _width;
         uint _height;
@@ -89,7 +91,7 @@ namespace ProjectStellar
         int _selectedIndex;
         bool _hovering;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, FireType fireType)
         {
             _sprites = new Dictionary<Sprite, string>();
             _buildingTypeSprites = new Dictionary<Sprite, BuildingType>();
@@ -109,10 +111,15 @@ namespace ProjectStellar
             _gameTime = gameTime;
             _buildingChoices = new BuildingChoice[16];
             _resourcesManager = resourcesManager;
+            _fireType = fireType;
             _tab1Selected = true;
             _tab2Selected = false;
             _tab3Selected = false;
             _experienceManager = experienceManager;
+
+            _map = context;
+
+            
 
             //TIME BAR
             _play = new Sprite(_ctx._uiTextures[18])
@@ -344,6 +351,13 @@ namespace ProjectStellar
             {
                 Scale = new Vector2f(0.5f, 0.5f)
             };
+
+            //SpriteSheet
+
+          
+           
+
+
 
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
@@ -1114,6 +1128,11 @@ namespace ProjectStellar
         {
             get { return _mouseSprite; }
             set { _mouseSprite = value; }
+        }
+
+        public void DrawFire(RenderWindow window)
+        {
+            
         }
     }
 }

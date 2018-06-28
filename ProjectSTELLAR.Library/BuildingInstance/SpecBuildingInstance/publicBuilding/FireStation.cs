@@ -14,16 +14,51 @@ namespace ProjectStellar.Library
         bool _isSick;
         bool _isVictimCrime;
         Map _ctx;
-        Fire fire;
+        FireType fire;
         public List<Truck> _Vehicule;
-        Truck _freeTruck;
+        FireStationType fireStationType;
+        double _timeMax;
 
-        public FireStation(BuildingType type, int x, int y, Map map) : base(type, x, y)
+        GameTime gameTime = new GameTime();
+ 
+
+
+
+
+        public FireStation(FireStationType type, int x, int y, Map map) : base(type, x, y)
         {
             _nbTruck = 1;
             _ctx = map;
             _Vehicule = new List<Truck>();
+            fireStationType = type;
+            fire = new FireType(_ctx);
             
+        }
+
+        public void ServiceBuildingWorking()
+        {
+            Fire newFire = fire.CreateEvent();
+            fireStationType.StartTime = gameTime.InGameTime;
+
+            if (fireStationType.List.Count != 0)
+            {
+               fireStationType.BuildingDistance();
+               fireStationType.CheckTruckStatement();
+                fireStationType.TimeToGo = (fireStationType.Distance / fireStationType.TruckSelected.Speed);
+
+                _timeMax = 180;
+                if (fireStationType.TimeToGo <= _timeMax)
+                    newFire.EventHandle = true;
+                else
+                    newFire.EventHandle = false;
+            }
+
+            else
+            {
+                newFire.EventHandle = false;
+                fireStationType.TimeToGo = _timeMax;
+            }
+
         }
 
 
@@ -59,8 +94,9 @@ namespace ProjectStellar.Library
             set { _isVictimCrime = value; }
         }
 
- 
 
-        
+
+
+
     }
 }

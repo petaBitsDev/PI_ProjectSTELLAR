@@ -23,16 +23,17 @@ namespace ProjectStellar.Library
         List<Building> _list;
         int _size;
         int _unlockingLevel;
-        Truck _truck;
-        Fire _fire;
+        FireType _fire;
         double _distance;
         Building _origin;
         Building _target;
-        Double _timeToGo;
-        double _timeMax;
-        DateTime _timeNow;
-        GameTime gameTime = new GameTime();
         Timer _timer;
+        Truck _freeTruck;
+        Truck _truck;
+        Double _timeToGo;
+        DateTime _timeNow;
+
+
 
         public FireStationType()
         {
@@ -49,33 +50,20 @@ namespace ProjectStellar.Library
             _size = 4;
             _list = new List<Building>();
             _unlockingLevel = 6;
-        }
-
-        public void ServiceBuildingWorking()
-        {
             
-            _timeNow = gameTime.InGameTime;
-            BuildingDistance();
-            CheckTruckStatement();
-            _timeToGo = (Distance / _truck.Speed );
-
-            _timeMax = 180;
-            if (_timeToGo <= _timeMax)
-                _fire.EventHandle = true;
-            else
-                _fire.EventHandle = false;
         }
+
 
         public void BuildingDistance()
         {
             double max = double.MaxValue;
 
-            for(int i = 0; i <this.NbBuilding; i++)
+            for (int i = 0; i < this.NbBuilding; i++)
             {
-                for(int j = 0;j<_fire.BuildingHasEvent.Count; j++)
+                for (int j = 0; j < _fire.BuildingHasEvent.Count; j++)
                 {
                     Distance = Math.Sqrt(Math.Pow((_fire.BuildingHasEvent[j].X - this.List[i].X), 2.00) + Math.Pow((_fire.BuildingHasEvent[j].Y - this.List[i].Y), 2.00));
-                    if(Distance < max)
+                    if (Distance < max)
                     {
                         max = Distance;
                         _target = _fire.BuildingHasEvent[j];
@@ -83,6 +71,22 @@ namespace ProjectStellar.Library
                     }
 
                 }
+            }
+        }
+
+
+        public void CheckTruckStatement()
+        {
+            FireStation fireStation = (FireStation)this.Origin;
+            for (int i = 0; i < fireStation.NbVehicule; i++)
+            {
+                if (fireStation.Vehicule[i].IsFree == true)
+                {
+                    TruckSelected = fireStation.Vehicule[i];
+                    fireStation.Vehicule[i].IsFree = false;
+                    break;
+                }
+                else TruckSelected = null;
             }
         }
 
@@ -99,20 +103,7 @@ namespace ProjectStellar.Library
         
         }
 
-        public void CheckTruckStatement()
-        {
-            FireStation fireStation = (FireStation)Origin;
-            for(int i = 0; i < fireStation.NbVehicule; i++)
-            {
-                if (fireStation.Vehicule[i].IsFree == true)
-                {
-                    TruckSelected = fireStation.Vehicule[i];
-                    fireStation.Vehicule[i].IsFree = false;
-                    break;
-                }
-                else _truck = null;
-            }
-        }
+
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
         {
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
@@ -123,15 +114,18 @@ namespace ProjectStellar.Library
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
+
+
         public override int UnlockingLevel => _unlockingLevel;
 
-    
 
-        public Truck TruckSelected
+
+        public double Distance
         {
-            get { return _truck; }
-            set { _truck = value; }
+            get { return _distance; }
+            set { _distance = value; }
         }
+
         public Building Target
         {
             get { return _target; }
@@ -145,10 +139,18 @@ namespace ProjectStellar.Library
             set { _origin = value; }
         }
 
-        public double Distance
+
+
+        public Truck TruckSelected
         {
-            get { return _distance; }
-            set { _distance = value; }
+            get { return _truck; }
+            set { _truck = value; }
+        }
+
+        public DateTime StartTime
+        {
+            get { return _timeNow; }
+            set { _timeNow = value; }
         }
 
         public double TimeToGo
@@ -157,13 +159,8 @@ namespace ProjectStellar.Library
             set { _timeToGo = value; }
         }
 
-        public double TimeMax => _timeMax;
 
-        public DateTime StartTime
-        {
-            get { return _timeNow; }
-            set { _timeNow = value; }
-        }
+
 
         public override int Rock => _rock;
         public override int Wood => _wood;
