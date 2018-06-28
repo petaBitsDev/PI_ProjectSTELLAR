@@ -67,7 +67,7 @@ namespace ProjectStellar
                     _yMax = _mapUI._x2y2.Y;
                     if (!Equals(_ui.MouseSprite, null))
                     {
-                        _ui.MouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X, Mouse.GetPosition(_window).Y);
+                        _ui.MouseSprite.Position = new Vector2f(Mouse.GetPosition(_window).X - 10, Mouse.GetPosition(_window).Y - 10);
                     }
                 }
             }
@@ -161,7 +161,7 @@ namespace ProjectStellar
                     {
                         _ctx._map.ChosenBuilding = null;
                         _window.SetMouseCursorVisible(true);
-                        _ui.mouseSprite = null;
+                        _ui.MouseSprite = null;
                         if (_ui.SelectedItem == 0)
                         {
                             SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
@@ -191,6 +191,7 @@ namespace ProjectStellar
                     _window.SetMouseCursorVisible(true);
                     _ui.MouseSprite = null;
                     _ui.Map.ChosenBuilding = null;
+                    _ui.DestroySelected = false;
                 }
             }
             // Menu principal

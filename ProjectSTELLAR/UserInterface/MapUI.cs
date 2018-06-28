@@ -275,7 +275,7 @@ namespace ProjectStellar
                         {
                             _ctx.ChosenBuilding = null;
                             window.SetMouseCursorVisible(true);
-                            _ui.mouseSprite = null;
+                            _ui.MouseSprite = null;
                         }
                         else if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
                         {
@@ -285,14 +285,14 @@ namespace ProjectStellar
                             {
                                 _ctx.ChosenBuilding = null;
                                 window.SetMouseCursorVisible(true);
-                                _ui.mouseSprite = null;
+                                _ui.MouseSprite = null;
                             }
                         }
                     }
                     else if (_ui.DestroySelected && building != null)
                     {
                         building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building, _resourcesManager);
-                        _ui.DestroySelected = false;
+                        //_ui.DestroySelected = false;
                     }
                     else return false;
                     return true;

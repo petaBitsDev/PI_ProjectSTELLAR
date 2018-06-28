@@ -21,8 +21,8 @@ namespace ProjectStellar.Library
 
         public override Vector SpritePosition
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get { return _spritePosition; }
+            set { _spritePosition = value; }
         }
 
         public override bool OnFire

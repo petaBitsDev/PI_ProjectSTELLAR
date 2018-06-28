@@ -13,8 +13,8 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[17];
-        public Texture[] _uiTextures = new Texture[33];
+        public Texture[] _buildingsTextures = new Texture[20];
+        public Texture[] _uiTextures = new Texture[34];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -111,6 +111,7 @@ namespace ProjectStellar
             _uiTextures[30] = new Texture("./resources/img/rockchoice.png");
             _uiTextures[31] = new Texture("./resources/img/rockchosen.png");
             _uiTextures[32] = new Texture("./resources/img/check.png");
+            _uiTextures[33] = new Texture("./resources/img/bulldozer.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
@@ -146,16 +147,16 @@ namespace ProjectStellar
                     this._map.GenerateSpaceShips(this._resourcesManager);
                     for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
                     {
-                        //Console.WriteLine("SpaceShip Number : " + i);
-                        //Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                        //Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+                        Console.WriteLine("SpaceShip Number : " + i);
+                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
+                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
 
                         this._map.SpaceShipsList[i].Update();
 
-                        //Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        //Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
+                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
+                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
 
-                        //Console.WriteLine("=========================");
+                        Console.WriteLine("=========================");
                     }
                 }
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
@@ -165,11 +166,11 @@ namespace ProjectStellar
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-
+                    _resourcesManager.NbResources["nbPeople"] += 50;
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
-                    Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
+                    //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
 
@@ -181,9 +182,9 @@ namespace ProjectStellar
                         {
                             if (gameTime.InGameTime <= _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
                             {
-                                Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
-                                Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
-                                Console.WriteLine("====================================");
+                                //Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
+                                //Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
+                                //Console.WriteLine("====================================");
 
                                 _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
                             }
