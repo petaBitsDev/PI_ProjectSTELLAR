@@ -703,6 +703,9 @@ namespace ProjectStellar
         {
             if (_destroyButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
             {
+                window.SetMouseCursorVisible(false);
+                _mouseSprite = new Sprite(_ctx._uiTextures[33]);
+                _mouseSprite.Scale = new Vector2f(0.5f, 0.5f);
                 _destroySelected = true;
                 return true;
             }

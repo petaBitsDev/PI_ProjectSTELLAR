@@ -191,6 +191,7 @@ namespace ProjectStellar
                     _window.SetMouseCursorVisible(true);
                     _ui.MouseSprite = null;
                     _ui.Map.ChosenBuilding = null;
+                    _ui.DestroySelected = false;
                 }
             }
             // Menu principal
