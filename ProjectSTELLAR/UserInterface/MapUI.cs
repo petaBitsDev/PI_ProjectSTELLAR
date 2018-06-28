@@ -168,6 +168,52 @@ namespace ProjectStellar
                     }
                 }
             }
+
+
+            for (int a = 0; a < _cases.Length; a++)
+            {
+                if (_cases[a].Contains((int)worldPos.X, (int)worldPos.Y))
+                {
+                    if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                    {
+                        _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
+                    }
+                }
+
+                if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                {
+                    if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
+                    {
+                        CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y);
+                        if (_ui.MenuON)
+                        {
+                            _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
+                            _invisibleRec.FillColor = Color.Green;
+                            _invisibleRec.Position = new Vector2f(boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
+                            _invisibleRec.Draw(window, RenderStates.Default);
+
+                            _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
+                        }
+                    }
+                }
+            }
+
+
+
+            for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
+            {
+                Sprite spaceShip;
+
+                //if (_ctx.SpaceShipsList[b].Position.X < _ctx.SpaceShipsList[b].Direction.X)
+                //    spaceShip = _spaceShip1;
+                //else
+                spaceShip = _spaceShip2;
+
+                spaceShip.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
+                spaceShip.Scale = new Vector2f(1.37f, 1.37f);
+                spaceShip.Draw(window, RenderStates.Default);
+            }
+
             //FIRE-------------------------------------------------------------------------------------
             Clock clock = new Clock();
             int yFire;
@@ -187,8 +233,8 @@ namespace ProjectStellar
 
                     if (_ctx.NewFireType.BuildingHasEvent[i].Size == 1)
                     {
-                        _flame.Position = new Vector2f(yFire * 32+3, xFire * 32 +18);
-                        _fire.Position = new Vector2f(yFire * 32+3, xFire * 32 +18);
+                        _flame.Position = new Vector2f(yFire * 32 + 3, xFire * 32 + 18);
+                        _fire.Position = new Vector2f(yFire * 32 + 3, xFire * 32 + 18);
 
 
                     }
@@ -208,61 +254,22 @@ namespace ProjectStellar
                     }
 
                     Console.WriteLine(GameContext.GameTime.InGameTime.Minute);
-                    if(GameContext.GameTime.InGameTime.Minute%2 == 0)
+                    if (GameContext.GameTime.InGameTime.Minute % 2 == 0)
                     {
                         window.Draw(_fire); ;
 
 
                     }
-                    else if(GameContext.GameTime.InGameTime.Minute%2 == 1) 
+                    else if (GameContext.GameTime.InGameTime.Minute % 2 == 1)
                     {
                         window.Draw(_flame);
 
                     }
-
                 }
-                for (int a = 0; a < _cases.Length; a++)
-                {
-                    if (_cases[a].Contains((int)worldPos.X, (int)worldPos.Y))
-                    {
-                        if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
-                        {
-                            _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
-                        }
-                    }
-                }
-                }
-                if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
-                {
-                    if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
-                    {
-                        CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y);
-                        if (_ui.MenuON)
-                        {
-                            _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
-                            _invisibleRec.FillColor = Color.Green;
-                            _invisibleRec.Position = new Vector2f(boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
-                            _invisibleRec.Draw(window, RenderStates.Default);
-
-                            _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
-                        }
-                    }
-                }
-            }
-            for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
-            {
-                Sprite spaceShip;
-
-                //if (_ctx.SpaceShipsList[b].Position.X < _ctx.SpaceShipsList[b].Direction.X)
-                //    spaceShip = _spaceShip1;
-                //else
-                    spaceShip = _spaceShip2;
-
-                spaceShip.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
-                spaceShip.Scale = new Vector2f(1.37f, 1.37f);
-                spaceShip.Draw(window, RenderStates.Default);
             }
         }
+    
+    
 
         public bool CheckSpaceMenu (Building b, RenderWindow window, int posX, int posY)
         {

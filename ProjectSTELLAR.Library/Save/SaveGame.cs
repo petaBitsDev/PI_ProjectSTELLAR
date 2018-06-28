@@ -19,7 +19,7 @@ namespace ProjectStellar.Library
         SatisfactionManager _satisfactionManager;
         FireType _fireType;
 
-        public SaveGame(string name, Map map, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfactionManager)
+        public SaveGame(string name, Map map, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfactionManager, FireType fireType)
         {
             _name = name;
             _map = map;
