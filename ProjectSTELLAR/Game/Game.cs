@@ -14,7 +14,7 @@ namespace ProjectStellar
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[20];
-        public Texture[] _uiTextures = new Texture[34];
+        public Texture[] _uiTextures = new Texture[35];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -33,6 +33,8 @@ namespace ProjectStellar
         internal string _gameName;
         internal View _view;
         Vector2f _center;
+        CityEvents _cityEvents;
+
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -112,6 +114,7 @@ namespace ProjectStellar
             _uiTextures[31] = new Texture("./resources/img/rockchosen.png");
             _uiTextures[32] = new Texture("./resources/img/check.png");
             _uiTextures[33] = new Texture("./resources/img/bulldozer.png");
+            _uiTextures[34] = new Texture("./resources/img/meteors.jpg");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
         }
@@ -135,6 +138,7 @@ namespace ProjectStellar
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view, Window);
             _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this);
             _satisfactionManager = new SatisfactionManager();
+            _cityEvents = new CityEvents();
         }
 
         public override void Update(GameTime gameTime)
@@ -147,16 +151,16 @@ namespace ProjectStellar
                     this._map.GenerateSpaceShips(this._resourcesManager);
                     for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
                     {
-                        Console.WriteLine("SpaceShip Number : " + i);
-                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+                        //Console.WriteLine("SpaceShip Number : " + i);
+                        //Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
+                        //Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
 
                         this._map.SpaceShipsList[i].Update();
 
-                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
+                        //Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
+                        //Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
 
-                        Console.WriteLine("=========================");
+                        //Console.WriteLine("=========================");
                     }
                 }
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
@@ -171,6 +175,7 @@ namespace ProjectStellar
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
+                    _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
 
@@ -261,5 +266,7 @@ namespace ProjectStellar
         {
             get { return _resolution; }
         }
+
+        public CityEvents CityEvents => _cityEvents;
     }
 }

@@ -92,6 +92,7 @@ namespace ProjectStellar
         Sprite _mouseSprite;
         Sprite _sendButton;
         Sprite _sendActifButton;
+        Sprite _meteors;
 
         uint _width;
         uint _height;
@@ -112,6 +113,8 @@ namespace ProjectStellar
         int _choiceMade;
         string _resource;
         bool _sent;
+        int _nbDestroyedBuildings;
+        Clock _meteorWait;
 
         public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
         {
@@ -434,6 +437,8 @@ namespace ProjectStellar
             _tab3Sprite.Add(_factory, _mapCtx.BuildingTypes[14]);
 
             _mouseSprite = new Sprite();
+
+            _meteors = new Sprite(_ctx._uiTextures[34]);
         }
 
         internal bool IsTab1Active
@@ -1438,6 +1443,50 @@ namespace ProjectStellar
             ship.Resource = "";
             _availabilities[i].FillColor = Color.Green;
             _availabilities[i].Draw(window, RenderStates.Default);
+        }
+
+        public bool DrawMeteor(RenderWindow window, Font font)
+        {
+            if (_meteorWait == null) _meteorWait = new Clock();
+
+            if (_meteorWait.ElapsedTime.AsSeconds() < 5)
+            {
+                _meteors.Draw(window, RenderStates.Default);
+                Text info;
+                RectangleShape rec;
+
+                if (_meteorWait.ElapsedTime.AsSeconds() < 2)
+                {
+                    info = new Text("Meteors are falling !", font);
+                    info.Position = new Vector2f(_resolution.X / 9 * 4, _resolution.Y / 5 * 4);
+                }
+                else
+                {
+                    string str = "Meteors have fallen from the sky and " + _ctx.CityEvents.NbDestroyedBuildings + " buildings have been destroyed !";
+                    info = new Text(str, font);
+                    info.Position = new Vector2f(_resolution.X / 15 * 2, _resolution.Y / 5 * 4);
+                }
+
+                rec = new RectangleShape()
+                {
+                    Position = new Vector2f(0, info.Position.Y),
+                    Size = new Vector2f(_resolution.X, 50 + 20),
+                    FillColor = Color.Black
+                };
+                rec.Draw(window, RenderStates.Default);
+
+                info.CharacterSize = 50;
+                info.Color = Color.Yellow;
+                info.Draw(window, RenderStates.Default);
+            }
+            else
+            {
+                _meteorWait = null;
+                _ctx.CityEvents.WaitMeteors = false;
+                return false;
+            }
+
+            return true;
         }
     }
 }
