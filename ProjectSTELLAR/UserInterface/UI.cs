@@ -1225,7 +1225,7 @@ namespace ProjectStellar
             {
                 RectangleShape rec = new RectangleShape();
                 rec.Size = new Vector2f(_boxSize * 12, _boxSize * 6);
-                rec.Position = new Vector2f(building.SpritePosition.Y * 32 - _boxSize * 6, building.SpritePosition.X * 32 - _boxSize * 2);
+                rec.Position = new Vector2f((float)building.SpritePosition.Y * 32 - _boxSize * 6, (float)building.SpritePosition.X * 32 - _boxSize * 2);
                 rec.FillColor = new Color(30, 30, 40);
                 rec.Draw(window, RenderStates.Default);
 

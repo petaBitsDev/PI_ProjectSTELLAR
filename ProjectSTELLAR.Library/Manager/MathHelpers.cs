@@ -7,16 +7,18 @@ namespace ProjectStellar.Library
     {
         internal static Vector MoveTo(Vector position, Vector direction, float speed)
         {
-            int max = 99 * 32;
-            Vector v = ConvertVectorToMap(direction, max);
-            double diviseur = v.Magnitude;
+            //Vector longueur = direction.Sub(position);
+            //Vector move = longueur.Mul(speed);
+            double div = direction.Magnitude;
 
-            if (v.Magnitude == 0)
-                diviseur = 1;
+            if (direction.Magnitude == 0) div = 1;
+            else div = 1 / div;
 
-            Vector unit = v.Mul(1.0f / ((float)diviseur/5));
-            Vector move = unit.Mul(speed);
-            move = ConvertVectorToMap(move, max);
+            Vector unit_vector = direction.Mul(div);
+            Vector move = unit_vector.Mul(speed);
+            move = ConvertVectorToMap(move, 99 * 32);
+            Console.WriteLine(move.X.ToString());
+            Console.WriteLine(move.Y.ToString());
 
             if (direction.X > position.X && direction.Y > position.Y)
                 position = new Vector(position.X + move.X, position.Y + move.Y);
@@ -26,12 +28,19 @@ namespace ProjectStellar.Library
                 position = new Vector(position.X - move.X, position.Y + move.Y);
             else if (direction.X > position.X && direction.Y < position.Y)
                 position = new Vector(position.X + move.X, position.Y - move.Y);
+
+            position = Limit(position, 0, 99 * 32);
             return position;
         }
 
-        internal static Vector Limit(Vector v, float min, float max)
+        internal static Vector Limit(Vector v, double min, double max)
         {
-            return new Vector(Limit((int)v.X, min, max), Limit((int)v.Y, min, max));
+            return new Vector(Limit(v.X, min, max), Limit(v.Y, min, max));
+        }
+
+        internal static double Limit(double n, double min, double max)
+        {
+            return Math.Min(Math.Max(n, min), max);
         }
 
         internal static float Limit(float n, float min, float max)
