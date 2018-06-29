@@ -129,6 +129,9 @@
     <None Update="resources\img\hospital.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="resources\img\hospital2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="resources\img\house.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

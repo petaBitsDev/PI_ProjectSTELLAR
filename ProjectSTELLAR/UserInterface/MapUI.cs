@@ -132,21 +132,21 @@ namespace ProjectStellar
                     {
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab1Sprite)
                         {
-                            if (boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
                         {
-                            if (boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value && boxes[i, j].X == i && boxes[i, j].Y == j)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
                         {
-                            if (boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }

@@ -13,8 +13,13 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
+<<<<<<< Updated upstream
         public Texture[] _buildingsTextures = new Texture[20];
         public Texture[] _uiTextures = new Texture[34];
+=======
+        public Texture[] _buildingsTextures = new Texture[17];
+        public Texture[] _uiTextures = new Texture[24];
+>>>>>>> Stashed changes
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -73,10 +78,14 @@ namespace ProjectStellar
             _buildingsTextures[13] = new Texture("./resources/img/cave.png");
             _buildingsTextures[14] = new Texture("./resources/img/crucible.png");
             _buildingsTextures[15] = new Texture("./resources/img/warehouse.png");
+<<<<<<< Updated upstream
             _buildingsTextures[16] = new Texture("./resources/img/padlock.png");
             _buildingsTextures[17] = new Texture("./resources/img/shop.png");
             _buildingsTextures[18] = new Texture("./resources/img/factory.png");
             _buildingsTextures[19] = new Texture("./resources/img/park.png");
+=======
+            _buildingsTextures[16] = new Texture("./resources/img/hospital2.png");
+>>>>>>> Stashed changes
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");

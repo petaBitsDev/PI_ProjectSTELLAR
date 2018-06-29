@@ -350,7 +350,7 @@ namespace ProjectStellar
                 Position = new Vector2f(_resolution.X - _boxSize * 4, _resolution.Y / 2)
             };
 
-            _hospital = new Sprite(_ctx._buildingsTextures[9])
+            _hospital = new Sprite(_ctx._buildingsTextures[16])
             {
                 Position = new Vector2f(_resolution.X - _boxSize * 6, _resolution.Y / 2)
             };
