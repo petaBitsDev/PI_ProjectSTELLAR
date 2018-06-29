@@ -4,29 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectStellar.Library
-{ 
-    [Serializable]
-    class FireStation : Building, IServiceBuildings
+namespace ProjectStellar.Library.BuildingInstance.SpecBuildingInstance.resourcesBuilding
+{
+    class Factory : Building, IResourcesBuildings
     {
         bool _onFire;
-        int _nbTruck;
         bool _isSick;
-        int _nbCellule;
-        bool _isVictimCrime;
+        bool _isCrimeVictim;
+        readonly BuildingType _type;
         Vector _spritePosition;
 
-        public FireStation(BuildingType type, int x, int y) : base(type, x, y)
+        public Factory(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _nbTruck = 1;
-            _nbCellule = 2;
-            
-        }
-
-        public int NbVehicule
-        {
-            get { return _nbTruck; }
-            set { _nbTruck = value; }
+            _type = type;
         }
 
         public override bool OnFire
@@ -35,7 +25,7 @@ namespace ProjectStellar.Library
             set { _onFire = value; }
         }
 
-                public override bool IsSick
+        public override bool IsSick
         {
             get { return _isSick; }
             set { _isSick = value; }
@@ -43,8 +33,8 @@ namespace ProjectStellar.Library
 
         public override bool IsVictimCrime
         {
-            get { return _isVictimCrime; }
-            set { _isVictimCrime = value; }
+            get { return _isCrimeVictim; }
+            set { _isCrimeVictim = value; }
         }
 
         public override Vector SpritePosition

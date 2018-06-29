@@ -5,28 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
-{ 
+{
     [Serializable]
-    class FireStation : Building, IServiceBuildings
+    class Shop : Building, IResourcesBuildings
     {
         bool _onFire;
-        int _nbTruck;
         bool _isSick;
-        int _nbCellule;
         bool _isVictimCrime;
         Vector _spritePosition;
 
-        public FireStation(BuildingType type, int x, int y) : base(type, x, y)
+        public Shop(BuildingType type, int x, int y) : base(type, x, y)
         {
-            _nbTruck = 1;
-            _nbCellule = 2;
-            
-        }
-
-        public int NbVehicule
-        {
-            get { return _nbTruck; }
-            set { _nbTruck = value; }
         }
 
         public override bool OnFire
@@ -35,7 +24,7 @@ namespace ProjectStellar.Library
             set { _onFire = value; }
         }
 
-                public override bool IsSick
+        public override bool IsSick
         {
             get { return _isSick; }
             set { _isSick = value; }

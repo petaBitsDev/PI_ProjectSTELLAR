@@ -16,32 +16,23 @@ namespace ProjectStellar
         View _view;
         Game _ctx;
         int _selectedIndex;
-        private bool _hovering;
         Sprite _backButton;
         bool _saveSelected;
         List<FloatRect> _deletes;
+        float _y1;
+        float _y2;
 
-        public MenuLoadGame(float width, float height, Game ctx, View view)
+        public MenuLoadGame(float width, float height, Game ctx)
         {
             _ctx = ctx;
             _width = width;
             _height = height;
-            _view = view;
             _backButton = new Sprite(_ctx._menuTextures[12])
             {
                 Position = new Vector2f(32, 32)
             };
         }
-        public int SelectedItem
-        {
-            get { return _selectedIndex; }
-        }
 
-        public bool Hoovering
-        {
-            get { return _hovering; }
-            set { _hovering = value; }
-        }
         public void Draw(RenderWindow window)
         {
             List<SaveGameMetadata> list = Save.List();
@@ -49,7 +40,12 @@ namespace ProjectStellar
             _backButton.Draw(window, RenderStates.Default);
             _deletes = new List<FloatRect>();
 
-            foreach(SaveGameMetadata metadata in list)
+            Vector2i pixelPos = Mouse.GetPosition(window);
+            Vector2f worldPos = window.MapPixelToCoords(pixelPos, _view);
+
+            window.SetView(_view);
+
+            foreach (SaveGameMetadata metadata in list)
             {
 
                 RectangleShape rec = new RectangleShape();
@@ -95,29 +91,30 @@ namespace ProjectStellar
                 date.Draw(window, RenderStates.Default);
                 delete.Draw(window, RenderStates.Default);
 
-                if (rec.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                if (rec.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
                 {
-                    Hoovering = true;
-                    if (Hoovering)
-                    {
-                        nom.Color = Color.Yellow;
-                        date.Color = Color.Yellow;
-                        population.Color = Color.Yellow;
-                        nom.Draw(window, RenderStates.Default);
-                        population.Draw(window, RenderStates.Default);
-                        date.Draw(window, RenderStates.Default);
-                    }
+                    nom.Color = Color.Yellow;
+                    date.Color = Color.Yellow;
+                    population.Color = Color.Yellow;
+                    nom.Draw(window, RenderStates.Default);
+                    population.Draw(window, RenderStates.Default);
+                    date.Draw(window, RenderStates.Default);
                 }
             }
+
+            window.SetView(window.DefaultView);
         }
 
-        public void CheckMouse(float mouseX, float mouseY)
+        public void CheckMouse(int mouseX, int mouseY, RenderWindow window)
         {
             List<SaveGameMetadata> list = Save.List();
             int i = 1;
             int j = 0;
+            
+            Vector2i pixelPos = Mouse.GetPosition(window);
+            Vector2f worldPos = window.MapPixelToCoords(pixelPos, _view);
 
-            if (_backButton.GetGlobalBounds().Contains(mouseX, mouseY))
+            if (_backButton.GetGlobalBounds().Contains(pixelPos.X, pixelPos.Y))
                 _ctx.MenuState = 0;
             else
             {
@@ -129,7 +126,7 @@ namespace ProjectStellar
                         Position = new Vector2f(_ctx.Resolution.X / 2 - (32 * 8), i * 32)
                     };
 
-                    if (rec.GetGlobalBounds().Contains(mouseX, mouseY))
+                    if (rec.GetGlobalBounds().Contains(worldPos.X, worldPos.Y))
                     {
                         _chosenSave = metadata.Name;
                         _saveSelected = true;
@@ -137,10 +134,10 @@ namespace ProjectStellar
                         _ctx.LoadGame(_saveChoice);
                         _ctx.MenuState = 1;
                     }
-                    else if (_deletes[j].Contains(mouseX, mouseY))
+                    else if (_deletes[j].Contains(worldPos.X, worldPos.Y))
                     {
-                        Console.WriteLine("delete" + metadata.Name);
                         Save.DeleteSave(metadata.Name);
+                        //Console.WriteLine("deleted : " + metadata.Name);
                     }
 
                     i += 4;
@@ -155,5 +152,35 @@ namespace ProjectStellar
         }
 
         public bool SaveSelected => _saveSelected;
+
+        public void SetLoadMenu()
+        {
+            int nbSaves = Save.List().Count;
+            _y1 = 0;
+            _y2 = 1 * 32 + (4 * 32) * nbSaves;
+            
+            _view = new View(new Vector2f(_width / 2, _height / 2), new Vector2f(_width, _height));
+
+            _ctx.MenuState = 2;
+        }
+
+        public void Scroll(float delta)
+        {
+            //Console.WriteLine("Y1 = {0}\n Y2 = {1}", _y1, _y2);
+            //Up
+            if (delta < 0 && _y2 > _height)
+            {
+                _view.Move(new Vector2f(0, 50));
+                _y1 += -50;
+                _y2 += -50;
+            }
+            //Down
+            else if (delta > 0 && _y1 < 0)
+            {
+                _view.Move(new Vector2f(0, -50));
+                _y1 += 50;
+                _y2 += 50;
+            }
+        }
     }
 }

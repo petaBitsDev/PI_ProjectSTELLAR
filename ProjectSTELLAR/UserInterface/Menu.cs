@@ -111,9 +111,9 @@ namespace ProjectStellar
 
         public void CheckMouse(RenderWindow window)
         {
-            if (_selectedIndex == 0) _ctx.MenuState = 3; //launch game
-            else if (_selectedIndex == 1) _ctx.MenuState = 2;
-            else if (_selectedIndex == 2) window.Close();
+            if (_selectedIndex == 0) _ctx.MenuState = 3; //New game
+            else if (_selectedIndex == 1) _ctx._menuLoadGame.SetLoadMenu(); //Load game
+            else if (_selectedIndex == 2) window.Close(); //Close game
         }
 
         public bool IsHovering => _hovering;

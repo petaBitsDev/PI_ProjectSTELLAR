@@ -32,10 +32,12 @@ namespace ProjectStellar
         bool _buildingExist;
         RectangleShape rec = new RectangleShape();
         bool test;
+        bool _menuON;
         Resolution _resolution;
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
+        RectangleShape _invisibleRec;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -50,6 +52,9 @@ namespace ProjectStellar
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
+            _menuON = false;
+            _invisibleRec = new RectangleShape();
+
             _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
             _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
             _spaceShip1 = new Sprite(new Texture("./resources/img/startup1.png"));
@@ -158,10 +163,25 @@ namespace ProjectStellar
                     {
                         _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
                     }
-                }    
-            }
+                }
+                if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
+                {
+                    if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
+                    {
+                        CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y);
+                        if (_ui.MenuON)
+                        {
+                            _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
+                            _invisibleRec.FillColor = Color.Green;
+                            _invisibleRec.Position = new Vector2f(boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
+                            _invisibleRec.Draw(window, RenderStates.Default);
 
-            for(int b = 0; b < _ctx.SpaceShipsList.Count; b++)
+                            _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
+                        }
+                    }
+                }
+            }
+            for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
                 Sprite spaceShip;
 
@@ -174,6 +194,20 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(1.37f, 1.37f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
+        }
+
+        public bool CheckSpaceMenu (Building b, RenderWindow window, int posX, int posY)
+        {
+            if (b.SpritePosition.X == posY / 32 && b.SpritePosition.Y == posX / 32)
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    _ui.MenuON = true;
+                    return true;
+                }
+                return true;
+            }
+            else return false;
         }
 
         public bool Test
@@ -237,27 +271,34 @@ namespace ProjectStellar
                     Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
-                        if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
+                        if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
+                        {
+                            _ctx.ChosenBuilding = null;
+                            window.SetMouseCursorVisible(true);
+                            _ui.MouseSprite = null;
+                        }
+                        else if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
+                        {
                             _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
-                        _ctx.ChosenBuilding = null;
-                        window.SetMouseCursorVisible(true);
-                        _ui.mouseSprite = null;
+
+                            if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
+                            {
+                                _ctx.ChosenBuilding = null;
+                                window.SetMouseCursorVisible(true);
+                                _ui.MouseSprite = null;
+                            }
+                        }
                     }
                     else if (_ui.DestroySelected && building != null)
                     {
                         building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building, _resourcesManager);
-                        _ui.DestroySelected = false;
+                        //_ui.DestroySelected = false;
                     }
                     else return false;
                     return true;
                 }
             }
             return false;
-        }
-
-        public void DrawSpaceShips(RenderWindow window, Building[,] boxes)
-        {
-
         }
 
         public bool BuildingExist
