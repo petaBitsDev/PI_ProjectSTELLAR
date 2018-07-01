@@ -19,7 +19,6 @@ namespace ProjectStellar.Library
         double _timeMax;
         DiseaseType _diseaseType;
         Map _ctx;
-        GameTime gameTime = new GameTime();
         Vector _spritePosition;
         public Hospital(HospitalType type, int x, int y, Map ctx): base(type, x, y)
         {
@@ -34,11 +33,11 @@ namespace ProjectStellar.Library
         public void ServiceBuildingWorking()
         {
             Disease newDisease = _diseaseType.CreateEvent();
-            _hospitalType.StartTime = gameTime.InGameTime;
+            _hospitalType.StartTime = _ctx.GetGameTime.InGameTime;
 
             if(_hospitalType.List.Count != 0)
             {
-               _hospitalType.BuildingDistance();
+               _hospitalType.BuildingDistance(_ctx);
                _hospitalType.CheckTruckStatement();
                _hospitalType.TimeToGo  = (_hospitalType.Distance /_hospitalType.TruckSelected.Speed);
 

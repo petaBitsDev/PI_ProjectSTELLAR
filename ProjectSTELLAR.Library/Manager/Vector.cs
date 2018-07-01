@@ -14,9 +14,17 @@ namespace ProjectStellar.Library
             _y = y;
         }
 
-        public float X => _x;
+        public float X
+        {
+            get { return _x; }
+            set { _x = value; }
+        }
 
-        public float Y => _y;
+        public float Y
+        {
+            get { return _y; }
+            set { _y = value; }
+        }
 
         public double Magnitude => Math.Sqrt(_x * _x + _y * _y);
 

@@ -15,7 +15,8 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[20];
         public Texture[] _uiTextures = new Texture[34];
-        public Texture[] _spriteSheet = new Texture[3];
+        public Texture[] _spriteSheet = new Texture[7];
+        public Texture[] _spriteTruck = new Texture[1];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -27,7 +28,6 @@ namespace ProjectStellar
         internal ExperienceManager _experienceManager;
         internal FireType _fireType;
         internal ResourcesManager _resourcesManager;
-        internal ProjectStellar.Library.Timer _timer;
         internal SatisfactionManager _satisfactionManager;
         MapUI _mapUI;
         internal WindowEvents _windowEvents;
@@ -121,6 +121,12 @@ namespace ProjectStellar
             _spriteSheet[0] = new Texture("./resources/img/firesheet.png");
             _spriteSheet[1] = new Texture("./resources/img/flame.png");
             _spriteSheet[2] = new Texture("./resources/img/fires.png");
+            _spriteSheet[3] = new Texture("./resources/img/alienColor.png");
+            _spriteSheet[4] = new Texture("./resources/img/alienss.png");
+            _spriteSheet[5] = new Texture("./resources/img/fever.png");
+            _spriteSheet[6] = new Texture("./resources/img/feverred.png");
+
+            _spriteTruck[0] = new Texture("./resources/img/fire-truck.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
 
@@ -152,22 +158,14 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
-                _timer.TimeToUpdate();
                 if(gameTime.InGameTime.Second % 2 == 0)
                 {
                     this._map.GenerateSpaceShips(this._resourcesManager);
                     for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
                     {
-                        Console.WriteLine("SpaceShip Number : " + i);
-                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
-
+                    
                         this._map.SpaceShipsList[i].Update();
-
-                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
-
-                        Console.WriteLine("=========================");
+                        
                     }
                 }
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
@@ -232,7 +230,6 @@ namespace ProjectStellar
 
         internal void LoadGame(SaveGame save)
         {
-            _timer = Timer;
             MenuState = 1;
             GameTime = save.GameTime;
             _map = save.Map;
@@ -252,13 +249,12 @@ namespace ProjectStellar
                 _name = _newGame.Name;
                 _newGame.Name = "";
                 MenuState = 1;
-                _map = new Map(100, 100);
+                _map = new Map(100, 100, GameTime);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
                 _satisfactionManager = new SatisfactionManager();
                 _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager, _fireType);
                 _fireType = new FireType(_map);
-                _timer = new Timer(Map, GameTime);
             }
         }
 
@@ -287,10 +283,5 @@ namespace ProjectStellar
             set { _map = value; }
         }
 
-        public Timer Timer
-        {
-            get { return _timer; }
-            set { _timer = value; }
-        }
     }
 }

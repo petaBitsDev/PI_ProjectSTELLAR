@@ -55,6 +55,7 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             Hospital building = new Hospital(this, x, y, map);
+            CreateTruck(building);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -62,7 +63,7 @@ namespace ProjectStellar.Library
 
 
 
-        public void BuildingDistance()
+        public void BuildingDistance(Map map)
         {
             double max = double.MaxValue;
 
@@ -75,19 +76,23 @@ namespace ProjectStellar.Library
                     {
                         max = Distance;
                         _target = _disease.BuildingHasEvent[j];
+                        Console.WriteLine("HOSPITALTYPE TARGET -----" + _target);
                         _origin = (Hospital)List[i];
                     }
                 }
             }
         }
 
-        public void CreateTruck()
+        public void CreateTruck(Building building)
         {
-            foreach(Hospital hospital in List)
+            Hospital hospital = (Hospital)building;
+           for(int i = 0; i <hospital.NbVehicule; i++)
             {
                 Truck t = new Truck();
                 hospital.Vehicule.Add(t);
             }
+           
+            
         }
 
         public void CheckTruckStatement()

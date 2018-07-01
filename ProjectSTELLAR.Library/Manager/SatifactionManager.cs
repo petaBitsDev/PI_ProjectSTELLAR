@@ -47,11 +47,23 @@ namespace ProjectStellar.Library
             Console.WriteLine(Satifaction);
         }
 
-        public void UnsolvedEvent()
+        public void UnsolvedEvent(Map map)
         {
-            _satisfaction -= 0.01f;
-            if (_satisfaction < 0f) _satisfaction = 0f;
-            else if (_satisfaction > 1f) _satisfaction = 1f;
+            foreach (IEvent e in map.ListEvent)
+            {
+                if (e.EventHandle == true)
+                {
+                    _satisfaction += 0.03f;
+                }
+                else
+                {
+                    _satisfaction -= 0.01f;
+                    if (_satisfaction < 0f) _satisfaction = 0f;
+
+                }
+            }
+
         }
     }
 }
+

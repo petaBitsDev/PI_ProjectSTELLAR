@@ -11,9 +11,13 @@ namespace ProjectStellar.Library
     {
         bool _isFree;
         float _speed;
+        Vector _position;
+        Vector _direction;
+
         public Truck()
         {
-            _speed = 0.25f;
+            _speed = 0.00025f;
+            _isFree = true;
         }
 
         public float Speed => _speed;

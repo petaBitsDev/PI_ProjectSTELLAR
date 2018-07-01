@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class Disease : IEvent
+    [Serializable]
+    public  class Disease : IEvent
     {
         Map _ctx;
         bool _eventHandle;
@@ -27,7 +28,7 @@ namespace ProjectStellar.Library
             set { _eventHandle = value; }
         }
 
-        public void BuildingEvent()
+        public void BuildingEvent(GameTime gameTime)
         {
             Random random = new Random();
             int _idxBuildingtype;
@@ -51,13 +52,13 @@ namespace ProjectStellar.Library
                 {
                     Console.WriteLine("DISEASE le building selectionné etait public");
                     Console.WriteLine();
-                    BuildingEvent();
+                    BuildingEvent(gameTime);
                 }
                 else if (buildingSelected.List[_idxBuilding].IsSick == true)
                 {
                     Console.WriteLine("DISEASE -- le building est deja malade");
                     Console.WriteLine();
-                    BuildingEvent();
+                    BuildingEvent(gameTime);
                 }
                 else
                 {
@@ -65,6 +66,8 @@ namespace ProjectStellar.Library
 
                     buildingSelected.List[_idxBuilding].IsSick = true;
                    _diseaseType.BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
+                    _diseaseType.BuildingHasEvent[_diseaseType.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
+
                     Console.WriteLine("disease" +_diseaseType.BuildingHasEvent.ToString());
                     Console.WriteLine(" DISEASE is the building selected sick : " + buildingSelected.List[_idxBuilding].IsSick);
                     Console.WriteLine();
@@ -74,7 +77,7 @@ namespace ProjectStellar.Library
             {
                 Console.WriteLine("Il n'y a pas d'instance de l'objet sur la carte" );
                 Console.WriteLine();
-                BuildingEvent();
+                BuildingEvent(gameTime);
 
             }
 
@@ -103,7 +106,7 @@ namespace ProjectStellar.Library
                     if (_diseaseType.IsEventHappening == true)
                     {
                         if (gameTime.InGameTime.Equals(endOfEvent)) EventHandle = false;
-                        BuildingEvent();
+                        BuildingEvent(gameTime);
                         _diseaseType.PreviousEvent = true;
                     }
                     else

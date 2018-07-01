@@ -27,14 +27,15 @@ namespace ProjectStellar.Library
         double _distance;
         Building _origin;
         Building _target;
-        Timer _timer;
         Truck _freeTruck;
         Truck _truck;
         Double _timeToGo;
         DateTime _timeNow;
+        Fire newFire;
 
 
-
+        Vector _truckPosition;
+        Vector _truckDestination;
         public FireStationType()
         {
             _rock = 45;
@@ -54,8 +55,10 @@ namespace ProjectStellar.Library
         }
 
 
-        public void BuildingDistance()
+        public void BuildingDistance(Map map)
         {
+            _fire = map.NewFireType;
+             newFire = _fire.CreateEvent();
             double max = double.MaxValue;
 
             for (int i = 0; i < this.NbBuilding; i++)
@@ -69,9 +72,30 @@ namespace ProjectStellar.Library
                         _target = _fire.BuildingHasEvent[j];
                         _origin = (FireStation)this.List[i];
                     }
+                    Console.WriteLine("FIRESTATION TYPE TTARGET -----" + _target);
+
 
                 }
             }
+        }
+
+
+        public void TruckMoveTo()
+        {
+            _truckPosition.X = Origin.X ;
+            _truckPosition.Y = Origin.Y;
+
+            _truckDestination.X = Target.X ;
+            _truckDestination.Y = Target.Y;
+
+            if(TruckSelected != null)
+            {
+                _truckPosition = _truckPosition.Add(_truckDestination.Mul(TruckSelected.Speed));
+
+            }
+
+
+
         }
 
 
@@ -80,6 +104,7 @@ namespace ProjectStellar.Library
             FireStation fireStation = (FireStation)this.Origin;
             for (int i = 0; i < fireStation.NbVehicule; i++)
             {
+                fireStation.Vehicule[i].IsFree = true;
                 if (fireStation.Vehicule[i].IsFree == true)
                 {
                     TruckSelected = fireStation.Vehicule[i];
@@ -90,16 +115,15 @@ namespace ProjectStellar.Library
             }
         }
 
-        public void CreateTruck()
+        public void CreateTruck(Building building)
         {
-            foreach(FireStation firestation in this.List)
-            {
-                for(int i = 0; i < firestation.NbVehicule; i++)
+            FireStation fireStation = (FireStation)building;
+                for(int i = 0; i < fireStation.NbVehicule; i++)
                 {
                     Truck t = new Truck();
-                    firestation.Vehicule.Add(t);
+                    fireStation.Vehicule.Add(t);
                 }
-            }
+            
         
         }
 
@@ -110,7 +134,7 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             FireStation building = new FireStation(this, x, y, map);
-            this.CreateTruck();
+            this.CreateTruck(building);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -175,5 +199,18 @@ namespace ProjectStellar.Library
         public override List<Building> List => _list;
         public override int Size => _size;
         public override int NbBuilding => _list.Count;
+        internal Fire NewFire => newFire;
+
+        public Vector TruckPosition
+        {
+            get { return _truckPosition; }
+            set { _truckPosition = value; }
+        }
+
+        public Vector TruckDestination
+        {
+            get { return _truckDestination; }
+            set { _truckDestination = value; }
+        }
     }
 }

@@ -19,7 +19,6 @@ namespace ProjectStellar.Library
         double _timeMax;
         CrimeType _crimeType;
         Map _ctx;
-        GameTime _gameTime = new GameTime();
         public PoliceStation(PoliceStationType type, int x, int y, Map ctx) : base(type, x, y)
         {
             _nbTruck = 2;
@@ -32,10 +31,10 @@ namespace ProjectStellar.Library
         public void ServiceBuildingWorking()
         {
             Crime newCrime = _crimeType.CreateEvent();
-            _policeStationType.StartTime = _gameTime.InGameTime;
+            _policeStationType.StartTime = _ctx.GetGameTime.InGameTime;
             if(_policeStationType.List.Count != 0)
             {
-                _policeStationType.BuildingDistance();
+                _policeStationType.BuildingDistance(_ctx);
                 _policeStationType.CheckTruckStatement();
                 _policeStationType.TimeToGo = (_policeStationType.Distance / _policeStationType.TruckSelected.Speed);
 

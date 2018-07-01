@@ -22,8 +22,9 @@ namespace ProjectStellar.Library
         List<IServiceBuildingsType> _listServiceBuilding;
         DiseaseType diseaseType;
         CrimeType crimeType;
+        GameTime _gameTime;
 
-        public Map (int width, int height)
+        public Map (int width, int height, GameTime gameTime)
         {
             _width = width;
             _height = height;
@@ -62,7 +63,8 @@ namespace ProjectStellar.Library
             _listServiceBuilding.Add(new FireStationType());
             _listServiceBuilding.Add(new PoliceStationType());
             _listServiceBuilding.Add(new HospitalType());
-               
+
+            _gameTime = gameTime;
 
 
         }
@@ -167,5 +169,10 @@ namespace ProjectStellar.Library
         public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
 
         public FireType NewFireType => fireType;
+        public CrimeType NewCrimeType => crimeType;
+
+        public DiseaseType NewDiseaseType => diseaseType;
+
+        internal GameTime GetGameTime => _gameTime;
     }
 }

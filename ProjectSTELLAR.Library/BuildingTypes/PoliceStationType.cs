@@ -56,14 +56,14 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             PoliceStation building = new PoliceStation(this, x, y, map);
-            CreateTruck();
+            CreateTruck(building);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
         public override int UnlockingLevel => _unlockingLevel;
 
 
-        public void BuildingDistance()
+        public void BuildingDistance(Map map)
         {
             double max = double.MaxValue;
 
@@ -76,23 +76,24 @@ namespace ProjectStellar.Library
                     {
                         max = Distance;
                         _target = _crime.BuildingHasEvent[j];
+
+                        Console.WriteLine("POLICE STATION TARGET ----" +_target);
                         _origin = (PoliceStation)List[i];
                     }
                 }
             }
         }
 
-        public void CreateTruck()
+        public void CreateTruck(Building building)
         {
-            foreach(PoliceStation policestation in this.List)
-            {
-                for(int i = 0; i <policestation.NbVehicule; i++)
+            PoliceStation policeStation = (PoliceStation)building;
+                for(int i = 0; i <policeStation.NbVehicule; i++)
                 {
                     Truck t = new Truck();
-                    policestation.Vehicule.Add(t);
+                    policeStation.Vehicule.Add(t);
                    
                 }
-            }
+            
         }
 
         public void CheckTruckStatement()

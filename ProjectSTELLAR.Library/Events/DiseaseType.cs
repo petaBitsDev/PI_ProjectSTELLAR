@@ -8,7 +8,7 @@ namespace ProjectStellar.Library
 {
     [Serializable]
 
-    class DiseaseType : IEventType
+    public class DiseaseType : IEventType
     {
 
         float _diseaseProbability;

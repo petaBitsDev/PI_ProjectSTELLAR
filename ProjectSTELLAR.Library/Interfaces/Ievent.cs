@@ -14,7 +14,7 @@ namespace ProjectStellar.Library
 
       
 
-       void BuildingEvent();
+       void BuildingEvent(GameTime gt);
 
 
        void  NewEvent(GameTime gt);

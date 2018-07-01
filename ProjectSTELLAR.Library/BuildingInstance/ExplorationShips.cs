@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
-{ 
+{
+    [Serializable]
     public class ExplorationShips
     {
         bool _available;

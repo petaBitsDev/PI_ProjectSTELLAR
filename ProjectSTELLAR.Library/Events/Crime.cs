@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class Crime : IEvent
+    [Serializable]
+     internal class Crime : IEvent
     {
         Map _ctx;
         bool _eventHandle;
@@ -26,7 +27,7 @@ namespace ProjectStellar.Library
             set { _eventHandle = value; }
         }
 
-        public void BuildingEvent()
+        public void BuildingEvent(GameTime gameTime)
         {
             Random random = new Random();
             int _idxBuildingType;
@@ -49,26 +50,28 @@ namespace ProjectStellar.Library
                 {
                     Console.WriteLine("CRIME -- LE BUILDINC ETAIT SOIT DE SERVICE SOIT LA MAIRIE");
                     Console.WriteLine();
-                    BuildingEvent();
+                    BuildingEvent(gameTime);
                 }
                 else if (_buildingSelected.List[_idxBuilding].IsVictimCrime == true)
                 {
                     Console.WriteLine("CRIME -- LE BUILDING EST DEJA VICTIME DE CRIME");
                     Console.WriteLine();
-                    BuildingEvent();
+                    BuildingEvent(gameTime);
                 }
                 else
                 {
                     Console.WriteLine("CRIME -- Building event a rempli sa fonction");
                     _buildingSelected.List[_idxBuilding].IsVictimCrime = true;
                     _crimeType.BuildingHasEvent.Add(_buildingSelected.List[_idxBuilding]);
+                    _crimeType.BuildingHasEvent[_crimeType.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
+
                     Console.WriteLine("CRIME -- Is building selected victim of a crime : " + _buildingSelected.List[_idxBuilding].IsVictimCrime);
 
                 }
             }
             else
             {
-                BuildingEvent();
+                BuildingEvent(gameTime);
 
             }
         }
@@ -95,7 +98,7 @@ namespace ProjectStellar.Library
                     if (_crimeType.IsEventHappening == true)
                     {
                         if (gt.InGameTime.Equals(endOfEvent)) EventHandle = false;
-                        BuildingEvent();
+                        BuildingEvent(gt);
                        _crimeType.PreviousEvent = true;
                     }
                     else

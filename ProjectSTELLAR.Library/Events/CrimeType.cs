@@ -9,7 +9,7 @@ namespace ProjectStellar.Library
 {
     [Serializable]
 
-    class CrimeType : IEventType
+    public class CrimeType : IEventType
     {
         // JOLANN WAS HERE
 
@@ -44,7 +44,7 @@ namespace ProjectStellar.Library
 
         }
 
-        public Crime CreateEvent()
+        internal Crime CreateEvent()
         {
             Crime crime = new Crime(_ctx, this);
             return crime;

@@ -9,8 +9,8 @@ namespace ProjectStellar.Library
     public interface IServiceBuildingsType
     {
      //   void ServiceBuildingWorking();
-        void BuildingDistance();
-        void CreateTruck();
+        void BuildingDistance(Map map);
+        void CreateTruck(Building building);
         void CheckTruckStatement();
 
         Building Target { get; set; }
