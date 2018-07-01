@@ -158,8 +158,8 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
-                if(gameTime.InGameTime.Second % 2 == 0)
-                {
+                //if(gameTime.InGameTime.Second % 2 == 0)
+                //{
                     this._map.GenerateSpaceShips(this._resourcesManager);
                     for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
                     {
@@ -167,7 +167,7 @@ namespace ProjectStellar
                         this._map.SpaceShipsList[i].Update();
                         
                     }
-                }
+                //}
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
@@ -175,7 +175,7 @@ namespace ProjectStellar
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-                    _resourcesManager.NbResources["nbPeople"] += 50;
+                    _resourcesManager.NbResources["nbPeople"] += 20;
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);

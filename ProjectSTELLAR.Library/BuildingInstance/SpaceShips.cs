@@ -5,8 +5,9 @@ namespace ProjectStellar.Library
     [Serializable]
     public class SpaceShips : SpaceShipsTypes
     {
-        float _x;
-        float _y;
+        int _compteur = 0;
+        double _x;
+        double _y;
         float _speed;
         Vector _direction;
         Vector _position;
@@ -15,31 +16,11 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 0.0005f;
+            _speed = 0.004f;
             _position = GetNextRandomPosition();
             this._direction = new Vector();
             _x = _position.X;
             _y = _position.Y;
-        }
-
-        internal int GetNextRandomInt(int min, int max)
-        {
-            return _random.Next(min, max);
-        }
-
-        internal Vector GetNextRandomPosition()
-        {
-            float x = GetNextRandomInt(0, 99 * 32);
-            float y = GetNextRandomInt(0, 99 * 32);
-            return new Vector(x, y);
-        }
-
-        public void Update()
-        {
-            this._direction = GetNextRandomPosition();
-            Position = MathHelpers.MoveTo(Position, this._direction, _speed);
-            Position = MathHelpers.Limit(Position, 0, 99 * 32);
-            //this._direction = GetNextRandomPosition();
         }
 
         public Vector Position
@@ -52,6 +33,32 @@ namespace ProjectStellar.Library
         {
             get { return _direction; }
             set { _direction = value; }
+        }
+
+        internal double GetNextRandomDouble(double min, double max)
+        {
+            return _random.NextDouble() * (max - min) + min;
+        }
+
+        internal Vector GetNextRandomPosition()
+        {
+            double x = GetNextRandomDouble(0, 99 * 32);
+            double y = GetNextRandomDouble(0, 99 * 32);
+            return new Vector(x, y);
+        }
+
+        public void Update()
+        {
+            _compteur++;
+            if (_compteur == 60)
+            {
+                _compteur = 0;
+                _direction = GetNextRandomPosition();
+            }
+
+            Position = MathHelpers.MoveTo(Position, _direction, _speed);
+            Console.WriteLine(this.Position.X.ToString());
+            Console.WriteLine(this.Position.Y.ToString());
         }
     }
 }

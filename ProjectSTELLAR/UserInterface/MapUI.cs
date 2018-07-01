@@ -208,7 +208,7 @@ namespace ProjectStellar
                         {
                             _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
                             _invisibleRec.FillColor = Color.Green;
-                            _invisibleRec.Position = new Vector2f(boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
+                            _invisibleRec.Position = new Vector2f((float)boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, (float)boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
                             _invisibleRec.Draw(window, RenderStates.Default);
 
                             _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
@@ -228,8 +228,8 @@ namespace ProjectStellar
                 //else
                 spaceShip = _spaceShip2;
 
-                spaceShip.Position = new Vector2f(_ctx.SpaceShipsList[b].Position.X, _ctx.SpaceShipsList[b].Position.Y);
-                spaceShip.Scale = new Vector2f(1.37f, 1.37f);
+                spaceShip.Position = new Vector2f((float)_ctx.SpaceShipsList[b].Position.X, (float)_ctx.SpaceShipsList[b].Position.Y);
+                spaceShip.Scale = new Vector2f(0.5f, 0.5f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
 
