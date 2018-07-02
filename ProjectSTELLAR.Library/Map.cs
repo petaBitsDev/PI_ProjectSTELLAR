@@ -118,7 +118,7 @@ namespace ProjectStellar.Library
 
         public void GenerateSpaceShips (ResourcesManager resourcesManager)
         {
-            _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
+            _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 300;
 
             if (_nbSpaceShip > _spaceShipType.List.Count)
             { 

@@ -17,8 +17,8 @@ namespace ProjectStellar.Library
             Vector unit_vector = direction.Mul(div);
             Vector move = unit_vector.Mul(speed);
             move = ConvertVectorToMap(move, 99 * 32);
-            //Console.WriteLine(move.X.ToString());
-            //Console.WriteLine(move.Y.ToString());
+            Console.WriteLine(move.X.ToString());
+            Console.WriteLine(move.Y.ToString());
 
             if (direction.X > position.X && direction.Y > position.Y)
                 position = new Vector(position.X + move.X, position.Y + move.Y);
@@ -31,6 +31,21 @@ namespace ProjectStellar.Library
 
             position = Limit(position, 0, 99 * 32);
             return position;
+        }
+
+        internal static Vector Limit(Vector v, double min, double max)
+        {
+            return new Vector(Limit(v.X, min, max), Limit(v.Y, min, max));
+        }
+
+        internal static double Limit(double n, double min, double max)
+        {
+            return Math.Min(Math.Max(n, min), max);
+        }
+
+        internal static float Limit(float n, float min, float max)
+        {
+            return Math.Min(Math.Max(n, min), max);
         }
 
         internal static Vector Limit(Vector v, double min, double max)

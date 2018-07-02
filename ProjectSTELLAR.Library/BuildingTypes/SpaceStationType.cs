@@ -49,7 +49,7 @@ namespace ProjectStellar.Library
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
-
+        
         public override int UnlockingLevel => _unlockingLevel;
         public override int Rock => _rock;
         public override int Wood => _wood;
