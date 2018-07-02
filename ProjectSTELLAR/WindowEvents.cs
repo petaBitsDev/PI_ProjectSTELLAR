@@ -153,7 +153,7 @@ namespace ProjectStellar
         public void MouseClicked(object sender, EventArgs e)
         {
             // Jeu
-            if (_ctx.MenuState == 1)
+            if (_ctx.MenuState == 1 && _ctx.CityEvents.WaitMeteors == false)
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
@@ -276,6 +276,9 @@ namespace ProjectStellar
                 {
                     _ctx._resourcesManager.NbResources["nbPeople"] += 500;
                 }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.M))
+                    _ctx.CityEvents.Meteors(_ctx._experienceManager.Level, _ctx._map, _ctx._resourcesManager);
+                    //Console.WriteLine("{0} ont été détruits",Meteorite.Falls(_ctx._experienceManager.Level, _ctx._map, _ctx._resourcesManager));
             }
             else if (_ctx.MenuState == 3)
             {

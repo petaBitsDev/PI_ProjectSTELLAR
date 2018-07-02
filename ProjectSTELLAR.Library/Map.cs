@@ -141,5 +141,10 @@ namespace ProjectStellar.Library
         public int NbSpaceShips => _nbSpaceShip;
 
         public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
+
+        public void SetSpaceShipTypes()
+        {
+            _spaceShipType = new SpaceShipsTypes();
+        }
     }
 }
