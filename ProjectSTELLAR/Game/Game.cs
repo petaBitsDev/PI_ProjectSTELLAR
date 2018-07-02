@@ -13,7 +13,9 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[20];
+        public Texture[] _spriteSheet = new Texture[7];
+        public Texture[] _spriteTruck = new Texture[1];
+        public Texture[] _buildingsTextures = new Texture[23];
         public Texture[] _uiTextures = new Texture[35];
         int _state;
         internal Menu _menu;
@@ -24,6 +26,7 @@ namespace ProjectStellar
         internal Map _map;
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
+        internal FireType _fireType;
         internal ResourcesManager _resourcesManager;
         internal SatisfactionManager _satisfactionManager;
         MapUI _mapUI;
@@ -40,6 +43,8 @@ namespace ProjectStellar
         {
             MenuState = state;
             _resolution = resolution;
+
+
         }
 
         public override void LoadContent()
@@ -79,6 +84,9 @@ namespace ProjectStellar
             _buildingsTextures[17] = new Texture("./resources/img/shop.png");
             _buildingsTextures[18] = new Texture("./resources/img/factory.png");
             _buildingsTextures[19] = new Texture("./resources/img/park.png");
+            _buildingsTextures[20] = new Texture("./resources/img/hospitals.png");
+            _buildingsTextures[21] = new Texture("./resources/img/townhall.png");
+            _buildingsTextures[22] = new Texture("./resources/img/spacestation.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -116,7 +124,18 @@ namespace ProjectStellar
             _uiTextures[33] = new Texture("./resources/img/bulldozer.png");
             _uiTextures[34] = new Texture("./resources/img/meteors.jpg");
 
+            _spriteSheet[0] = new Texture("./resources/img/firesheet.png");
+            _spriteSheet[1] = new Texture("./resources/img/flame.png");
+            _spriteSheet[2] = new Texture("./resources/img/fires.png");
+            _spriteSheet[3] = new Texture("./resources/img/alienColor.png");
+            _spriteSheet[4] = new Texture("./resources/img/alienss.png");
+            _spriteSheet[5] = new Texture("./resources/img/fever.png");
+            _spriteSheet[6] = new Texture("./resources/img/feverred.png");
+
+            _spriteTruck[0] = new Texture("./resources/img/fire-truck.png");
+
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
+
         }
 
         public override void Initialize(GameTime gameTime)
@@ -146,23 +165,12 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
-                //if(gameTime.InGameTime.Second % 2 == 0)
-                //{
-                    this._map.GenerateSpaceShips(this._resourcesManager);
-                    for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
-                    {
-                        //Console.WriteLine("SpaceShip Number : " + i);
-                        //Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                        //Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
+                this._map.GenerateSpaceShips(this._resourcesManager);
+                for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
+                {
+                    this._map.SpaceShipsList[i].Update();
+                }
 
-                        this._map.SpaceShipsList[i].Update();
-
-                        //Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        //Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
-
-                        //Console.WriteLine("=========================");
-                    }
-                //}
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
@@ -170,12 +178,17 @@ namespace ProjectStellar
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-                    _resourcesManager.NbResources["nbPeople"] += 20;
+                    //_resourcesManager.NbResources["nbPeople"] += 20;
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
+                    //_satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
                     _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
+                    foreach(IEvent ev in _map.ListEvent)
+                    {
+                        ev.NewEvent(gameTime);
+                    }
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
 
@@ -187,10 +200,6 @@ namespace ProjectStellar
                         {
                             if (gameTime.InGameTime <= _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
                             {
-                                //Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
-                                //Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
-                                //Console.WriteLine("====================================");
-
                                 _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
                             }
                             else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
@@ -215,7 +224,6 @@ namespace ProjectStellar
             else if (MenuState == 2)
             {
                 _menuLoadGame.Draw(Window);
-                //if (_menuLoadGame.SaveSelected) LoadGame(_menuLoadGame.ChosenSave);
             }
             else if (MenuState == 3) _newGame.Draw(Window);
         }
@@ -231,7 +239,8 @@ namespace ProjectStellar
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
             _satisfactionManager = save.SatisfactionManager;
-            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
+            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager, _fireType);
+            _fireType = save.FireType;
         }
 
         internal void StartNewGame()
@@ -241,11 +250,12 @@ namespace ProjectStellar
                 _name = _newGame.Name;
                 _newGame.Name = "";
                 MenuState = 1;
-                _map = new Map(100, 100);
+                _map = new Map(100, 100, GameTime);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
                 _satisfactionManager = new SatisfactionManager();
-                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
+                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager, _fireType);
+                _fireType = new FireType(_map);
             }
         }
 
@@ -266,6 +276,18 @@ namespace ProjectStellar
         public Resolution Resolution
         {
             get { return _resolution; }
+        }
+
+        public Map Map
+        {
+            get { return _map; }
+            set { _map = value; }
+        }
+
+
+        public Font Font
+        {
+            get { return _font; }
         }
 
         public CityEvents CityEvents => _cityEvents;

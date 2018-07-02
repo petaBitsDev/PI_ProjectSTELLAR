@@ -16,9 +16,11 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isCrimeVictim;
+        bool _menuOn;
         List<Building> _instanceBuilding = new List<Building>();
         List<ExplorationShips> _list = new List<ExplorationShips>();
         Vector _spritePosition;
+        DateTime _timeOfFire;
 
         public Building(BuildingType buildingType, int x, int y)
         {
@@ -29,6 +31,7 @@ namespace ProjectStellar.Library
             _onFire = false;
             _isSick = false;
             _isCrimeVictim = false;
+            _menuOn = false;
             _spritePosition = new Vector(_x, _y);
         }
 
@@ -41,6 +44,7 @@ namespace ProjectStellar.Library
             ship.UndisposedTime = end;
         }
         
+        public virtual bool MenuOn { get; set; }
         public abstract Vector SpritePosition { get; set; }
         public virtual List<ExplorationShips> ShipList { get; set; }
         public abstract bool IsVictimCrime{get; set;}
@@ -50,5 +54,14 @@ namespace ProjectStellar.Library
         public int Y => _y;
         public BuildingType Type => _buildingType;
         public int Size => _size;
+
+        public DateTime TimeOfEvent
+        {
+            get { return _timeOfFire; }
+            set { _timeOfFire = value; }
+        }
+
+        public DateTime EndOfEvent => _timeOfFire.AddMinutes(80);
+       
     }
 }

@@ -6,271 +6,151 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
+    [Serializable]
     public class Fire : IEvent
     {
         Map _ctx;
-
-        float _fireProbability;
-
-        bool _isOnFire;
-
-        bool _previousFire;
-
-        int _nbFireMax;
-
-        int _nbFireReal;
-
-        Building _building;
+        bool _eventHandle;
+        FireType _firetype;
+        BuildingType buildingSelected;
+        FireStationType fireStationType;
+        DateTime now;
 
 
 
-        public Fire(Map ctx)
-
+        public Fire(Map ctx, FireType fireType)
         {
-
             _ctx = ctx;
-
-            _previousFire = false;
-
-            _fireProbability = 0.14f;
+            _firetype = fireType;
+            fireStationType = (FireStationType)_ctx.BuildingTypes[1];
 
         }
-
-      public bool PreviousEvent
-
+        public bool EventHandle
         {
-
-            get { return _previousFire; }
-
-            set { _previousFire = value; }
-
+            get { return _eventHandle; }
+            set { _eventHandle = value; }
         }
 
-
-
-        public bool IsEventHappening
-
-        {
-
-            get { return _isOnFire; }
-
-            set { _isOnFire = value; }
-         }
-
-
-        public int NbEventMax
-
-        {
-
-            get { return _nbFireMax; }
-
-            set { _nbFireMax = value; }
-
-        }
-
-
-
-        public int NbEventReal
-
-        {
-
-            get { return _nbFireReal; }
-
-            set { _nbFireReal = value; }
-
-        }
-
-
-
-        public float EventProbability
-
-        {
-
-            get { return _fireProbability; }
-
-            set { _fireProbability = value; }
-
-        }
-
-
-
-        public Building BuildingHasEvent
-
-        {
-
-            get { return _building; }
-
-            set { _building = value; }
-
-        }
-
-        public void CalculNbEventMax()
-
-        {
-            FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
-            int totalnbTruck = 0;
-            for(int i = 0; i < fireStationType.List.Count; i++)
-            {
-                FireStation f = (FireStation)fireStationType.List[i];
-                totalnbTruck += f.NbVehicule;
-            }
-
-            if (totalnbTruck< 2)
-
-            {
-
-                NbEventMax = 3;
-
-            }
-
-            else if (totalnbTruck >= 2 || totalnbTruck <= 4)
-
-            {
-
-                NbEventMax = 7;
-
-            }
-
-            else
-
-            {
-
-                NbEventMax = 15;
-
-            }
-
-        }
-
-
-        public void CalculNbEventReal()
-
-        {
-            Random random = new Random();
-
-            CalculNbEventMax();
-
-            NbEventReal = random.Next(NbEventMax + 1);
-
-        }
-
-
-
-        public void CalculEventProbability()
-
-        {
-
-            if (PreviousEvent == false)
-
-            {
-               EventProbability += 0.3f;
-            }
-
-            else
-
-            {
-                EventProbability -= 0.3f;
-            } 
-
-        }
-
-
-
-        public void BuildingEvent()
+        public void BuildingEvent(GameTime gameTime)
 
         {
             Random random = new Random();
             int _idxBuildingType;
-            _idxBuildingType = random.Next(_ctx.BuildingTypes.Count);
-            BuildingType buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
-            int _idxBuilding;
-          
-            _idxBuilding = random.Next(buildingSelected.List.Count);
-           
+            _idxBuildingType = random.Next(1, _ctx.BuildingTypes.Count);
+            buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
 
-            if(Equals(buildingSelected, typeof(FireStationType)))
-            {
-                BuildingEvent();
-            }
-            else if (buildingSelected.List[_idxBuilding].OnFire == true)
-            {
-                BuildingEvent();
+            Console.WriteLine("FIRE -- idx building type" +_idxBuildingType);
+            Console.WriteLine();
 
+            if (buildingSelected.List.Count != 0)
+            {
+                Console.WriteLine("FIRE -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
+                Console.WriteLine();
+                int _idxBuilding;
+                _idxBuilding = random.Next(buildingSelected.List.Count);
+
+                Console.WriteLine("FIRE -- idx Building Selected"  +_idxBuilding );
+                Console.WriteLine();
+
+                if ((buildingSelected == _ctx.BuildingTypes[1]) || (buildingSelected == _ctx.BuildingTypes[0]))
+                {
+                    Console.WriteLine("FIRE --je relance building event car le batiments n'est pas selectinnable");
+                    Console.WriteLine();
+                    BuildingEvent(gameTime);
+                 
+                }
+                else if (buildingSelected.List[_idxBuilding].OnFire == true)
+                {
+                    Console.WriteLine("FIRE -- je relance building event car le batiments est deja en feu");
+                    Console.WriteLine();
+                    BuildingEvent(gameTime);
+
+                }
+                else
+                {
+                    Console.WriteLine("FIRE -- buildingevent a rempli sa fonction");
+                    buildingSelected.List[_idxBuilding].OnFire = true;
+                    _firetype.BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
+                    _firetype.BuildingHasEvent[_firetype.BuildingHasEvent.Count -1 ].TimeOfEvent = gameTime.InGameTime;
+                    Console.WriteLine("FIRE -- is the building selected on fire : " + buildingSelected.List[_idxBuilding].OnFire);
+                    Console.WriteLine();
+                }
             }
             else
             {
-                buildingSelected.List[_idxBuilding].OnFire = true;
-                BuildingHasEvent = buildingSelected.List[_idxBuilding];
+                BuildingEvent(gameTime);
+
             }
+
 
         }
 
-
-
-        public void IsBuildingGettingEvent()
+        public void NewEvent(GameTime gameTime)
 
         {
-            int probability;
-            Random random = new Random();
-            probability = random.Next(1, 101);
+            double _timeMax = 180;
+            fireStationType.BuildingDistance(_ctx);
+            FireStation fireStation = (FireStation)fireStationType.Origin;
+     
+            DateTime endOfEvent = now.AddMinutes(2);
 
-            if (probability <= EventProbability * 100)
+            bool _iscityHall = false;
 
-            {
-                IsEventHappening = true;
-            }
+            _firetype.CalculEventProbability();
+            
+            CityHallType cityHallType = (CityHallType)_ctx.BuildingTypes[0];
 
-            else
+            if (cityHallType.List.Count != 0) _iscityHall = true;
 
-            {
-                 IsEventHappening = false;
-            }
-
-        }
+            _firetype.CalculNbEventReal();
 
 
 
-        public void NewEvent()
-
-        {
-            bool _isFireStation = false;
-
-            CalculEventProbability();
-            FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
-            if (fireStationType.List.Count != 0) _isFireStation = true;
-
-
-
-
-            if (_isFireStation == true)
+            if (_iscityHall == true)
 
             {
+                if(fireStationType.List.Count != 0)
+                {
+                    if (_firetype.BuildingHasEvent.Count != 0)
+                    {
+                        fireStation.ServiceBuildingWorking();
+                        
+
+                    }
+                }
+                else
+            
              
-                        CalculNbEventReal();
-                        for (int i = 0; i <= NbEventReal; i++)
 
-                        {
+                for (int i = 0; i < _firetype.NbEventReal; i++)
 
-                        IsBuildingGettingEvent();
+                {
+                    Console.WriteLine("i = " + i);
+                    Console.WriteLine();
+                    _firetype.IsBuildingGettingEvent();
 
-                        if (IsEventHappening == true)
+                    if (_firetype.IsEventHappening == true)
 
-                        {
-                            BuildingEvent();
-                            PreviousEvent = true;
-                        }
+                    {
+                        BuildingEvent(gameTime);
 
-                        else
+               
 
-                        {
-                            PreviousEvent = false;
-                        }
+
+                        _firetype.PreviousEvent = true;
+                    }
+
+                    else
+
+                    {
+                        _firetype.PreviousEvent = false;
+                    }
 
                 }
 
             }
 
-        }
 
-  
+        }
     }
 }

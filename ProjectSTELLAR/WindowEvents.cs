@@ -164,7 +164,7 @@ namespace ProjectStellar
                         _ui.MouseSprite = null;
                         if (_ui.SelectedItem == 0)
                         {
-                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager, _ctx._fireType);
                             Save.SaveGame(save, _ctx._name);
                             //Console.WriteLine("Saved");
 
@@ -242,7 +242,7 @@ namespace ProjectStellar
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
-                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
+                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager, _ctx._fireType);
                     Save.SaveGame(save, _ctx._name);
                     //Console.WriteLine("Saved");
                 }

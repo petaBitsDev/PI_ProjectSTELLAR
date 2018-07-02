@@ -7,21 +7,80 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 { 
     [Serializable]
-    class FireStation : Building, IServiceBuildings
+    public class FireStation : Building, IServiceInstance
     {
         bool _onFire;
         int _nbTruck;
         bool _isSick;
-        int _nbCellule;
         bool _isVictimCrime;
         Vector _spritePosition;
 
-        public FireStation(BuildingType type, int x, int y) : base(type, x, y)
+
+        Map _ctx;
+        FireType fire;
+        public List<Truck> _Vehicule;
+        FireStationType fireStationType;
+        double _timeMax;
+        GameTime gameTime = new GameTime();
+        public FireStation(FireStationType type, int x, int y, Map map) : base(type, x, y)
         {
             _nbTruck = 1;
-            _nbCellule = 2;
+            _ctx = map;
+            _Vehicule = new List<Truck>();
+            fireStationType = type;
+            fire = new FireType(_ctx);
+            
             
         }
+
+        public void ServiceBuildingWorking()
+        {
+            //Fire newFire = fire.CreateEvent();
+            fireStationType.StartTime = _ctx.GetGameTime.InGameTime;
+
+            if (fireStationType.List.Count != 0)
+            {
+                Console.WriteLine("IL Y A DES FIRESTATION SUR LA CARTE");
+            //   fireStationType.BuildingDistance();
+               fireStationType.CheckTruckStatement();
+                if(fireStationType.TruckSelected != null)
+                {
+                    fireStationType.TimeToGo = (fireStationType.Distance / fireStationType.TruckSelected.Speed);
+                    Console.WriteLine("FIRESTATION TIME TO GO ---- " + fireStationType.TimeToGo);
+
+                    _timeMax = 180;
+                    if (fireStationType.TimeToGo <= _timeMax)
+                        fireStationType.NewFire.EventHandle = true;
+                    else
+                        fireStationType.NewFire.EventHandle = false;
+
+                }
+                else
+                {
+                    fireStationType.NewFire.EventHandle = false;
+                    fireStationType.TimeToGo = _timeMax;
+                }
+      
+                Console.WriteLine("FIRESTATION EVENT HANDLE ---- " + fireStationType.NewFire.EventHandle);
+            }
+
+            else
+            {
+                fireStationType.NewFire.EventHandle = false;
+                fireStationType.TimeToGo = _timeMax;
+            }
+
+         //   fireStationType.TruckMoveTo();
+
+        }
+
+
+        public List<Truck> Vehicule
+        {
+            get { return _Vehicule; }
+            set { _Vehicule = value; }
+        }
+
 
         public int NbVehicule
         {
