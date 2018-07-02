@@ -13,7 +13,7 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[20];
+        public Texture[] _buildingsTextures = new Texture[23];
         public Texture[] _uiTextures = new Texture[35];
         int _state;
         internal Menu _menu;
@@ -155,13 +155,6 @@ namespace ProjectStellar
                     this._map.SpaceShipsList[i].Update();
                 }
 
-                        this._map.SpaceShipsList[i].Update();
-                        
-                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
-                        Console.WriteLine("=========================");
-                    }
-                //}
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();

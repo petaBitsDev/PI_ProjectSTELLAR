@@ -48,21 +48,6 @@ namespace ProjectStellar.Library
             return Math.Min(Math.Max(n, min), max);
         }
 
-        internal static Vector Limit(Vector v, double min, double max)
-        {
-            return new Vector(Limit(v.X, min, max), Limit(v.Y, min, max));
-        }
-
-        internal static double Limit(double n, double min, double max)
-        {
-            return Math.Min(Math.Max(n, min), max);
-        }
-
-        internal static float Limit(float n, float min, float max)
-        {
-            return Math.Min(Math.Max(n, min), max);
-        }
-
         internal static Vector ConvertedVector(Vector v, int max)
         {
             return new Vector(v.X / max, v.Y / max);
