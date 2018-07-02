@@ -37,7 +37,6 @@ namespace ProjectStellar.Library
             Console.WriteLine("DISEASE -- idx building type for disease" + _idxBuildingtype);
             Console.WriteLine();
 
-
             if (buildingSelected.List.Count != 0)
             {
 

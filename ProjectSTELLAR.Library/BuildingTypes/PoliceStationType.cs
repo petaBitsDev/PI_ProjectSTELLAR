@@ -56,12 +56,12 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             PoliceStation building = new PoliceStation(this, x, y, map);
-            CreateTruck(building);
+            CreateTruck(building, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
-        public override int UnlockingLevel => _unlockingLevel;
 
+        public override int UnlockingLevel => _unlockingLevel;
 
         public void BuildingDistance(Map map)
         {
@@ -84,16 +84,14 @@ namespace ProjectStellar.Library
             }
         }
 
-        public void CreateTruck(Building building)
+        public void CreateTruck(Building building, int x, int y)
         {
             PoliceStation policeStation = (PoliceStation)building;
-                for(int i = 0; i <policeStation.NbVehicule; i++)
-                {
-                    Truck t = new Truck();
-                    policeStation.Vehicule.Add(t);
-                   
-                }
-            
+            for(int i = 0; i <policeStation.NbVehicule; i++)
+            {
+                Truck t = new Truck(x, y);
+                policeStation.Vehicule.Add(t);
+            }
         }
 
         public void CheckTruckStatement()

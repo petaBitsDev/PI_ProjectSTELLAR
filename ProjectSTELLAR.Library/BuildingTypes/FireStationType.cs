@@ -32,10 +32,9 @@ namespace ProjectStellar.Library
         Double _timeToGo;
         DateTime _timeNow;
         Fire newFire;
-
-
         Vector _truckPosition;
         Vector _truckDestination;
+
         public FireStationType()
         {
             _rock = 45;
@@ -50,15 +49,14 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 4;
             _list = new List<Building>();
-            _unlockingLevel = 6;
+            _unlockingLevel = 0;
             
         }
-
 
         public void BuildingDistance(Map map)
         {
             _fire = map.NewFireType;
-             newFire = _fire.CreateEvent();
+            newFire = _fire.CreateEvent();
             double max = double.MaxValue;
 
             for (int i = 0; i < this.NbBuilding; i++)
@@ -70,61 +68,49 @@ namespace ProjectStellar.Library
                     {
                         max = Distance;
                         _target = _fire.BuildingHasEvent[j];
-                        _origin = (FireStation)this.List[i];
+                        _origin = this.List[i];
                     }
-                    Console.WriteLine("FIRESTATION TYPE TTARGET -----" + _target);
-
-
                 }
             }
         }
 
-
-        public void TruckMoveTo()
+        public void TruckMoveTo(Truck truck)
         {
-            _truckPosition.X = Origin.X ;
-            _truckPosition.Y = Origin.Y;
-
-            _truckDestination.X = Target.X ;
-            _truckDestination.Y = Target.Y;
+            truck.Position = new Vector(Origin.X, Origin.Y);
+            truck.Destination = new Vector(Target.X, Target.Y);
 
             if(TruckSelected != null)
             {
-                _truckPosition = _truckPosition.Add(_truckDestination.Mul(TruckSelected.Speed));
-
+                truck.Position = truck.Position.Add(truck.Destination.Mul(_truck.Speed));
             }
-
-
-
+            _truckPosition = truck.Position;
+            _truckDestination = truck.Destination;
         }
-
 
         public void CheckTruckStatement()
         {
             FireStation fireStation = (FireStation)this.Origin;
-            for (int i = 0; i < fireStation.NbVehicule; i++)
+            for (int i = 0; i < Origin.TruckList.Count; i++)
             {
-                fireStation.Vehicule[i].IsFree = true;
-                if (fireStation.Vehicule[i].IsFree == true)
+                Origin.TruckList[i].IsFree = true;
+                if (Origin.TruckList[i].IsFree == true)
                 {
-                    TruckSelected = fireStation.Vehicule[i];
-                    fireStation.Vehicule[i].IsFree = false;
+                    TruckSelected = Origin.TruckList[i];
+                    Origin.TruckList[i].IsFree = false;
                     break;
                 }
                 else TruckSelected = null;
             }
         }
 
-        public void CreateTruck(Building building)
+        public void CreateTruck(Building building, int x, int y)
         {
             FireStation fireStation = (FireStation)building;
-                for(int i = 0; i < fireStation.NbVehicule; i++)
-                {
-                    Truck t = new Truck();
-                    fireStation.Vehicule.Add(t);
-                }
-            
-        
+            for(int i = 0; i < fireStation.NbVehicule; i++)
+            {
+                Truck t = new Truck(x, y);
+                building.TruckList.Add(t);
+            }
         }
 
 
@@ -134,15 +120,13 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             FireStation building = new FireStation(this, x, y, map);
-            this.CreateTruck(building);
+            this.CreateTruck(building, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
 
 
         public override int UnlockingLevel => _unlockingLevel;
-
-
 
         public double Distance
         {
@@ -163,8 +147,6 @@ namespace ProjectStellar.Library
             set { _origin = value; }
         }
 
-
-
         public Truck TruckSelected
         {
             get { return _truck; }
@@ -182,9 +164,6 @@ namespace ProjectStellar.Library
             get { return _timeToGo; }
             set { _timeToGo = value; }
         }
-
-
-
 
         public override int Rock => _rock;
         public override int Wood => _wood;

@@ -19,6 +19,7 @@ namespace ProjectStellar.Library
         double _timeMax;
         CrimeType _crimeType;
         Map _ctx;
+
         public PoliceStation(PoliceStationType type, int x, int y, Map ctx) : base(type, x, y)
         {
             _nbTruck = 2;
@@ -50,9 +51,6 @@ namespace ProjectStellar.Library
                 newCrime.EventHandle = false;
                 _policeStationType.TimeToGo = _timeMax;
             }
-
-           
-
         }
 
         public List<Truck> Vehicule
@@ -60,6 +58,7 @@ namespace ProjectStellar.Library
             get { return _vehicule; }
             set { _vehicule = value; }
         }
+
         public override bool OnFire
         {
             get { return _onFire; }
@@ -71,6 +70,7 @@ namespace ProjectStellar.Library
             get { return _nbTruck; }
             set { _nbTruck = value; }
         }
+
         public override bool IsSick
         {
             get { return _isSick; }

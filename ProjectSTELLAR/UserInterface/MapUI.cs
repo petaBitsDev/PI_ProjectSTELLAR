@@ -236,9 +236,6 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(0.5f, 0.5f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
-
-
-
             DrawFire(window);
             DrawAlien(window);
             DrawSickness(window);
@@ -560,9 +557,8 @@ namespace ProjectStellar
                 {
                   if(fireStationType.Origin != null || fireStationType.Target != null)
                     {
-                        fireStationType.TruckMoveTo();
+                        fireStationType.TruckMoveTo(fireStationType.Origin.TruckList[0]);
                     }
-                    Console.WriteLine("FIRE TRUCK --- JE SUI SSENCER DESSNER LES CAMIONS");
                     _fireTruck.Position = new Vector2f((float)fireStationType.TruckPosition.Y * 32, (float)fireStationType.TruckPosition.X*32);
                     window.Draw(_fireTruck);
                 }

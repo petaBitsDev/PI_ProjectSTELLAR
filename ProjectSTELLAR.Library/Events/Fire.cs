@@ -118,9 +118,6 @@ namespace ProjectStellar.Library
 
                     }
                 }
-                else
-            
-             
 
                 for (int i = 0; i < _firetype.NbEventReal; i++)
 

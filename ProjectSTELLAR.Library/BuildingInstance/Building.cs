@@ -54,7 +54,7 @@ namespace ProjectStellar.Library
         public int Y => _y;
         public BuildingType Type => _buildingType;
         public int Size => _size;
-
+        public virtual List<Truck> TruckList { get; set; }
         public DateTime TimeOfEvent
         {
             get { return _timeOfFire; }

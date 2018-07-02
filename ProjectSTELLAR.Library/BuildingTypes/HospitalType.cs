@@ -55,7 +55,7 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             Hospital building = new Hospital(this, x, y, map);
-            CreateTruck(building);
+            CreateTruck(building, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
@@ -83,12 +83,12 @@ namespace ProjectStellar.Library
             }
         }
 
-        public void CreateTruck(Building building)
+        public void CreateTruck(Building building, int x, int y)
         {
             Hospital hospital = (Hospital)building;
            for(int i = 0; i <hospital.NbVehicule; i++)
             {
-                Truck t = new Truck();
+                Truck t = new Truck(x, y);
                 hospital.Vehicule.Add(t);
             }
            

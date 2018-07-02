@@ -169,6 +169,7 @@ namespace ProjectStellar.Library
         public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
 
         public FireType NewFireType => fireType;
+
         public CrimeType NewCrimeType => crimeType;
 
         public DiseaseType NewDiseaseType => diseaseType;

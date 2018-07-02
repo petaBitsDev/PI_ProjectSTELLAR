@@ -10,7 +10,7 @@ namespace ProjectStellar.Library
     {
      //   void ServiceBuildingWorking();
         void BuildingDistance(Map map);
-        void CreateTruck(Building building);
+        void CreateTruck(Building building, int x, int y);
         void CheckTruckStatement();
 
         Building Target { get; set; }
