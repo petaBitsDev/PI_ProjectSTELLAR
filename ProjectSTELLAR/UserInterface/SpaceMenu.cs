@@ -103,6 +103,7 @@ namespace ProjectStellar
         }
 
         public Sprite RedCross => _redCross;
+
         public RectangleShape[] Availabilities
         {
             get { return _availabilities; }

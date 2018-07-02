@@ -1235,12 +1235,18 @@ namespace ProjectStellar
                 _menus[index].RedCross.Position = new Vector2f(_menus[index].Rec.Position.X - 32, _menus[index].Rec.Position.Y);
                 _menus[index].RedCross.Scale = new Vector2f(0.5f, 0.5f);
                 _menus[index].RedCross.Draw(window, RenderStates.Default);
-
-                if (_menus[index].RedCross.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                
+                for(int a = 0; a < _menus.Count; a++)
                 {
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                    if(a == index)
                     {
-                        _menus[index].IsOn = false;
+                        if (_menus[a].RedCross.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                        {
+                            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                            {
+                                _menus[a].IsOn = false;
+                            }
+                        }
                     }
                 }
 
