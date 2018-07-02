@@ -15,7 +15,7 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _spriteSheet = new Texture[7];
         public Texture[] _spriteTruck = new Texture[1];
-        public Texture[] _buildingsTextures = new Texture[23];
+        public Texture[] _buildingsTextures = new Texture[24];
         public Texture[] _uiTextures = new Texture[35];
         int _state;
         internal Menu _menu;
@@ -87,6 +87,7 @@ namespace ProjectStellar
             _buildingsTextures[20] = new Texture("./resources/img/hospitals.png");
             _buildingsTextures[21] = new Texture("./resources/img/townhall.png");
             _buildingsTextures[22] = new Texture("./resources/img/spacestation.png");
+            _buildingsTextures[23] = new Texture("./resources/img/hut2.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");

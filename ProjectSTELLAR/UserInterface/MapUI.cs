@@ -171,6 +171,7 @@ namespace ProjectStellar
                         {
                             if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
+                                //if (Equals(buildingType.Key, CityHallType))
                                 _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
