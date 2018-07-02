@@ -264,8 +264,10 @@ namespace ProjectStellar
             //XP BAR
             _expBar = new RectangleShape()
             {
-                Size = new Vector2f(200, 30),
-                Position = new Vector2f(resolution.X - 204, resolution.Y - _boxSize)
+                Size = new Vector2f(200-25, 30),
+                Position = new Vector2f(resolution.X - 200, _resolution.Y - 2 * 15 - 20 -31),
+                OutlineThickness = 1.0f,
+                OutlineColor = new Color(Color.Black)
             };
 
             _expBarFilled = new RectangleShape(_expBar)
@@ -300,19 +302,19 @@ namespace ProjectStellar
 
             _electricitySprite = new Sprite(_ctx._uiTextures[11])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 7),
+                Position = new Vector2f(350 + 45 + 5 + 5 + 110 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _waterSprite = new Sprite(_ctx._uiTextures[10])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 8),
+                Position = new Vector2f(350 + 45 + 5 + 5 + 110 + 110 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _pollutionSprite = new Sprite(_ctx._uiTextures[6])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 9),
+                Position = new Vector2f(350 + 45 + 5 + 5 + 110 + 110 + 110 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
@@ -325,7 +327,8 @@ namespace ProjectStellar
 
             _satisfaction = new Sprite(_ctx._uiTextures[12])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 19 - 15)
+                Position = new Vector2f(350 - 30, _resolution.Y - 2 * 15 - 8),
+                Scale = new Vector2f(0.4f, 0.4f)
             };
 
             _angrySprite = new Sprite(_ctx._uiTextures[12]);
@@ -1976,6 +1979,8 @@ namespace ProjectStellar
             };
             nbCoins.Draw(window, RenderStates.Default);
 
+
+            _satisfaction.Draw(window, RenderStates.Default);
             _people.Draw(window, RenderStates.Default);
 
                  
@@ -1987,14 +1992,14 @@ namespace ProjectStellar
                 OutlineColor = new Color(Color.Black),
                 OutlineThickness = 1.0f,
                 FillColor = new Color(Color.White),
-                Position = new Vector2f(350 + 45 + 400 + 5, _resolution.Y - 2 * 15 - 10)
+                Position = new Vector2f(350 + 45 + 400 + 5 + 2*110+20, _resolution.Y - 2 * 15 - 10)
             };
 
             resourceCircleRight.Draw(window, RenderStates.Default);
 
             RectangleShape resourceRectangle = new RectangleShape
             {
-                Size = new Vector2f(400, 30),
+                Size = new Vector2f(400+2*110+20, 30),
                 OutlineColor = new Color(Color.Black),
                 OutlineThickness = 1.0f,
                 FillColor = new Color(Color.White),
@@ -2005,14 +2010,12 @@ namespace ProjectStellar
 
             RectangleShape hideRessource = new RectangleShape
             {
-                Size = new Vector2f(402, 30),
+                Size = new Vector2f(402+2*110+20, 30),
                 FillColor = new Color(Color.White),
                 Position = new Vector2f(350 + 45 + 15 + 5 - 1, _resolution.Y - 2 * 15 - 10)
             };
 
             hideRessource.Draw(window, RenderStates.Default);
-
-            _pollutionSprite.Draw(window, RenderStates.Default);
 
             _woodSprite.Draw(window, RenderStates.Default);
 
@@ -2043,7 +2046,49 @@ namespace ProjectStellar
             };
             nbMetal.Draw(window, RenderStates.Default);
             _waterSprite.Draw(window, RenderStates.Default);
+            Text nbWater = new Text(resources["water"].ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30 + 110 + 110 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                Color = Color.Black,
+                CharacterSize = 16,
+                Style = Text.Styles.Bold
+            };
+            nbWater.Draw(window, RenderStates.Default);
             _electricitySprite.Draw(window, RenderStates.Default);
+            Text nbElectricity = new Text(resources["electricity"].ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30 + 110 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                Color = Color.Black,
+                CharacterSize = 16,
+                Style = Text.Styles.Bold
+            };
+            nbElectricity.Draw(window, RenderStates.Default);
+
+            _pollutionSprite.Draw(window, RenderStates.Default);
+            Text nbPollution = new Text(resources["pollution"].ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30 + 110 + 110 + 110+110+110, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                Color = Color.Black,
+                CharacterSize = 16,
+                Style = Text.Styles.Bold
+            };
+            nbPollution.Draw(window, RenderStates.Default);
+
+            Text level = new Text("Level : " + _experienceManager.Level.ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30 + 110 + 110 + 110 + 110 +110 + 110, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                CharacterSize = 16,
+                Style = Text.Styles.Bold,
+                Color = new Color(Color.Black)
+            };
+            level.Draw(window, RenderStates.Default);
+
+            if (level.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                _expBarFilled.Size = new Vector2f(_expBar.Size.X * ((float)_experienceManager.GetPercentage() / 100f), _expBar.Size.Y);
+                _expBar.Draw(window, RenderStates.Default);
+                _expBarFilled.Draw(window, RenderStates.Default);
+            }
         }
 
         public int TabActive
