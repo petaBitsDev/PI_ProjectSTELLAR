@@ -102,7 +102,7 @@ namespace ProjectStellar.Library
             }
             else
             {
-                EventProbability -= 0.1f;
+                EventProbability -= 0.3f;
             }
         }
 
@@ -120,15 +120,15 @@ namespace ProjectStellar.Library
 
             if(totalNbVehicule < 3 && totalNbBed < 20)
             {
-                NbEventMax = 3;
+                NbEventMax = 2;
             }
             else if(totalNbVehicule < 6 && totalNbBed < 50)
             {
-                NbEventMax = 8;
+                NbEventMax = 3;
             }
             else 
             {
-                NbEventMax = 20;
+                NbEventMax = 5;
             }
         }
 

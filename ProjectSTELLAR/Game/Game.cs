@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using SFML.Audio;
 using ProjectStellar.Library;
 using System;
 
@@ -37,14 +38,14 @@ namespace ProjectStellar
         internal View _view;
         Vector2f _center;
         CityEvents _cityEvents;
+        SoundManager _soundManager;
 
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
             MenuState = state;
             _resolution = resolution;
-
-
+            _soundManager = new SoundManager();
         }
 
         public override void LoadContent()
@@ -137,6 +138,7 @@ namespace ProjectStellar
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
 
+            _soundManager.LoadSounds();
         }
 
         public override void Initialize(GameTime gameTime)
@@ -159,6 +161,7 @@ namespace ProjectStellar
             _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this);
             _satisfactionManager = new SatisfactionManager();
             _cityEvents = new CityEvents();
+            _soundManager.StartMusic();
         }
 
         public override void Update(GameTime gameTime)
@@ -292,5 +295,7 @@ namespace ProjectStellar
         }
 
         public CityEvents CityEvents => _cityEvents;
+
+        public SoundManager SoundManager => _soundManager;
     }
 }

@@ -356,6 +356,7 @@ namespace ProjectStellar
                         else if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
                         {
                             _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
+                            _gameCtx.SoundManager.Build.Play();
 
                             if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
                             {
@@ -368,6 +369,7 @@ namespace ProjectStellar
                     else if (_ui.DestroySelected && building != null)
                     {
                         building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building, _resourcesManager);
+                        _gameCtx.SoundManager.Destroy.Play();
                         //_ui.DestroySelected = false;
                     }
                     else return false;
