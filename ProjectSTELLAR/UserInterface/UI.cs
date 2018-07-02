@@ -1311,7 +1311,7 @@ namespace ProjectStellar
 
         public void DrawInGameMenu (RenderWindow window, Font font, GameTime gameTime)
         {
-            _settingsButton.Position = new Vector2f(_resolution.X - _boxSize * 2, 0);
+            _settingsButton.Position = new Vector2f(0, 0);
             _settingsButton.Draw(window, RenderStates.Default);
 
             RectangleShape rec = new RectangleShape();
