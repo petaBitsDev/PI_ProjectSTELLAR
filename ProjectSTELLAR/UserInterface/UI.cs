@@ -366,8 +366,7 @@ namespace ProjectStellar
 
             _fireStation = new Sprite(_ctx._buildingsTextures[8])
             {
-                Position = new Vector2f(400+50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(400+50, _resolution.Y - 2 * 50 - 45)
             };
 
             _hospital = new Sprite(_ctx._buildingsTextures[20])
@@ -378,14 +377,12 @@ namespace ProjectStellar
 
             _police = new Sprite(_ctx._buildingsTextures[10])
             {
-                Position = new Vector2f(600 + 50 + 50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(600 + 50 + 50, _resolution.Y - 2 * 50 - 45)
             };
 
             _warehouse = new Sprite(_ctx._buildingsTextures[15])
             {
-                Position = new Vector2f(800 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f,2f)
+                Position = new Vector2f(800 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45)
             };
 
             _spaceStation = new Sprite(_ctx._buildingsTextures[22])
@@ -401,44 +398,37 @@ namespace ProjectStellar
             //RESOURCES BUILDINGS
             _powerPlant = new Sprite(_ctx._buildingsTextures[4])
             {
-                Position = new Vector2f(600, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(600, _resolution.Y - 2 * 50 - 45)
             };
 
             _pumpingStation = new Sprite(_ctx._buildingsTextures[5])
             {
-                Position = new Vector2f(700, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(700, _resolution.Y - 2 * 50 - 45)
             };
 
             _sawMill = new Sprite(_ctx._buildingsTextures[12])
             {
-                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45)
             };
 
             _oreMine = new Sprite(_ctx._buildingsTextures[13])
             {
-                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45)
             };
 
             _metalMine = new Sprite(_ctx._buildingsTextures[14])
             {
-                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45)
             };
 
             _shop = new Sprite(_ctx._buildingsTextures[17])
             {
-                Position = new Vector2f(800, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(800, _resolution.Y - 2 * 50 - 45)
             };
 
             _factory = new Sprite(_ctx._buildingsTextures[18])
             {
-                Position = new Vector2f(900, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(900, _resolution.Y - 2 * 50 - 45)
             };
 
             _lockSprite = new Sprite(_ctx._buildingsTextures[16])
