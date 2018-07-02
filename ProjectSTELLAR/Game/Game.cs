@@ -13,10 +13,10 @@ namespace ProjectStellar
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
         public Texture[] _menuTextures = new Texture[13];
-        public Texture[] _buildingsTextures = new Texture[20];
-        public Texture[] _uiTextures = new Texture[34];
         public Texture[] _spriteSheet = new Texture[7];
         public Texture[] _spriteTruck = new Texture[1];
+        public Texture[] _buildingsTextures = new Texture[23];
+        public Texture[] _uiTextures = new Texture[35];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -36,6 +36,8 @@ namespace ProjectStellar
         internal string _gameName;
         internal View _view;
         Vector2f _center;
+        CityEvents _cityEvents;
+
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
         {
@@ -82,6 +84,9 @@ namespace ProjectStellar
             _buildingsTextures[17] = new Texture("./resources/img/shop.png");
             _buildingsTextures[18] = new Texture("./resources/img/factory.png");
             _buildingsTextures[19] = new Texture("./resources/img/park.png");
+            _buildingsTextures[20] = new Texture("./resources/img/hospitals.png");
+            _buildingsTextures[21] = new Texture("./resources/img/townhall.png");
+            _buildingsTextures[22] = new Texture("./resources/img/spacestation.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -117,6 +122,7 @@ namespace ProjectStellar
             _uiTextures[31] = new Texture("./resources/img/rockchosen.png");
             _uiTextures[32] = new Texture("./resources/img/check.png");
             _uiTextures[33] = new Texture("./resources/img/bulldozer.png");
+            _uiTextures[34] = new Texture("./resources/img/meteors.jpg");
 
             _spriteSheet[0] = new Texture("./resources/img/firesheet.png");
             _spriteSheet[1] = new Texture("./resources/img/flame.png");
@@ -151,6 +157,7 @@ namespace ProjectStellar
             _menu = new Menu(_resolution.X, _resolution.Y, this, _view, Window);
             _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this);
             _satisfactionManager = new SatisfactionManager();
+            _cityEvents = new CityEvents();
         }
 
         public override void Update(GameTime gameTime)
@@ -158,16 +165,12 @@ namespace ProjectStellar
             if (_state == 0) _menu.CheckHoveringMouse(Window);
             else if (_state == 1)
             {
-                //if(gameTime.InGameTime.Second % 2 == 0)
-                //{
-                    this._map.GenerateSpaceShips(this._resourcesManager);
-                    for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
-                    {
-                    
-                        this._map.SpaceShipsList[i].Update();
-                        
-                    }
-                //}
+                this._map.GenerateSpaceShips(this._resourcesManager);
+                for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
+                {
+                    this._map.SpaceShipsList[i].Update();
+                }
+
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
@@ -175,12 +178,13 @@ namespace ProjectStellar
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-                  //_resourcesManager.NbResources["nbPeople"] += 20;
+                    //_resourcesManager.NbResources["nbPeople"] += 20;
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
                     //_satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
+                    _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
                     foreach(IEvent ev in _map.ListEvent)
                     {
                         ev.NewEvent(gameTime);
@@ -196,10 +200,6 @@ namespace ProjectStellar
                         {
                             if (gameTime.InGameTime <= _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
                             {
-                                //Console.WriteLine("real game time : " + gameTime.InGameTime.ToString());
-                                //Console.WriteLine("ud time : " + _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime.ToString());
-                                //Console.WriteLine("====================================");
-
                                 _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
                             }
                             else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
@@ -224,7 +224,6 @@ namespace ProjectStellar
             else if (MenuState == 2)
             {
                 _menuLoadGame.Draw(Window);
-                //if (_menuLoadGame.SaveSelected) LoadGame(_menuLoadGame.ChosenSave);
             }
             else if (MenuState == 3) _newGame.Draw(Window);
         }
@@ -234,6 +233,7 @@ namespace ProjectStellar
             MenuState = 1;
             GameTime = save.GameTime;
             _map = save.Map;
+            _map.SetSpaceShipTypes();
             _resourcesManager = save.ResourcesManager;
             _resourcesManager.Map = _map;
             _experienceManager = save.ExperienceManager;
@@ -284,5 +284,12 @@ namespace ProjectStellar
             set { _map = value; }
         }
 
+
+        public Font Font
+        {
+            get { return _font; }
+        }
+
+        public CityEvents CityEvents => _cityEvents;
     }
 }

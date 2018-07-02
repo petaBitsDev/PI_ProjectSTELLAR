@@ -16,6 +16,7 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isCrimeVictim;
+        bool _menuOn;
         List<Building> _instanceBuilding = new List<Building>();
         List<ExplorationShips> _list = new List<ExplorationShips>();
         Vector _spritePosition;
@@ -30,6 +31,7 @@ namespace ProjectStellar.Library
             _onFire = false;
             _isSick = false;
             _isCrimeVictim = false;
+            _menuOn = false;
             _spritePosition = new Vector(_x, _y);
         }
 
@@ -42,6 +44,7 @@ namespace ProjectStellar.Library
             ship.UndisposedTime = end;
         }
         
+        public virtual bool MenuOn { get; set; }
         public abstract Vector SpritePosition { get; set; }
         public virtual List<ExplorationShips> ShipList { get; set; }
         public abstract bool IsVictimCrime{get; set;}

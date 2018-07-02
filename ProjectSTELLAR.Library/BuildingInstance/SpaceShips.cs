@@ -16,7 +16,7 @@ namespace ProjectStellar.Library
         public SpaceShips ()
         {
             _random = new Random();
-            _speed = 0.004f;
+            _speed = 0.0009f;
             _position = GetNextRandomPosition();
             this._direction = new Vector();
             _x = _position.X;
