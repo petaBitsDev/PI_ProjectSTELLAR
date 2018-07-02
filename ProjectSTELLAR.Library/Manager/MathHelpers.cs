@@ -7,8 +7,6 @@ namespace ProjectStellar.Library
     {
         internal static Vector MoveTo(Vector position, Vector direction, float speed)
         {
-            //Vector longueur = direction.Sub(position);
-            //Vector move = longueur.Mul(speed);
             double div = direction.Magnitude;
 
             if (direction.Magnitude == 0) div = 1;
@@ -17,8 +15,6 @@ namespace ProjectStellar.Library
             Vector unit_vector = direction.Mul(div);
             Vector move = unit_vector.Mul(speed);
             move = ConvertVectorToMap(move, 99 * 32);
-            Console.WriteLine(move.X.ToString());
-            Console.WriteLine(move.Y.ToString());
 
             if (direction.X > position.X && direction.Y > position.Y)
                 position = new Vector(position.X + move.X, position.Y + move.Y);

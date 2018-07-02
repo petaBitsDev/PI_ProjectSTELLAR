@@ -15,6 +15,7 @@ namespace ProjectStellar
 {
     public class MapUI
     {
+        Dictionary<Building, RectangleShape> _recs;
         Dictionary<SpaceShips, Sprite> _spaceshipSprites;
         List<Sprite> _spriteList;
         Sprite _bgSprite;
@@ -23,6 +24,7 @@ namespace ProjectStellar
         Sprite _spaceShip2;
         uint _width;
         uint _height;
+        int _index;
         Map _ctx;
         Game _gameCtx;
         DrawUI _drawUIctx;
@@ -37,7 +39,6 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
-        RectangleShape _invisibleRec;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -53,7 +54,7 @@ namespace ProjectStellar
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
             _menuON = false;
-            _invisibleRec = new RectangleShape();
+            _recs = new Dictionary<Building, RectangleShape>();
 
             _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
             _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
@@ -124,6 +125,7 @@ namespace ProjectStellar
                     _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
                 }
             }
+
             for (int i = 0; i < (boxes.Length / Height); i++)
             {
                 for (int j = 0; j < (boxes.Length / Width); j++)
@@ -168,26 +170,30 @@ namespace ProjectStellar
                 {
                     if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
                     {
-                        CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y);
-                        if (_ui.MenuON)
+                        for(int b = 0; b < boxes[_cases[a].X, _cases[a].Y].Type.List.Count; b++)
                         {
-                            _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
-                            _invisibleRec.FillColor = Color.Green;
-                            _invisibleRec.Position = new Vector2f((float)boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, (float)boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
-                            _invisibleRec.Draw(window, RenderStates.Default);
-
-                            _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
+                            if (Equals(boxes[_cases[a].X, _cases[a].Y], boxes[_cases[a].X, _cases[a].Y].Type.List[b]))
+                                _index = b;
                         }
+                        if (_ctx.BuildingTypes[12].List.Count > 0)
+                            _ui.CreateMenu(_gameCtx, _ctx.BuildingTypes[12].List[_ctx.BuildingTypes[12].List.Count - 1]);
+                        if(CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y))
+                        //if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        {
+                            _ui.Menus[_index].IsOn = true;
+                        }
+                        _ui.DrawSpaceStationUI(window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y], _index);
                     }
                 }
             }
+
             for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
                 Sprite spaceShip;
 
-                //if (_ctx.SpaceShipsList[b].Position.X < _ctx.SpaceShipsList[b].Direction.X)
-                //    spaceShip = _spaceShip1;
-                //else
+                if (b % 2 == 0)
+                    spaceShip = _spaceShip1;
+                else
                     spaceShip = _spaceShip2;
 
                 spaceShip.Position = new Vector2f((float)_ctx.SpaceShipsList[b].Position.X, (float)_ctx.SpaceShipsList[b].Position.Y);
@@ -202,12 +208,12 @@ namespace ProjectStellar
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    _ui.MenuON = true;
+                    b.MenuOn = true;
                     return true;
                 }
-                return true;
+                return false;
             }
-            else return false;
+            return false;
         }
 
         public bool Test
