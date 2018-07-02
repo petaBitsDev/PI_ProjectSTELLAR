@@ -41,6 +41,7 @@ namespace ProjectStellar
         {
             tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
             Sprite sprite = new Sprite(tmpSprite);
+            sprite.Scale = new Vector2f(1.0f, 1.0f);
             sprite.Position = new Vector2f(destX, destY);
             target.Draw(sprite);
         }

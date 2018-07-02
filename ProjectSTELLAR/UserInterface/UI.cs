@@ -993,9 +993,12 @@ namespace ProjectStellar
             if (_habitationTabSelected == true)
             {
 
-                _drawUIctx.RenderSprite(_hutSprite2, window, 300, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _hutSprite.Scale = new Vector2f(2.0f, 2.0f);
+                _hutSprite.Draw(window, RenderStates.Default);
 
-                _drawUIctx.RenderSprite(_houseSprite2, window, 400, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _houseSprite.Scale = new Vector2f(2.0f, 2.0f);
+                _houseSprite.Draw(window, RenderStates.Default);
+
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[4].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 400, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
@@ -1033,7 +1036,9 @@ namespace ProjectStellar
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[13].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 800 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_park2, window, 900 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _park.Scale = new Vector2f(2.0f, 2.0f);
+                _park.Draw(window, RenderStates.Default);
+
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[16].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 900 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
@@ -1201,19 +1206,22 @@ namespace ProjectStellar
                 {
                     if(sprite.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
                     {
-                        _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
-                        if (!resources.CheckResourcesNeeded(building)) return false;
-                        else if(building.UnlockingLevel > _experienceManager.Level)
+                        if(Mouse.IsButtonPressed(Mouse.Button.Left))
                         {
-                            return false;
-                        }
-                        else
-                        {
-                            _mapCtx.ChosenBuilding = building;
-                            window.SetMouseCursorVisible(false);
-                            _mouseSprite = new Sprite(sprite);
-                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X - 10, Mouse.GetPosition(window).Y - 10);
-                            return true;
+                            _buildingTypeSprites.TryGetValue(sprite, out BuildingType building);
+                            if (!resources.CheckResourcesNeeded(building)) return false;
+                            else if(building.UnlockingLevel > _experienceManager.Level)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                _mapCtx.ChosenBuilding = building;
+                                window.SetMouseCursorVisible(false);
+                                _mouseSprite = new Sprite(sprite);
+                                _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X - 10, Mouse.GetPosition(window).Y - 10);
+                                return true;
+                            }
                         }
                     }
                 }
