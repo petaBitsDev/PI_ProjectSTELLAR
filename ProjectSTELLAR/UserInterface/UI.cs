@@ -51,9 +51,6 @@ namespace ProjectStellar
         RectangleShape _ressourcesTab;
         Sprite _destroyButton;
         Sprite _flatSprite;
-        Sprite _flatSprite2;
-        Sprite _hutSprite2;
-        Sprite _houseSprite2;
         Sprite _hutSprite;
         Sprite _houseSprite;
         Sprite _waterSprite;
@@ -68,26 +65,12 @@ namespace ProjectStellar
         Sprite _cityHall;
         Sprite _fireStation;
         Sprite _hospital;
-        Sprite _hospitals;
         Sprite _police;
         Sprite _spaceStation;
-        Sprite _spacestations;
-        Sprite _townhall;
         Sprite _sawMill;
         Sprite _metalMine;
         Sprite _oreMine;
         Sprite _warehouse;
-        Sprite _powerPlant2;
-        Sprite _pumpingStation2;
-        Sprite _cityHall2;
-        Sprite _fireStation2;
-        Sprite _hospital2;
-        Sprite _police2;
-        Sprite _spaceStation2;
-        Sprite _sawMill2;
-        Sprite _metalMine2;
-        Sprite _oreMine2;
-        Sprite _warehouse2;
         Sprite _people;
         Sprite _lockSprite;
         Sprite validation;
@@ -100,10 +83,6 @@ namespace ProjectStellar
         Sprite _shop;
         Sprite _factory;
         Sprite _park;
-
-        Sprite _shop2;
-        Sprite _factory2;
-        Sprite _park2;
         Sprite _satisfaction;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
@@ -379,30 +358,12 @@ namespace ProjectStellar
 
             };
 
-            _flatSprite2 = new Sprite(_ctx._buildingsTextures[2])
-            {
-                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45)
-            };
-
-            _hutSprite2 = new Sprite(_ctx._buildingsTextures[1])
-            {
-                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _houseSprite2 = new Sprite(_ctx._buildingsTextures[3])
-            {
-                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-
-            };
-
             //PUBLIC BUILDINGS
             _cityHall = new Sprite(_ctx._buildingsTextures[21])
             {
                 Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45)
             };
-            //_townhall = new Sprite(_ctx._buildingsTextures[21]);
+
             _fireStation = new Sprite(_ctx._buildingsTextures[8])
             {
                 Position = new Vector2f(400+50, _resolution.Y - 2 * 50 - 45),
@@ -413,7 +374,7 @@ namespace ProjectStellar
             {
                 Position = new Vector2f(500 + 50, _resolution.Y - 2 * 50 - 45)
             };
-            //_hospitals = new Sprite(_ctx._buildingsTextures[20]);
+
 
             _police = new Sprite(_ctx._buildingsTextures[10])
             {
@@ -434,46 +395,7 @@ namespace ProjectStellar
            
             _park = new Sprite(_ctx._buildingsTextures[19])
             {
-                Position = new Vector2f(900 + 50 + 50, _resolution.Y - 2 * 50 - 45)
-            };
-
-            _cityHall2 = new Sprite(_ctx._buildingsTextures[21])
-            {
-                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45)
-            };
-
-            _fireStation2 = new Sprite(_ctx._buildingsTextures[8])
-            {
-                Position = new Vector2f(400 + 50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _hospital2 = new Sprite(_ctx._buildingsTextures[20])
-            {
-                Position = new Vector2f(500 + 50, _resolution.Y - 2 * 50 - 45)
-            };
-
-            _police2 = new Sprite(_ctx._buildingsTextures[10])
-            {
-                Position = new Vector2f(600 + 50 + 50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _warehouse2 = new Sprite(_ctx._buildingsTextures[15])
-            {
-                Position = new Vector2f(800 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _spaceStation2 = new Sprite(_ctx._buildingsTextures[22])
-            {
-                Position = new Vector2f(700 + 50 + 50, _resolution.Y - 2 * 50 - 45)
-            };
-
-            _park2 = new Sprite(_ctx._buildingsTextures[19])
-            {
-                Position = new Vector2f(900 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
+                Position = new Vector2f(900 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45)
             };
 
             //RESOURCES BUILDINGS
@@ -514,48 +436,6 @@ namespace ProjectStellar
             };
 
             _factory = new Sprite(_ctx._buildingsTextures[18])
-            {
-                Position = new Vector2f(900, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _powerPlant2 = new Sprite(_ctx._buildingsTextures[4])
-            {
-                Position = new Vector2f(600, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f,2f)
-            };
-
-            _pumpingStation2 = new Sprite(_ctx._buildingsTextures[5])
-            {
-                Position = new Vector2f(700, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _sawMill2 = new Sprite(_ctx._buildingsTextures[12])
-            {
-                Position = new Vector2f(300, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _oreMine2 = new Sprite(_ctx._buildingsTextures[13])
-            {
-                Position = new Vector2f(400, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _metalMine2 = new Sprite(_ctx._buildingsTextures[14])
-            {
-                Position = new Vector2f(500, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _shop2 = new Sprite(_ctx._buildingsTextures[17])
-            {
-                Position = new Vector2f(800, _resolution.Y - 2 * 50 - 45),
-                Scale = new Vector2f(2f, 2f)
-            };
-
-            _factory2 = new Sprite(_ctx._buildingsTextures[18])
             {
                 Position = new Vector2f(900, _resolution.Y - 2 * 50 - 45),
                 Scale = new Vector2f(2f, 2f)
@@ -1002,7 +882,7 @@ namespace ProjectStellar
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[4].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 400, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_flatSprite2, window, 500, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
+                _drawUIctx.RenderSprite(_flatSprite, window, 500, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[2].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 500, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
@@ -1012,27 +892,27 @@ namespace ProjectStellar
             }
             else if (_publicTabSelected == true)
             {
-                _drawUIctx.RenderSprite(_cityHall2, window, 300, _resolution.Y - 2 * 50 - 45, 0, 0, 96, 64);
+                _drawUIctx.RenderSprite(_cityHall, window, 300, _resolution.Y - 2 * 50 - 45, 0, 0, 96, 64);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[0].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 300, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
-
-                _drawUIctx.RenderSprite(_fireStation2, window, 400 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                
+                _fireStation.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[1].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 400 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_hospital2, window, 500 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 96, 64);
+                _drawUIctx.RenderSprite(_hospital, window, 500 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 96, 64);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[3].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 500 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
-
-                _drawUIctx.RenderSprite(_police2, window, 600 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                
+                _police.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[8].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 600 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_spaceStation2, window, 700 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 96, 64);
+                _drawUIctx.RenderSprite(_spaceStation, window, 700 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 96, 64);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[12].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 700 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_warehouse2, window, 800 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _warehouse.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[13].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 800 + 50 + 50 + 50, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
@@ -1052,31 +932,31 @@ namespace ProjectStellar
             }
             else if (_ressourcesTabSelected == true)
             {
-                _drawUIctx.RenderSprite(_sawMill2, window, 300, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _sawMill.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[11].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 300, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_oreMine2, window, 400, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _oreMine.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[7].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 400, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_metalMine2, window, 500, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _metalMine.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[6].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 500, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_powerPlant2, window, 600, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _powerPlant.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[9].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 600, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_pumpingStation2, window, 700, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _pumpingStation.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[10].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 700, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_shop2, window, 800, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _shop.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[15].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 800, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
-                _drawUIctx.RenderSprite(_factory2, window, 900, _resolution.Y - 2 * 50 - 45, 0, 0, 32, 32);
+                _factory.Draw(window, RenderStates.Default);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[14].UnlockingLevel)
                     _drawUIctx.RenderSprite(_lockSprite, window, 900, _resolution.Y - 2 * 50 - 45, 0, 0, 64, 64);
 
