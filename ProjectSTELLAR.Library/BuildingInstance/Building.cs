@@ -43,6 +43,20 @@ namespace ProjectStellar.Library
             ship.IsAvailable = false;
             ship.UndisposedTime = end;
         }
+
+        public virtual void SendTruck(Truck truck, Building target)
+        {
+            truck.IsFree = false;
+        }
+
+        public virtual double GetDistance(Building target)
+        {
+            double distance;
+
+            distance = Math.Sqrt(Math.Pow((target.X - this.X), 2.00) + Math.Pow((target.Y - this.Y), 2.00));
+
+            return distance;
+        }
         
         public virtual bool MenuOn { get; set; }
         public abstract Vector SpritePosition { get; set; }

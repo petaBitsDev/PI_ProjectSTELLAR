@@ -16,7 +16,6 @@ namespace ProjectStellar.Library
             Vector move = unit_vector.Mul(speed);
             move = ConvertVectorToMap(move, 99 * 32);
        
-
             if (direction.X > position.X && direction.Y > position.Y)
                 position = new Vector(position.X + move.X, position.Y + move.Y);
             else if (direction.X < position.X && direction.Y < position.Y)

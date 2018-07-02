@@ -108,7 +108,6 @@ namespace ProjectStellar.Library
         }
 
         public void NewEvent(GameTime gameTime)
-
         {
             Console.WriteLine("aaaa");
             double _timeMax = 180;
@@ -126,9 +125,7 @@ namespace ProjectStellar.Library
             if (cityHallType.List.Count != 0) _iscityHall = true;
 
             _firetype.CalculNbEventReal();
-
-
-
+            
             if (_iscityHall == true)
 
             {
@@ -138,13 +135,10 @@ namespace ProjectStellar.Library
                     if (_firetype.BuildingHasEvent.Count != 0)
                     {
                         fireStation.ServiceBuildingWorking();
-                        
-
                     }
                 }
 
                 for (int i = 0; i < _firetype.NbEventReal; i++)
-
                 {
 
                     Console.WriteLine("i = " + i);
@@ -155,24 +149,15 @@ namespace ProjectStellar.Library
 
                     {
                         BuildingEvent(gameTime);
-
-               
-
-
+                        
                         _firetype.PreviousEvent = true;
                     }
-
                     else
-
                     {
                         _firetype.PreviousEvent = false;
                     }
-
                 }
-
             }
-
-
         }
     }
 }

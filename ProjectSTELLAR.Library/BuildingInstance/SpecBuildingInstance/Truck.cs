@@ -19,12 +19,16 @@ namespace ProjectStellar.Library
 
         public Truck(double x, double y)
         {
-            _x = x;
-            _y = y;
             _random = new Random();
-            _position = new Vector(_x, _y);
+            _position = new Vector(x, y);
+            _direction = new Vector();
             _speed = 0.00025f;
             _isFree = true;
+        }
+
+        public void Update()
+        {
+            Position = MathHelpers.MoveTo(Position, Target, Speed);
         }
 
         public float Speed => _speed;
@@ -34,7 +38,7 @@ namespace ProjectStellar.Library
             get { return _position; }
             set { _position = value; }
         }
-        public Vector Destination
+        public Vector Target
         {
             get { return _direction; }
             set { _direction = value; }

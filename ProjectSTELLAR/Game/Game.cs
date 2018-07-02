@@ -171,6 +171,15 @@ namespace ProjectStellar
                     this._map.SpaceShipsList[i].Update();
                 }
 
+                for(int i = 0; i < this._map.BuildingTypes[1].List.Count; i++)
+                {
+                    for(int j = 0; j < _map.BuildingTypes[1].List[i].TruckList.Count; j++)
+                    {
+                        if(!_map.BuildingTypes[1].List[i].TruckList[j].IsFree)
+                            _map.BuildingTypes[1].List[i].TruckList[j].Update();
+                    }
+                }
+
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();

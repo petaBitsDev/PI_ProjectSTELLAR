@@ -125,7 +125,7 @@ namespace ProjectStellar.Library
             for(int i = 0; i < fireStationType.List.Count; i++)
             {
                 FireStation f = (FireStation)fireStationType.List[i];
-                totalnbTruck += f.NbVehicule;
+                totalnbTruck += f.NbTrucks;
             }
 
             if (totalnbTruck< 2)

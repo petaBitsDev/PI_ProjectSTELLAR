@@ -55,36 +55,37 @@ namespace ProjectStellar.Library
 
         public void BuildingDistance(Map map)
         {
-            _fire = map.NewFireType;
-            newFire = _fire.CreateEvent();
-            double max = double.MaxValue;
+            //_fire = map.NewFireType;
+            //newFire = _fire.CreateEvent();
+            //double max = double.MaxValue;
 
-            for (int i = 0; i < this.NbBuilding; i++)
-            {
-                for (int j = 0; j < _fire.BuildingHasEvent.Count; j++)
-                {
-                    Distance = Math.Sqrt(Math.Pow((_fire.BuildingHasEvent[j].X - this.List[i].X), 2.00) + Math.Pow((_fire.BuildingHasEvent[j].Y - this.List[i].Y), 2.00));
-                    if (Distance < max)
-                    {
-                        max = Distance;
-                        _target = _fire.BuildingHasEvent[j];
-                        _origin = this.List[i];
-                    }
-                }
-            }
+            //for (int i = 0; i < this.NbBuilding; i++)
+            //{
+            //    for (int j = 0; j < _fire.BuildingHasEvent.Count; j++)
+            //    {
+            //        Distance = Math.Sqrt(Math.Pow((_fire.BuildingHasEvent[j].X - this.List[i].X), 2.00) + Math.Pow((_fire.BuildingHasEvent[j].Y - this.List[i].Y), 2.00));
+            //        Console.WriteLine(Distance);
+            //        if (Distance < max)
+            //        {
+            //            max = Distance;
+            //            _target = _fire.BuildingHasEvent[j];
+            //            _origin = this.List[i];
+            //        }
+            //    }
+            //}
         }
 
         public void TruckMoveTo(Truck truck)
         {
-            truck.Position = new Vector(Origin.X, Origin.Y);
-            truck.Destination = new Vector(Target.X, Target.Y);
+            //truck.Position = new Vector(Origin.X, Origin.Y);
+            //truck.Destination = new Vector(Target.X, Target.Y);
 
-            if(TruckSelected != null)
-            {
-                truck.Position = truck.Position.Add(truck.Destination.Mul(_truck.Speed));
-            }
-            _truckPosition = truck.Position;
-            _truckDestination = truck.Destination;
+            //if(TruckSelected != null)
+            //{
+            //    truck.Position = truck.Position.Add(truck.Destination.Mul(_truck.Speed));
+            //}
+            //_truckPosition = truck.Position;
+            //_truckDestination = truck.Destination;
         }
 
         public void CheckTruckStatement()
@@ -105,15 +106,14 @@ namespace ProjectStellar.Library
 
         public void CreateTruck(Building building, int x, int y)
         {
-            FireStation fireStation = (FireStation)building;
-            for(int i = 0; i < fireStation.NbVehicule; i++)
-            {
-                Truck t = new Truck(x, y);
-                building.TruckList.Add(t);
-            }
+            //FireStation fireStation = (FireStation)building;
+            //for(int i = 0; i < fireStation.NbVehicule; i++)
+            //{
+            //    Truck t = new Truck(x, y);
+            //    building.TruckList.Add(t);
+            //}
         }
-
-
+        
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
         {
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");
@@ -124,8 +124,7 @@ namespace ProjectStellar.Library
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
-
-
+        
         public override int UnlockingLevel => _unlockingLevel;
 
         public double Distance

@@ -16,18 +16,29 @@ namespace ProjectStellar.Library
         Vector _spritePosition;
         Map _ctx;
         FireType fire;
-        public List<Truck> _Vehicule;
+        public List<Truck> _trucks;
         FireStationType fireStationType;
         double _timeMax;
         GameTime gameTime = new GameTime();
 
         public FireStation(FireStationType type, int x, int y, Map map) : base(type, x, y)
         {
-            _nbTruck = 1;
+            _nbTruck = 4;
             _ctx = map;
-            _Vehicule = new List<Truck>();
+            _trucks = new List<Truck>();
             fireStationType = type;
-            fire = new FireType(_ctx);    
+            fire = new FireType(_ctx);
+            GenerateTrucks();
+        }
+
+        public void GenerateTrucks()
+        {
+            for (int i = 0; i < NbTrucks; i++)
+            {
+                Truck truck = new Truck(this.X, this.Y);
+                _trucks.Add(truck);
+                this.TruckList = _trucks;
+            }
         }
 
         public void ServiceBuildingWorking()
@@ -46,7 +57,6 @@ namespace ProjectStellar.Library
                         fireStationType.NewFire.EventHandle = true;
                     else
                         fireStationType.NewFire.EventHandle = false;
-
                 }
                 else
                 {
@@ -63,11 +73,11 @@ namespace ProjectStellar.Library
 
         public override List<Truck> TruckList
         {
-            get => _Vehicule;
-            set => _Vehicule = value;
+            get => _trucks;
+            set => _trucks = value;
         }
 
-        public int NbVehicule
+        public int NbTrucks
         {
             get { return _nbTruck; }
             set { _nbTruck = value; }
