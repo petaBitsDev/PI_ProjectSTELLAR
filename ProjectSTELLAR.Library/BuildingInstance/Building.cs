@@ -44,9 +44,12 @@ namespace ProjectStellar.Library
             ship.UndisposedTime = end;
         }
 
-        public virtual void SendTruck(Truck truck, Building target)
+        public virtual void SendTruck(Truck truck, Building target, DateTime inGameTime)
         {
+            DateTime end = inGameTime.AddHours(3.0);
+
             truck.IsFree = false;
+            truck.UndisposedTime = end;
         }
 
         public virtual double GetDistance(Building target)

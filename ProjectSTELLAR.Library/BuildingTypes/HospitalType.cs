@@ -76,7 +76,7 @@ namespace ProjectStellar.Library
                     {
                         max = Distance;
                         _target = _disease.BuildingHasEvent[j];
-                        Console.WriteLine("HOSPITALTYPE TARGET -----" + _target);
+                        //Console.WriteLine("HOSPITALTYPE TARGET -----" + _target);
                         _origin = (Hospital)List[i];
                     }
                 }

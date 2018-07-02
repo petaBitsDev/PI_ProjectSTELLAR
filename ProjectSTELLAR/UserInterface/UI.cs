@@ -1395,13 +1395,11 @@ namespace ProjectStellar
             set { _tabActif = value; }
         }
 
-        public void ReturnShip (ExplorationShips ship, int i, string resource, int nbresource, RenderWindow window)
+        public void ReturnShip (ExplorationShips ship, string resource, int nbresource)
         {
             ship.IsAvailable = true;
             _resourcesManager.NbResources[resource] += nbresource;
             ship.Resource = "";
-            //_menus[i].Availabilities.FillColor = Color.Green;
-            //_menus[i].Availabilities.Draw(window, RenderStates.Default);
         }
 
         public void CreateMenu(Game ctx, Building building)

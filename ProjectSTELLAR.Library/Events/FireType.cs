@@ -164,7 +164,7 @@ namespace ProjectStellar.Library
 
             NbEventReal = random.Next(NbEventMax + 1);
 
-            Console.WriteLine("nb event : " + NbEventReal);
+            //Console.WriteLine("nb event : " + NbEventReal);
 
         }
 
@@ -195,16 +195,16 @@ namespace ProjectStellar.Library
             int probability;
             Random random = new Random();
             probability = random.Next(1, 101);
-            Console.WriteLine(" FIRE Event probability" + EventProbability * 100 );
-            Console.WriteLine();
-            Console.WriteLine("FIRE probability" + probability);
+            //Console.WriteLine(" FIRE Event probability" + EventProbability * 100 );
+            //Console.WriteLine();
+            //Console.WriteLine("FIRE probability" + probability);
 
             if (probability <= EventProbability * 10)
 
             {
                 IsEventHappening = true;
                 CreateEvent();
-                Console.WriteLine(" FIRE Is event Happening " + IsEventHappening);
+                //Console.WriteLine(" FIRE Is event Happening " + IsEventHappening);
                 Console.WriteLine();
             }
 

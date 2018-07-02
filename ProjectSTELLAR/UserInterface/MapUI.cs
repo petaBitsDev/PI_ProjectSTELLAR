@@ -235,7 +235,7 @@ namespace ProjectStellar
                                 for(int b = 0; b < _ctx.BuildingTypes[1].List[j].TruckList.Count; b++)
                                 {
                                     if(_ctx.BuildingTypes[1].List[j].TruckList[b].IsFree)
-                                        _ctx.BuildingTypes[1].List[j].SendTruck(_ctx.BuildingTypes[1].List[j].TruckList[b], boxes[_cases[a].X, _cases[a].Y]);
+                                        _ctx.BuildingTypes[1].List[j].SendTruck(_ctx.BuildingTypes[1].List[j].TruckList[b], boxes[_cases[a].X, _cases[a].Y], _gameCtx.GameTime.InGameTime);
                                 }
                             }
                         }
@@ -331,14 +331,14 @@ namespace ProjectStellar
         public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
             Building building;
-            Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
+            //Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
             for (int i = 0; i < _cases.Length; i++)
             {
                 building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
                 if (_cases[i].Rec.Contains(mouseX, mouseY))
                 {
-                    Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
+                    //Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
                         if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
@@ -385,7 +385,7 @@ namespace ProjectStellar
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewCrimeType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewCrimeType.BuildingHasEvent.Remove(_ctx.NewCrimeType.BuildingHasEvent[i]);
-                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -443,13 +443,13 @@ namespace ProjectStellar
             {
                 for (int i = 0; i < _ctx.NewFireType.BuildingHasEvent.Count; i++)
                 {
-                    Console.WriteLine("1 " + _gameCtx.GameTime.InGameTime);
-                    Console.WriteLine("2 " + _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent);
+                    //Console.WriteLine("1 " + _gameCtx.GameTime.InGameTime);
+                    //Console.WriteLine("2 " + _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent);
 
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewFireType.BuildingHasEvent.Remove(_ctx.NewFireType.BuildingHasEvent[i]);
-                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -504,7 +504,7 @@ namespace ProjectStellar
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewDiseaseType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewDiseaseType.BuildingHasEvent.Remove(_ctx.NewDiseaseType.BuildingHasEvent[i]);
-                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 

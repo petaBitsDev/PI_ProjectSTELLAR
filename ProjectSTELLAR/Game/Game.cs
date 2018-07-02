@@ -171,15 +171,6 @@ namespace ProjectStellar
                     this._map.SpaceShipsList[i].Update();
                 }
 
-                for(int i = 0; i < this._map.BuildingTypes[1].List.Count; i++)
-                {
-                    for(int j = 0; j < _map.BuildingTypes[1].List[i].TruckList.Count; j++)
-                    {
-                        if(!_map.BuildingTypes[1].List[i].TruckList[j].IsFree)
-                            _map.BuildingTypes[1].List[i].TruckList[j].Update();
-                    }
-                }
-
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
                 {
                     _experienceManager.CheckLevel();
@@ -212,10 +203,24 @@ namespace ProjectStellar
                                 _map.BuildingTypes[12].List[i].ShipList[j].FetchResource();
                             }
                             else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
-                                _drawUI.UI.ReturnShip(_map.BuildingTypes[12].List[i].ShipList[j], i, _map.BuildingTypes[12].List[i].ShipList[j].Resource, _map.BuildingTypes[12].List[i].ShipList[j].NbResources, Window);
+                                _drawUI.UI.ReturnShip(_map.BuildingTypes[12].List[i].ShipList[j], _map.BuildingTypes[12].List[i].ShipList[j].Resource, _map.BuildingTypes[12].List[i].ShipList[j].NbResources);
                         }
                     }
-                }                
+                }
+
+                for (int i = 0; i < this._map.BuildingTypes[1].List.Count; i++)
+                {
+                    for (int j = 0; j < _map.BuildingTypes[1].List[i].TruckList.Count; j++)
+                    {
+                        if (!_map.BuildingTypes[1].List[i].TruckList[j].IsFree || _map.BuildingTypes[1].List[i].TruckList[j].OnReturn)
+                        {
+                            if (gameTime.InGameTime <= _map.BuildingTypes[1].List[i].TruckList[j].UndisposedTime)
+                                _map.BuildingTypes[1].List[i].TruckList[j].Update();
+                            //if (gameTime.InGameTime > _map.BuildingTypes[1].List[i].TruckList[j].UndisposedTime)
+                            //    _drawUI.UI.ReturnTruck();
+                        }
+                    }
+                }
             }
         }
 

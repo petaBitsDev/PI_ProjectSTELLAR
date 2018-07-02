@@ -11,11 +11,13 @@ namespace ProjectStellar.Library
     {
         Random _random;
         bool _isFree;
+        bool _onReturn;
         float _speed;
         double _x;
         double _y;
         Vector _position;
         Vector _direction;
+        DateTime _undisposedTime;
 
         public Truck(double x, double y)
         {
@@ -23,7 +25,15 @@ namespace ProjectStellar.Library
             _position = new Vector(x, y);
             _direction = new Vector();
             _speed = 0.00025f;
+            _onReturn = false;
             _isFree = true;
+            _undisposedTime = DateTime.Now;
+        }
+
+        public DateTime UndisposedTime
+        {
+            get { return _undisposedTime; }
+            set { _undisposedTime = value; }
         }
 
         public void Update()
@@ -47,6 +57,12 @@ namespace ProjectStellar.Library
         {
             get { return _isFree; }
             set { _isFree = value; }
+        }
+
+        public bool OnReturn
+        {
+            get { return _onReturn; }
+            set { _onReturn = value; }
         }
     }
 }

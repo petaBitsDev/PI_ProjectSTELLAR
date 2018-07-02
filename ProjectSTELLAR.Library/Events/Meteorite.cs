@@ -34,7 +34,7 @@ namespace ProjectStellar.Library
 
         public static int DestroyBuildings(Vector2i fallsCoord, Map map, ResourcesManager resources)
         {
-            Console.WriteLine("Destructions aux coords : {0}, {1}");
+            //Console.WriteLine("Destructions aux coords : {0}, {1}");
 
             int y = fallsCoord.Y - _radius;
             int xDiff = 0;
