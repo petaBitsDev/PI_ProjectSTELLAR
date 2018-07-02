@@ -14,6 +14,7 @@ namespace ProjectStellar.Library
         DiseaseType _diseaseType;
         BuildingType buildingSelected;
         HospitalType _hospitalType;
+        int compteur = 0;
 
         public Disease(Map ctx, DiseaseType diseaseType)
         {
@@ -30,56 +31,75 @@ namespace ProjectStellar.Library
 
         public void BuildingEvent(GameTime gameTime)
         {
-            Random random = new Random();
-            int _idxBuildingtype;
-            _idxBuildingtype = random.Next(_ctx.BuildingTypes.Count);
-             buildingSelected = _ctx.BuildingTypes[_idxBuildingtype];
-            Console.WriteLine("DISEASE -- idx building type for disease" + _idxBuildingtype);
-            Console.WriteLine();
 
-
-            if (buildingSelected.List.Count != 0)
+            if (compteur > 3)
             {
-
-                Console.WriteLine("DISEASE -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
-                Console.WriteLine();
-                int _idxBuilding;
-                _idxBuilding = random.Next(buildingSelected.List.Count);
-
-                Console.WriteLine("DISEASE -- idx Building Selected" + _idxBuilding);
-                Console.WriteLine();
-                if (buildingSelected.Type == "public")
-                {
-                    Console.WriteLine("DISEASE le building selectionné etait public");
-                    Console.WriteLine();
-                    BuildingEvent(gameTime);
-                }
-                else if (buildingSelected.List[_idxBuilding].IsSick == true)
-                {
-                    Console.WriteLine("DISEASE -- le building est deja malade");
-                    Console.WriteLine();
-                    BuildingEvent(gameTime);
-                }
-                else
-                {
-                    Console.WriteLine("buildingevent a rempli sa fonction");
-
-                    buildingSelected.List[_idxBuilding].IsSick = true;
-                   _diseaseType.BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
-                    _diseaseType.BuildingHasEvent[_diseaseType.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
-
-                    Console.WriteLine("disease" +_diseaseType.BuildingHasEvent.ToString());
-                    Console.WriteLine(" DISEASE is the building selected sick : " + buildingSelected.List[_idxBuilding].IsSick);
-                    Console.WriteLine();
-                }
+                _diseaseType.IsEventHappening = false;
+                compteur = 0;
+                return;
             }
             else
             {
-                Console.WriteLine("Il n'y a pas d'instance de l'objet sur la carte" );
+                Random random = new Random();
+                int _idxBuildingtype;
+                _idxBuildingtype = random.Next(_ctx.BuildingTypes.Count);
+                buildingSelected = _ctx.BuildingTypes[_idxBuildingtype];
+                Console.WriteLine("DISEASE -- idx building type for disease" + _idxBuildingtype);
                 Console.WriteLine();
-                BuildingEvent(gameTime);
+
+
+                if (buildingSelected.List.Count != 0)
+                {
+
+                    Console.WriteLine("DISEASE -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
+                    Console.WriteLine();
+                    int _idxBuilding;
+                    _idxBuilding = random.Next(buildingSelected.List.Count);
+
+                    Console.WriteLine("DISEASE -- idx Building Selected" + _idxBuilding);
+                    Console.WriteLine();
+                    if (buildingSelected.Type == "public")
+                    {
+                        Console.WriteLine("DISEASE le building selectionné etait public");
+                        Console.WriteLine();
+                        compteur++;
+
+                        BuildingEvent(gameTime);
+                    }
+                    else if (buildingSelected.List[_idxBuilding].IsSick == true)
+                    {
+                        Console.WriteLine("DISEASE -- le building est deja malade");
+                        Console.WriteLine();
+                        compteur++;
+
+                        BuildingEvent(gameTime);
+                    }
+                    else
+                    {
+                        Console.WriteLine("buildingevent a rempli sa fonction");
+
+                        buildingSelected.List[_idxBuilding].IsSick = true;
+                        _diseaseType.BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
+                        _diseaseType.BuildingHasEvent[_diseaseType.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
+
+                        Console.WriteLine("disease" + _diseaseType.BuildingHasEvent.ToString());
+                        Console.WriteLine(" DISEASE is the building selected sick : " + buildingSelected.List[_idxBuilding].IsSick);
+                        Console.WriteLine();
+                        compteur = 0;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Il n'y a pas d'instance de l'objet sur la carte");
+                    Console.WriteLine();
+                    compteur++;
+
+                    BuildingEvent(gameTime);
+
+                }
 
             }
+
 
         }
 

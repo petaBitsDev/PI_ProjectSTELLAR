@@ -36,7 +36,7 @@ namespace ProjectStellar.Library
             _ctx = ctx;
             _previousCrime = false;
 
-            _crimeProbability = 0.17f;
+            _crimeProbability = 0.017f;
 
             _eventHandle = true;
             _building = new List<Building>();
@@ -108,13 +108,13 @@ namespace ProjectStellar.Library
 
             if(totalNbVehicule < 2)
             {
-                NbEventMax = 3;
+                NbEventMax = 1;
             }
             else if (totalNbVehicule >= 2 || totalNbVehicule <= 4)
 
             {
 
-                NbEventMax = 7;
+                NbEventMax = 3;
 
             }
 
@@ -122,7 +122,7 @@ namespace ProjectStellar.Library
 
             {
 
-                NbEventMax = 15;
+                NbEventMax = 5;
 
             }
         }
