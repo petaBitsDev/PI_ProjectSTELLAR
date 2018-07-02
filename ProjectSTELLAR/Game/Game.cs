@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using SFML.Audio;
 using ProjectStellar.Library;
 using System;
 
@@ -17,6 +18,7 @@ namespace ProjectStellar
         public Texture[] _spriteTruck = new Texture[1];
         public Texture[] _buildingsTextures = new Texture[23];
         public Texture[] _uiTextures = new Texture[35];
+        Music _music; 
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -37,6 +39,7 @@ namespace ProjectStellar
         internal View _view;
         Vector2f _center;
         CityEvents _cityEvents;
+
 
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
@@ -136,6 +139,7 @@ namespace ProjectStellar
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
 
+            _music = new Music("./resources/sounds/YouthfulIllusions.ogg");
         }
 
         public override void Initialize(GameTime gameTime)
@@ -158,6 +162,8 @@ namespace ProjectStellar
             _menuLoadGame = new MenuLoadGame(_resolution.X, _resolution.Y, this);
             _satisfactionManager = new SatisfactionManager();
             _cityEvents = new CityEvents();
+            _music.Loop = true;
+            _music.Play();
         }
 
         public override void Update(GameTime gameTime)
