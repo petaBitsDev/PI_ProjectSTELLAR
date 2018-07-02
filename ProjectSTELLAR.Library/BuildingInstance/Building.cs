@@ -61,7 +61,7 @@ namespace ProjectStellar.Library
             set { _timeOfFire = value; }
         }
 
-        public DateTime EndOfEvent => _timeOfFire.AddMinutes(80);
+        public DateTime EndOfEvent => _timeOfFire.AddMinutes(200);
        
     }
 }
