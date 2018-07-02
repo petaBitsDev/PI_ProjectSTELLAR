@@ -146,7 +146,7 @@ namespace ProjectStellar
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y * 0.95f));
             _newGame = new NewGame(_resolution.X, _resolution.Y, this, _font);
-            Window.SetView(_view);
+            //Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
             Window.MouseMoved += _windowEvents.MouseMoved;
