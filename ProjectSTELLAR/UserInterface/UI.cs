@@ -867,6 +867,8 @@ namespace ProjectStellar
                     _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 12, _resolution.Y / 2, 0, 0, 64, 64);
 
                 _drawUIctx.RenderSprite(_park, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[16].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 64, 64);
 
                 _sprites.Add(_cityHall, "CITY HALL");
                 _sprites.Add(_fireStation, "FIRE STATION");
@@ -899,8 +901,12 @@ namespace ProjectStellar
                     _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 64, 64);
 
                 _drawUIctx.RenderSprite(_shop, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[15].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2 + 64, 0, 0, 64, 64);
 
                 _drawUIctx.RenderSprite(_factory, window, _resolution.X - _boxSize * 8, _resolution.Y / 2 + 64, 0, 0, 32, 32);
+                if (_experienceManager.Level < _mapCtx.BuildingTypes[14].UnlockingLevel)
+                    _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2 + 64, 0, 0, 64, 64);
 
                 _sprites.Add(_sawMill, "SAWMILL");
                 _sprites.Add(_oreMine, "ORE MINE");
