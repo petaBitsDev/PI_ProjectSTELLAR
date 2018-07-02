@@ -237,6 +237,7 @@ namespace ProjectStellar
         {
             if (size == 6)
             {
+                if (y + 2 > _ctx.Width - 1 || x + 1 > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 2], null)) return false;
@@ -246,6 +247,7 @@ namespace ProjectStellar
             }
             else if (size == 4)
             {
+                if (y + 1 > _ctx.Width - 1 || x + 1 > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x + 1, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
@@ -253,6 +255,7 @@ namespace ProjectStellar
             }
             else
             {
+                if (y > _ctx.Width - 1 || x > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
             }
             return true;
@@ -261,14 +264,14 @@ namespace ProjectStellar
         public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
             Building building;
-            Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
+            //Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
             for (int i = 0; i < _cases.Length; i++)
             {
                 building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
                 if (_cases[i].Rec.Contains(mouseX, mouseY))
                 {
-                    Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
+                    //Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
                         if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))

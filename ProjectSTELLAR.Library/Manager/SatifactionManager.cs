@@ -44,7 +44,7 @@ namespace ProjectStellar.Library
 
             if (_satisfaction < 0f) _satisfaction = 0f;
             else if (_satisfaction > 1f) _satisfaction = 1f;
-            Console.WriteLine(Satifaction);
+            //Console.WriteLine(Satifaction);
         }
 
         public void UnsolvedEvent()
