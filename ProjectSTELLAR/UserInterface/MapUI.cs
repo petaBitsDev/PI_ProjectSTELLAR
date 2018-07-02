@@ -171,22 +171,43 @@ namespace ProjectStellar
                         {
                             if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
-                                //if (Equals(buildingType.Key, CityHallType))
-                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                //if (Equals(buildingType.Key, _ctx.BuildingTypes[2]))
+                                //{
+                                //    buildingType.Key.Position = new Vector2f(boxes[i, j].X, boxes[i, j].Y);
+                                //    buildingType.Key.Draw(window, RenderStates.Default);
+                                //}
+                                //else 
+                                if(buildingType.Value.Size == 6)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                else if(buildingType.Value.Size == 4)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
+                                else
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+
                             }
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
                         {
                             if (boxes[i, j].Type == buildingType.Value && boxes[i, j].X == i && boxes[i, j].Y == j)
                             {
-                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                if (buildingType.Value.Size == 6)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                else if (buildingType.Value.Size == 4)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
+                                else
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
                         {
                             if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
-                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                if (buildingType.Value.Size == 6)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                else if (buildingType.Value.Size == 4)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
+                                else
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
                     }
