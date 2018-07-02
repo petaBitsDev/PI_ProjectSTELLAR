@@ -22,7 +22,7 @@ namespace ProjectStellar
         uint _height;
         GameTime _gameTime;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfaction)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfaction, FireType fireType)
         {
             _gameCtx = context;
             _mapCtx = ctx;
@@ -31,7 +31,7 @@ namespace ProjectStellar
             _width = width;
             _height = height;
             _gameTime = gameTime;
-            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, resourcesManager, experienceManager);
+            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, resourcesManager, experienceManager, fireType);
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution, _resourcesCtx);
             context._view.Viewport = new FloatRect(0, 0, 0.93f, 0.95f);
         }

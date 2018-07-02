@@ -20,6 +20,7 @@ namespace ProjectStellar
         BuildingChoice[] _buildingChoices;
         ResourcesManager _resourcesManager;
         ExperienceManager _experienceManager;
+        FireType _fireType;
 
         ExplorationShips _ship;
         DateTime _undisposedTime;
@@ -92,6 +93,7 @@ namespace ProjectStellar
         Sprite _mouseSprite;
         Sprite _sendButton;
         Sprite _sendActifButton;
+        Map _map;
 
         uint _width;
         uint _height;
@@ -113,7 +115,7 @@ namespace ProjectStellar
         string _resource;
         bool _sent;
 
-        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager)
+        public UI(Game ctx, Resolution resolution, Map context, DrawUI drawUI, uint width, uint height, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, FireType fireType)
         {
             _sprites = new Dictionary<Sprite, string>();
             _buildingTypeSprites = new Dictionary<Sprite, BuildingType>();
@@ -132,6 +134,7 @@ namespace ProjectStellar
             _gameTime = gameTime;
             _buildingChoices = new BuildingChoice[16];
             _resourcesManager = resourcesManager;
+            _fireType = fireType;
             _tab1Selected = true;
             _tab2Selected = false;
             _tab3Selected = false;
@@ -142,6 +145,10 @@ namespace ProjectStellar
             _tab.Add(false);
             _tab.Add(false);
             _tabActif = 0;
+
+            _map = context;
+
+            
 
             //TIME BAR
             _play = new Sprite(_ctx._uiTextures[18])
@@ -410,7 +417,6 @@ namespace ProjectStellar
                 Scale = new Vector2f(0.5f, 0.5f)
             };
 
-            // habitations
             _tab1Sprite.Add(_hutSprite, _mapCtx.BuildingTypes[5]);
             _tab1Sprite.Add(_houseSprite, _mapCtx.BuildingTypes[4]);
             _tab1Sprite.Add(_flatSprite, _mapCtx.BuildingTypes[2]);
@@ -810,6 +816,7 @@ namespace ProjectStellar
 
             if (IsTab1Active == true)
             {
+          
                 _drawUIctx.RenderSprite(_hutSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 32, 32);
                 if (_experienceManager.Level < _mapCtx.BuildingTypes[5].UnlockingLevel) _drawUIctx.RenderSprite(_lockSprite, window, _resolution.X - _boxSize * 10, _resolution.Y / 2, 0, 0, 64, 64);
                 _drawUIctx.RenderSprite(_houseSprite, window, _resolution.X - _boxSize * 8, _resolution.Y / 2, 0, 0, 32, 32);

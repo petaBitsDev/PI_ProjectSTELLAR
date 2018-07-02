@@ -15,6 +15,8 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _buildingsTextures = new Texture[20];
         public Texture[] _uiTextures = new Texture[34];
+        public Texture[] _spriteSheet = new Texture[7];
+        public Texture[] _spriteTruck = new Texture[1];
         int _state;
         internal Menu _menu;
         NewGame _newGame;
@@ -24,6 +26,7 @@ namespace ProjectStellar
         internal Map _map;
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
+        internal FireType _fireType;
         internal ResourcesManager _resourcesManager;
         internal SatisfactionManager _satisfactionManager;
         MapUI _mapUI;
@@ -38,6 +41,8 @@ namespace ProjectStellar
         {
             MenuState = state;
             _resolution = resolution;
+
+
         }
 
         public override void LoadContent()
@@ -113,7 +118,18 @@ namespace ProjectStellar
             _uiTextures[32] = new Texture("./resources/img/check.png");
             _uiTextures[33] = new Texture("./resources/img/bulldozer.png");
 
+            _spriteSheet[0] = new Texture("./resources/img/firesheet.png");
+            _spriteSheet[1] = new Texture("./resources/img/flame.png");
+            _spriteSheet[2] = new Texture("./resources/img/fires.png");
+            _spriteSheet[3] = new Texture("./resources/img/alienColor.png");
+            _spriteSheet[4] = new Texture("./resources/img/alienss.png");
+            _spriteSheet[5] = new Texture("./resources/img/fever.png");
+            _spriteSheet[6] = new Texture("./resources/img/feverred.png");
+
+            _spriteTruck[0] = new Texture("./resources/img/fire-truck.png");
+
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
+
         }
 
         public override void Initialize(GameTime gameTime)
@@ -147,15 +163,9 @@ namespace ProjectStellar
                     this._map.GenerateSpaceShips(this._resourcesManager);
                     for (int i = 0; i < this._map.SpaceShipsList.Count; i++)
                     {
-                        Console.WriteLine("SpaceShip Number : " + i);
-                        Console.WriteLine("pos X : " + _map.SpaceShipsList[i].Position.X.ToString());
-                        Console.WriteLine("pos Y : " + _map.SpaceShipsList[i].Position.Y.ToString());
-
+                    
                         this._map.SpaceShipsList[i].Update();
                         
-                        Console.WriteLine("Dir X : " + _map.SpaceShipsList[i].Direction.X.ToString());
-                        Console.WriteLine("Dir Y : " + _map.SpaceShipsList[i].Direction.Y.ToString());
-                        Console.WriteLine("=========================");
                     }
                 //}
                 if (gameTime.InGameTime.Minute == 00 && _areResourcesUpdated == false)
@@ -165,11 +175,16 @@ namespace ProjectStellar
                     //Console.WriteLine("Pop: {0}", _resourcesManager.NbResources["population"]);
                     //Console.WriteLine("lvl : {0}", _experienceManager.CheckLevel());
                     //Console.WriteLine("{0}%", _experienceManager.GetPercentage());
-                    _resourcesManager.NbResources["nbPeople"] += 20;
+                  //_resourcesManager.NbResources["nbPeople"] += 20;
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
+                    //_satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
+                    foreach(IEvent ev in _map.ListEvent)
+                    {
+                        ev.NewEvent(gameTime);
+                    }
                 }
                 else if (gameTime.InGameTime.Minute != 00 && _areResourcesUpdated == true) _areResourcesUpdated = false;
 
@@ -224,7 +239,8 @@ namespace ProjectStellar
             _experienceManager = save.ExperienceManager;
             _name = save.Name;
             _satisfactionManager = save.SatisfactionManager;
-            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
+            _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager, _fireType);
+            _fireType = save.FireType;
         }
 
         internal void StartNewGame()
@@ -234,11 +250,12 @@ namespace ProjectStellar
                 _name = _newGame.Name;
                 _newGame.Name = "";
                 MenuState = 1;
-                _map = new Map(100, 100);
+                _map = new Map(100, 100, GameTime);
                 _resourcesManager = new ResourcesManager(_map);
                 _experienceManager = new ExperienceManager(_resourcesManager);
                 _satisfactionManager = new SatisfactionManager();
-                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager);
+                _drawUI = new DrawUI(this, _map, 100, 100, _resolution, GameTime, _resourcesManager, _experienceManager, _satisfactionManager, _fireType);
+                _fireType = new FireType(_map);
             }
         }
 
@@ -260,5 +277,12 @@ namespace ProjectStellar
         {
             get { return _resolution; }
         }
+
+        public Map Map
+        {
+            get { return _map; }
+            set { _map = value; }
+        }
+
     }
 }

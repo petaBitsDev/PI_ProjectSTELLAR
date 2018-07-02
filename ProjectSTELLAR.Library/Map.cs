@@ -17,8 +17,14 @@ namespace ProjectStellar.Library
         readonly List<BuildingType> _buildingTypes;
         SpaceShipsTypes _spaceShipType;
         int _nbSpaceShip;
+        List<IEvent> _listEvent;
+        FireType fireType;
+        List<IServiceBuildingsType> _listServiceBuilding;
+        DiseaseType diseaseType;
+        CrimeType crimeType;
+        GameTime _gameTime;
 
-        public Map (int width, int height)
+        public Map (int width, int height, GameTime gameTime)
         {
             _width = width;
             _height = height;
@@ -44,8 +50,28 @@ namespace ProjectStellar.Library
               /* 15*/ new ShopType(),
               /* 16*/ new ParkType()
             };
+            fireType = new FireType(this);
+            diseaseType = new DiseaseType(this);
+            crimeType = new CrimeType(this);
+
+            _listEvent = new List<IEvent>();
+            _listEvent.Add(fireType.CreateEvent());
+            _listEvent.Add(diseaseType.CreateEvent());
+            _listEvent.Add(crimeType.CreateEvent());
+
+            _listServiceBuilding = new List<IServiceBuildingsType>();
+            _listServiceBuilding.Add(new FireStationType());
+            _listServiceBuilding.Add(new PoliceStationType());
+            _listServiceBuilding.Add(new HospitalType());
+
+            _gameTime = gameTime;
+
+
         }
 
+        
+        public List<IServiceBuildingsType> ListServicesBuildingType => _listServiceBuilding;
+        public List<IEvent> ListEvent => _listEvent;
         public List<BuildingType> BuildingTypes => _buildingTypes;
 
         public int Width => _width;
@@ -141,5 +167,12 @@ namespace ProjectStellar.Library
         public int NbSpaceShips => _nbSpaceShip;
 
         public List<SpaceShips> SpaceShipsList => _spaceShipType.List;
+
+        public FireType NewFireType => fireType;
+        public CrimeType NewCrimeType => crimeType;
+
+        public DiseaseType NewDiseaseType => diseaseType;
+
+        internal GameTime GetGameTime => _gameTime;
     }
 }
