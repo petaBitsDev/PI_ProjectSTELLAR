@@ -279,19 +279,19 @@ namespace ProjectStellar
 
             _woodSprite = new Sprite(_ctx._uiTextures[7])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 4),
+                Position = new Vector2f(350 + 45 + 5 + 5, _resolution.Y - 2 * 15 - 10 + 1),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _rockSprite = new Sprite(_ctx._uiTextures[9])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 5),
+                Position = new Vector2f(350 + 45 + 5 + 5+ 110, _resolution.Y - 2 * 15 - 10 + 1),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
             _metalSprite = new Sprite(_ctx._uiTextures[8])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 4 + 5, _boxSize * 6),
+                Position = new Vector2f(350 + 45 + 5 + 5 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1),
                 Scale = new Vector2f(0.8f, 0.8f)
             };
 
@@ -315,7 +315,9 @@ namespace ProjectStellar
 
             _people = new Sprite(_ctx._uiTextures[23])
             {
-                Position = new Vector2f(_resolution.X - _boxSize * 3, _boxSize * 10)
+                Position = new Vector2f(350, _resolution.Y - 2 * 15 - 8),
+                Scale = new Vector2f(0.4f,0.4f),
+                Color = new Color(71,153,74)
             };
 
             _satisfaction = new Sprite(_ctx._uiTextures[12])
@@ -1590,7 +1592,7 @@ namespace ProjectStellar
                 OutlineColor = new Color(Color.Black),
                 OutlineThickness = 1.0f,
                 Size = new Vector2f(_resolution.X, 70 * 2),
-                FillColor = new Color(Color.White),
+                FillColor = new Color(255,255,255,100),
                 Position = new Vector2f(0, _resolution.Y - 2 * 50 - 50 - 20)
             };
 
@@ -1660,15 +1662,18 @@ namespace ProjectStellar
 
                 if (_habitationTabSelected == true)
                 {
-                    backgroundListMenu.FillColor = new Color(Color.Cyan);
+                    _habitationTab.FillColor = new Color(106,109,109);
+                    text.Color = new Color(Color.White);
                 }
                 else if (_publicTabSelected == true)
                 {
-                    backgroundListMenu.FillColor = new Color(Color.Red);
+                    _publicTab.FillColor = new Color(106, 109, 109);
+                    text2.Color = new Color(Color.White);
                 }
                 else if (_ressourcesTabSelected == true)
                 {
-                    backgroundListMenu.FillColor = new Color(Color.Green);
+                    _ressourcesTab.FillColor = new Color(106, 109, 109);
+                    text3.Color = new Color(Color.White);
                 }
 
                 window.Draw(backgroundListMenu);
@@ -1690,7 +1695,7 @@ namespace ProjectStellar
             }
         }
 
-        public void BackgroundMenuBar(RenderWindow window)
+        public void BackgroundMenuBar(RenderWindow window, Dictionary<string, int> resources, Font font)
         {
             CircleShape backgroundRemoveCircle = new CircleShape(40)
             {
@@ -1752,7 +1757,58 @@ namespace ProjectStellar
                 FillColor = new Color(Color.White),
                 Position = new Vector2f(0, _resolution.Y - 2 * 15 - 20)
             };
-            
+
+
+            if (_people.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                CircleShape leftPopulation = new CircleShape(25)
+                {
+                    OutlineColor = new Color(Color.Black),
+                    OutlineThickness = 1.0f,
+                    FillColor = new Color(Color.White),
+                    Position = new Vector2f(150 + 50 +50+25, _resolution.Y - 2 * 15 - 20 - 25)
+                };
+
+                CircleShape rightPoupulation = new CircleShape(25)
+                {
+                    OutlineColor = new Color(Color.Black),
+                    OutlineThickness = 1.0f,
+                    FillColor = new Color(Color.White),
+                    Position = new Vector2f(150 + 50 + 100 + 50 + 25, _resolution.Y - 2 * 15 - 20 - 25)
+                };
+
+                RectangleShape rectanglePopulation = new RectangleShape
+                {
+                    Size = new Vector2f(105, 30),
+                    OutlineColor = new Color(Color.Black),
+                    OutlineThickness = 1.0f,
+                    FillColor = new Color(Color.White),
+                    Position = new Vector2f(150 + 50 + 25 + 50 + 25, _resolution.Y - 2 * 15 - 20 - 25)
+                };
+
+                RectangleShape hideRectanglePopulation = new RectangleShape
+                {
+                    Size = new Vector2f(107, 30),
+                    FillColor = new Color(Color.White),
+                    Position = new Vector2f(150 + 50 + 25 - 1 + 50 + 25, _resolution.Y - 2 * 15 - 20 - 25)
+                };
+
+                Text nbPeople = new Text(resources["nbPeople"].ToString(), font)
+                {
+                    Position = new Vector2f(150 + 50 + 25 - 1 + 50 + 25, _resolution.Y - 2 * 15 - 20 - 25 + 2),
+                    Color = Color.Black,
+                    CharacterSize = 16,
+                    Style = Text.Styles.Bold
+                };
+
+                leftPopulation.Draw(window, RenderStates.Default);
+                rightPoupulation.Draw(window, RenderStates.Default);
+                rectanglePopulation.Draw(window, RenderStates.Default);
+                hideRectanglePopulation.Draw(window, RenderStates.Default);
+                nbPeople.Draw(window, RenderStates.Default);
+
+            }
+
             backgroundRemoveCircle.Draw(window, RenderStates.Default);
             bottomBackgroundRectangle.Draw(window, RenderStates.Default);
             backgroundBuildCircle.Draw(window, RenderStates.Default);
@@ -1761,6 +1817,8 @@ namespace ProjectStellar
             rightBackgroundCircle.Draw(window, RenderStates.Default);
             rightBackgroundRectangle.Draw(window, RenderStates.Default);
             rightBackgroundRectangle2.Draw(window, RenderStates.Default);
+
+            
         }
 
         public void MenuBar(RenderWindow window, GameTime gameTime, Font font, Dictionary<string, int> resources)
@@ -1904,12 +1962,18 @@ namespace ProjectStellar
 
             _coinSprite.Draw(window, RenderStates.Default);
 
-            Text nbCoins = new Text(resources["coins"].ToString(), font);
-            nbCoins.Position = new Vector2f(150 + 50, _resolution.Y - 2 * 15 - 8);
-            nbCoins.Color = Color.Black;
-            nbCoins.CharacterSize = 20;
-            nbCoins.Style = Text.Styles.Bold;
+            Text nbCoins = new Text(resources["coins"].ToString(), font)
+            {
+                Position = new Vector2f(150 + 50, _resolution.Y - 2 * 15 - 8),
+                Color = Color.Black,
+                CharacterSize = 20,
+                Style = Text.Styles.Bold
+            };
             nbCoins.Draw(window, RenderStates.Default);
+
+            _people.Draw(window, RenderStates.Default);
+
+                 
 
             resourceCircleLeft.Draw(window, RenderStates.Default);
 
@@ -1942,6 +2006,39 @@ namespace ProjectStellar
             };
 
             hideRessource.Draw(window, RenderStates.Default);
+
+            _pollutionSprite.Draw(window, RenderStates.Default);
+
+            _woodSprite.Draw(window, RenderStates.Default);
+
+            Text nbWood = new Text(resources["wood"].ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                Color = Color.Black,
+                CharacterSize = 16,
+                Style = Text.Styles.Bold
+            };
+            nbWood.Draw(window, RenderStates.Default);
+            _rockSprite.Draw(window, RenderStates.Default);
+            Text nbRock = new Text(resources["rock"].ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30 + 110, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                Color = Color.Black,
+                CharacterSize = 16,
+                Style = Text.Styles.Bold
+            };
+            nbRock.Draw(window, RenderStates.Default);
+            _metalSprite.Draw(window, RenderStates.Default);
+            Text nbMetal = new Text(resources["metal"].ToString(), font)
+            {
+                Position = new Vector2f(350 + 45 + 5 + 5 + 30 + 110 + 110, _resolution.Y - 2 * 15 - 10 + 1 + 3),
+                Color = Color.Black,
+                CharacterSize = 16,
+                Style = Text.Styles.Bold
+            };
+            nbMetal.Draw(window, RenderStates.Default);
+            _waterSprite.Draw(window, RenderStates.Default);
+            _electricitySprite.Draw(window, RenderStates.Default);
         }
 
         public int TabActive

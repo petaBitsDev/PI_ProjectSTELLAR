@@ -59,7 +59,7 @@ namespace ProjectStellar
             //_ui.DrawInGameMenu(window, font, gameTime);
             _ui.DrawMouseCursor(window);
             _ui.DrawBuildingList(window, font);
-            _ui.BackgroundMenuBar(window);
+            _ui.BackgroundMenuBar(window, resources.NbResources, font);
             _ui.MenuBar(window, gameTime, font, resources.NbResources);
             _ui.BuildingTabList(window, font);
         }
