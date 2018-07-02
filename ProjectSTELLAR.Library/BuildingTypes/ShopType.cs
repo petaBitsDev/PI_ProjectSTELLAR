@@ -39,7 +39,7 @@ namespace ProjectStellar.Library
             _size = 4;
             _list = new List<Building>();
             _unlockingLevel = 2;
-            _productsConsumption = 1;
+            _productsConsumption = 0;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)

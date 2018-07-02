@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using ProjectStellar.Library;
+using System.Numerics;
 
 namespace ProjectStellar
 {
@@ -554,7 +555,7 @@ namespace ProjectStellar
                         fireStationType.TruckMoveTo();
                     }
                     Console.WriteLine("FIRE TRUCK --- JE SUI SSENCER DESSNER LES CAMIONS");
-                    _fireTruck.Position = new Vector2f(fireStationType.TruckPosition.Y * 32, fireStationType.TruckPosition.X*32);
+                    _fireTruck.Position = new Vector2f((float)fireStationType.TruckPosition.Y * 32, (float)fireStationType.TruckPosition.X*32);
                     window.Draw(_fireTruck);
                 }
             }
