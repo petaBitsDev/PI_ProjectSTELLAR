@@ -16,6 +16,7 @@ namespace ProjectStellar
 {
     public class MapUI
     {
+        Dictionary<Building, RectangleShape> _recs;
         Dictionary<SpaceShips, Sprite> _spaceshipSprites;
         List<Sprite> _spriteList;
         Sprite _bgSprite;
@@ -24,6 +25,7 @@ namespace ProjectStellar
         Sprite _spaceShip2;
         uint _width;
         uint _height;
+        int _index;
         Map _ctx;
         Game _gameCtx;
         DrawUI _drawUIctx;
@@ -61,7 +63,7 @@ namespace ProjectStellar
             _resourcesManager = resourcesManager;
             _cases = new Case[Width * Height];
             _menuON = false;
-            _invisibleRec = new RectangleShape();
+            _recs = new Dictionary<Building, RectangleShape>();
 
             _bgSprite = new Sprite(new Texture("./resources/img/tileset.png"));
             _spaceShip = new Sprite(new Texture("./resources/img/startup.png"));
@@ -158,6 +160,7 @@ namespace ProjectStellar
                     _cases[k++] = new Case(_bgSprite.GetGlobalBounds(), x, y);
                 }
             }
+
             for (int i = 0; i < (boxes.Length / Height); i++)
             {
                 for (int j = 0; j < (boxes.Length / Width); j++)
@@ -204,30 +207,30 @@ namespace ProjectStellar
                 {
                     if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
                     {
-                        CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y);
-                        if (_ui.MenuON)
+                        for(int b = 0; b < boxes[_cases[a].X, _cases[a].Y].Type.List.Count; b++)
                         {
-                            _invisibleRec.Size = new Vector2f(32 * 12, 32 * 6);
-                            _invisibleRec.FillColor = Color.Green;
-                            _invisibleRec.Position = new Vector2f((float)boxes[_cases[a].X, _cases[a].Y].SpritePosition.Y * 32 - 32 * 6, (float)boxes[_cases[a].X, _cases[a].Y].SpritePosition.X * 32 - 32 * 2);
-                            _invisibleRec.Draw(window, RenderStates.Default);
-
-                            _ui.DrawSpaceStationUI(_invisibleRec, window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y]);
+                            if (Equals(boxes[_cases[a].X, _cases[a].Y], boxes[_cases[a].X, _cases[a].Y].Type.List[b]))
+                                _index = b;
                         }
+                        if (_ctx.BuildingTypes[12].List.Count > 0)
+                            _ui.CreateMenu(_gameCtx, _ctx.BuildingTypes[12].List[_ctx.BuildingTypes[12].List.Count - 1]);
+                        if(CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y))
+                        //if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        {
+                            _ui.Menus[_index].IsOn = true;
+                        }
+                        _ui.DrawSpaceStationUI(window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y], _index);
                     }
                 }
             }
-
-
-
             for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
                 Sprite spaceShip;
 
-                //if (_ctx.SpaceShipsList[b].Position.X < _ctx.SpaceShipsList[b].Direction.X)
-                //    spaceShip = _spaceShip1;
-                //else
-                spaceShip = _spaceShip2;
+                if (b % 2 == 0)
+                    spaceShip = _spaceShip1;
+                else
+                    spaceShip = _spaceShip2;
 
                 spaceShip.Position = new Vector2f((float)_ctx.SpaceShipsList[b].Position.X, (float)_ctx.SpaceShipsList[b].Position.Y);
                 spaceShip.Scale = new Vector2f(0.5f, 0.5f);
@@ -250,12 +253,12 @@ namespace ProjectStellar
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    _ui.MenuON = true;
+                    b.MenuOn = true;
                     return true;
                 }
-                return true;
+                return false;
             }
-            else return false;
+            return false;
         }
 
         public bool Test
@@ -285,6 +288,7 @@ namespace ProjectStellar
         {
             if (size == 6)
             {
+                if (y + 2 > _ctx.Width - 1 || x + 1 > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 2], null)) return false;
@@ -294,6 +298,7 @@ namespace ProjectStellar
             }
             else if (size == 4)
             {
+                if (y + 1 > _ctx.Width - 1 || x + 1 > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x + 1, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
@@ -301,6 +306,7 @@ namespace ProjectStellar
             }
             else
             {
+                if (y > _ctx.Width - 1 || x > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
             }
             return true;
@@ -309,12 +315,14 @@ namespace ProjectStellar
         public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
             Building building;
+            Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
             for (int i = 0; i < _cases.Length; i++)
             {
                 building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
                 if (_cases[i].Rec.Contains(mouseX, mouseY))
                 {
+                    Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
                         if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))

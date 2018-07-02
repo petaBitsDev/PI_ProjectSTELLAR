@@ -35,7 +35,7 @@ namespace ProjectStellar.Library
             _nbPeople = 0;
             _cost = -35;
             _type = "public";
-            _size = 4;
+            _size = 1;
             _list = new List<Building>();
             _unlockingLevel = 0;
         }

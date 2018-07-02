@@ -14,12 +14,14 @@ namespace ProjectStellar.Library
         bool _onFire;
         bool _isSick;
         bool _isCrimeVictim;
+        bool _menuOn;
         int _nbExplorationShips;
         List<ExplorationShips> _shipList;
         Vector _spritePosition;
 
         public SpaceStation(BuildingType type, int x, int y) : base(type, x, y)
         {
+            _menuOn = false;
             _nbExplorationShips = 4;
             _shipList = new List<ExplorationShips>();
             GenerateShips();
@@ -29,6 +31,12 @@ namespace ProjectStellar.Library
         {
             get { return _onFire; }
             set { _onFire = value; }
+        }
+
+        public override bool MenuOn
+        {
+            get { return _menuOn; }
+            set { _menuOn = value; }
         }
 
         public override bool IsSick

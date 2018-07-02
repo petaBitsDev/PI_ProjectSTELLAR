@@ -144,7 +144,7 @@ namespace ProjectStellar.Library
 
         public void GenerateSpaceShips (ResourcesManager resourcesManager)
         {
-            _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 100;
+            _nbSpaceShip = resourcesManager.NbResources["nbPeople"] / 300;
 
             if (_nbSpaceShip > _spaceShipType.List.Count)
             { 
@@ -174,5 +174,10 @@ namespace ProjectStellar.Library
         public DiseaseType NewDiseaseType => diseaseType;
 
         internal GameTime GetGameTime => _gameTime;
+
+        public void SetSpaceShipTypes()
+        {
+            _spaceShipType = new SpaceShipsTypes();
+        }
     }
 }

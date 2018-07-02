@@ -37,7 +37,7 @@ namespace ProjectStellar.Library
             _type = "public";
             _size = 6;
             _list = new List<Building>();
-            _unlockingLevel = 0;
+            _unlockingLevel = 8;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -49,7 +49,7 @@ namespace ProjectStellar.Library
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
-
+        
         public override int UnlockingLevel => _unlockingLevel;
         public override int Rock => _rock;
         public override int Wood => _wood;
