@@ -16,7 +16,7 @@ namespace ProjectStellar
         public Texture[] _menuTextures = new Texture[13];
         public Texture[] _spriteSheet = new Texture[7];
         public Texture[] _spriteTruck = new Texture[1];
-        public Texture[] _buildingsTextures = new Texture[23];
+        public Texture[] _buildingsTextures = new Texture[24];
         public Texture[] _uiTextures = new Texture[35];
         int _state;
         internal Menu _menu;
@@ -88,6 +88,7 @@ namespace ProjectStellar
             _buildingsTextures[20] = new Texture("./resources/img/hospitals.png");
             _buildingsTextures[21] = new Texture("./resources/img/townhall.png");
             _buildingsTextures[22] = new Texture("./resources/img/spacestation.png");
+            _buildingsTextures[23] = new Texture("./resources/img/hut2.png");
 
             _uiTextures[0] = new Texture("./resources/img/play-button.png");
             _uiTextures[1] = new Texture("./resources/img/pause-symbol.png");
@@ -145,9 +146,9 @@ namespace ProjectStellar
             _backgroundSprite = new Sprite(_backgroundTexture);
 
             _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
-            _view = new View(_center, new Vector2f(_resolution.X * 0.9f, _resolution.Y * 0.95f));
+            _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y * 0.95f));
             _newGame = new NewGame(_resolution.X, _resolution.Y, this, _font);
-            Window.SetView(_view);
+            //Window.SetView(_view);
             _windowEvents = new WindowEvents(Window, this, _resolution, _view);
             Window.MouseWheelMoved += _windowEvents.MouseWheel;
             Window.MouseMoved += _windowEvents.MouseMoved;
