@@ -229,6 +229,7 @@ namespace ProjectStellar
             if (_ui.CheckTimeBar(x, y, gameTime)) return true;
             else if (_ui.CheckBuildingToBuild(_window, _ctx._resourcesManager)) return true;
             else if (_ui.CheckBuildSelected(_window)) return true;
+            else if (_ui.CheckTabSelected(_window)) return true;
             else if (_ui.CheckDestroySelected(_window)) return true;
             else return false;
         }
@@ -286,6 +287,11 @@ namespace ProjectStellar
                 {
                     if (_ctx.NewGame.Name.Length > 0)
                         _ctx.NewGame.Name = _ctx.NewGame.Name.Remove(_ctx.NewGame.Name.Length - 1);
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
+                {
+                    if (_ctx.NewGame.Name.Length > 0)
+                    _ctx.StartNewGame();
                 }
             }
         }
