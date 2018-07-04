@@ -50,12 +50,6 @@ namespace ProjectStellar
             Vector2i pixelPos = Mouse.GetPosition(_window);
             Vector2f worldPos = _window.MapPixelToCoords(pixelPos, View);
 
-            RectangleShape rec = new RectangleShape();
-            rec.OutlineColor = new Color(Color.Transparent);
-            rec.OutlineThickness = 3.0f;
-            rec.FillColor = new Color(253, 254, 254);
-            rec.Size = new Vector2f(32 * 8, 32 * 4);
-
             int posX = Mouse.GetPosition(_window).X;
             int posY = Mouse.GetPosition(_window).Y;
 
