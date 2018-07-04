@@ -18,7 +18,7 @@ namespace ProjectStellar.Library
         FireType fire;
         public List<Truck> _trucks;
         FireStationType fireStationType;
-        double _timeMax;
+        TimeSpan _timeMax;
         GameTime gameTime = new GameTime();
 
         public FireStation(FireStationType type, int x, int y, Map map) : base(type, x, y)
@@ -37,6 +37,7 @@ namespace ProjectStellar.Library
             {
                 Truck truck = new Truck(this.X, this.Y);
                 _trucks.Add(truck);
+                _ctx.AllTrucks.Add(truck);
                 this.TruckList = _trucks;
             }
         }
@@ -44,15 +45,22 @@ namespace ProjectStellar.Library
         public void ServiceBuildingWorking()
         {
             fireStationType.StartTime = _ctx.GetGameTime.InGameTime;
+            fireStationType.End = fireStationType.StartTime.AddHours(1.0);
 
-            if (fireStationType.List.Count != 0)
+            if (fireStationType.List.Count == 0)
+            {
+                fireStationType.NewFire.EventHandle = false;
+                fireStationType.TimeToGo = _timeMax;
+            }
+            else
             {
                 fireStationType.CheckTruckStatement();
                 if(fireStationType.TruckSelected != null)
-                {
-                    fireStationType.TimeToGo = (fireStationType.Distance / fireStationType.TruckSelected.Speed);
+                {   
+                    
+                    fireStationType.TimeToGo = fireStationType.End.Subtract(fireStationType.StartTime);
 
-                    _timeMax = 180;
+                    _timeMax = new TimeSpan(0, 60, 0);
                     if (fireStationType.TimeToGo <= _timeMax)
                         fireStationType.NewFire.EventHandle = true;
                     else
@@ -61,13 +69,8 @@ namespace ProjectStellar.Library
                 else
                 {
                     fireStationType.NewFire.EventHandle = false;
-                    fireStationType.TimeToGo = _timeMax;
+                    fireStationType.TimeToGo = new TimeSpan(0, 60, 0);
                 }
-            }
-            else
-            {
-                fireStationType.NewFire.EventHandle = false;
-                fireStationType.TimeToGo = _timeMax;
             }
         }
 

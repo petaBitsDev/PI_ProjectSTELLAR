@@ -27,7 +27,7 @@ namespace ProjectStellar.Library
         Building _target;
         DateTime _timeNow;
         GameTime gameTime = new GameTime();
-        double _timeToGo;
+        TimeSpan _timeToGo;
         double _distance;
         double _timeMax;
         Truck _truck;
@@ -141,7 +141,7 @@ namespace ProjectStellar.Library
             get { return _distance; }
             set { _distance = value; }
         }
-        public double TimeToGo
+        public TimeSpan TimeToGo
         {
             get { return _timeToGo; }
             set { _timeToGo = value; }

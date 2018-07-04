@@ -29,8 +29,9 @@ namespace ProjectStellar.Library
         Building _target;
         Truck _freeTruck;
         Truck _truck;
-        Double _timeToGo;
-        DateTime _timeNow;
+        TimeSpan _timeToGo;
+        DateTime _start;
+        DateTime _end;
         Fire newFire;
         Vector _truckPosition;
         Vector _truckDestination;
@@ -50,29 +51,28 @@ namespace ProjectStellar.Library
             _size = 4;
             _list = new List<Building>();
             _unlockingLevel = 0;
-            
         }
 
         public void BuildingDistance(Map map)
         {
-            //_fire = map.NewFireType;
-            //newFire = _fire.CreateEvent();
-            //double max = double.MaxValue;
+            _fire = map.NewFireType;
+            newFire = _fire.CreateEvent();
+            double max = double.MaxValue;
 
-            //for (int i = 0; i < this.NbBuilding; i++)
-            //{
-            //    for (int j = 0; j < _fire.BuildingHasEvent.Count; j++)
-            //    {
-            //        Distance = Math.Sqrt(Math.Pow((_fire.BuildingHasEvent[j].X - this.List[i].X), 2.00) + Math.Pow((_fire.BuildingHasEvent[j].Y - this.List[i].Y), 2.00));
-            //        Console.WriteLine(Distance);
-            //        if (Distance < max)
-            //        {
-            //            max = Distance;
-            //            _target = _fire.BuildingHasEvent[j];
-            //            _origin = this.List[i];
-            //        }
-            //    }
-            //}
+            for (int i = 0; i < this.NbBuilding; i++)
+            {
+                for (int j = 0; j < _fire.BuildingHasEvent.Count; j++)
+                {
+                    Distance = Math.Sqrt(Math.Pow((_fire.BuildingHasEvent[j].X - this.List[i].X), 2.00) + Math.Pow((_fire.BuildingHasEvent[j].Y - this.List[i].Y), 2.00));
+                    Console.WriteLine(Distance);
+                    if (Distance < max)
+                    {
+                        max = Distance;
+                        _target = _fire.BuildingHasEvent[j];
+                        _origin = this.List[i];
+                    }
+                }
+            }
         }
 
         public void TruckMoveTo(Truck truck)
@@ -93,25 +93,13 @@ namespace ProjectStellar.Library
             FireStation fireStation = (FireStation)this.Origin;
             for (int i = 0; i < Origin.TruckList.Count; i++)
             {
-                Origin.TruckList[i].IsFree = true;
                 if (Origin.TruckList[i].IsFree == true)
                 {
                     TruckSelected = Origin.TruckList[i];
-                    Origin.TruckList[i].IsFree = false;
-                    break;
+                    TruckSelected.IsFree = false;
                 }
                 else TruckSelected = null;
             }
-        }
-
-        public void CreateTruck(Building building, int x, int y)
-        {
-            //FireStation fireStation = (FireStation)building;
-            //for(int i = 0; i < fireStation.NbVehicule; i++)
-            //{
-            //    Truck t = new Truck(x, y);
-            //    building.TruckList.Add(t);
-            //}
         }
         
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
@@ -120,11 +108,15 @@ namespace ProjectStellar.Library
 
             resources.UpdateWhenCreate(this);
             FireStation building = new FireStation(this, x, y, map);
-            this.CreateTruck(building, x, y);
             map.AddBuilding(x, y, building);
             _list.Add(building);
         }
-        
+
+        public void CreateTruck(Building building, int x, int y)
+        {
+            throw new NotImplementedException();
+        }
+
         public override int UnlockingLevel => _unlockingLevel;
 
         public double Distance
@@ -137,7 +129,6 @@ namespace ProjectStellar.Library
         {
             get { return _target; }
             set { _target = value; }
-
         }
 
         public Building Origin
@@ -154,11 +145,15 @@ namespace ProjectStellar.Library
 
         public DateTime StartTime
         {
-            get { return _timeNow; }
-            set { _timeNow = value; }
+            get { return _start; }
+            set { _start = value; }
         }
-
-        public double TimeToGo
+        public DateTime End
+        {
+            get { return _end; }
+            set { _end = value; }
+        }
+        public TimeSpan TimeToGo
         {
             get { return _timeToGo; }
             set { _timeToGo = value; }

@@ -16,7 +16,7 @@ namespace ProjectStellar.Library
         Vector _spritePosition;
         public List<Truck> _vehicule;
         PoliceStationType _policeStationType;
-        double _timeMax;
+        TimeSpan _timeMax;
         CrimeType _crimeType;
         Map _ctx;
 
@@ -31,29 +31,29 @@ namespace ProjectStellar.Library
 
         public void ServiceBuildingWorking()
         {
-            Crime newCrime = _crimeType.CreateEvent();
-            _policeStationType.StartTime = _ctx.GetGameTime.InGameTime;
-            if(_policeStationType.List.Count != 0)
-            {
-                _policeStationType.BuildingDistance(_ctx);
-                _policeStationType.CheckTruckStatement();
-                _policeStationType.TimeToGo = (_policeStationType.Distance / _policeStationType.TruckSelected.Speed);
+            //    Crime newCrime = _crimeType.CreateEvent();
+            //    _policeStationType.StartTime = _ctx.GetGameTime.InGameTime;
+            //    if(_policeStationType.List.Count != 0)
+            //    {
+            //        _policeStationType.BuildingDistance(_ctx);
+            //        _policeStationType.CheckTruckStatement();
+            //        _policeStationType.TimeToGo = (_policeStationType.Distance / _policeStationType.TruckSelected.Speed);
 
-                _timeMax = 180;
-                if (_policeStationType.TimeToGo <= 180)
-                    newCrime.EventHandle = true;
-                else
-                    newCrime.EventHandle = false;
+            //        _timeMax = new TimeSpan(0,60,0);
+            //        if (_policeStationType.TimeToGo <= 180)
+            //            newCrime.EventHandle = true;
+            //        else
+            //            newCrime.EventHandle = false;
 
-            }
-            else
-            {
-                newCrime.EventHandle = false;
-                _policeStationType.TimeToGo = _timeMax;
-            }
+            //    }
+            //    else
+            //    {
+            //        newCrime.EventHandle = false;
+            //        _policeStationType.TimeToGo = _timeMax;
+            //    }
         }
 
-        public List<Truck> Vehicule
+    public List<Truck> Vehicule
         {
             get { return _vehicule; }
             set { _vehicule = value; }

@@ -32,26 +32,26 @@ namespace ProjectStellar.Library
 
         public void ServiceBuildingWorking()
         {
-            Disease newDisease = _diseaseType.CreateEvent();
-            _hospitalType.StartTime = _ctx.GetGameTime.InGameTime;
+            //Disease newDisease = _diseaseType.CreateEvent();
+            //_hospitalType.StartTime = _ctx.GetGameTime.InGameTime;
 
-            if(_hospitalType.List.Count != 0)
-            {
-               _hospitalType.BuildingDistance(_ctx);
-               _hospitalType.CheckTruckStatement();
-               _hospitalType.TimeToGo  = (_hospitalType.Distance /_hospitalType.TruckSelected.Speed);
+            //if(_hospitalType.List.Count != 0)
+            //{
+            //   _hospitalType.BuildingDistance(_ctx);
+            //   _hospitalType.CheckTruckStatement();
+            //   _hospitalType.TimeToGo  = (_hospitalType.Distance /_hospitalType.TruckSelected.Speed);
 
-                _timeMax = 180;
-                if (_hospitalType.TimeToGo <= _timeMax)
-                    newDisease.EventHandle = true;
-                else
-                    newDisease.EventHandle = false;
-            }
-            else
-            {
-                newDisease.EventHandle = false;
-                _hospitalType.TimeToGo = _timeMax;
-            }
+            //    _timeMax = 180;
+            //    if (_hospitalType.TimeToGo <= _timeMax)
+            //        newDisease.EventHandle = true;
+            //    else
+            //        newDisease.EventHandle = false;
+            //}
+            //else
+            //{
+            //    newDisease.EventHandle = false;
+            //    _hospitalType.TimeToGo = _timeMax;
+            //}
            
 
         

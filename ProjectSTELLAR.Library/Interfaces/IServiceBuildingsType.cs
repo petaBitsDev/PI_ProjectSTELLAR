@@ -18,7 +18,7 @@ namespace ProjectStellar.Library
 
         Double Distance { get; set; }
 
-        double TimeToGo { get; set; }
+        TimeSpan TimeToGo { get; set; }
        // double TimeMax { get; }
         DateTime StartTime { get; set; }
 

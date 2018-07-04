@@ -221,23 +221,12 @@ namespace ProjectStellar
                         }
                         _ui.DrawSpaceStationUI(window, font, (int)worldPos.X, (int)worldPos.Y, boxes[_cases[a].X, _cases[a].Y], _index);
                     }
-                    if(boxes[_cases[a].X, _cases[a].Y].OnFire)
+
+                    for(int i = 0; i < _ctx.AllTrucks.Count; i++)
                     {
-                        for(int i = 0; i < _ctx.BuildingTypes[1].List.Count; i++)
+                        if(!_ctx.AllTrucks[i].IsFree)
                         {
-                            _distance = _ctx.BuildingTypes[1].List[0].GetDistance(boxes[_cases[a].X, _cases[a].Y]);
-                            _distance = Math.Min(_ctx.BuildingTypes[1].List[i].GetDistance(boxes[_cases[a].X, _cases[a].Y]), _distance);
-                        }
-                        for(int j = 0; j < _ctx.BuildingTypes[1].List.Count; j++)
-                        {
-                            if (_ctx.BuildingTypes[1].List[j].GetDistance(boxes[_cases[a].X, _cases[a].Y]) == _distance)
-                            {
-                                for(int b = 0; b < _ctx.BuildingTypes[1].List[j].TruckList.Count; b++)
-                                {
-                                    if(_ctx.BuildingTypes[1].List[j].TruckList[b].IsFree)
-                                        _ctx.BuildingTypes[1].List[j].SendTruck(_ctx.BuildingTypes[1].List[j].TruckList[b], boxes[_cases[a].X, _cases[a].Y], _gameCtx.GameTime.InGameTime);
-                                }
-                            }
+                            DrawFireStationTruck(_ctx.AllTrucks[i], window);
                         }
                     }
                 }
@@ -258,7 +247,6 @@ namespace ProjectStellar
             DrawFire(window);
             DrawAlien(window);
             DrawSickness(window);
-            DrawFireStationTruck(window);
         }
     
     
@@ -546,20 +534,11 @@ namespace ProjectStellar
             }
         }
 
-        private void DrawFireStationTruck(RenderWindow window)
+        private void DrawFireStationTruck(Truck truck, RenderWindow window)
         {
-            Sprite truck = new Sprite(_gameCtx._spriteTruck[0]);
-            for(int i = 0; i < _ctx.BuildingTypes[1].List.Count; i++)
-            {
-                for(int j = 0; j < _ctx.BuildingTypes[1].List[i].TruckList.Count; j++)
-                {
-                    if (!_ctx.BuildingTypes[1].List[i].TruckList[j].IsFree)
-                    {
-                        truck.Position = new Vector2f((float)_ctx.BuildingTypes[1].List[i].TruckList[j].Position.Y * 32, (float)_ctx.BuildingTypes[1].List[i].TruckList[j].Position.X * 32);
-                        truck.Draw(window, RenderStates.Default);
-                    }
-                }
-            }
+            Sprite truckSprite = new Sprite(_gameCtx._spriteTruck[0]);
+            truckSprite.Position = new Vector2f((float)truck.Position.X * 32, (float)truck.Position.Y * 32);
+            truckSprite.Draw(window, RenderStates.Default);
         }
 
         public bool BuildingExist

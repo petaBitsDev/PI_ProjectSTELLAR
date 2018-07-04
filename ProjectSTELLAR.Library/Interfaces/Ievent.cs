@@ -8,16 +8,10 @@ namespace ProjectStellar.Library
 {
     public interface IEvent 
     {
-      
-
-      bool EventHandle { get; set; }
-
-      
+       bool EventHandle { get; set; }
 
        void BuildingEvent(GameTime gt);
 
-
-       void  NewEvent(GameTime gt);
-
+       void NewEvent(GameTime gt);
     }
 }

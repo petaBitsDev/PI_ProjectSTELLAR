@@ -46,7 +46,7 @@ namespace ProjectStellar.Library
 
         public virtual void SendTruck(Truck truck, Building target, DateTime inGameTime)
         {
-            DateTime end = inGameTime.AddHours(3.0);
+            DateTime end = inGameTime.AddHours(1.0);
 
             truck.IsFree = false;
             truck.UndisposedTime = end;
