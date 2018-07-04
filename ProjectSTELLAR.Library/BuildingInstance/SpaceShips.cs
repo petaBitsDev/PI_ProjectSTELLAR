@@ -50,7 +50,7 @@ namespace ProjectStellar.Library
         public void Update()
         {
             _compteur++;
-            if (_compteur == 60)
+            if (_compteur == 90)
             {
                 _compteur = 0;
                 _direction = GetNextRandomPosition();
