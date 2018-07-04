@@ -1938,7 +1938,7 @@ namespace ProjectStellar
 
             Text level = new Text("Level : " + _experienceManager.Level.ToString(), font)
             {
-                Position = new Vector2f(resourceCircleRight.Position.X + resourceCircleRight.GetGlobalBounds().Width, resourceCircleRight.Position.Y + resourceCircleRight.GetGlobalBounds().Height / 16 * 2),
+                Position = new Vector2f(resourceCircleRight.Position.X + resourceCircleRight.GetGlobalBounds().Width + 10, resourceCircleRight.Position.Y + resourceCircleRight.GetGlobalBounds().Height / 16 * 2),
                 CharacterSize = 16,
                 Style = Text.Styles.Bold,
                 Color = new Color(Color.Black)

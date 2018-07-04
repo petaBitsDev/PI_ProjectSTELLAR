@@ -65,7 +65,7 @@ namespace ProjectStellar
             //_cancelBox = new FloatRect(_cancel.Position.X - 10, _cancel.Position.Y + 10, _cancel.CharacterSize * _cancel.DisplayedString.Length * 0.75f, _cancel.CharacterSize);
 
             _instructions = new Sprite(_ctx._menuTextures[15]);
-            _instructions.Position = new Vector2f(resX / 2 - 32 * 13, resY / 13);
+            _instructions.Position = new Vector2f(resX / 2 - 32 * 12, resY / 13);
 
             _error = new Text("", font, 40)
             {
