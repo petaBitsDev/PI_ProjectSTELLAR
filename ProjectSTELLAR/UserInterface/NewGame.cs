@@ -18,11 +18,13 @@ namespace ProjectStellar
         string _name;
         Text _text;
         RectangleShape _textRectangle;
-        Text _confirm;
+        Sprite _confirm;
+        Sprite _confirmActif;
+        Sprite _sprite;
         FloatRect _confirmBox;
-        Text _cancel;
+        Sprite _cancel;
         FloatRect _cancelBox;
-        Text _instructions;
+        Sprite _instructions;
         Text _error;
 
         public NewGame(uint resX, uint resY, Game ctx, Font font)
@@ -34,35 +36,36 @@ namespace ProjectStellar
 
             _text = new Text("", font)
             {
-                Position = new Vector2f(resX / 5 * 2, resY / 5 * 2),
+                Position = new Vector2f(resX / 5 * 2, resY / 5 * 2 + 15),
                 Color = Color.White
             };
 
             _textRectangle = new RectangleShape()
             {
-                Position = new Vector2f(resX / 2 - (7 * _text.CharacterSize * 0.75f), resY / 5 * 2 + 4),
-                Size = new Vector2f(_text.CharacterSize * 14 * 0.7f, _text.CharacterSize),
+                Position = new Vector2f(resX / 2 - (7 * _text.CharacterSize * 0.75f) - 15, resY / 5 * 2 + 24),
+                Size = new Vector2f(_text.CharacterSize * 18 * 0.7f, _text.CharacterSize),
                 FillColor = Color.Black
             };
-            
-            _confirm = new Text("Confirm", font, 40)
-            {
-                Position = new Vector2f(resX / 5 * 2, resY / 5 * 3)
-            };
 
-            _confirmBox = new FloatRect(_confirm.Position.X + 20, _confirm.Position.Y + 30, _confirm.CharacterSize * _confirm.DisplayedString.Length * 0.75f, _confirm.CharacterSize);
+            _confirm = new Sprite(_ctx._menuTextures[13]);
+            _confirm.Position = new Vector2f(resX / 2 - 32 * 6, resY / 5 * 3);
+            _confirm.Scale = new Vector2f(0.5f, 0.5f);
 
-            _cancel = new Text("Cancel", font, 40)
-            {
-                Position = new Vector2f(resX * 0.05f, resY * 0.05f)
-            };
+            _confirmActif = new Sprite(_ctx._menuTextures[14]);
+            _confirmActif.Position = new Vector2f(resX / 2 - 32 * 6, resY / 5 * 3);
+            _confirmActif.Scale = new Vector2f(0.5f, 0.5f);
 
-            _cancelBox = new FloatRect(_cancel.Position.X - 10, _cancel.Position.Y + 10, _cancel.CharacterSize * _cancel.DisplayedString.Length * 0.75f, _cancel.CharacterSize);
+            _sprite = _confirm;
 
-            _instructions = new Text("Enter the city name :", font, 40)
-            {
-                Position = new Vector2f(resX / 5 * 1.8f, resY / 5 * 1)
-            };
+            //_confirmBox = new FloatRect(_confirm.Position.X + 20, _confirm.Position.Y + 30, _confirm.CharacterSize * _confirm.DisplayedString.Length * 0.75f, _confirm.CharacterSize);
+
+            _cancel = new Sprite(_ctx._menuTextures[12]);
+            _cancel.Position = new Vector2f(resX * 0.05f, resY * 0.05f);
+
+            //_cancelBox = new FloatRect(_cancel.Position.X - 10, _cancel.Position.Y + 10, _cancel.CharacterSize * _cancel.DisplayedString.Length * 0.75f, _cancel.CharacterSize);
+
+            _instructions = new Sprite(_ctx._menuTextures[15]);
+            _instructions.Position = new Vector2f(resX / 2 - 32 * 13, resY / 13);
 
             _error = new Text("", font, 40)
             {
@@ -78,17 +81,17 @@ namespace ProjectStellar
             _textRectangle.Draw(window, RenderStates.Default);
 
             _text.DisplayedString = _name;
-            _text.Position = new Vector2f((_resX / 2) - (_text.DisplayedString.Length / 2 * (_text.CharacterSize * 0.53f)) - 50, _text.Position.Y);
+            _text.Position = new Vector2f((_resX / 2) - (_text.DisplayedString.Length / 2 * (_text.CharacterSize * 0.53f)) + 10, _text.Position.Y);
             _text.Draw(window, RenderStates.Default);
 
-            if (_confirmBox.Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
-                _confirm.Color = Color.Yellow;
-            else _confirm.Color = Color.White;
-            _confirm.Draw(window, RenderStates.Default);
+            if (_confirm.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+                _sprite = _confirmActif;
+            else _sprite = _confirm;
+            _sprite.Draw(window, RenderStates.Default);
 
-            if (_cancelBox.Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
-                _cancel.Color = Color.Yellow;
-            else _cancel.Color = Color.White;
+            //if (_cancel.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+            //    _cancel.Color = Color.Yellow;
+            //else _cancel.Color = Color.White;
             _cancel.Draw(window, RenderStates.Default);
 
             if (_error.DisplayedString != "")
@@ -122,24 +125,27 @@ namespace ProjectStellar
 
         public void CheckButtons(int x, int y)
         {
-            if (_confirmBox.Contains(x, y) && Name != "")
+            if (_sprite.GetGlobalBounds().Contains(x, y) && Name != "")
             {
-                List<SaveGameMetadata> saveList = Save.List();
-                bool valid = true;
-
-                foreach(SaveGameMetadata save in saveList)
+                if(Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    if (save.Name == Name)
-                    {
-                        valid = false;
-                        _error.DisplayedString = Name + " already exists !";
-                        return;
-                    }
-                }
+                    List<SaveGameMetadata> saveList = Save.List();
+                    bool valid = true;
 
-                _ctx.StartNewGame();
+                    foreach(SaveGameMetadata save in saveList)
+                    {
+                        if (save.Name == Name)
+                        {
+                            valid = false;
+                            _error.DisplayedString = Name + " already exists !";
+                            return;
+                        }
+                    }
+
+                    _ctx.StartNewGame();
+                }
             }
-            else if (_cancelBox.Contains(x, y)) _ctx.MenuState = 0;
+            else if (_cancel.GetGlobalBounds().Contains(x, y)) _ctx.MenuState = 0;
         }
     }
 }
