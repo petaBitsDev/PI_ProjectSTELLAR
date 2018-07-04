@@ -35,9 +35,9 @@ namespace ProjectStellar.Library
             _nbPeople = 0;
             _cost = -35;
             _type = "public";
-            _size = 4;
+            _size = 1;
             _list = new List<Building>();
-            _unlockingLevel = 2;
+            _unlockingLevel = 0;
         }
 
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)

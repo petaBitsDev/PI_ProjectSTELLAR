@@ -22,7 +22,7 @@ namespace ProjectStellar
         uint _height;
         GameTime _gameTime;
 
-        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfaction)
+        public DrawUI (Game context, Map ctx, uint width, uint height, Resolution resolution, GameTime gameTime, ResourcesManager resourcesManager, ExperienceManager experienceManager, SatisfactionManager satisfaction, FireType fireType)
         {
             _gameCtx = context;
             _mapCtx = ctx;
@@ -31,9 +31,9 @@ namespace ProjectStellar
             _width = width;
             _height = height;
             _gameTime = gameTime;
-            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, resourcesManager, experienceManager);
+            _ui = new UI(_gameCtx, resolution, _mapCtx, this, _width, _height, _gameTime, resourcesManager, experienceManager, fireType);
             _mapUI = new MapUI(_gameCtx, _mapCtx, _width, _height, this, _ui, resolution, _resourcesCtx);
-            context._view.Viewport = new FloatRect(0, 0, 0.93f, 0.95f);
+            context._view.Viewport = new FloatRect(0, 0, 1f, 0.95f);
         }
 
         public void RenderSprite
@@ -41,6 +41,7 @@ namespace ProjectStellar
         {
             tmpSprite.TextureRect = new IntRect(sourceX, sourceY, sourceWidth, sourceHeight);
             Sprite sprite = new Sprite(tmpSprite);
+            sprite.Scale = new Vector2f(1.0f, 1.0f);
             sprite.Position = new Vector2f(destX, destY);
             target.Draw(sprite);
         }
@@ -48,16 +49,28 @@ namespace ProjectStellar
         public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
         {
             //_mapUI.DrawGrid(window);
-            window.SetView(_gameCtx._windowEvents.View);
-            _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
-            window.SetView(window.DefaultView);
-            _ui.DrawResourcesBar(window, font, resources.NbResources, _satisfaction.Satifaction);
-            _ui.DrawTimeBar(window, gameTime, font);
-            _ui.DrawBuildButton(window, font);
-            _ui.DrawDestroyButton(window);
-            _ui.DrawExperience(window, font);
-            _ui.DrawInGameMenu(window, font, gameTime);
-            _ui.DrawMouseCursor(window);
+            if (_gameCtx.CityEvents.WaitMeteors == true)
+            {
+                _ui.DrawMeteor(window, font);
+            }
+            else
+            {
+                window.SetView(_gameCtx._windowEvents.View);
+                _mapUI.DrawMapTile(window, _mapCtx.Boxes, font);
+                window.SetView(window.DefaultView);
+                //_ui.DrawResourcesBar(window, font, resources.NbResources, _satisfaction.Satifaction);
+                //_ui.DrawTimeBar(window, gameTime, font);
+                //_ui.DrawBuildButton(window, font);
+                //_ui.DrawDestroyButton(window);
+                //_ui.DrawExperience(window, font);
+                _ui.DrawMouseCursor(window);
+                _ui.DrawBuildingList(window, font);
+                _ui.BackgroundMenuBar(window, resources.NbResources, font, _satisfaction.Satifaction);
+                _ui.MenuBar(window, gameTime, font, resources.NbResources, _satisfaction.Satifaction);
+                _ui.BuildingTabList(window, font);
+                _ui.DrawInGameMenu(window, font, gameTime);
+
+            }
         }
 
         public MapUI MapUI => _mapUI;

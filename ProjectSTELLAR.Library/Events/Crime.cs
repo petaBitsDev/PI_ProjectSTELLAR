@@ -6,171 +6,123 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    class Crime : IEvent
+    [Serializable]
+     internal class Crime : IEvent
     {
-        // JOLANN WAS HERE
-
         Map _ctx;
+        bool _eventHandle;
+        CrimeType _crimeType;
+        BuildingType _buildingSelected;
+        PoliceStationType _policeStationType;
+        int compteur;
 
-        float _crimeProbability;
-
-        bool _isCrime;
-
-        bool _previousCrime;
-
-        int _nbCrimeMax;
-
-        int _nbCrimeReal;
-
-        Building _building;
-
-        public Crime(Map ctx)
-
+        public Crime(Map ctx, CrimeType crimeType)
         {
-
             _ctx = ctx;
-
-            _previousCrime = false;
-
-            _crimeProbability = 0.17f;
-
+            _crimeType = crimeType;
+            _policeStationType = (PoliceStationType)_ctx.BuildingTypes[8];
+        }
+        public bool EventHandle
+        {
+            get { return _eventHandle; }
+            set { _eventHandle = value; }
         }
 
-        public bool PreviousEvent
+        public void BuildingEvent(GameTime gameTime)
         {
-            get { return _previousCrime; }
-            set { _previousCrime = value; }
-        }
-
-        public bool IsEventHappening
-        {
-            get { return _isCrime; }
-            set { _isCrime = value; }
-        }
-        public int NbEventMax
-        {
-            get { return _nbCrimeMax; }
-            set { _nbCrimeMax = value; }
-        }
-        public int NbEventReal
-        {
-            get { return _nbCrimeReal; }
-            set { _nbCrimeReal = value; }
-        }
-        public float EventProbability
-        {
-            get { return _crimeProbability; }
-            set { _crimeProbability = value; }
-        }
-        public Building BuildingHasEvent
-        {
-            get { return _building; }
-            set { _building = value; }
-        }
-
-        public void BuildingEvent()
-        {
-            Random random = new Random();
-            int _idxBuildingType;
-            _idxBuildingType = random.Next(_ctx.BuildingTypes.Count);
-            BuildingType buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
-            int _idxBuilding;
-
-            _idxBuilding = random.Next(buildingSelected.List.Count);
-
-            if(buildingSelected is IServiceBuildings)
+            if (compteur > 5)
             {
-                BuildingEvent();
-            }
-            else if(buildingSelected.List[_idxBuilding].IsVictimCrime == true)
-            {
-                BuildingEvent();
+                _crimeType.IsEventHappening = false;
+                compteur = 0;
+                return;
             }
             else
             {
-                buildingSelected.List[_idxBuilding].IsVictimCrime = true;
-                BuildingHasEvent = buildingSelected.List[_idxBuilding];
-            }
-        }
+                Random random = new Random();
+                int _idxBuildingType;
+                _idxBuildingType = random.Next(_ctx.BuildingTypes.Count);
 
-        public void CalculEventProbability()
-        {
-            if (PreviousEvent == false) EventProbability += 0.2f;
-            else EventProbability  -= 0.2f;
-        }
-
-        public void CalculNbEventMax()
-        {
-            PoliceStationType policeStationType = (PoliceStationType)_ctx.BuildingTypes[8];
-            int totalNbVehicule = 0;
-            for(int i = 0; i<policeStationType.List.Count; i++)
-            {
-                PoliceStation p = (PoliceStation)policeStationType.List[i];
-                totalNbVehicule += p.NbVehicule;
-            }
-
-            if(totalNbVehicule < 2)
-            {
-                NbEventMax = 3;
-            }
-            else if (totalNbVehicule >= 2 || totalNbVehicule <= 4)
-
-            {
-
-                NbEventMax = 7;
-
-            }
-
-            else
-
-            {
-
-                NbEventMax = 15;
-
-            }
-        }
-
-        public void CalculNbEventReal()
-        {
-            Random random = new Random();
-            CalculNbEventMax();
-            NbEventReal = random.Next(NbEventMax + 1);
-        }
-
-        public void IsBuildingGettingEvent()
-        {
-            int probability;
-            Random random = new Random();
-            probability = random.Next(1, 101);
-            if (probability <= EventProbability)
-            {
-                IsEventHappening = true;
-            }
-            else IsEventHappening = false;
-        }
-
-        public void NewEvent()
-        {
-            bool _isPoliceStation = false;
-
-            CalculEventProbability();
-            PoliceStationType policeStationType = (PoliceStationType)_ctx.BuildingTypes[8];
-            if (policeStationType.List.Count != 0) _isPoliceStation = true;
-
-            if(_isPoliceStation == true)
-            {
-                CalculNbEventReal();
-                for(int i = 0; i<NbEventReal; i++)
+                Console.WriteLine("CRIME --- IDX BUILDING TYPE :" + _idxBuildingType);
+                Console.WriteLine();
+                _buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
+                if (_buildingSelected.List.Count != 0)
                 {
-                    IsBuildingGettingEvent();
-                    if(IsEventHappening == true)
+                    Console.WriteLine("CRIME -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
+                    Console.WriteLine();
+                    int _idxBuilding;
+
+                    _idxBuilding = random.Next(_buildingSelected.List.Count);
+
+                    Console.WriteLine("CRIME -- IDX BUILDING INSTANCE : " + _idxBuilding);
+
+                    if (_buildingSelected is IServiceInstance || (_buildingSelected == _ctx.BuildingTypes[0]))
                     {
-                        BuildingEvent();
-                        PreviousEvent = true;
+                        Console.WriteLine("CRIME -- LE BUILDINC ETAIT SOIT DE SERVICE SOIT LA MAIRIE");
+                        Console.WriteLine();
+                        compteur++;
+
+                        BuildingEvent(gameTime);
+                    }
+                    else if (_buildingSelected.List[_idxBuilding].IsVictimCrime == true)
+                    {
+                        Console.WriteLine("CRIME -- LE BUILDING EST DEJA VICTIME DE CRIME");
+                        Console.WriteLine();
+                        compteur++;
+
+                        BuildingEvent(gameTime);
                     }
                     else
                     {
-                        PreviousEvent = false;
+                        Console.WriteLine("CRIME -- Building event a rempli sa fonction");
+                        _buildingSelected.List[_idxBuilding].IsVictimCrime = true;
+                        _crimeType.BuildingHasEvent.Add(_buildingSelected.List[_idxBuilding]);
+                        _crimeType.BuildingHasEvent[_crimeType.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
+                        compteur = 0;
+                        Console.WriteLine("CRIME -- Is building selected victim of a crime : " + _buildingSelected.List[_idxBuilding].IsVictimCrime);
+
+                    }
+                }
+                else
+                {
+                    compteur++;
+
+                    BuildingEvent(gameTime);
+
+                }
+
+            }
+
+
+        }
+
+        public void NewEvent(GameTime gt)
+        {
+            DateTime now = gt.InGameTime;
+            DateTime endOfEvent = now.AddMinutes(2);
+
+            bool _isCityHallType = false;
+
+            _crimeType.CalculEventProbability();
+            CityHallType cityHallType = (CityHallType)_ctx.BuildingTypes[0];
+            if (cityHallType.List.Count != 0) _isCityHallType = true;
+            _crimeType.CalculNbEventReal();
+
+            if (_isCityHallType == true)
+            {
+                for (int i = 0; i <_crimeType.NbEventReal; i++)
+                {
+                    Console.WriteLine("CRIME -- i = " + i);
+                    Console.WriteLine();
+                   _crimeType.IsBuildingGettingEvent();
+                    if (_crimeType.IsEventHappening == true)
+                    {
+                        if (gt.InGameTime.Equals(endOfEvent)) EventHandle = false;
+                        BuildingEvent(gt);
+                       _crimeType.PreviousEvent = true;
+                    }
+                    else
+                    {
+                      _crimeType.PreviousEvent = false;
                     }
                 }
             }

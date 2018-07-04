@@ -31,14 +31,14 @@ namespace ProjectStellar.Library
             _coin = 25;
             _metal = 30;
             _electricity = 0;
-            _water = 30;
+            _water = 0;
             _pollution = 15;
             _nbPeople = 15;
             _cost = -12;
             _type = "resource";
             _size = 4;
             _list = new List<Building>();
-            _electricityProduction = 80;
+            _electricityProduction = 500;
             _unlockingLevel = 0;
         }
 

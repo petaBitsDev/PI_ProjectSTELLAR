@@ -7,19 +7,59 @@ using System.Threading.Tasks;
 namespace ProjectStellar.Library
 {
     [Serializable]
-    class Hospital : Building, IServiceBuildings
+    class Hospital : Building, IServiceInstance
     {
         bool _onFire;
         int _nbTruck;
         int _nbBed;
         bool _isSick;
         bool _isCrimeVictim;
+        public List<Truck> _vehicule;
+        HospitalType _hospitalType;
+        double _timeMax;
+        DiseaseType _diseaseType;
+        Map _ctx;
         Vector _spritePosition;
-
-        public Hospital(BuildingType type, int x, int y): base(type, x, y)
+        public Hospital(HospitalType type, int x, int y, Map ctx): base(type, x, y)
         {
             _nbTruck = 2;
             _nbBed = 10;
+            _vehicule = new List<Truck>();
+            _ctx = ctx;
+            _diseaseType = new DiseaseType(_ctx);
+            _hospitalType = type;
+        }
+
+        public void ServiceBuildingWorking()
+        {
+            Disease newDisease = _diseaseType.CreateEvent();
+            _hospitalType.StartTime = _ctx.GetGameTime.InGameTime;
+
+            if(_hospitalType.List.Count != 0)
+            {
+               _hospitalType.BuildingDistance(_ctx);
+               _hospitalType.CheckTruckStatement();
+               _hospitalType.TimeToGo  = (_hospitalType.Distance /_hospitalType.TruckSelected.Speed);
+
+                _timeMax = 180;
+                if (_hospitalType.TimeToGo <= _timeMax)
+                    newDisease.EventHandle = true;
+                else
+                    newDisease.EventHandle = false;
+            }
+            else
+            {
+                newDisease.EventHandle = false;
+                _hospitalType.TimeToGo = _timeMax;
+            }
+           
+
+        
+        }
+        public List<Truck> Vehicule
+        {
+            get { return _vehicule; }
+            set { _vehicule = value; }
         }
 
         public override bool OnFire

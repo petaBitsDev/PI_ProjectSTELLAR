@@ -6,29 +6,18 @@ using System.Threading.Tasks;
 
 namespace ProjectStellar.Library
 {
-    public interface IEvent
+    public interface IEvent 
     {
-        bool PreviousEvent { get; set; }
+      
 
-        bool IsEventHappening { get; set; }
+      bool EventHandle { get; set; }
 
-        int NbEventMax { get; set; }
+      
 
-        int NbEventReal { get; set; }
+       void BuildingEvent(GameTime gt);
 
-        float EventProbability { get; set; }
 
-        Building BuildingHasEvent { get; set; }
-
-        void CalculNbEventMax();
-        void CalculNbEventReal();
-        void CalculEventProbability();
-
-        void BuildingEvent();
-
-        void IsBuildingGettingEvent();
-
-        void NewEvent();
+       void  NewEvent(GameTime gt);
 
     }
 }

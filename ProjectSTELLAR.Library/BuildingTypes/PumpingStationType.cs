@@ -30,7 +30,7 @@ namespace ProjectStellar.Library
             _wood = 38;
             _coin = 25;
             _metal = 30;
-            _electricity = 30;
+            _electricity = 0;
             _water = 0;
             _pollution = 15;
             _nbPeople = 15;
@@ -38,7 +38,7 @@ namespace ProjectStellar.Library
             _type = "resource";
             _size = 4;
             _list = new List<Building>();
-            _waterProduction = 80;
+            _waterProduction = 500;
             _unlockingLevel = 0;
         }
 

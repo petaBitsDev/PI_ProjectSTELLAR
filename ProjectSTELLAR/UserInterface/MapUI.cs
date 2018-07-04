@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using ProjectStellar.Library;
+using System.Numerics;
 
 namespace ProjectStellar
 {
@@ -39,6 +40,14 @@ namespace ProjectStellar
         Sprite[,] _mapSprites;
         internal Vector2f _x2y2;
         ResourcesManager _resourcesManager;
+        Sprite _fire;
+        Sprite _flame;
+        Sprite _alien;
+        Sprite _alienZoom;
+        Sprite _disease;
+        Sprite _diseaseRed;
+        Sprite _fireTruck;
+        RectangleShape _invisibleRec;
 
         public MapUI(Game context, Map ctx, uint width, uint height, DrawUI drawUI, UI ui, Resolution resolution, ResourcesManager resourcesManager)
         {
@@ -47,7 +56,7 @@ namespace ProjectStellar
             _drawUIctx = drawUI;
             _width = width;
             _height = height;
-            _drawBuildings = new DrawBuildings(_gameCtx,ui, ctx);
+            _drawBuildings = new DrawBuildings(_gameCtx, ui, ctx);
             _ui = ui;
             _resolution = resolution;
             _x2y2 = new Vector2f((width + 1) * 32, (height + 1) * 32);
@@ -63,6 +72,32 @@ namespace ProjectStellar
             _spaceShip = new Sprite(new Texture("./resources/img/ufo.png"));
             _spaceShip1 = new Sprite(new Texture("./resources/img/ufo1.png"));
             _spaceShip2 = new Sprite(new Texture("./resources/img/ufo2.png"));
+
+            _fireTruck = new Sprite(context._spriteTruck[0]);
+
+
+            _fire = new Sprite(context._spriteSheet[1])
+            {
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _flame = new Sprite(context._spriteSheet[2])
+            {
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _alien = new Sprite(context._spriteSheet[3])
+            {
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _alienZoom = new Sprite(context._spriteSheet[4])
+            {
+                Scale = new Vector2f(0.8f, 0.8f)
+            };
+
+            _disease = new Sprite(context._spriteSheet[5]) { Scale = new Vector2f(0.8f, 0.8f) };
+            _diseaseRed = new Sprite(context._spriteSheet[6]) { Scale = new Vector2f(0.8f, 0.8f) };
         }
 
         public Map MapContext
@@ -99,17 +134,17 @@ namespace ProjectStellar
                 for (int y = 0; y < Height; y++)
                 {
                     rec = new RectangleShape();
-                    rec.OutlineColor = new Color(253, 235,208);
+                    rec.OutlineColor = new Color(253, 235, 208);
                     rec.OutlineThickness = 1.0f;
                     rec.FillColor = new Color(Color.Transparent);
                     rec.Size = new Vector2f(32, 32);
-                    rec.Position = new Vector2f(x * 32, y* 32);
+                    rec.Position = new Vector2f(x * 32, y * 32);
                     window.Draw(rec);
                     //_cases[i++] = new Cases(rec, y, x);
                 }
             }
         }
-        
+
         public void DrawMapTile(RenderWindow window, Building[,] boxes, Font font)
         {
             Vector2i pixelPos = Mouse.GetPosition(window);
@@ -134,30 +169,53 @@ namespace ProjectStellar
                     {
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab1Sprite)
                         {
-                            if (boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
-                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                //if (Equals(buildingType.Key, _ctx.BuildingTypes[2]))
+                                //{
+                                //    buildingType.Key.Position = new Vector2f(boxes[i, j].X, boxes[i, j].Y);
+                                //    buildingType.Key.Draw(window, RenderStates.Default);
+                                //}
+                                //else 
+                                if(buildingType.Value.Size == 6)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                else if(buildingType.Value.Size == 4)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
+                                else
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+
                             }
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab2Sprite)
                         {
-                            if (boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value && boxes[i, j].X == i && boxes[i, j].Y == j)
                             {
-                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                if (buildingType.Value.Size == 6)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                else if (buildingType.Value.Size == 4)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
+                                else
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
                         foreach (KeyValuePair<Sprite, BuildingType> buildingType in _ui.Tab3Sprite)
                         {
-                            if (boxes[i, j].Type == buildingType.Value)
+                            if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
-                                _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
+                                if (buildingType.Value.Size == 6)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                else if (buildingType.Value.Size == 4)
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
+                                else
+                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32, 32);
                             }
                         }
                     }
                 }
             }
 
-            for(int a = 0; a < _cases.Length; a++)
+
+            for (int a = 0; a < _cases.Length; a++)
             {
                 if (_cases[a].Contains((int)worldPos.X, (int)worldPos.Y))
                 {
@@ -166,6 +224,7 @@ namespace ProjectStellar
                         _ui.DrawBuildingInformations(window, font, boxes[_cases[a].X, _cases[a].Y]);
                     }
                 }
+
                 if (!object.Equals(boxes[_cases[a].X, _cases[a].Y], null))
                 {
                     if (boxes[_cases[a].X, _cases[a].Y].Type.Equals(_ctx.BuildingTypes[12]))
@@ -186,7 +245,6 @@ namespace ProjectStellar
                     }
                 }
             }
-
             for (int b = 0; b < _ctx.SpaceShipsList.Count; b++)
             {
                 Sprite spaceShip;
@@ -200,7 +258,16 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(0.5f, 0.5f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
+
+
+
+            DrawFire(window);
+            DrawAlien(window);
+            DrawSickness(window);
+            DrawFireStationTruck(window);
         }
+    
+    
 
         public bool CheckSpaceMenu (Building b, RenderWindow window, int posX, int posY)
         {
@@ -226,7 +293,7 @@ namespace ProjectStellar
         {
             int a = (int)X;
             int b = (int)Y;
-           
+
             if (!object.Equals(_ctx.Boxes[a, b], null))
             {
                 BuildingExist = true;
@@ -243,6 +310,7 @@ namespace ProjectStellar
         {
             if (size == 6)
             {
+                if (y + 2 > _ctx.Width - 1 || x + 1 > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 2], null)) return false;
@@ -252,6 +320,7 @@ namespace ProjectStellar
             }
             else if (size == 4)
             {
+                if (y + 1 > _ctx.Width - 1 || x + 1 > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x + 1, y], null)) return false;
                 if (!Equals(_ctx.Boxes[x, y + 1], null)) return false;
@@ -259,6 +328,7 @@ namespace ProjectStellar
             }
             else
             {
+                if (y > _ctx.Width - 1 || x > _ctx.Height - 1) return false;
                 if (!Equals(_ctx.Boxes[x, y], null)) return false;
             }
             return true;
@@ -286,6 +356,7 @@ namespace ProjectStellar
                         else if (CheckPlace(_cases[i].X, _cases[i].Y, _ctx.ChosenBuilding.Size))
                         {
                             _ctx.ChosenBuilding.CreateInstance(_cases[i].X, _cases[i].Y, _resourcesManager, MapContext);
+                            _gameCtx.SoundManager.Build.Play();
 
                             if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
                             {
@@ -298,6 +369,7 @@ namespace ProjectStellar
                     else if (_ui.DestroySelected && building != null)
                     {
                         building.Type.DeleteInstance(_cases[i].X, _cases[i].Y, MapContext, building, _resourcesManager);
+                        _gameCtx.SoundManager.Destroy.Play();
                         //_ui.DestroySelected = false;
                     }
                     else return false;
@@ -305,6 +377,221 @@ namespace ProjectStellar
                 }
             }
             return false;
+        }
+
+        private void DrawAlien(RenderWindow window)
+        {
+            int X;
+            int Y;
+            bool a = false;
+
+            if(_ctx.NewCrimeType.BuildingHasEvent.Count != 0)
+            {
+                for(int i = 0; i < _ctx.NewCrimeType.BuildingHasEvent.Count; i++)
+                {
+
+                    if (_gameCtx.GameTime.InGameTime >= _ctx.NewCrimeType.BuildingHasEvent[i].EndOfEvent)
+                    {
+                        _ctx.NewCrimeType.BuildingHasEvent.Remove(_ctx.NewCrimeType.BuildingHasEvent[i]);
+                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        a = true;
+                    }
+
+                    if (a == false)
+                    {
+
+                        X = _ctx.NewCrimeType.BuildingHasEvent[i].X;
+                    Y = _ctx.NewCrimeType.BuildingHasEvent[i].Y;
+
+                    if(_ctx.NewCrimeType.BuildingHasEvent[i].Size == 1)
+                    {
+                        _alien.Position = new Vector2f(Y * 32, X * 32 + 15);
+                        _alienZoom.Position = new Vector2f(Y * 32, X * 32 + 15);
+                    }
+                    else if(_ctx.NewCrimeType.BuildingHasEvent[i].Size == 4)
+                    {
+                        _alien.Position = new Vector2f(Y * 32 + 12, X * 32 + 15);
+                        _alienZoom.Position = new Vector2f(Y * 32 + 12, X * 32 + 15);
+                    }
+                    else if(_ctx.NewCrimeType.BuildingHasEvent[i].Size == 6)
+                    {
+                        _alien.Position = new Vector2f(Y * 32 + 53, X * 32 + 53);
+                        _alienZoom.Position = new Vector2f(Y * 32 + 53, X * 32 + 53);
+
+                    }
+                    if(GameContext.GameTime.InGameTime.Minute % 2 == 0)
+                    {
+                        window.Draw(_alien);
+                    }
+                    else if(GameContext.GameTime.InGameTime.Minute % 2 == 1)
+                    {
+                        window.Draw(_alienZoom);
+                    }
+
+                    }
+                    else
+                    {
+                        DrawAlien(window);
+                    }
+                }
+            }
+ 
+        }
+
+        private void DrawFire(RenderWindow window)
+        {
+            int yFire;
+            int xFire;
+            int xFlame;
+            bool a = false;
+            int yFlame;
+            DateTime now = GameContext.GameTime.InGameTime;
+
+            if (_ctx.NewFireType.BuildingHasEvent.Count != 0)
+            {
+                for (int i = 0; i < _ctx.NewFireType.BuildingHasEvent.Count; i++)
+                {
+                    Console.WriteLine("1 " + _gameCtx.GameTime.InGameTime);
+                    Console.WriteLine("2 " + _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent);
+
+                    if (_gameCtx.GameTime.InGameTime >= _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent)
+                    {
+                        _ctx.NewFireType.BuildingHasEvent.Remove(_ctx.NewFireType.BuildingHasEvent[i]);
+                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        a = true;
+                    }
+
+                    if (a == false)
+                    {
+
+                        xFire = _ctx.NewFireType.BuildingHasEvent[i].X;
+
+                        yFire = _ctx.NewFireType.BuildingHasEvent[i].Y;
+
+                        if (_ctx.NewFireType.BuildingHasEvent[i].Size == 1)
+                        {
+                            _flame.Position = new Vector2f(yFire * 32 + 3, xFire * 32 + 18);
+                            _fire.Position = new Vector2f(yFire * 32 + 3, xFire * 32 + 18);
+
+
+                        }
+                        else if (_ctx.NewFireType.BuildingHasEvent[i].Size == 6)
+                        {
+                            _fire.Position = new Vector2f((yFire * 32) + 25, (xFire * 32) + 20);
+                            _flame.Position = new Vector2f((yFire * 32) + 25, (xFire * 32) + 20);
+
+
+                        }
+                        else if (_ctx.NewFireType.BuildingHasEvent[i].Size == 4)
+                        {
+                            _flame.Position = new Vector2f((yFire * 32) + 24, (xFire * 32) + 30);
+                            _fire.Position = new Vector2f((yFire * 32) + 24, (xFire * 32) + 23);
+
+
+                        }
+
+                        if (GameContext.GameTime.InGameTime.Minute % 2 == 0)
+                        {
+                            window.Draw(_fire); ;
+
+
+                        }
+                        else if (GameContext.GameTime.InGameTime.Minute % 2 == 1)
+                        {
+                            window.Draw(_flame);
+
+                        }
+                    }
+                    else
+                    {
+                        DrawFire(window);
+                    }
+                    
+                    
+
+                    
+                }
+            }
+        }
+
+        private void DrawSickness(RenderWindow window)
+        {
+            int X;
+            int Y;
+            bool a = false;
+
+            if(_ctx.NewDiseaseType.BuildingHasEvent.Count != 0)
+            {
+                for(int i = 0; i<_ctx.NewDiseaseType.BuildingHasEvent.Count; i++)
+                {
+
+
+                    if (_gameCtx.GameTime.InGameTime >= _ctx.NewDiseaseType.BuildingHasEvent[i].EndOfEvent)
+                    {
+                        _ctx.NewDiseaseType.BuildingHasEvent.Remove(_ctx.NewDiseaseType.BuildingHasEvent[i]);
+                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        a = true;
+                    }
+
+                    if(a == false)
+                    {
+                        X = _ctx.NewDiseaseType.BuildingHasEvent[i].X;
+                        Y = _ctx.NewDiseaseType.BuildingHasEvent[i].Y;
+
+
+
+                        if (_ctx.NewDiseaseType.BuildingHasEvent[i].Size == 1)
+                        {
+                            _disease.Position = new Vector2f(Y * 32 + 3, X * 32 + 18);
+                            _diseaseRed.Position = new Vector2f(Y * 32 + 3, X * 32 + 18);
+                        }
+                        else if (_ctx.NewDiseaseType.BuildingHasEvent[i].Size == 4)
+                        {
+                            _disease.Position = new Vector2f(Y * 32 + 24, X * 32 + 24);
+                            _diseaseRed.Position = new Vector2f(Y * 32 + 24, X * 32 + 24);
+                        }
+                        else if (_ctx.NewDiseaseType.BuildingHasEvent[i].Size == 6)
+                        {
+                            _disease.Position = new Vector2f(Y * 32 + 53, X * 32 + 53);
+                            _diseaseRed.Position = new Vector2f(Y * 32 + 53, X * 32 + 53);
+
+                        }
+                        if (GameContext.GameTime.InGameTime.Minute % 2 == 0)
+                        {
+                            window.Draw(_disease);
+                        }
+                        else if (GameContext.GameTime.InGameTime.Minute % 2 == 1)
+                        {
+                            window.Draw(_diseaseRed);
+                        }
+                    }
+                    else
+                    {
+                        DrawSickness(window);
+                    }
+                 
+                }
+            }
+            
+        }
+
+        private void DrawFireStationTruck(RenderWindow window)
+        {
+            FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
+            if(fireStationType.List.Count != 0)
+            {
+                if(_ctx.NewFireType.BuildingHasEvent.Count != 0)
+                {
+                  if(fireStationType.Origin != null || fireStationType.Target != null)
+                    {
+                        fireStationType.TruckMoveTo();
+                    }
+                    Console.WriteLine("FIRE TRUCK --- JE SUI SSENCER DESSNER LES CAMIONS");
+                    _fireTruck.Position = new Vector2f((float)fireStationType.TruckPosition.Y * 32, (float)fireStationType.TruckPosition.X*32);
+                    window.Draw(_fireTruck);
+                }
+            }
+        
         }
 
         public bool BuildingExist

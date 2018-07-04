@@ -57,6 +57,7 @@ namespace ProjectStellar.Library
             }
 
             Position = MathHelpers.MoveTo(Position, _direction, _speed);
+       
         }
     }
 }

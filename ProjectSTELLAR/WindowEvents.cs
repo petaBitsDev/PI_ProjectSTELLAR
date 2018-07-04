@@ -153,7 +153,7 @@ namespace ProjectStellar
         public void MouseClicked(object sender, EventArgs e)
         {
             // Jeu
-            if (_ctx.MenuState == 1)
+            if (_ctx.MenuState == 1 && _ctx.CityEvents.WaitMeteors == false)
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
@@ -164,7 +164,7 @@ namespace ProjectStellar
                         _ui.MouseSprite = null;
                         if (_ui.SelectedItem == 0)
                         {
-                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
+                            SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager, _ctx._fireType);
                             Save.SaveGame(save, _ctx._name);
                             //Console.WriteLine("Saved");
 
@@ -229,6 +229,7 @@ namespace ProjectStellar
             if (_ui.CheckTimeBar(x, y, gameTime)) return true;
             else if (_ui.CheckBuildingToBuild(_window, _ctx._resourcesManager)) return true;
             else if (_ui.CheckBuildSelected(_window)) return true;
+            else if (_ui.CheckTabSelected(_window)) return true;
             else if (_ui.CheckDestroySelected(_window)) return true;
             else return false;
         }
@@ -241,7 +242,7 @@ namespace ProjectStellar
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {
-                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager);
+                    SaveGame save = new SaveGame(_ctx._name, _ctx._map, _ctx.GameTime, _ctx._resourcesManager, _ctx._experienceManager, _ctx._satisfactionManager, _ctx._fireType);
                     Save.SaveGame(save, _ctx._name);
                     //Console.WriteLine("Saved");
                 }
@@ -276,6 +277,9 @@ namespace ProjectStellar
                 {
                     _ctx._resourcesManager.NbResources["nbPeople"] += 500;
                 }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.M))
+                    _ctx.CityEvents.Meteors(_ctx._experienceManager.Level, _ctx._map, _ctx._resourcesManager);
+                    //Console.WriteLine("{0} ont été détruits",Meteorite.Falls(_ctx._experienceManager.Level, _ctx._map, _ctx._resourcesManager));
             }
             else if (_ctx.MenuState == 3)
             {
@@ -283,6 +287,11 @@ namespace ProjectStellar
                 {
                     if (_ctx.NewGame.Name.Length > 0)
                         _ctx.NewGame.Name = _ctx.NewGame.Name.Remove(_ctx.NewGame.Name.Length - 1);
+                }
+                if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
+                {
+                    if (_ctx.NewGame.Name.Length > 0)
+                    _ctx.StartNewGame();
                 }
             }
         }
