@@ -132,7 +132,7 @@ namespace ProjectStellar.Library
             Random random = new Random();
             CalculNbEventMax();
             NbEventReal = random.Next(NbEventMax + 1);
-            Console.WriteLine("CRIME -- NB event : " + NbEventReal);
+            //Console.WriteLine("CRIME -- NB event : " + NbEventReal);
         }
 
         public void IsBuildingGettingEvent()
@@ -141,9 +141,9 @@ namespace ProjectStellar.Library
             Random random = new Random();
             probability = random.Next(1, 101);
 
-            Console.WriteLine("CRIME -- probability : " + probability);
-            Console.WriteLine();
-            Console.WriteLine("CRIME -- EVENTPROBABILITY :" + EventProbability * 10);
+            //Console.WriteLine("CRIME -- probability : " + probability);
+            //Console.WriteLine();
+            //Console.WriteLine("CRIME -- EVENTPROBABILITY :" + EventProbability * 10);
             if (probability <= EventProbability*10)
             {
                 IsEventHappening = true;

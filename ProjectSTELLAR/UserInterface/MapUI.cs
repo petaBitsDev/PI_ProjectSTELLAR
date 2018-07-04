@@ -23,6 +23,7 @@ namespace ProjectStellar
         Sprite _spaceShip;
         Sprite _spaceShip1;
         Sprite _spaceShip2;
+        Sprite _sprite;
         uint _width;
         uint _height;
         int _index;
@@ -72,7 +73,7 @@ namespace ProjectStellar
             _spaceShip = new Sprite(new Texture("./resources/img/ufo.png"));
             _spaceShip1 = new Sprite(new Texture("./resources/img/ufo1.png"));
             _spaceShip2 = new Sprite(new Texture("./resources/img/ufo2.png"));
-
+            _sprite = new Sprite(_gameCtx._buildingsTextures[11]);
             _fireTruck = new Sprite(context._spriteTruck[0]);
 
 
@@ -171,12 +172,6 @@ namespace ProjectStellar
                         {
                             if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
-                                //if (Equals(buildingType.Key, _ctx.BuildingTypes[2]))
-                                //{
-                                //    buildingType.Key.Position = new Vector2f(boxes[i, j].X, boxes[i, j].Y);
-                                //    buildingType.Key.Draw(window, RenderStates.Default);
-                                //}
-                                //else 
                                 if(buildingType.Value.Size == 6)
                                     _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
                                 else if(buildingType.Value.Size == 4)
@@ -191,7 +186,15 @@ namespace ProjectStellar
                             if (boxes[i, j].Type == buildingType.Value && boxes[i, j].X == i && boxes[i, j].Y == j)
                             {
                                 if (buildingType.Value.Size == 6)
-                                    _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                {
+                                    if (buildingType.Value == _ctx.BuildingTypes[12])
+                                    {
+                                        _sprite = new Sprite(_gameCtx._buildingsTextures[22]);
+                                        _sprite.Position = new Vector2f((uint)(j * 32), (uint)(i * 32));
+                                        _sprite.Draw(window, RenderStates.Default);
+                                    }
+                                    else _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                }
                                 else if (buildingType.Value.Size == 4)
                                     _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
                                 else
@@ -203,7 +206,9 @@ namespace ProjectStellar
                             if (boxes[i, j].Type == buildingType.Value && boxes[i,j].X == i && boxes[i,j].Y == j)
                             {
                                 if (buildingType.Value.Size == 6)
+                                {
                                     _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 3, 32 * 2);
+                                }
                                 else if (buildingType.Value.Size == 4)
                                     _drawUIctx.RenderSprite(buildingType.Key, window, (uint)(j * 32), (uint)(i * 32), 0, 0, 32 * 2, 32 * 2);
                                 else
@@ -213,7 +218,6 @@ namespace ProjectStellar
                     }
                 }
             }
-
 
             for (int a = 0; a < _cases.Length; a++)
             {
@@ -236,8 +240,7 @@ namespace ProjectStellar
                         }
                         if (_ctx.BuildingTypes[12].List.Count > 0)
                             _ui.CreateMenu(_gameCtx, _ctx.BuildingTypes[12].List[_ctx.BuildingTypes[12].List.Count - 1]);
-                        if(CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y))
-                        //if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                        if(CheckSpaceMenu(boxes[_cases[a].X, _cases[a].Y], window, (int)worldPos.X, (int)worldPos.Y, _sprite))
                         {
                             _ui.Menus[_index].IsOn = true;
                         }
@@ -258,27 +261,26 @@ namespace ProjectStellar
                 spaceShip.Scale = new Vector2f(0.5f, 0.5f);
                 spaceShip.Draw(window, RenderStates.Default);
             }
-
-
-
+            
             DrawFire(window);
             DrawAlien(window);
             DrawSickness(window);
             DrawFireStationTruck(window);
         }
-    
-    
 
-        public bool CheckSpaceMenu (Building b, RenderWindow window, int posX, int posY)
+        public bool CheckSpaceMenu (Building b, RenderWindow window, int posX, int posY, Sprite sprite)
         {
-            if (b.SpritePosition.X == posY / 32 && b.SpritePosition.Y == posX / 32)
+            if(!sprite.Equals(null))
             {
-                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                if (sprite.GetGlobalBounds().Contains(posX, posY))
                 {
-                    b.MenuOn = true;
-                    return true;
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                    {
+                        b.MenuOn = true;
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
             }
             return false;
         }
@@ -337,14 +339,14 @@ namespace ProjectStellar
         public bool CheckMap(float mouseX, float mouseY, RenderWindow window, Font font)
         {
             Building building;
-            Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
+            //Console.WriteLine("x = {0}, y = {1}", mouseX, mouseY);
             for (int i = 0; i < _cases.Length; i++)
             {
                 building = ContainsBuilding(_cases[i].X, _cases[i].Y);
 
                 if (_cases[i].Rec.Contains(mouseX, mouseY))
                 {
-                    Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
+                    //Console.WriteLine(_cases[i].X + "  " + _cases[i].Y);
                     if (!object.Equals(_ctx.ChosenBuilding, null))
                     {
                         if (!_resourcesManager.CheckResourcesNeeded(_ctx.ChosenBuilding))
@@ -393,7 +395,7 @@ namespace ProjectStellar
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewCrimeType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewCrimeType.BuildingHasEvent.Remove(_ctx.NewCrimeType.BuildingHasEvent[i]);
-                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -451,13 +453,13 @@ namespace ProjectStellar
             {
                 for (int i = 0; i < _ctx.NewFireType.BuildingHasEvent.Count; i++)
                 {
-                    Console.WriteLine("1 " + _gameCtx.GameTime.InGameTime);
-                    Console.WriteLine("2 " + _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent);
+                    //Console.WriteLine("1 " + _gameCtx.GameTime.InGameTime);
+                    //Console.WriteLine("2 " + _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent);
 
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewFireType.BuildingHasEvent.Remove(_ctx.NewFireType.BuildingHasEvent[i]);
-                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -529,7 +531,7 @@ namespace ProjectStellar
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewDiseaseType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewDiseaseType.BuildingHasEvent.Remove(_ctx.NewDiseaseType.BuildingHasEvent[i]);
-                        Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
+                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -586,7 +588,7 @@ namespace ProjectStellar
                     {
                         fireStationType.TruckMoveTo();
                     }
-                    Console.WriteLine("FIRE TRUCK --- JE SUI SSENCER DESSNER LES CAMIONS");
+                    //Console.WriteLine("FIRE TRUCK --- JE SUI SSENCER DESSNER LES CAMIONS");
                     _fireTruck.Position = new Vector2f((float)fireStationType.TruckPosition.Y * 32, (float)fireStationType.TruckPosition.X*32);
                     window.Draw(_fireTruck);
                 }
