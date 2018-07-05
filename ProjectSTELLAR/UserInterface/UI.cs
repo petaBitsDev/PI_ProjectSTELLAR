@@ -459,6 +459,7 @@ namespace ProjectStellar
             _tab3Sprite.Add(_factory, _mapCtx.BuildingTypes[14]);
 
             _mouseSprite = new Sprite();
+            _mouseSprite = null;
 
             _meteors = new Sprite(_ctx._uiTextures[34]);
 
@@ -816,11 +817,13 @@ namespace ProjectStellar
 
         private void DrawBuildingNeeds(RenderWindow window, Font font)
         {
-            RectangleShape rec = new RectangleShape();
-            rec.OutlineColor = new Color(Color.Black);
-            rec.OutlineThickness = 1.0f;
-            rec.FillColor = new Color(Color.White);
-            rec.Size = new Vector2f(250 , 90);
+            RectangleShape rec = new RectangleShape
+            {
+                OutlineColor = new Color(Color.Black),
+                OutlineThickness = 1.0f,
+                FillColor = new Color(Color.White),
+                Size = new Vector2f(250, 90)
+            };
             rec.Position = new Vector2f(_habitationTab.Position.X + _habitationTab.Size.X + 1, _resolution.Y - 2 * 50 - 50 - 20 - rec.Size.Y - 1);
 
             if (_buildingSelected != null && _buildingSelected != "") 
@@ -994,6 +997,7 @@ namespace ProjectStellar
                 {
                     _sprites.TryGetValue(sprite, out _buildingSelected);
                     _spriteSelected = sprite;
+                    DrawBuildingNeeds(window,font);
                 }
             }
         }
@@ -1116,9 +1120,9 @@ namespace ProjectStellar
                             else
                             {
                                 _mapCtx.ChosenBuilding = building;
-                                window.SetMouseCursorVisible(false);
+                                //window.SetMouseCursorVisible(false);
                                 _mouseSprite = new Sprite(sprite);
-                                _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X - 10, Mouse.GetPosition(window).Y - 10);
+                                _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X + 64, Mouse.GetPosition(window).Y + 64);
                                 return true;
                             }
                         }
@@ -1140,9 +1144,9 @@ namespace ProjectStellar
                         else
                         {
                             _mapCtx.ChosenBuilding = building;
-                            window.SetMouseCursorVisible(false);
+                            //window.SetMouseCursorVisible(false);
                             _mouseSprite = new Sprite(sprite);
-                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X + 64, Mouse.GetPosition(window).Y + 64);
                             return true;
                         }
                     }
@@ -1163,9 +1167,9 @@ namespace ProjectStellar
                         else
                         {
                             _mapCtx.ChosenBuilding = building;
-                            window.SetMouseCursorVisible(false);
+                            //window.SetMouseCursorVisible(false);
                             _mouseSprite = new Sprite(sprite);
-                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+                            _mouseSprite.Position = new Vector2f(Mouse.GetPosition(window).X + 64, Mouse.GetPosition(window).Y + 64);
                             return true;
                         }
                     }
@@ -1327,6 +1331,7 @@ namespace ProjectStellar
         {
             if (!Equals(_mouseSprite, null))
             {
+                _mouseSprite.Scale = new Vector2f(1f, 1f);
                 _mouseSprite.Draw(window, RenderStates.Default);
             }
         }
@@ -1476,7 +1481,7 @@ namespace ProjectStellar
             set { _mouseSprite = value; }
         }
 
-        public void DrawBuildingList(RenderWindow window, Font font)
+        public void DrawBuildingList(RenderWindow window, Font spacefont)
         {
             RectangleShape backgroundListMenu = new RectangleShape
             {
@@ -1496,10 +1501,10 @@ namespace ProjectStellar
                 Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20)
             };
 
-            Text text = new Text("Habitation", font)
+            Text text = new Text("Habitation", spacefont)
             {
                 Color = new Color(Color.Black),
-                CharacterSize = 20,
+                CharacterSize = 15,
                 Position = new Vector2f(150, _resolution.Y - 2 * 50 - 50 - 20 + 5),
                 Style = Text.Styles.Bold
             };
@@ -1513,10 +1518,10 @@ namespace ProjectStellar
                 Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20 + 120 /3 )
             };
 
-              Text text2 = new Text("Public", font)
+              Text text2 = new Text("Public", spacefont)
             {
                 Color = new Color(Color.Black),
-                CharacterSize = 20,
+                CharacterSize = 15,
                 Position = new Vector2f(150, _resolution.Y - 2 * 50 - 50 - 20 + 120 / 3 + 5),
                 Style = Text.Styles.Bold
             };
@@ -1530,10 +1535,10 @@ namespace ProjectStellar
                 Position = new Vector2f(-10, _resolution.Y - 2 * 50 - 50 - 20 +( 120 / 3)*2)
             };
 
-            Text text3 = new Text("Ressources", font)
+            Text text3 = new Text("Ressources", spacefont)
             {
                 Color = new Color(Color.Black),
-                CharacterSize = 20,
+                CharacterSize = 15,
                 Position = new Vector2f(150, _resolution.Y - 2 * 50 - 50 - 20 + (120 / 3) * 2 + 5),
                 Style = Text.Styles.Bold
             };
@@ -1566,9 +1571,7 @@ namespace ProjectStellar
                     _ressourcesTab.FillColor = new Color(106, 109, 109);
                     text3.Color = new Color(Color.White);
                 }
-
-                DrawBuildingNeeds(window, font);
-
+                
                 window.Draw(backgroundListMenu);
                 window.Draw(_habitationTab);
                 window.Draw(_publicTab);

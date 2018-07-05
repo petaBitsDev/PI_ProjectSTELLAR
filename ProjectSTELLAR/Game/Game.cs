@@ -24,6 +24,7 @@ namespace ProjectStellar
         internal MenuLoadGame _menuLoadGame;
         Resolution _resolution;
         internal Font _font;
+        internal Font _spacefont;
         internal Map _map;
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
@@ -140,6 +141,7 @@ namespace ProjectStellar
             _spriteTruck[0] = new Texture("./resources/img/fire-truck.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
+            _spacefont = new Font("./resources/fonts/space.otf");
 
             _soundManager.LoadSounds();
         }
@@ -224,7 +226,7 @@ namespace ProjectStellar
             else if (MenuState == 1)
             {
                 Window.Clear(Color.Black);
-                _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
+                _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager, _spacefont);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
             }

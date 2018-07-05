@@ -46,7 +46,7 @@ namespace ProjectStellar
             target.Draw(sprite);
         }
 
-        public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources)
+        public void RenderGraphics(RenderWindow window, Font font, GameTime gameTime, ResourcesManager resources, Font spacefont)
         {
             //_mapUI.DrawGrid(window);
             if (_gameCtx.CityEvents.WaitMeteors == true)
@@ -64,7 +64,7 @@ namespace ProjectStellar
                 //_ui.DrawDestroyButton(window);
                 //_ui.DrawExperience(window, font);
                 _ui.DrawMouseCursor(window);
-                _ui.DrawBuildingList(window, font);
+                _ui.DrawBuildingList(window, spacefont);
                 _ui.BackgroundMenuBar(window, resources.NbResources, font, _satisfaction.Satifaction);
                 _ui.MenuBar(window, gameTime, font, resources.NbResources, _satisfaction.Satifaction);
                 _ui.BuildingTabList(window, font);
