@@ -42,43 +42,43 @@ namespace ProjectStellar.Library
                 int _idxBuildingType;
                 _idxBuildingType = random.Next(_ctx.BuildingTypes.Count);
 
-                Console.WriteLine("CRIME --- IDX BUILDING TYPE :" + _idxBuildingType);
-                Console.WriteLine();
+                //Console.WriteLine("CRIME --- IDX BUILDING TYPE :" + _idxBuildingType);
+                //Console.WriteLine();
                 _buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
                 if (_buildingSelected.List.Count != 0)
                 {
-                    Console.WriteLine("CRIME -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
-                    Console.WriteLine();
+                    //Console.WriteLine("CRIME -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
+                    //Console.WriteLine();
                     int _idxBuilding;
 
                     _idxBuilding = random.Next(_buildingSelected.List.Count);
 
-                    Console.WriteLine("CRIME -- IDX BUILDING INSTANCE : " + _idxBuilding);
+                    //Console.WriteLine("CRIME -- IDX BUILDING INSTANCE : " + _idxBuilding);
 
                     if (_buildingSelected is IServiceInstance || (_buildingSelected == _ctx.BuildingTypes[0]))
                     {
-                        Console.WriteLine("CRIME -- LE BUILDINC ETAIT SOIT DE SERVICE SOIT LA MAIRIE");
-                        Console.WriteLine();
+                        //Console.WriteLine("CRIME -- LE BUILDINC ETAIT SOIT DE SERVICE SOIT LA MAIRIE");
+                        //Console.WriteLine();
                         compteur++;
 
                         BuildingEvent(gameTime);
                     }
                     else if (_buildingSelected.List[_idxBuilding].IsVictimCrime == true)
                     {
-                        Console.WriteLine("CRIME -- LE BUILDING EST DEJA VICTIME DE CRIME");
-                        Console.WriteLine();
+                        //Console.WriteLine("CRIME -- LE BUILDING EST DEJA VICTIME DE CRIME");
+                        //Console.WriteLine();
                         compteur++;
 
                         BuildingEvent(gameTime);
                     }
                     else
                     {
-                        Console.WriteLine("CRIME -- Building event a rempli sa fonction");
+                        //Console.WriteLine("CRIME -- Building event a rempli sa fonction");
                         _buildingSelected.List[_idxBuilding].IsVictimCrime = true;
                         _crimeType.BuildingHasEvent.Add(_buildingSelected.List[_idxBuilding]);
                         _crimeType.BuildingHasEvent[_crimeType.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
                         compteur = 0;
-                        Console.WriteLine("CRIME -- Is building selected victim of a crime : " + _buildingSelected.List[_idxBuilding].IsVictimCrime);
+                        //Console.WriteLine("CRIME -- Is building selected victim of a crime : " + _buildingSelected.List[_idxBuilding].IsVictimCrime);
 
                     }
                 }
@@ -111,8 +111,8 @@ namespace ProjectStellar.Library
             {
                 for (int i = 0; i <_crimeType.NbEventReal; i++)
                 {
-                    Console.WriteLine("CRIME -- i = " + i);
-                    Console.WriteLine();
+                    //Console.WriteLine("CRIME -- i = " + i);
+                    //Console.WriteLine();
                    _crimeType.IsBuildingGettingEvent();
                     if (_crimeType.IsEventHappening == true)
                     {

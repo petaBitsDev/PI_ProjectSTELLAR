@@ -139,7 +139,7 @@ namespace ProjectStellar.Library
             CalculNbEventMax();
 
             NbEventReal = random.Next(NbEventMax + 1);
-            Console.WriteLine("DISEASE NB EVENT :" + NbEventReal);
+            //Console.WriteLine("DISEASE NB EVENT :" + NbEventReal);
         }
 
         public void IsBuildingGettingEvent()
@@ -148,10 +148,10 @@ namespace ProjectStellar.Library
             
             Random random = new Random();
             probability = random.Next(1, 101);
-            Console.WriteLine("DISEASE probability :" + probability );
-            Console.WriteLine();
+            //Console.WriteLine("DISEASE probability :" + probability );
+            //Console.WriteLine();
 
-            Console.WriteLine("DISEASE EVENTPROBABILITY :" + EventProbability * 10);
+            //Console.WriteLine("DISEASE EVENTPROBABILITY :" + EventProbability * 10);
             if(probability <= EventProbability * 10)
             {
                 IsEventHappening = true;

@@ -50,12 +50,6 @@ namespace ProjectStellar
             Vector2i pixelPos = Mouse.GetPosition(_window);
             Vector2f worldPos = _window.MapPixelToCoords(pixelPos, View);
 
-            RectangleShape rec = new RectangleShape();
-            rec.OutlineColor = new Color(Color.Transparent);
-            rec.OutlineThickness = 3.0f;
-            rec.FillColor = new Color(253, 254, 254);
-            rec.Size = new Vector2f(32 * 8, 32 * 4);
-
             int posX = Mouse.GetPosition(_window).X;
             int posY = Mouse.GetPosition(_window).Y;
 
@@ -231,14 +225,25 @@ namespace ProjectStellar
             else if (_ui.CheckBuildSelected(_window)) return true;
             else if (_ui.CheckTabSelected(_window)) return true;
             else if (_ui.CheckDestroySelected(_window)) return true;
+            else if (_ui.CheckSoundSlider(_window)) return true;
             else return false;
         }
 
         public View CurrentView => _view;
 
-        public void KeyPressed(object sender, EventArgs e)
+        public void KeyPressed(object sender, KeyEventArgs e)
         {
-            if (_ctx.MenuState == 1)
+            if (e.Code == Keyboard.Key.PageUp)
+            {
+                _ctx.SoundManager.MusicVolume += 10;
+                Console.WriteLine("Volume = " + _ctx.SoundManager.MusicVolume);
+            }
+            else if (e.Code == Keyboard.Key.PageDown)
+            {
+                _ctx.SoundManager.MusicVolume -= 10;
+                Console.WriteLine("Volume = " + _ctx.SoundManager.MusicVolume);
+            }
+            else if (_ctx.MenuState == 1)
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.S))
                 {

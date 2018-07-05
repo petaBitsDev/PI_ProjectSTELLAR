@@ -13,7 +13,7 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[13];
+        public Texture[] _menuTextures = new Texture[16];
         public Texture[] _spriteSheet = new Texture[7];
         public Texture[] _spriteTruck = new Texture[1];
         public Texture[] _buildingsTextures = new Texture[24];
@@ -24,6 +24,7 @@ namespace ProjectStellar
         internal MenuLoadGame _menuLoadGame;
         Resolution _resolution;
         internal Font _font;
+        internal Font _spacefont;
         internal Map _map;
         public DrawUI _drawUI;
         internal ExperienceManager _experienceManager;
@@ -64,6 +65,9 @@ namespace ProjectStellar
             _menuTextures[10] = new Texture("./resources/img/menuPlay.png");
             _menuTextures[11] = new Texture("./resources/img/menuPlayActif.png");
             _menuTextures[12] = new Texture("./resources/img/back.png");
+            _menuTextures[13] = new Texture("./resources/img/confirm.png");
+            _menuTextures[14] = new Texture("./resources/img/confirmActif.png");
+            _menuTextures[15] = new Texture("./resources/img/citysName.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -137,6 +141,7 @@ namespace ProjectStellar
             _spriteTruck[0] = new Texture("./resources/img/fire-truck.png");
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
+            _spacefont = new Font("./resources/fonts/space.otf");
 
             _soundManager.LoadSounds();
         }
@@ -145,7 +150,7 @@ namespace ProjectStellar
         {
             _backgroundSprite = new Sprite(_backgroundTexture);
 
-            _center = new Vector2f((_resolution.X * 0.9f) / 2, (_resolution.Y * 0.95f) / 2);
+            _center = new Vector2f(_resolution.X / 2, (_resolution.Y * 0.95f) / 2);
             _view = new View(_center, new Vector2f(_resolution.X, _resolution.Y * 0.95f));
             _newGame = new NewGame(_resolution.X, _resolution.Y, this, _font);
             //Window.SetView(_view);
@@ -221,7 +226,7 @@ namespace ProjectStellar
             else if (MenuState == 1)
             {
                 Window.Clear(Color.Black);
-                _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager);
+                _drawUI.RenderGraphics(Window, _font, GameTime, _resourcesManager, _spacefont);
                 _windowEvents.MapUI = _drawUI.MapUI;
                 _windowEvents.UI = _drawUI.UI;
             }
