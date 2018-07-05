@@ -11,7 +11,7 @@ namespace ProjectStellar.Library
     {
         Random _random;
         bool _isFree;
-        bool _onReturn;
+        bool _onSite;
         float _speed;
         double _x;
         double _y;
@@ -21,15 +21,17 @@ namespace ProjectStellar.Library
         DateTime _start;
         Building _targetType;
         Building _firestation;
+        Vector _origin;
 
         public Truck(Building firestation, double x, double y)
         {
             _firestation = firestation;
+            _origin = new Vector(firestation.X, firestation.Y);
             _random = new Random();
             _position = new Vector(y, x);
             _direction = new Vector();
             _speed = 0.0001f;
-            _onReturn = false;
+            _onSite = false;
             _isFree = true;
             _undisposedTime = new TimeSpan(0,0,0);
         }
@@ -40,9 +42,28 @@ namespace ProjectStellar.Library
             set { _undisposedTime = value; }
         }
 
-        public void Update()
+        public void Update(DateTime inGameTime)
         {
-            Position = MathHelpers.MoveTo(Position, Target, Speed);
+            if(Position.Equals(Target))
+            {
+                _onSite = true;
+            }
+
+            if (Position.Equals(_origin))
+            {
+                this.IsFree = true;
+            }
+
+            if (!IsFree)
+            {
+                if (OnSite)
+                {
+                    if (inGameTime < StartTime.Add(UndisposedTime))
+                        Position = MathHelpers.MoveTo(Position, _origin, Speed);
+                }
+                else
+                    Position = MathHelpers.MoveTo(Position, Target, Speed);
+            }
         }
 
         public float Speed => _speed;
@@ -63,10 +84,10 @@ namespace ProjectStellar.Library
             set { _isFree = value; }
         }
 
-        public bool OnReturn
+        public bool OnSite
         {
-            get { return _onReturn; }
-            set { _onReturn = value; }
+            get { return _onSite; }
+            set { _onSite = value; }
         }
 
         public DateTime StartTime

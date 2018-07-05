@@ -207,6 +207,10 @@ namespace ProjectStellar
                         }
                     }
                 }
+                for(int i = 0; i < _map.AllTrucks.Count; i++)
+                {
+                    if(!_map.AllTrucks[i].IsFree) _map.AllTrucks[i].Update(gameTime.InGameTime);
+                }
             }
         }
 

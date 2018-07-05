@@ -38,8 +38,8 @@ namespace ProjectStellar.Library
                 Truck truck = new Truck(this, this.X, this.Y);
                 _trucks.Add(truck);
                 _ctx.AllTrucks.Add(truck);
-                this.TruckList = _trucks;
             }
+            this.TruckList = _trucks;
         }
 
         public void ServiceBuildingWorking()
@@ -60,7 +60,7 @@ namespace ProjectStellar.Library
                     
                     fireStationType.TimeToGo = fireStationType.End.Subtract(fireStationType.StartTime);
 
-                    _timeMax = new TimeSpan(0, 150, 0);
+                    _timeMax = new TimeSpan(0, 60, 0);
                     if (fireStationType.TimeToGo <= _timeMax)
                         fireStationType.NewFire.EventHandle = true;
                     else

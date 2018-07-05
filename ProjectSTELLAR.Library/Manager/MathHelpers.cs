@@ -29,6 +29,21 @@ namespace ProjectStellar.Library
             return position;
         }
 
+        internal static Vector TruckMovement (Vector position, Vector direction, float speed)
+        {
+            if (direction.X > position.X && direction.Y > position.Y)
+                position = new Vector(position.X + 0.05, position.Y + 0.05);
+            else if (direction.X < position.X && direction.Y < position.Y)
+                position = new Vector(position.X - 0.05, position.Y - 0.05);
+            else if (direction.X < position.X && direction.Y > position.Y)
+                position = new Vector(position.X - 0.05, position.Y + 0.05);
+            else if (direction.X > position.X && direction.Y < position.Y)
+                position = new Vector(position.X + 0.05, position.Y - 0.05);
+
+            position = Limit(position, 0, 99 * 32);
+            return position;
+        }
+
         internal static Vector Limit(Vector v, double min, double max)
         {
             return new Vector(Limit(v.X, min, max), Limit(v.Y, min, max));

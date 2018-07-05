@@ -97,7 +97,7 @@ namespace ProjectStellar.Library
                 {
                     if (_firetype.BuildingHasEvent.Count != 0)
                     {
-                        for(int i = 0; i < fireStation.TruckList.Count; i++)
+                        for (int i = 0; i < fireStation.TruckList.Count; i++)
                         {
                             if (fireStation.TruckList[i].IsFree)
                             {

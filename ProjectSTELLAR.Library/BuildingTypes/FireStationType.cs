@@ -100,7 +100,14 @@ namespace ProjectStellar.Library
                 else TruckSelected = null;
             }
         }
-        
+
+        public override void DeleteInstance(int x, int y, Map map, Building building, ResourcesManager resources)
+        {
+            map.RemoveBuilding(x, y);
+            this.List.Remove(building);
+            resources.UpdateWhenDestroy(building.Type);
+        }
+
         public override void CreateInstance(int x, int y, ResourcesManager resources, Map map)
         {
             if (!resources.CheckResourcesNeeded(this)) throw new ArgumentException("Ressources manquantes.");

@@ -25,7 +25,7 @@ namespace ProjectStellar.Library
             _ctx = ctx;
             _previousFire = false;
 
-            _fireProbability = 0.40f;
+            _fireProbability = 1.0f;
 
             fireStationType = (FireStationType)_ctx.BuildingTypes[1];
             _building = new List<Building>();
@@ -77,12 +77,12 @@ namespace ProjectStellar.Library
         {
             FireStationType fireStationType = (FireStationType)_ctx.BuildingTypes[1];
             int totalnbTruck = 0;
+
             for(int i = 0; i < fireStationType.List.Count; i++)
             {
                 FireStation f = (FireStation)fireStationType.List[i];
                 totalnbTruck += f.NbTrucks;
             }
-
             if (totalnbTruck< 2)
             {
                 NbEventMax = 3;
@@ -112,11 +112,11 @@ namespace ProjectStellar.Library
         {
             if (PreviousEvent == false)
             {
-               _fireProbability += 1.25f;
+               _fireProbability += 2.0f;
             }
             else
             {
-                _fireProbability -= 0.00f;
+                _fireProbability += 2.0f;
             }
         }
 
