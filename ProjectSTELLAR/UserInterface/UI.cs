@@ -100,6 +100,12 @@ namespace ProjectStellar
         Sprite _sendButton;
         Sprite _sendActifButton;
         Sprite _meteors;
+        RectangleShape _musicSlider;
+        RectangleShape _musicCursor;
+        Text _musicText;
+        Text _SFXText;
+        RectangleShape _SFXSlider;
+        RectangleShape _SFXCursor;
         Map _map;
 
         uint _width;
@@ -455,6 +461,37 @@ namespace ProjectStellar
             _mouseSprite = new Sprite();
 
             _meteors = new Sprite(_ctx._uiTextures[34]);
+
+            _musicSlider = new RectangleShape()
+            {
+                Size = new Vector2f(400, 30),
+                FillColor = new Color(48, 48, 48),
+                OutlineColor = Color.White,
+                OutlineThickness = 2
+            };
+            _musicSlider.Position = new Vector2f((resolution.X / 2) - (_musicSlider.Size.X / 2), resolution.Y / 5 * 4);
+
+            _musicCursor = new RectangleShape()
+            {
+                Size = new Vector2f(2, _musicSlider.Size.Y),
+                FillColor = Color.Yellow
+            };
+            _musicCursor.Position = new Vector2f(_musicSlider.Position.X + (_musicSlider.Size.X / 2) - (_musicCursor.Size.X / 2), _musicSlider.Position.Y);
+
+            _musicText = new Text("Music Volume", _ctx._font);
+            _musicText.CharacterSize = 30;
+            _musicText.Position = new Vector2f(_musicSlider.Position.X - 200, _musicSlider.Position.Y - 5);
+
+            _SFXSlider = new RectangleShape(_musicSlider);
+            _SFXSlider.Position = new Vector2f(_SFXSlider.Position.X, _SFXSlider.Position.Y + 40);
+
+            _SFXCursor = new RectangleShape(_musicCursor);
+            _SFXCursor.Position = new Vector2f(_SFXCursor.Position.X, _SFXSlider.Position.Y);
+
+            _SFXText = new Text("SFX  Volume", _ctx._font);
+            _SFXText.CharacterSize = 30;
+            _SFXText.Position = new Vector2f(_SFXSlider.Position.X - 200, _SFXSlider.Position.Y - 5);
+
         }
 
         internal bool IsTab1Active
@@ -1189,6 +1226,9 @@ namespace ProjectStellar
             rec.Position = new Vector2f(_boxSize * 3, _boxSize * 2);
             rec.FillColor = new Color(30, 30, 40);
 
+            //_musicCursor.Position.X = _musicSlider.Position.X + (_musicSlider.Size.X * _ctx.SoundManager.MusicVolume / 100) - (_musicCursor.Size.X / 2);
+
+
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
                 if (_settingsButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
@@ -1240,6 +1280,16 @@ namespace ProjectStellar
                     gameTime.TimeScale = 60f;
                     SettingsSelected = false;
                 }
+                _musicCursor.Position = new Vector2f(_musicSlider.Position.X + (_musicSlider.Size.X * _ctx.SoundManager.MusicVolume / 100) - (_musicCursor.Size.X / 2), _musicCursor.Position.Y);
+                _SFXCursor.Position = new Vector2f(_SFXSlider.Position.X + (_SFXSlider.Size.X * _ctx.SoundManager.SFXVolume / 100) - (_SFXCursor.Size.X / 2), _SFXCursor.Position.Y);
+
+                _musicSlider.Draw(window, RenderStates.Default);
+                _musicCursor.Draw(window, RenderStates.Default);
+                _musicText.Draw(window, RenderStates.Default);
+
+                _SFXSlider.Draw(window, RenderStates.Default);
+                _SFXCursor.Draw(window, RenderStates.Default);
+                _SFXText.Draw(window, RenderStates.Default);
             }
         }
 
@@ -2023,6 +2073,37 @@ namespace ProjectStellar
             }
 
             return true;
+        }
+
+        public bool CheckSoundSlider(RenderWindow window)
+        {
+            if (_settingsSelected)
+            {
+                if (_musicSlider.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+                {
+                    float mouseX = Mouse.GetPosition(window).X - _musicSlider.Position.X;
+
+                    float percent = (mouseX * 100) / (_musicSlider.Size.X);
+                    if (percent > 100) percent = 100;
+                    else if (percent < 0) percent = 0;
+                    _ctx.SoundManager.MusicVolume = percent;
+                    return true;
+                }
+                else if (_SFXSlider.GetGlobalBounds().Contains(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y))
+                {
+                    float mouseX = Mouse.GetPosition(window).X - _SFXSlider.Position.X;
+                    float percent = (mouseX * 100) / (_SFXSlider.Size.X);
+
+                    if (percent > 100) percent = 100;
+                    else if (percent < 0) percent = 0;
+                    _ctx.SoundManager.SFXVolume = percent;
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
         }
     }
 }
