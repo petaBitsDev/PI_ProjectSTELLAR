@@ -40,20 +40,21 @@ namespace ProjectStellar.Library
 
             if (fireStationType.List.Count != 0)
             {
-                Console.WriteLine("IL Y A DES FIRESTATION SUR LA CARTE");
             //   fireStationType.BuildingDistance();
                fireStationType.CheckTruckStatement();
                 if(fireStationType.TruckSelected != null)
                 {
-                    fireStationType.TimeToGo = (fireStationType.Distance / fireStationType.TruckSelected.Speed);
-                    Console.WriteLine("FIRESTATION TIME TO GO ---- " + fireStationType.TimeToGo);
-
-                    _timeMax = 180;
+                    fireStationType.TimeToGo = (fireStationType.Distance / fireStationType.TruckSelected.Speed * 0.001);
+                    Console.WriteLine("time tp go" + fireStationType.TimeToGo);
+                    Console.WriteLine("distance" + fireStationType.Distance);
+                    Console.WriteLine("speed" + fireStationType.TruckSelected.Speed);
+                    _timeMax = 50;
                     if (fireStationType.TimeToGo <= _timeMax)
                         fireStationType.NewFire.EventHandle = true;
                     else
                         fireStationType.NewFire.EventHandle = false;
 
+                    Console.WriteLine("event handle :" + fireStationType.NewFire.EventHandle);
                 }
                 else
                 {
@@ -70,7 +71,6 @@ namespace ProjectStellar.Library
                 fireStationType.TimeToGo = _timeMax;
             }
 
-         //   fireStationType.TruckMoveTo();
 
         }
 

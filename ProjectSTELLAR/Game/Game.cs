@@ -13,7 +13,7 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[16];
+        public Texture[] _menuTextures = new Texture[21];
         public Texture[] _spriteSheet = new Texture[7];
         public Texture[] _spriteTruck = new Texture[1];
         public Texture[] _buildingsTextures = new Texture[24];
@@ -40,6 +40,7 @@ namespace ProjectStellar
         Vector2f _center;
         CityEvents _cityEvents;
         SoundManager _soundManager;
+        Font _fontMenu;
 
 
         public Game(int state, Resolution resolution, bool isFullscreen) : base(resolution, isFullscreen, WINDOW_TITLE, Color.Green)
@@ -68,6 +69,8 @@ namespace ProjectStellar
             _menuTextures[13] = new Texture("./resources/img/confirm.png");
             _menuTextures[14] = new Texture("./resources/img/confirmActif.png");
             _menuTextures[15] = new Texture("./resources/img/citysName.png");
+            _menuTextures[16] = new Texture("./resources/img/return.png");
+            _menuTextures[17] = new Texture("./resources/img/next.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -142,6 +145,7 @@ namespace ProjectStellar
 
             _font = new Font("./resources/fonts/OrchestraofStrings.otf");
             _spacefont = new Font("./resources/fonts/space.otf");
+            _fontMenu = new Font("./resources/fonts/A-SpaceLightDemo.otf");
 
             _soundManager.LoadSounds();
         }
@@ -191,9 +195,9 @@ namespace ProjectStellar
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
-                    //_satisfactionManager.UnsolvedEvent(_map);
+                   // _satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
-                    _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
+                   _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
                     foreach(IEvent ev in _map.ListEvent)
                     {
                         ev.NewEvent(gameTime);
@@ -235,6 +239,8 @@ namespace ProjectStellar
                 _menuLoadGame.Draw(Window);
             }
             else if (MenuState == 3) _newGame.Draw(Window);
+            else if (MenuState == 4 || MenuState == 5 || MenuState == 6) _drawUI.UI.DrawHelp(Window, gameTime);
+
         }
 
         internal void LoadGame(SaveGame save)
@@ -298,6 +304,8 @@ namespace ProjectStellar
         {
             get { return _font; }
         }
+
+        public Font FontHelp => _fontMenu;
 
         public CityEvents CityEvents => _cityEvents;
 

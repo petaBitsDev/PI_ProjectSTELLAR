@@ -472,13 +472,10 @@ namespace ProjectStellar
             {
                 for (int i = 0; i < _ctx.NewFireType.BuildingHasEvent.Count; i++)
                 {
-                    //Console.WriteLine("1 " + _gameCtx.GameTime.InGameTime);
-                    //Console.WriteLine("2 " + _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent);
 
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewFireType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewFireType.BuildingHasEvent.Remove(_ctx.NewFireType.BuildingHasEvent[i]);
-                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -550,7 +547,6 @@ namespace ProjectStellar
                     if (_gameCtx.GameTime.InGameTime >= _ctx.NewDiseaseType.BuildingHasEvent[i].EndOfEvent)
                     {
                         _ctx.NewDiseaseType.BuildingHasEvent.Remove(_ctx.NewDiseaseType.BuildingHasEvent[i]);
-                        //Console.WriteLine("ALLLLLLOOOOO Fire supprimer");
                         a = true;
                     }
 
@@ -607,7 +603,6 @@ namespace ProjectStellar
                     {
                         fireStationType.TruckMoveTo();
                     }
-                    //Console.WriteLine("FIRE TRUCK --- JE SUI SSENCER DESSNER LES CAMIONS");
                     _fireTruck.Position = new Vector2f((float)fireStationType.TruckPosition.Y * 32, (float)fireStationType.TruckPosition.X*32);
                     window.Draw(_fireTruck);
                 }

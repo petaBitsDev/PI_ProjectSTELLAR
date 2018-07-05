@@ -22,7 +22,7 @@ namespace ProjectStellar
         ExperienceManager _experienceManager;
         List<SpaceMenu> _menus = new List<SpaceMenu>();
         FireType _fireType;
-
+        View _view;
         ExplorationShips _ship;
         DateTime _undisposedTime;
         Dictionary<Building, RectangleShape> _recs = new Dictionary<Building, RectangleShape>();
@@ -85,11 +85,14 @@ namespace ProjectStellar
         Sprite _factory;
         Sprite _park;
         Sprite _satisfaction;
+        Sprite _next;
+        Sprite _return;
+        Sprite _return2;
         RectangleShape _expBar;
         RectangleShape _expBarFilled;
         RectangleShape _rectangleTimeBar;
-        readonly Sprite[] _menu = new Sprite[3];
-        readonly Sprite[] _menuActif = new Sprite[3];
+        readonly Sprite[] _menu = new Sprite[4];
+        readonly Sprite[] _menuActif = new Sprite[4];
         Sprite _saveButton;
         Sprite _saveButtonActive;
         Sprite _quitButton;
@@ -102,6 +105,8 @@ namespace ProjectStellar
         Sprite _meteors;
         RectangleShape _musicSlider;
         RectangleShape _musicCursor;
+        Sprite _helpButton;
+        Sprite _helpButtonActive;
         Text _musicText;
         Text _SFXText;
         RectangleShape _SFXSlider;
@@ -123,6 +128,7 @@ namespace ProjectStellar
         bool _settingsSelected;
         bool _exitSelected;
         int _selectedIndex;
+        bool _helpSelected;
         bool _hovering;
         private bool _menuON;
         List<bool> _tab;
@@ -210,48 +216,67 @@ namespace ProjectStellar
             _saveButton = new Sprite(_ctx._menuTextures[2])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 2),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Scale = new Vector2f(0.3f, 0.3f)
             };
             _menu[0] = _saveButton;
 
             _saveButtonActive = new Sprite(_ctx._menuTextures[7])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 2),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Scale = new Vector2f(0.3f, 0.3f)
             };
             _menuActif[0] = _saveButtonActive;
 
             _returnButton = new Sprite(_ctx._menuTextures[4])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 8),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
+                Scale = new Vector2f(0.3f, 0.3f)
             };
             _menu[1] = _returnButton;
 
             _returnButtonActive = new Sprite(_ctx._menuTextures[9])
             {
-                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 8),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 6),
+                Scale = new Vector2f(0.3f, 0.3f)
             };
             _menuActif[1] = _returnButtonActive;
+
+            _helpButton = new Sprite(_ctx._menuTextures[13])
+            {
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 10),
+                Scale = new Vector2f(0.3f, 0.3f)
+            };
+            _menu[2] = _helpButton;
+
+            _helpButtonActive = new Sprite(_ctx._menuTextures[14])
+            {
+
+                Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 10),
+                Scale = new Vector2f(0.3f, 0.3f)
+            };
+            _menuActif[2] = _helpButtonActive;
 
             _quitButton = new Sprite(_ctx._menuTextures[3])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 14),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Scale = new Vector2f(0.3f, 0.3f)
             };
-            _menu[2] = _quitButton;
+            _menu[3] = _quitButton;
 
             _quitButtonActive = new Sprite(_ctx._menuTextures[8])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 14),
-                Scale = new Vector2f(0.5f, 0.5f)
+                Scale = new Vector2f(0.3f, 0.3f)
             };
-            _menuActif[2] = _quitButtonActive;
+            _menuActif[3] = _quitButtonActive;
 
             _sendButton = new Sprite(_ctx._uiTextures[24]);
             _sendActifButton = new Sprite(_ctx._uiTextures[25]);
 
+            _return = new Sprite(_ctx._menuTextures[16]);
+            _next = new Sprite(_ctx._menuTextures[15]);
+            _return2 = new Sprite(_ctx._menuTextures[17]);
+       
             //XP BAR
             _expBar = new RectangleShape()
             {
@@ -1252,7 +1277,7 @@ namespace ProjectStellar
                 ExitSelected = false;
                 _hovering = false;
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     _menu[i].Draw(window, RenderStates.Default);
 
@@ -1270,7 +1295,8 @@ namespace ProjectStellar
                     {
                         _menu[0] = _saveButton;
                         _menu[1] = _returnButton;
-                        _menu[2] = _quitButton;
+                        _menu[2] = _helpButton;
+                        _menu[3] = _quitButton;
                     }
                     SelectedItem = -1;
                 }
@@ -1297,6 +1323,121 @@ namespace ProjectStellar
             }
         }
 
+        public void DrawHelp(RenderWindow window, GameTime gameTime)
+        {
+
+            RectangleShape rec = new RectangleShape();
+            rec.Size = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y - _boxSize * 5);
+            rec.Position = new Vector2f(_boxSize * 3, _boxSize * 2);
+            rec.FillColor = new Color(30, 30, 40);
+
+            _exitButton.Position = new Vector2f(rec.Position.X * 11, rec.Position.Y);
+            _exitButton.Scale = new Vector2f(0.8f, 0.8f);
+
+            _next.Position = new Vector2f(rec.Position.X * 11, rec.Position.Y * 9.2f);
+            _next.Color = new Color(Color.White);
+             _return2.Position = new Vector2f(rec.Position.X * 11.1f, rec.Position.Y * 9.2f);
+
+            _return.Position = new Vector2f(rec.Position.X, rec.Position.Y * 9.2f);
+
+
+            Console.WriteLine(_ctx.MenuState);
+            string intro = "PROJECT : STELLAR  \n   But du jeu : ";
+            string goal = "La planète terre à été détruite. Pour donner une nouvelle chance à l'humanité vous avez la \n chance de pouvoir coloniser une nouvelle planète. Faites grandir votre population dans un \n nouvel environnement sain où personne ne manque de rien.";
+            string howToPlayIntro = "   Comment jouer : ";
+            string howToPlay = "Le jeu se compose de 3 types de batiments : \n    - Batiments d'habitation \n    - Batiments public \n    - Batiments de ressources,\n \n Vous retrouverez ces batiments dans l'onglet construction en bas à gauche de votre écran.\n Pour construire ces batiments vous aurez besoin de ressources. Les ressources sont au \n nombres de 3 : \n    - Bois \n    - Pierre \n    - Metal \n \n Vous commencez le jeu avec un certains nombre de ressources. Par la suite pour en \n produire vous avez deux solutions.\n La première solution permet la production de ressources à long terme. Il s'agit de la pose \n de batiments de type ressources. Attention pour stocker vos ressources vous aurez \n besoin d'entrepots. Vous trouverez ces entrepots dans les batiments de type public.\n Ils sont disponibles dès le debut de partie.\n La deuxième solution est d'aller chercher des ressources grace aux stations spatials que \n vous obtenez plus tard dans le jeu. Le fonctionnement des stations spatial est simple. Il\n vous suffit de cliquer sur l'une d'elles. Vous pouvez alors choisir quelle ressources vous \n souhaitez aller chercher et combien de vaisseau vous souhaitez envoyer.";
+            string page2 = "Laisser le temps s'écouler et vos entrepots se remplissent comme par magie \n \n En debut de partie vous devez poser des batiments d'habitation dans le but d'augmenter la \n population de votre ville et donc votre experience. Plus vos habitants sont heureux, c'est à\n dire la satisfaction proche des 100%, plus la population augmente vite.\n La satisfaction se trouve sur la menu, c'est le petit visage vert, orange ou rouge. \n \n Les élèments modifiant la satisfactions sont : \n    - La pollution \n    - La production d'eau \n    - La production d'électricité \n    - La présence de batiments de services publiques sur votre map \n    - Si vos feux, crimes, maladies sont résolus à tant \n    - Une production de marchandise suffisante pour satisfaire vos magasins et un nombre\n     de magasins surffisant pour satisfaire vos habitants \n \n Plus votre niveau augmente plus vous debloquez de batiments.\n A partir du niveau 5 vous debloquez la mairie.\n Une fois posée la mairie vous permet de debloquer d'autres batiments publics.\n De plus des evenements de type maladie, crime et feu commencent à apparaitre dans votre\n ville vous devez avoir sufisament d'hopitaux, casernes, station de polices pour que leurs\n vehicules puissent couvrir toute votre ville.\n\n Mais ce n'est pas tout, faites attentions aux chutes de météorites. Elles detruiront certains\n de vos batiments. Faites particulierement attention aux \n batiments de ressources et aux entrepots pour ne pas vous retrouvez avec des habitants \n insatisfaits et une ville déserte.";
+            Text Intro = new Text(intro, _ctx.FontHelp)
+            {
+                CharacterSize = 20,
+                Color = new Color(Color.White),
+                Style = Text.Styles.Bold,
+                Position = new Vector2f(rec.Position.X + 32, rec.Position.Y + 10)
+            };
+            Text Goal = new Text(goal, _ctx.FontHelp)
+            {
+                CharacterSize = 14,
+                Color = new Color(Color.White),
+                Style = Text.Styles.Bold,
+                Position = new Vector2f(rec.Position.X + 64, rec.Position.Y + 70)
+            };
+
+            Text HowToPlayIntro = new Text(howToPlayIntro, _ctx.FontHelp)
+            {
+                CharacterSize = 20,
+                Color = new Color(Color.White),
+                Style = Text.Styles.Bold,
+                Position = new Vector2f(rec.Position.X + 32, rec.Position.Y + 140)
+            };
+
+            Text HowToPlay = new Text(howToPlay, _ctx.FontHelp)
+            {
+                CharacterSize = 14,
+                Color = new Color(Color.White),
+                Style = Text.Styles.Bold,
+                Position = new Vector2f(rec.Position.X + 64, rec.Position.Y + 190)
+            };
+
+            Text Page2 = new Text(page2, _ctx.FontHelp)
+            {
+                CharacterSize = 14,
+                Color = new Color(Color.White),
+                Style = Text.Styles.Bold,
+                Position = new Vector2f(rec.Position.X + 64, rec.Position.Y + 70)
+            };
+            if (_ctx.MenuState == 4)
+            {
+                rec.Draw(window, RenderStates.Default);
+                gameTime.TimeScale = 0f;
+                Intro.Draw(window, RenderStates.Default);
+                Goal.Draw(window, RenderStates.Default);
+                HowToPlayIntro.Draw(window, RenderStates.Default);
+                HowToPlay.Draw(window, RenderStates.Default);
+                _exitButton.Draw(window, RenderStates.Default);
+                _next.Draw(window, RenderStates.Default);
+                if (_next.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+                {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left)) _ctx.MenuState = 5;
+                  
+
+                }
+
+            }
+             if (_ctx.MenuState == 5)
+            {
+                rec.Draw(window, RenderStates.Default);
+                _exitButton.Draw(window, RenderStates.Default);
+                Page2.Draw(window, RenderStates.Default);
+                _return2.Draw(window, RenderStates.Default);
+                _return.Draw(window, RenderStates.Default);
+              
+            }
+
+            if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left)) ExitSelected = true;
+            }
+            if (ExitSelected)
+            {
+                gameTime.TimeScale = 60f;
+                SettingsSelected = false;
+                HelpSelected = false;
+                _ctx.MenuState = 1;
+            }
+
+         
+
+      
+
+           
+            }
+
+        public View test => _view;
+        public bool HelpSelected
+        {
+            get { return _helpSelected; }
+            set { _helpSelected = value; }
+        }
         public int SelectedItem
         {
             get { return _selectedIndex; }
@@ -1572,6 +1713,9 @@ namespace ProjectStellar
                     text3.Color = new Color(Color.White);
                 }
                 
+
+                DrawBuildingNeeds(window, font);
+
                 window.Draw(backgroundListMenu);
                 window.Draw(_habitationTab);
                 window.Draw(_publicTab);

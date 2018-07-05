@@ -16,7 +16,7 @@ namespace ProjectStellar.Library
 
         public Truck()
         {
-            _speed = 0.00025f;
+            _speed = 2.55f;
             _isFree = true;
         }
 

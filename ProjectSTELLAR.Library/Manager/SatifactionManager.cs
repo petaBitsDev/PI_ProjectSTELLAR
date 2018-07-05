@@ -61,11 +61,14 @@ namespace ProjectStellar.Library
                 if (e.EventHandle == true)
                 {
                     _satisfaction += 0.03f;
+                    Console.WriteLine("event solved");
                 }
                 else
                 {
                     _satisfaction -= 0.01f;
                     if (_satisfaction < 0f) _satisfaction = 0f;
+                    Console.WriteLine("event unsolved");
+
 
                 }
             }

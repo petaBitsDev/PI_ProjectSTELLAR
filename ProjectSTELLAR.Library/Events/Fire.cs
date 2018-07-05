@@ -36,7 +36,6 @@ namespace ProjectStellar.Library
 
         { 
             
-            //Console.WriteLine("building event compteur : " + i);
             if (i > 5)
             {
                 _firetype.IsEventHappening = false;
@@ -50,23 +49,16 @@ namespace ProjectStellar.Library
                 _idxBuildingType = random.Next(1, _ctx.BuildingTypes.Count);
                 buildingSelected = _ctx.BuildingTypes[_idxBuildingType];
 
-                //Console.WriteLine("FIRE -- idx building type" + _idxBuildingType);
-                //Console.WriteLine();
 
                 if (buildingSelected.List.Count != 0)
                 {
-                    //Console.WriteLine("FIRE -- je suis rentré dans la boucle car il y a des instances du building type sur ma map");
-                    Console.WriteLine();
                     int _idxBuilding;
                     _idxBuilding = random.Next(buildingSelected.List.Count);
 
-                    //Console.WriteLine("FIRE -- idx Building Selected" + _idxBuilding);
                     //Console.WriteLine();
 
                     if ((buildingSelected == _ctx.BuildingTypes[1]) || (buildingSelected == _ctx.BuildingTypes[0]))
                     {
-                        //Console.WriteLine("FIRE --je relance building event car le batiments n'est pas selectinnable");
-                        //Console.WriteLine();
                         i++;
 
                         BuildingEvent(gameTime);
@@ -74,8 +66,6 @@ namespace ProjectStellar.Library
                     }
                     else if (buildingSelected.List[_idxBuilding].OnFire == true)
                     {
-                        //Console.WriteLine("FIRE -- je relance building event car le batiments est deja en feu");
-                        //Console.WriteLine();
                         i++;
 
                         BuildingEvent(gameTime);
@@ -83,12 +73,9 @@ namespace ProjectStellar.Library
                     }
                     else
                     {
-                        //Console.WriteLine("FIRE -- buildingevent a rempli sa fonction");
                         buildingSelected.List[_idxBuilding].OnFire = true;
                         _firetype.BuildingHasEvent.Add(buildingSelected.List[_idxBuilding]);
                         _firetype.BuildingHasEvent[_firetype.BuildingHasEvent.Count - 1].TimeOfEvent = gameTime.InGameTime;
-                        //Console.WriteLine("FIRE -- is the building selected on fire : " + buildingSelected.List[_idxBuilding].OnFire);
-                        //Console.WriteLine();
                         i = 0;
                     }
                 }
@@ -110,7 +97,6 @@ namespace ProjectStellar.Library
         public void NewEvent(GameTime gameTime)
 
         {
-            Console.WriteLine("aaaa");
             double _timeMax = 180;
             fireStationType.BuildingDistance(_ctx);
             FireStation fireStation = (FireStation)fireStationType.Origin;
@@ -132,7 +118,6 @@ namespace ProjectStellar.Library
             if (_iscityHall == true)
 
             {
-                //Console.WriteLine("bbbb");
                 if(fireStationType.List.Count != 0)
                 {
                     if (_firetype.BuildingHasEvent.Count != 0)
@@ -150,8 +135,6 @@ namespace ProjectStellar.Library
 
                 {
 
-                    //Console.WriteLine("i = " + i);
-                    //Console.WriteLine();
                     _firetype.IsBuildingGettingEvent();
 
                     if (_firetype.IsEventHappening == true)
