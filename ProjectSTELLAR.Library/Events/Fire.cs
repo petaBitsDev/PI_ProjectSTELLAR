@@ -78,15 +78,13 @@ namespace ProjectStellar.Library
 
         public void NewEvent(GameTime gameTime)
         {
-            //Console.WriteLine("aaaa");
             double _timeMax = 180;
             bool _iscityHall = false;
-
 
             fireStationType.BuildingDistance(_ctx);
             FireStation fireStation = (FireStation)fireStationType.Origin;
             CityHallType cityHallType = (CityHallType)_ctx.BuildingTypes[0];
-
+            _target = fireStationType.Target;
             _firetype.CalculEventProbability();
             
             if (cityHallType.List.Count != 0) _iscityHall = true;
@@ -112,8 +110,6 @@ namespace ProjectStellar.Library
 
                 for (int i = 0; i < _firetype.NbEventReal; i++)
                 {
-                    //Console.WriteLine("i = " + i);
-                    //Console.WriteLine();
                     _firetype.IsBuildingGettingEvent();
 
                     if (_firetype.IsEventHappening == true)

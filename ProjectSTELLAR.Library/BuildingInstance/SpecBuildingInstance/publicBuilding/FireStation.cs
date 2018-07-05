@@ -35,7 +35,7 @@ namespace ProjectStellar.Library
         {
             for (int i = 0; i < NbTrucks; i++)
             {
-                Truck truck = new Truck(this.X, this.Y);
+                Truck truck = new Truck(this, this.X, this.Y);
                 _trucks.Add(truck);
                 _ctx.AllTrucks.Add(truck);
                 this.TruckList = _trucks;
@@ -45,7 +45,7 @@ namespace ProjectStellar.Library
         public void ServiceBuildingWorking()
         {
             fireStationType.StartTime = _ctx.GetGameTime.InGameTime;
-            fireStationType.End = fireStationType.StartTime.AddHours(1.0);
+            fireStationType.End = fireStationType.StartTime.AddHours(10.0);
 
             if (fireStationType.List.Count == 0)
             {
@@ -60,7 +60,7 @@ namespace ProjectStellar.Library
                     
                     fireStationType.TimeToGo = fireStationType.End.Subtract(fireStationType.StartTime);
 
-                    _timeMax = new TimeSpan(0, 60, 0);
+                    _timeMax = new TimeSpan(0, 150, 0);
                     if (fireStationType.TimeToGo <= _timeMax)
                         fireStationType.NewFire.EventHandle = true;
                     else

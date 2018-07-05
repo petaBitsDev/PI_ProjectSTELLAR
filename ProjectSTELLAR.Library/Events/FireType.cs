@@ -112,11 +112,11 @@ namespace ProjectStellar.Library
         {
             if (PreviousEvent == false)
             {
-               _fireProbability += 0.12f;
+               _fireProbability += 1.25f;
             }
             else
             {
-                _fireProbability -= 0.12f;
+                _fireProbability -= 0.00f;
             }
         }
 

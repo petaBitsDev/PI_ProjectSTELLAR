@@ -49,7 +49,10 @@ namespace ProjectStellar.Library
             DateTime end = inGameTime.AddHours(1.0);
 
             truck.IsFree = false;
-            truck.UndisposedTime = end;
+            truck.TargetType = target;
+            truck.Target = target.SpritePosition;
+            truck.StartTime = inGameTime;
+            truck.UndisposedTime = new TimeSpan(0,1,0);
         }
 
         public virtual double GetDistance(Building target)

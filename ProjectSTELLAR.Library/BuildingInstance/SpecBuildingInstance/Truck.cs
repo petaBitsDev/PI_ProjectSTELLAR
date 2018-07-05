@@ -17,20 +17,24 @@ namespace ProjectStellar.Library
         double _y;
         Vector _position;
         Vector _direction;
-        DateTime _undisposedTime;
+        TimeSpan _undisposedTime;
+        DateTime _start;
+        Building _targetType;
+        Building _firestation;
 
-        public Truck(double x, double y)
+        public Truck(Building firestation, double x, double y)
         {
+            _firestation = firestation;
             _random = new Random();
-            _position = new Vector(x, y);
+            _position = new Vector(y, x);
             _direction = new Vector();
-            _speed = 0.00025f;
+            _speed = 0.0001f;
             _onReturn = false;
             _isFree = true;
-            _undisposedTime = DateTime.Now;
+            _undisposedTime = new TimeSpan(0,0,0);
         }
 
-        public DateTime UndisposedTime
+        public TimeSpan UndisposedTime
         {
             get { return _undisposedTime; }
             set { _undisposedTime = value; }
@@ -63,6 +67,23 @@ namespace ProjectStellar.Library
         {
             get { return _onReturn; }
             set { _onReturn = value; }
+        }
+
+        public DateTime StartTime
+        {
+            get { return _start; }
+            set { _start = value; }
+        }
+
+        public Building TargetType
+        {
+            get { return _targetType; }
+            set { _targetType = value; }
+        }
+
+        public Building FireStation
+        {
+            get { return _firestation; }
         }
     }
 }

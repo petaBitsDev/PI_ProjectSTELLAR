@@ -226,8 +226,23 @@ namespace ProjectStellar
                     {
                         if(!_ctx.AllTrucks[i].IsFree)
                         {
-                            DrawFireStationTruck(_ctx.AllTrucks[i], window);
+                            if(_ctx.AllTrucks[i].TargetType.Type == _ctx.BuildingTypes[1])
+                            {
+                                if (_gameCtx.GameTime.InGameTime >= _ctx.AllTrucks[i].StartTime.Add(_ctx.AllTrucks[i].UndisposedTime))
+                                {
+                                    _ctx.AllTrucks[i].IsFree = true;
+                                }
+                                else _ctx.AllTrucks[i].Update();
+                            }
+                            else
+                            {
+                                if (_gameCtx.GameTime.InGameTime < _ctx.AllTrucks[i].StartTime.Add(_ctx.AllTrucks[i].UndisposedTime))
+                                    _ctx.AllTrucks[i].Update();
+                                else
+                                    _ctx.AllTrucks[i].FireStation.SendTruck(_ctx.AllTrucks[i], _ctx.AllTrucks[i].FireStation, _gameCtx.GameTime.InGameTime);
+                            }
                         }
+                        DrawFireStationTruck(_ctx.AllTrucks[i], window);
                     }
                 }
             }
@@ -537,7 +552,7 @@ namespace ProjectStellar
         private void DrawFireStationTruck(Truck truck, RenderWindow window)
         {
             Sprite truckSprite = new Sprite(_gameCtx._spriteTruck[0]);
-            truckSprite.Position = new Vector2f((float)truck.Position.X * 32, (float)truck.Position.Y * 32);
+            truckSprite.Position = new Vector2f((float)truck.Position.Y * 32, (float)truck.Position.X * 32);
             truckSprite.Draw(window, RenderStates.Default);
         }
 

@@ -85,12 +85,12 @@ namespace ProjectStellar.Library
 
         public void CreateTruck(Building building, int x, int y)
         {
-            Hospital hospital = (Hospital)building;
-           for(int i = 0; i <hospital.NbVehicule; i++)
-            {
-                Truck t = new Truck(x, y);
-                hospital.Vehicule.Add(t);
-            }
+           // Hospital hospital = (Hospital)building;
+           //for(int i = 0; i <hospital.NbVehicule; i++)
+           // {
+           //     //Truck t = new Truck(x, y);
+           //     hospital.Vehicule.Add(t);
+           // }
            
             
         }

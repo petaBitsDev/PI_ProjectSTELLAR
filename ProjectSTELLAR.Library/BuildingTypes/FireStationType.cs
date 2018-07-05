@@ -96,7 +96,6 @@ namespace ProjectStellar.Library
                 if (Origin.TruckList[i].IsFree == true)
                 {
                     TruckSelected = Origin.TruckList[i];
-                    TruckSelected.IsFree = false;
                 }
                 else TruckSelected = null;
             }

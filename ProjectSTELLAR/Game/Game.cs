@@ -184,7 +184,7 @@ namespace ProjectStellar
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
                     //_satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
-                    _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
+                    //_cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
                     foreach(IEvent ev in _map.ListEvent)
                     {
                         ev.NewEvent(gameTime);
@@ -204,20 +204,6 @@ namespace ProjectStellar
                             }
                             else if (gameTime.InGameTime > _map.BuildingTypes[12].List[i].ShipList[j].UndisposedTime)
                                 _drawUI.UI.ReturnShip(_map.BuildingTypes[12].List[i].ShipList[j], _map.BuildingTypes[12].List[i].ShipList[j].Resource, _map.BuildingTypes[12].List[i].ShipList[j].NbResources);
-                        }
-                    }
-                }
-
-                for (int i = 0; i < this._map.BuildingTypes[1].List.Count; i++)
-                {
-                    for (int j = 0; j < _map.BuildingTypes[1].List[i].TruckList.Count; j++)
-                    {
-                        if (!_map.BuildingTypes[1].List[i].TruckList[j].IsFree || _map.BuildingTypes[1].List[i].TruckList[j].OnReturn)
-                        {
-                            if (gameTime.InGameTime <= _map.BuildingTypes[1].List[i].TruckList[j].UndisposedTime)
-                                _map.BuildingTypes[1].List[i].TruckList[j].Update();
-                            //if (gameTime.InGameTime > _map.BuildingTypes[1].List[i].TruckList[j].UndisposedTime)
-                            //    _drawUI.UI.ReturnTruck();
                         }
                     }
                 }

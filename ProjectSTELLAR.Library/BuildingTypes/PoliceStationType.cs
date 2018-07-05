@@ -86,12 +86,12 @@ namespace ProjectStellar.Library
 
         public void CreateTruck(Building building, int x, int y)
         {
-            PoliceStation policeStation = (PoliceStation)building;
-            for(int i = 0; i <policeStation.NbVehicule; i++)
-            {
-                Truck t = new Truck(x, y);
-                policeStation.Vehicule.Add(t);
-            }
+            //PoliceStation policeStation = (PoliceStation)building;
+            //for(int i = 0; i <policeStation.NbVehicule; i++)
+            //{
+            //    Truck t = new Truck(x, y);
+            //    policeStation.Vehicule.Add(t);
+            //}
         }
 
         public void CheckTruckStatement()
