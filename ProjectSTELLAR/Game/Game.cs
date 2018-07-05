@@ -13,7 +13,7 @@ namespace ProjectStellar
         public const string WINDOW_TITLE = "Project STELLAR";
         Sprite _backgroundSprite;
         Texture _backgroundTexture = new Texture("./resources/img/backg.png");
-        public Texture[] _menuTextures = new Texture[15];
+        public Texture[] _menuTextures = new Texture[18];
         public Texture[] _spriteSheet = new Texture[7];
         public Texture[] _spriteTruck = new Texture[1];
         public Texture[] _buildingsTextures = new Texture[24];
@@ -67,6 +67,9 @@ namespace ProjectStellar
             _menuTextures[12] = new Texture("./resources/img/back.png");
             _menuTextures[13] = new Texture("./resources/img/help.png");
             _menuTextures[14] = new Texture("./resources/img/helpselected.png");
+            _menuTextures[15] = new Texture("./resources/img/next.png");
+            _menuTextures[16] = new Texture("./resources/img/return.png");
+            _menuTextures[17] = new Texture("./resources/img/next.png");
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -234,7 +237,8 @@ namespace ProjectStellar
                 _menuLoadGame.Draw(Window);
             }
             else if (MenuState == 3) _newGame.Draw(Window);
-            else if (MenuState == 4) _drawUI.UI.DrawHelp(Window, gameTime);
+            else if (MenuState == 4 || MenuState == 5 || MenuState == 6) _drawUI.UI.DrawHelp(Window, gameTime);
+
         }
 
         internal void LoadGame(SaveGame save)
