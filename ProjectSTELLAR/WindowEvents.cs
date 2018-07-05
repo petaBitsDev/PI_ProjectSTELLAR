@@ -144,9 +144,11 @@ namespace ProjectStellar
                 }
             }
             //Load Menu
-            else if (_ctx.MenuState == 2)
+            else if (_ctx.MenuState == 2 || _ctx.MenuState == 4)
             {
                 _ctx._menuLoadGame.Scroll(delta);
+               
+                
             }
         }
 
@@ -176,7 +178,14 @@ namespace ProjectStellar
                             _ui.SettingsSelected = false;
                             _ctx.MenuState = 0;
                         }
-                        else if (_ui.SelectedItem == 2) _window.Close();
+                        else if(_ui.SelectedItem == 2)
+                        {
+                            _ui.SettingsSelected = false;
+                            _ui.HelpSelected = true;
+                            _ctx.MenuState = 4;
+
+                        }
+                        else if (_ui.SelectedItem == 3) _window.Close();
                     }
 
                     Vector2i pixelPos = Mouse.GetPosition(_window);
