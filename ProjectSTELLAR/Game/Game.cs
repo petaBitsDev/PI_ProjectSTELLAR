@@ -198,11 +198,11 @@ namespace ProjectStellar
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
-                    _resourcesManager.NbResources["cost"] += 9000000;
-                   // _satisfactionManager.UnsolvedEvent(_map);
+                    //_resourcesManager.NbResources["cost"] += 9000000;
+                    // _satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
-                  // _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
-                    foreach(IEvent ev in _map.ListEvent)
+                    _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
+                    foreach (IEvent ev in _map.ListEvent)
                     {
                         ev.NewEvent(gameTime);
                     }

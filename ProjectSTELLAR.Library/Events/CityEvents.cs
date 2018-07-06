@@ -13,9 +13,12 @@ namespace ProjectStellar.Library
 
         public int Meteors(int level, Map map, ResourcesManager resources)
         {
-            _nbDestroyedBuilding = Meteorite.Falls(level, map, resources);
+            if (!_waitMeteors && level >= 5)
+            {
+                _nbDestroyedBuilding = Meteorite.Falls(level, map, resources);
 
-            if (_nbDestroyedBuilding > 0) _waitMeteors = true;
+                if (_nbDestroyedBuilding > 0) _waitMeteors = true;
+            }
 
             return _nbDestroyedBuilding;
         }

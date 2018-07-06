@@ -13,7 +13,7 @@ namespace ProjectStellar.Library
             int nbDestroyed = 0;
 
             //Determine si l'event a lieu
-            if (random.Next(0, 101) < level * 3)
+            if (random.Next(0, 1010) < level * 3)
             {
                 //Determine le nombre de meteorites
                 int nbMeteors = random.Next(1, 6);
