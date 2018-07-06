@@ -161,7 +161,10 @@ namespace ProjectStellar.Library
                     warehouseType.MaxMetalCapacity -= metalMineType.MetalProduction * metalMineType.NbBuilding;
                 }
             }
-            _nbResources["coins"] += _nbResources["cost"];
+            if (_nbResources["coins"] + _nbResources["cost"] >= int.MaxValue)
+                _nbResources["coins"] = int.MaxValue;
+            else
+                _nbResources["coins"] += _nbResources["cost"];
         }
 
         public Map Map
