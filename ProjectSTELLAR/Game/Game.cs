@@ -71,6 +71,9 @@ namespace ProjectStellar
             _menuTextures[15] = new Texture("./resources/img/citysName.png");
             _menuTextures[16] = new Texture("./resources/img/return.png");
             _menuTextures[17] = new Texture("./resources/img/next.png");
+            _menuTextures[18] = new Texture("./resources/img/help.png");
+            _menuTextures[19] = new Texture("./resources/img/helpselected.png");
+
 
             _buildingsTextures[0] = new Texture("./resources/img/fireStation.png");
             _buildingsTextures[1] = new Texture("./resources/img/hut.png");
@@ -195,9 +198,10 @@ namespace ProjectStellar
                     _resourcesManager.UpdateResources(_satisfactionManager.Satifaction);
                     _areResourcesUpdated = true;
                     _satisfactionManager.UpdateSatisfaction(_resourcesManager.NbResources, _map.BuildingTypes, _experienceManager.Level);
+                    _resourcesManager.NbResources["cost"] += 9000000;
                    // _satisfactionManager.UnsolvedEvent(_map);
                     //Console.WriteLine("Products : {0}", _resourcesManager.NbResources["products"]);
-                   _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
+                  // _cityEvents.Meteors(_experienceManager.Level, _map, _resourcesManager);
                     foreach(IEvent ev in _map.ListEvent)
                     {
                         ev.NewEvent(gameTime);

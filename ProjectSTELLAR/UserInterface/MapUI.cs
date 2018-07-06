@@ -262,23 +262,7 @@ namespace ProjectStellar
                 spaceShip.Draw(window, RenderStates.Default);
             }
 
-            for (uint x = 0; x < Width; x++)
-            {
-                for (uint y = 0; y < Height; y++)
-                {
-                    if (!Equals(_ui.MouseSprite, null))
-                    {
-                        RectangleShape greenView = new RectangleShape
-                        {
-                            Size = new Vector2f(32, 32),
-                            FillColor = new Color(0, 255, 0,150),
-                            Position = new Vector2f(x, y)
-                        };
-
-                        greenView.Draw(window, RenderStates.Default);
-                    }
-                }
-            }
+            
             
 
             DrawFire(window);

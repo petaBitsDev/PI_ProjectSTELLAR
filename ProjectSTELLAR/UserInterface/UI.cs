@@ -241,14 +241,14 @@ namespace ProjectStellar
             };
             _menuActif[1] = _returnButtonActive;
 
-            _helpButton = new Sprite(_ctx._menuTextures[13])
+            _helpButton = new Sprite(_ctx._menuTextures[18])
             {
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 10),
                 Scale = new Vector2f(0.3f, 0.3f)
             };
             _menu[2] = _helpButton;
 
-            _helpButtonActive = new Sprite(_ctx._menuTextures[14])
+            _helpButtonActive = new Sprite(_ctx._menuTextures[19])
             {
 
                 Position = new Vector2f(_resolution.X / 2 - _boxSize * 7, _boxSize * 10),
@@ -274,7 +274,7 @@ namespace ProjectStellar
             _sendActifButton = new Sprite(_ctx._uiTextures[25]);
 
             _return = new Sprite(_ctx._menuTextures[16]);
-            _next = new Sprite(_ctx._menuTextures[15]);
+            _next = new Sprite(_ctx._menuTextures[17]);
             _return2 = new Sprite(_ctx._menuTextures[17]);
        
             //XP BAR
@@ -1312,6 +1312,8 @@ namespace ProjectStellar
                 }
                 _musicCursor.Position = new Vector2f(_musicSlider.Position.X + (_musicSlider.Size.X * _ctx.SoundManager.MusicVolume / 100) - (_musicCursor.Size.X / 2), _musicCursor.Position.Y);
                 _SFXCursor.Position = new Vector2f(_SFXSlider.Position.X + (_SFXSlider.Size.X * _ctx.SoundManager.SFXVolume / 100) - (_SFXCursor.Size.X / 2), _SFXCursor.Position.Y);
+                _musicCursor.Scale = new Vector2f(0.5f, 0.5f);
+                _SFXCursor.Scale = new Vector2f(0.5f, 0.5f);
 
                 _musicSlider.Draw(window, RenderStates.Default);
                 _musicCursor.Draw(window, RenderStates.Default);
@@ -1327,16 +1329,16 @@ namespace ProjectStellar
         {
 
             RectangleShape rec = new RectangleShape();
-            rec.Size = new Vector2f(_resolution.X - _boxSize * 8, _resolution.Y - _boxSize * 5);
-            rec.Position = new Vector2f(_boxSize * 3, _boxSize * 2);
+            rec.Size = new Vector2f(_resolution.X -_boxSize * 26, _resolution.Y - _boxSize * 15);
+            rec.Position = new Vector2f(_boxSize * 15, _boxSize * 2);
             rec.FillColor = new Color(30, 30, 40);
 
-            _exitButton.Position = new Vector2f(rec.Position.X * 11, rec.Position.Y);
+            _exitButton.Position = new Vector2f(rec.Position.X * 3, rec.Position.Y);
             _exitButton.Scale = new Vector2f(0.8f, 0.8f);
 
-            _next.Position = new Vector2f(rec.Position.X * 11, rec.Position.Y * 9.2f);
+            _next.Position = new Vector2f(rec.Position.X *3, rec.Position.Y * 9.2f);
             _next.Color = new Color(Color.White);
-             _return2.Position = new Vector2f(rec.Position.X * 11.1f, rec.Position.Y * 9.2f);
+             _return2.Position = new Vector2f(rec.Position.X * 1, rec.Position.Y * 9.2f);
 
             _return.Position = new Vector2f(rec.Position.X, rec.Position.Y * 9.2f);
 
@@ -1387,14 +1389,16 @@ namespace ProjectStellar
             };
             if (_ctx.MenuState == 4)
             {
+                _next.Draw(window, RenderStates.Default);
+
                 rec.Draw(window, RenderStates.Default);
+                _exitButton.Draw(window, RenderStates.Default);
+
                 gameTime.TimeScale = 0f;
                 Intro.Draw(window, RenderStates.Default);
                 Goal.Draw(window, RenderStates.Default);
                 HowToPlayIntro.Draw(window, RenderStates.Default);
                 HowToPlay.Draw(window, RenderStates.Default);
-                _exitButton.Draw(window, RenderStates.Default);
-                _next.Draw(window, RenderStates.Default);
                 if (_next.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
                 {
                     if (Mouse.IsButtonPressed(Mouse.Button.Left)) _ctx.MenuState = 5;
@@ -1410,7 +1414,13 @@ namespace ProjectStellar
                 Page2.Draw(window, RenderStates.Default);
                 _return2.Draw(window, RenderStates.Default);
                 _return.Draw(window, RenderStates.Default);
-              
+
+                if(_return.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition().Y))
+                {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left)) _ctx.MenuState = 4;
+
+                }
+
             }
 
             if (_exitButton.GetGlobalBounds().Contains((float)Mouse.GetPosition(window).X, (float)Mouse.GetPosition(window).Y))
@@ -1714,7 +1724,7 @@ namespace ProjectStellar
                 }
                 
 
-                DrawBuildingNeeds(window, font);
+             //   DrawBuildingNeeds(window, font);
 
                 window.Draw(backgroundListMenu);
                 window.Draw(_habitationTab);
